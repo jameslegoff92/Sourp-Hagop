@@ -1,0 +1,47 @@
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 4.375rem;
+  background-color: var(--primary-color);
+  padding: 0 1.5rem;
+}
+
+.nav {
+  display: flex;
+  width: 35.125rem;
+  justify-content: space-around;
+}
+
+.langContainer {
+  display: flex;
+  width: 41.6px;
+  gap: 4px;
+
+}
+
+.portal {
+  border: 2px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: 2.3125rem;
+  margin-left: 3rem;
+  margin-right: 3.25rem;
+  padding: 0.3125rem 1.6875rem 0.3125rem 1.75rem;
+  width: 6.875rem;
+}
+
+.link {
+  color: #fff;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.15px;
+}
