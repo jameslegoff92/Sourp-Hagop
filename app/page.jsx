@@ -1,4 +1,4 @@
-import TopNav from "@/components/ui/topNav";
+import TopNav from "@/components/ui/TopNav";
 import BackgroundVideo from "@/components/ui/BackgroundVideo";
 import Nav from "@/components/ui/Nav";
 
