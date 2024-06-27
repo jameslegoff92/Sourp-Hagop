@@ -1,0 +1,44 @@
+
+
+.btn {
+  color: var(--white);
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+  font-size: 1.125rem ;
+  font-style: normal;
+  font-weight: 500 ;
+  line-height: 150% ; /* 27px */
+  letter-spacing: 0.0094rem ;
+}
+
+.btn:hover {
+  color: var(--black);
+}
+
+.paper {
+  border-radius: 0px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.listItem {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.listItem:not(:last-child) {
+  border-bottom: 1px solid var(--black);
+}
+
+.listItem:hover {
+  background-color: var(--light-gray);
+}
+
+.link {
+  color: var(--black);
+  text-decoration: none;
+}
