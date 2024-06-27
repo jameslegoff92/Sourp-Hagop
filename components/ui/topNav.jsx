@@ -3,7 +3,7 @@
 //Native Imports
 import Link from "next/link";
 import Image from "next/image";
-import css from "./TopNav.module.css";
+import css from "./topNav.module.css";
 
 //Third-Party Imports
 import { motion } from "framer-motion";
