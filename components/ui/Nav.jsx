@@ -1,4 +1,4 @@
-import NavDropdown from "./navDropdown";
+import NavDropdown from "./NavDropdown";
 
 const Nav = () => {
   return (
