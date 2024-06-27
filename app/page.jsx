@@ -1,13 +1,13 @@
-import TopNav from '@/components/ui/topNav';
-import BackgroundVideo from '@/components/ui/backgroundVideo';
+import TopNav from "@/components/ui/TopNav";
+import BackgroundVideo from "@/components/ui/BackgroundVideo";
+import Nav from "@/components/ui/Nav";
 
 export default async function Homepage() {
-
   return (
     <>
-      <TopNav />
       <BackgroundVideo src="videos/hero-video.mp4">
-        <h1>Homepage</h1>
+        <TopNav />
+        <Nav />
       </BackgroundVideo>
     </>
   );
