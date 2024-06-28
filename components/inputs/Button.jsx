@@ -4,7 +4,15 @@ import styled from '@emotion/styled';
 
 const StyledButton = styled(Button)(
   {
-    color: "red",
+    color: "var(--white)",
+    fontSize: "1.125rem",
+    fontStyle: "normal",
+    fontWeight: '500',
+    lineHeight: "150%", /* 27px */
+    letterSpacing: "0.0094rem",
+    '&:hover': {
+      color: "var(--black)",
+    }
   }
 )
 
