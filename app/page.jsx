@@ -4,6 +4,7 @@ import BackgroundVideo from "@/components/ui/BackgroundVideo";
 import Nav from "@/components/ui/Nav";
 import Container from "@/components/layout/Container";
 import MainHeading from "@/components/display/MainHeading";
+import Main from "@/components/layout/Main";
 
 export default async function Homepage() {
   return (
@@ -15,6 +16,7 @@ export default async function Homepage() {
           <MainHeading />
         </Container>
       </BackgroundVideo>
+      <Main />
     </>
   );
 }
