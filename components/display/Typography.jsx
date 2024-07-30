@@ -18,7 +18,7 @@ const headingStyles = {
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 112.5px */
-    letter-spacing: 0.8px;
+    letter-spacing: 0.05rem;
 
   `,
   h3: `
@@ -37,7 +37,7 @@ const headingStyles = {
       "liga" off;
     font-size: 2.25rem; //36px
     font-style: normal;
-    font-weight: 300;
+    font-weight: 600;
     line-height: 150%; /* 36px */
     letter-spacing: 0.05rem;
   `,
@@ -52,8 +52,11 @@ const headingStyles = {
     letter-spacing: 0.05rem;
   `,
   h6: `
-    font-size: 1.3125rem; //21px
-    font-weight: normal;
+    font-size: 1.3125rem; 21px
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%; /* 35.25px */
+    letter-spacing: 0.05rem;
   `,
   p: `
     font-size: 1rem; //16px
@@ -84,10 +87,14 @@ const colorMapping = {
 
 
 // Create a styled motion component
-const Typography = styled(motion.h1)`
-  ${({ type }) => headingStyles[type]}
+const createStyledMotionComponent = (component) => styled(motion[component])`
+  ${({ type }) => headingStyles[type]};
   color: ${({ color }) => colorMapping[color] || 'var(--black)'};
   font-family: ${({ fontFamily }) => fontFamilyMapping[fontFamily] || 'var(--primary-ff)'};
 `;
 
+const Typography = ({ as = 'div', ...props }) => {
+  const Component = createStyledMotionComponent(as);
+  return <Component {...props} />;
+};
 export default Typography;

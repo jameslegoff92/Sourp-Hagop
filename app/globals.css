@@ -11,7 +11,8 @@
   --white: #fff;
   --light-gray: #f5f5f5;
   --primary-color: rgba(0, 125, 195, 1);
-  --secondary-color: rgba(0, 125, 195, 0.5);
+  --secondary-color: rgba(0, 125, 195, 0.1);
+  --tertiary-color: rgba(134, 193, 225, 1);
 
   /* Spacing */
   --spacing-0: 0.25rem;
@@ -26,6 +27,9 @@
   --spacing-8: calc(var(--spacing-1) * 8);
   --spacing-9: calc(var(--spacing-1) * 9);
   --spacing-10: calc(var(--spacing-1) * 10);
+  --spacing-11: calc(var(--spacing-1) * 11);
+  --spacing-12: calc(var(--spacing-1) * 12);
+  --spacing-13: calc(var(--spacing-1) * 13);
 
   /* Font Sizes */
  --fs-1: 80px;
