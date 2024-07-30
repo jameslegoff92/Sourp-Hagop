@@ -21,12 +21,16 @@ const Title = styled(motion.p)`
 `;
 
 
+const ArrowDown = styled(KeyboardArrowDownIcon)`
+  color: inherit;
+`;
+
 
 const NavItem = ({ title }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const iconRotate = isHovered ? -180 : 0;
-  const animationColor = isHovered ? "var(--black)" : "var(--white)";
+  const animationColor = isHovered ? "var(--black)" : "var(--primary-color)";
   const time = 0.3;
 
   const handleMouseEnter = () => {
@@ -46,7 +50,7 @@ const NavItem = ({ title }) => {
         {title}
       </Title>
       <motion.div animate={{ rotate: iconRotate, color: animationColor}} transition={{ duration: time }}>
-        <KeyboardArrowDownIcon />
+        <ArrowDown />
       </motion.div>
     </Container>
   );

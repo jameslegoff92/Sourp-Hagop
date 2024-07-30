@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import ThreeColumnLayout from "../layout/flexbox/ThreeColumnLayout";
 import styled from "@emotion/styled";
 import Typography from "../display/Typography";
 import { motion } from "framer-motion";
@@ -153,35 +154,12 @@ const Main = () => {
                 leur plein potentiel pour une vie épanouie.
               </ValueText>
             </ValueContainer>
-
-            {/* <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-              <ValueSubContainer2 variants={itemVariants}>
-                <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                  ACCOMPLISSEMENT DE SOI
-                </Typography>
-              </ValueSubContainer2>
-
-              <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant
-                leur plein potentiel pour une vie épanouie.
-              </ValueText>
-            </ValueContainer>
-
-            <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-              <ValueSubContainer variants={itemVariants}>
-                <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                  ACCOMPLISSEMENT DE SOI
-                </Typography>
-              </ValueSubContainer>
-
-              <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant
-                leur plein potentiel pour une vie épanouie.
-              </ValueText>
-            </ValueContainer> */}
           </ExtendedMotionDiv>
         </Container>
       </ExtendedStyledDiv>
+      <ThreeColumnLayout components={[1, 2, 3]}/>
+
+      
     </>
   );
 };
