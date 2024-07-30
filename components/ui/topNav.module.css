@@ -4,16 +4,19 @@
 }
 
 .nav {
-  display: flex;
-  width: 35.125rem;
-  justify-content: space-around;
+  display: none;
+
+  @media (min-width: 1114px) {
+    display: flex;
+    width: 35.125rem;
+    justify-content: space-around;
+  }
 }
 
 .langContainer {
   display: flex;
   width: 41.6px;
   gap: 4px;
-
 }
 
 .portal {

@@ -158,8 +158,6 @@ const Main = () => {
         </Container>
       </ExtendedStyledDiv>
       <ThreeColumnLayout components={[1, 2, 3]}/>
-
-      
     </>
   );
 };

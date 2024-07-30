@@ -46,6 +46,16 @@
  --fs-12: calc(var(--font-scale-11) / 1.618); /* 14.343 */
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 200px;
+}
+
 /* Typography */
 .h1 {
   color: var(--white);
