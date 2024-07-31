@@ -10,7 +10,7 @@ export default async function Homepage() {
   return (
     <>
       <BackgroundVideo src="videos/hero-video.mp4">
-        <TopNav />
+        <TopNav animate={true}/>
         <Container>
           <Nav />
           <MainHeading />

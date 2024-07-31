@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const Title = styled(motion.p)`
-  color: var(--white);
+  color: var(--primary-color);
   cursor: pointer;
   font-size: 1.125rem;
   font-style: normal;
@@ -20,13 +20,15 @@ const Title = styled(motion.p)`
   text-transform: uppercase;
 `;
 
-
+const ArrowDown = styled(KeyboardArrowDownIcon)`
+  color: ${({ color }) => color };
+`;
 
 const NavItem = ({ title }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const iconRotate = isHovered ? -180 : 0;
-  const animationColor = isHovered ? "var(--black)" : "var(--white)";
+  const animationColor = isHovered ? "var(--black)" : "var(--primary-color)";
   const time = 0.3;
 
   const handleMouseEnter = () => {
@@ -46,7 +48,7 @@ const NavItem = ({ title }) => {
         {title}
       </Title>
       <motion.div animate={{ rotate: iconRotate, color: animationColor}} transition={{ duration: time }}>
-        <KeyboardArrowDownIcon />
+        <ArrowDown color={animationColor}/>
       </motion.div>
     </Container>
   );
