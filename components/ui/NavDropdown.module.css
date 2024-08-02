@@ -1,0 +1,21 @@
+.container {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+}
+
+
+.listItem {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.listItem:not(:last-child) {
+  border-bottom: 1px solid var(--black);
+}
+
+.listItem:hover {
+  background-color: var(--light-gray);
+}

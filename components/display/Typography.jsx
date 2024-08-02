@@ -1,0 +1,93 @@
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+
+// Define styles for different heading levels
+const headingStyles = {
+  h1: `
+    font-size: 5rem; //80px
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 64.5px */
+    letter-spacing: 0.05rem;
+  `,
+  h2: `
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-size: 3.8125rem; //61px
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 112.5px */
+    letter-spacing: 0.8px;
+
+  `,
+  h3: `
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-size: 2.9375rem; //47px
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%; /* 36px */
+    letter-spacing: 0.05rem;
+  `,
+  h4: `
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-size: 2.25rem; //36px
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%; /* 36px */
+    letter-spacing: 0.05rem;
+  `,
+  h5: `
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-size: 1.6875rem; //27px
+    font-style: light;
+    font-weight: 300;
+    line-height: 150%; /* 36px */
+    letter-spacing: 0.05rem;
+  `,
+  h6: `
+    font-size: 1.3125rem; //21px
+    font-weight: normal;
+  `,
+  p: `
+    font-size: 1rem; //16px
+    font-weight: normal;
+  `,
+  subtitle: `
+    font-size: 0.75rem; //12px
+    font-weight: normal;
+  `,
+  label: `
+    font-size: 0.5625rem; //9px
+    font-weight: normal;
+  `,
+};
+
+const fontFamilyMapping = {
+  primary: "var(--primary-ff)", //Roboto
+  secondary: "var(--secondary-ff)", //Poppings
+};
+
+const colorMapping = {
+  primary: "var(--primary-color)",
+  secondary: "var(--secondary-color)",
+  dark: "var(--black)",
+  light: "var(--white)",
+  gray: "var(--light-gray)",
+};
+
+
+// Create a styled motion component
+const Typography = styled(motion.h1)`
+  ${({ type }) => headingStyles[type]}
+  color: ${({ color }) => colorMapping[color] || 'var(--black)'};
+  font-family: ${({ fontFamily }) => fontFamilyMapping[fontFamily] || 'var(--primary-ff)'};
+`;
+
+export default Typography;

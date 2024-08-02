@@ -1,45 +1,41 @@
-'use client';
+"use client";
+import { useState } from "react";
 
-import { useState } from 'react';
+//Local Imports
+import css from "./NavDropdown.module.css";
+import NavItem from "./NavItem";
 
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import Link from '@mui/material/Link';
+//Third-Party Imports
+import Link from "@mui/material/Link";
 
-export default function NavDropdown() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+
+export default function NavDropdown({ title = "add title", items = [] }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
-    <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        School
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <Link onClick={handleClose}>Profile</Link>
-        <Link onClick={handleClose}>My account</Link>
-        <Link onClick={handleClose}>Logout</Link>
-      </Menu>
+    <div className={css.container}>
+      <NavItem title={title} />
+
+      {isHovered && (
+        <div className={css.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          {items.map((item, index) => (
+            <li className={css.listItem}>
+              <Link className={css.link} key={index}>
+                {item}
+              </Link>
+            </li>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
