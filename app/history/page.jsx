@@ -1,105 +1,176 @@
 "use client";
 
 import Header from "@/components/ui/Header";
-import styled from "@emotion/styled";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import Brightness1Icon from '@mui/icons-material/Brightness1';
 
-const BackgroundImageContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: -1;
-  padding-top: 2000px;
-`;
+const BackgroundImageContainer = ({ children, style }) => (
+    <motion.div 
+        className="fixed left-0 right-0 flex justify-center items-center z-[-1]"
+        style={style}
+    >
+        {children}
+    </motion.div>
+);
 
-const BackgroundImage = styled.img`
-  width: 45%;
-  height: auto;
-  object-fit: cover;
-  opacity: 0.1;
-  padding-left: 100px;
-`;
+const BackgroundImage = ({ src }) => (
+    <img src={src} className="w-full max-w-[800px] h-auto object-contain opacity-10 ml-[200px]" />
+);
 
-const ProgressBarContainer = styled(motion.div)`
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: calc(150vh - 80px);
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  overflow: hidden;
-`;
+const ProgressBarContainer = ({ children, style }) => (
+    <motion.div 
+        className="fixed left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(350vh-80px)] bg-black/10 rounded-md overflow-hidden"
+        style={style}
+    >
+        {children}
+    </motion.div>
+);
 
-const ProgressBar = styled(motion.div)`
-  width: 100%;
-  height: 100%;
-  background-color: #007bff;
-  border-radius: 5px;
-  transform-origin: top;
-`;
+const ProgressBar = ({ style }) => (
+    <motion.div 
+        className="w-full h-full bg-[#007bff] rounded-md origin-top"
+        style={style}
+    />
+);
+
+const CircleContainer = ({ children, style }) => (
+    <div 
+        className="fixed left-[25%] transform -translate-x-1/2 h-[calc(350vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
+        style={style}
+    >
+        {children}
+    </div>
+);
+
+const CircleWrapper = ({ children, scale, opacity, date, text }) => (
+    <motion.div 
+        className="w-full flex items-center justify-center relative"
+        style={{ scale }}
+    >
+        <motion.div 
+            className="absolute right-[calc(50%+4rem)] text-right whitespace-nowrap text-[#007bff] font-bold"
+            style={{ opacity, scale }}
+        >
+            {date}
+        </motion.div>
+        <div className="w-6 h-6 flex justify-center items-center relative">
+            <div className="absolute w-12 h-12 bg-white rounded-full left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <motion.div className="relative z-10" style={{ opacity }}>
+                {children}
+            </motion.div>
+        </div>
+        <motion.div 
+            className="absolute left-[calc(50%+7rem)] whitespace-nowrap text-[#007bff] font-bold"
+            style={{ opacity, scale }}
+        >
+            {text}
+        </motion.div>
+    </motion.div>
+);
+
+const timelineData = [
+    { date: "1950", text: "Foundation of the school" },
+    { date: "1975", text: "First major expansion" },
+    { date: "1990", text: "Introduction of new curriculum" },
+    { date: "2000", text: "Technology integration initiative" },
+    { date: "2010", text: "International partnerships established" },
+    { date: "2020", text: "Launch of online learning platform" },
+    { date: "2024", text: "Celebrating 75 years of excellence" }
+];
 
 export default function History() {
     const { scrollY, scrollYProgress } = useScroll();
     const scaleY = useSpring(scrollYProgress, {
-      stiffness: 500,
-      damping: 80,
-      restDelta: 0.001
+        stiffness: 500,
+        damping: 80,
+        restDelta: 0.001
     });
 
     const ref = useRef(null);
     const [elementTop, setElementTop] = useState(0);
 
     useEffect(() => {
-      if (ref.current) {
-        setElementTop(ref.current.offsetTop);
-      }
+        if (ref.current) {
+            setElementTop(ref.current.offsetTop);
+        }
     }, []);
 
     const y = useTransform(
-      scrollY,
-      [elementTop, elementTop + 1],
-      [0, 1],
-      { clamp: false }
+        scrollY,
+        [elementTop, elementTop + 1],
+        [0, 1],
+        { clamp: false }
     );
 
-    const scaledProgress = useTransform(scaleY, value => value * 1.5); // Adjust this factor to cover a larger distance
+    const scaledProgress = useTransform(scaleY, value => value * 1.0);
+
+    const backgroundY = useTransform(
+        scrollY,
+        [0, window.innerHeight * 0.1],
+        ["150%", "15%"]
+    );
+
+    const backgroundOpacity = useTransform(
+        scrollY,
+        [0, window.innerHeight * 0.2],
+        [0.3, 0.3]
+    );
+
+    const circleCount = timelineData.length;
+    const circleScales = [...Array(circleCount)].map((_, index) => {
+        return useTransform(
+            scaledProgress,
+            [index / circleCount, (index + 1) / circleCount],
+            [1, 1.5]
+        );
+    });
+
+    const circleOpacities = [...Array(circleCount)].map((_, index) => {
+        return useTransform(
+            scaledProgress,
+            [
+                (index - 0.3) / circleCount,
+                index / circleCount,
+                (index + 0.3) / circleCount
+            ],
+            [0.3, 0.2, 1]
+        );
+    });
+
+    const containerStyle = {
+        position: y.get() > 1 ? "fixed" : "absolute",
+        top: y.get() > 1 ? "80px" : "auto"
+    };
 
     return (
-      <>
-        <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
-        <div style={{ height: "80px" }} /> {/* Spacer to position progress bar below header */}
-        <ProgressBarContainer
-          ref={ref}
-          style={{
-            position: y.get() > 1 ? "fixed" : "absolute",
-            top: y.get() > 1 ? "0px" : "auto"
-          }}
-        >
-        <ProgressBar style={{ scaleY: scaledProgress }} /> {/* Scale the progress bar by a factor */}
-        </ProgressBarContainer>
-        <BackgroundImageContainer>
-          <BackgroundImage src="../images/logo-big.svg" />
-        </BackgroundImageContainer>
-      <div style={{ height: "300vh" }}>
-        <p>
-          Here are the key changes and explanations:
-          Replaced LineContainer and FillLine with ProgressBarContainer and ProgressBar.
-          Positioned the progress bar in the center of the screen using top: 50%, left: 50%, and transform: translate(-50%, -50%).
-          Set the height of the progress bar to 50vh (half of the viewport height) to make it more visible.
-          Used transformOrigin: "bottom" to make the progress bar grow from bottom to top.
-          Applied border-radius to both the container and the progress bar for a smoother look.
-          Added a placeholder div with height: "300vh" to make the page scrollable. Replace this with your actual content.
-          This implementation creates a vertical progress bar in the middle of the screen that grows from bottom to top as you scroll down the page. The progress bar uses Framer Motion's useScroll and useSpring hooks for smooth animation.
-          Remember to replace the placeholder content with your actual scrollable content to see the progress bar in action.
-        </p>
-      </div>
-    </>
-  );
+        <>
+            <BackgroundImageContainer style={{ y: backgroundY, opacity: backgroundOpacity }}>
+                <BackgroundImage src="../images/logo-big.svg" />
+            </BackgroundImageContainer>
+            <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
+            <div className="h-20" ref={ref} />
+            <ProgressBarContainer style={containerStyle}>
+                <ProgressBar style={{ scaleY: scaledProgress }} />
+            </ProgressBarContainer>
+            <CircleContainer style={containerStyle}>
+                {circleScales.map((scale, index) => (
+                    <CircleWrapper 
+                        key={index} 
+                        scale={scale} 
+                        opacity={circleOpacities[index]}
+                        date={timelineData[index].date}
+                        text={timelineData[index].text}
+                    >
+                        <Brightness1Icon style={{ color: '#007bff', fontSize: 24 }} />
+                    </CircleWrapper>
+                ))}
+            </CircleContainer>
+            <div className="h-[400vh]">
+                <p>
+                {/* Your content here */}
+                </p>
+            </div>
+        </>
+    );
 }
