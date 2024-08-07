@@ -90,11 +90,7 @@ export default function History() {
     const ref = useRef(null);
     const [elementTop, setElementTop] = useState(0);
 
-    useEffect(() => {
-        if (ref.current) {
-            setElementTop(ref.current.offsetTop);
-        }
-    }, []);
+
 
     const y = useTransform(
         scrollY,
