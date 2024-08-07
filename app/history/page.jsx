@@ -103,13 +103,13 @@ export default function History() {
 
     const backgroundY = useTransform(
         scrollY,
-        [0, window.innerHeight * 0.1],
+        [0, window?.innerHeight * 0.1],
         ["150%", "15%"]
     );
 
     const backgroundOpacity = useTransform(
         scrollY,
-        [0, window.innerHeight * 0.2],
+        [0, window?.innerHeight * 0.2],
         [0.3, 0.3]
     );
 
