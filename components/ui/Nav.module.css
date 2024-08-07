@@ -1,7 +1,16 @@
 .navContainer {
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  margin: 0 auto 3.3rem;
+}
+
+.mainNavContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   margin: 0 auto 7rem;
 }
@@ -13,14 +22,14 @@
 }
 
 .logoText {
-  color: #fff;
+  color: #000;
   font-feature-settings:
     "clig" off,
     "liga" off;
   font-family: "Times New Roman";
   font-size: 12.24px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 150%; /* 18.36px */
   letter-spacing: 1.008px;
 }
