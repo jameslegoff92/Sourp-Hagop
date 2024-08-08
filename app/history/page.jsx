@@ -89,8 +89,20 @@ export default function History() {
 
     const ref = useRef(null);
     const [elementTop, setElementTop] = useState(0);
+    const [viewportHeight, setViewportHeight] = useState(0);
 
+    useEffect(() => {
+        const updateLayout = () => {
+            if (ref.current) {
+                setElementTop(ref.current.offsetTop);
+            }
+            setViewportHeight(window.innerHeight);
+        };
 
+        updateLayout();
+        window.addEventListener('resize', updateLayout);
+        return () => window.removeEventListener('resize', updateLayout);
+    }, []);
 
     const y = useTransform(
         scrollY,
@@ -103,13 +115,13 @@ export default function History() {
 
     const backgroundY = useTransform(
         scrollY,
-        [0, window?.innerHeight * 0.1],
+        [0, viewportHeight * 0.1],
         ["150%", "15%"]
     );
 
     const backgroundOpacity = useTransform(
         scrollY,
-        [0, window?.innerHeight * 0.2],
+        [0, viewportHeight * 0.2],
         [0.3, 0.3]
     );
 
