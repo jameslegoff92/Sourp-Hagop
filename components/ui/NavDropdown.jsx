@@ -8,8 +8,6 @@ import NavItem from "./NavItem";
 //Third-Party Imports
 import Link from "@mui/material/Link";
 
-
-
 export default function NavDropdown({ title = "add title", items = [] }) {
   const [isHovered, setIsHovered] = useState(false);
 

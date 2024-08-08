@@ -21,7 +21,7 @@ const Title = styled(motion.p)`
 `;
 
 const ArrowDown = styled(KeyboardArrowDownIcon)`
-  color: ${({ color }) => color };
+  color: ${({ color }) => color};
 `;
 
 const NavItem = ({ title }) => {
@@ -41,14 +41,11 @@ const NavItem = ({ title }) => {
 
   return (
     <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <Title
-        animate={{ color: animationColor}}
-        transition={{ duration: time }}
-      >
+      <Title animate={{ color: animationColor }} transition={{ duration: time }}>
         {title}
       </Title>
-      <motion.div animate={{ rotate: iconRotate, color: animationColor}} transition={{ duration: time }}>
-        <ArrowDown color={animationColor}/>
+      <motion.div animate={{ rotate: iconRotate, color: animationColor }} transition={{ duration: time }}>
+        <ArrowDown color={animationColor} />
       </motion.div>
     </Container>
   );
