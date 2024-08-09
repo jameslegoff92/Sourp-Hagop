@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Brightness1Icon from '@mui/icons-material/Brightness1';
@@ -20,7 +21,7 @@ const BackgroundImage = ({ src }) => (
 
 const ProgressBarContainer = ({ children, style }) => (
     <motion.div 
-        className="fixed left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(350vh-80px)] bg-black/10 rounded-md overflow-hidden"
+        className="left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(350vh-80px)] bg-black/10 rounded-md overflow-hidden"
         style={style}
     >
         {children}
@@ -36,7 +37,7 @@ const ProgressBar = ({ style }) => (
 
 const CircleContainer = ({ children, style }) => (
     <div 
-        className="fixed left-[25%] transform -translate-x-1/2 h-[calc(350vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
+        className="left-[25%] transform -translate-x-1/2 h-[calc(350vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
         style={style}
     >
         {children}
@@ -89,11 +90,19 @@ export default function History() {
 
     const ref = useRef(null);
     const [elementTop, setElementTop] = useState(0);
+    const [viewportHeight, setViewportHeight] = useState(0);
 
     useEffect(() => {
-        if (ref.current) {
-            setElementTop(ref.current.offsetTop);
-        }
+        const updateLayout = () => {
+            if (ref.current) {
+                setElementTop(ref.current.offsetTop);
+            }
+            setViewportHeight(window.innerHeight);
+        };
+
+        updateLayout();
+        window.addEventListener('resize', updateLayout);
+        return () => window.removeEventListener('resize', updateLayout);
     }, []);
 
     const y = useTransform(
@@ -107,13 +116,13 @@ export default function History() {
 
     const backgroundY = useTransform(
         scrollY,
-        [0, window.innerHeight * 0.1],
+        [0, viewportHeight * 0.1],
         ["150%", "15%"]
     );
 
     const backgroundOpacity = useTransform(
         scrollY,
-        [0, window.innerHeight * 0.2],
+        [0, viewportHeight * 0.2],
         [0.3, 0.3]
     );
 
@@ -171,6 +180,7 @@ export default function History() {
                 {/* Your content here */}
                 </p>
             </div>
+            <Footer/>
         </>
     );
 }

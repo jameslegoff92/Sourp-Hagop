@@ -54,7 +54,15 @@
 }
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  width: 57.9375rem;
+  display: none;
+  
+  @media (min-width: 1114px) {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+  }
+
+  @media (min-width: 1287px) {
+    width: 57.9375rem;
+  }
 }
