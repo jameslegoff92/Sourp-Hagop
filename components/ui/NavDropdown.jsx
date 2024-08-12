@@ -23,8 +23,8 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
   const hoverColor = "var(--primary-color)";
 
   return (
-    <div className={css.container}>
-      <NavItem color={navColor} hover={hoverColor} title={title} />
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={css.container}>
+      <NavItem  color={navColor} hover={hoverColor} title={title} />
 
       {isHovered && (
         <div className={css.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
