@@ -22,12 +22,12 @@ const Nav = ({ type = "primary" }) => {
       <div className={css.logoContainer}>
         <Image src="/images/logo.svg" alt="logo" width={89} height={79} />
         <div>
-          <p className={`${css.logoText} ${"secondary" ? css.logoAlt : ""}`}> L’ÉCOLE ARMÉNIENNE </p>
-          <p className={`${css.logoText} ${css.logoTextLg} ${"secondary" ? css.logoAlt : ""}`}> SOURP HAGOP</p>
-          <p className={`${css.logoText} ${css.logoTextSm} ${"secondary" ? css.logoAlt : ""}`}>
+          <p className={`${css.logoText} ${type === "secondary" ? css.logoAlt : ""}`}> L’ÉCOLE ARMÉNIENNE </p>
+          <p className={`${css.logoText} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}> SOURP HAGOP</p>
+          <p className={`${css.logoText} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}>
             ÉCOLE PRIMAIRE V. ET A. SAFARIAN
           </p>
-          <p className={`${css.logoText} ${css.logoTextSmAlternate} ${"secondary" ? css.logoAlt : ""}`}>
+          <p className={`${css.logoText} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}>
             ÉCOLE SECONDAIRE PASDERMAJIAN
           </p>
         </div>
@@ -35,7 +35,7 @@ const Nav = ({ type = "primary" }) => {
       <ul className={css.nav}>
         {navList.map((navItem, index) => (
           <li key={index}>
-            <NavDropdown title={navItem.title} items={navItem.items} />
+            <NavDropdown title={navItem.title} items={navItem.items} type={type} />
           </li>
         ))}
       </ul>
