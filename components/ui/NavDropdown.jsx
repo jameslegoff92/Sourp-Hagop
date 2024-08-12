@@ -30,8 +30,8 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
         <div className={css.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {items.map((item, index) => (
             <li className={css.listItem}>
-              <Link className={css.link} key={index}>
-                {item}
+              <Link className={css.link} key={index} href={item.link}>
+                {item.text}
               </Link>
             </li>
           ))}
