@@ -58,6 +58,7 @@ const CircleWrapper = ({ children, scale, opacity, date, text }) => (
     </motion.div>
 );
 
+
 const timelineData = [
     { date: "1950", text: "Foundation of the school" },
     { date: "1975", text: "First major expansion" },

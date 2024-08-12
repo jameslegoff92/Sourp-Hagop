@@ -16,16 +16,20 @@ const navList = [
   },
 ];
 
-const Nav = () => {
+const Nav = ({ type = "primary" }) => {
   return (
-    <nav className={css.navContainer}>
+    <nav className={`${css.navContainer} ${type === "secondary" ? css.navContainerSecondary : ""}`}>
       <div className={css.logoContainer}>
         <Image src="/images/logo.svg" alt="logo" width={89} height={79} />
         <div>
-          <p className={`${css.logoText}`}> L’ÉCOLE ARMÉNIENNE </p>
-          <p className={`${css.logoText} ${css.logoTextLg}`}> SOURP HAGOP</p>
-          <p className={`${css.logoText} ${css.logoTextSm}`}>ÉCOLE PRIMAIRE V. ET A. SAFARIAN</p>
-          <p className={`${css.logoText} ${css.logoTextSmAlternate}`}>ÉCOLE SECONDAIRE PASDERMAJIAN</p>
+          <p className={`${css.logoText} ${"secondary" ? css.logoAlt : ""}`}> L’ÉCOLE ARMÉNIENNE </p>
+          <p className={`${css.logoText} ${css.logoTextLg} ${"secondary" ? css.logoAlt : ""}`}> SOURP HAGOP</p>
+          <p className={`${css.logoText} ${css.logoTextSm} ${"secondary" ? css.logoAlt : ""}`}>
+            ÉCOLE PRIMAIRE V. ET A. SAFARIAN
+          </p>
+          <p className={`${css.logoText} ${css.logoTextSmAlternate} ${"secondary" ? css.logoAlt : ""}`}>
+            ÉCOLE SECONDAIRE PASDERMAJIAN
+          </p>
         </div>
       </div>
       <ul className={css.nav}>
