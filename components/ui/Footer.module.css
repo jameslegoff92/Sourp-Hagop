@@ -5,7 +5,6 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-    /* Aligns content vertically within the footer */
 }
 
 .imageContainer {
@@ -39,7 +38,11 @@
     width: 50%;
     height: 100%;
     background-color: #006096;
-    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 3;
 }
 
 .logoTextContainer {
@@ -127,10 +130,86 @@
 /* Right-Side */
 .verticalLine {
     position: absolute;
-    right: 430px; 
+    left: 40%; 
     top: 42%;
     transform: translateY(-50%);
     border-left: 3px solid white;
     height: 370px;
     z-index: 4;
+}
+
+.verticalWordsContainerLeft {
+    position: absolute;
+    left: 13%;
+    top: 45%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+}
+
+.verticalWordsContainerRight {
+    position: absolute;
+    left: 46%;
+    top: 45%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+}
+
+.verticalWord {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-family: var(--primary-ff); 
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+    margin-bottom: 1.5vh;
+    line-height: 410%;
+    display: inline-block;
+}
+
+.hoverUnderline {
+    position: relative;
+    display: inline-block;
+}
+
+.hoverUnderline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease-in-out;
+}
+
+.verticalWord:hover .hoverUnderline::after {
+    transform: scaleX(1.07);
+}
+
+/* Social media links */
+
+.socialMediaContainer {
+    display: flex;
+    width: 100%;
+    margin-left: 16%;
+}
+
+.facebookLink {
+    margin: 0 5%;
+}
+
+.facebookIcon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 50%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.facebookLink:hover .facebookIcon {
+    transform: scale(1.1);
 }

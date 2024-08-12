@@ -1,5 +1,20 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import css from './Footer.module.css';
+
+const AnimatedMenuLink = ({ href, children }) => (
+    <motion.a 
+        href={href}
+        className={css.verticalWord}
+        whileHover={{ 
+            scale: 1.1,
+        }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+    >
+        <span className={css.hoverUnderline}>{children}</span>
+
+    </motion.a>
+);
 
 const Footer = () => (
     <footer className={css.footer}>
@@ -40,8 +55,36 @@ const Footer = () => (
                 className={css.footerImage}
             />
         </div>
-        <div className={css.blueOverlay}></div>
-        <div className={css.verticalLine}></div>
+        <div className={css.blueOverlay}>
+            <nav className={css.verticalWordsContainerLeft}>
+                <AnimatedMenuLink href="#">CARRIÈRES</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">ÉVÉNEMETS</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">ANCIENS ET ANCIENNES</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">LA FONDATION</AnimatedMenuLink>
+            </nav>
+            <div className={css.verticalLine}></div>
+            <nav className={css.verticalWordsContainerRight}>
+                <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">ADMISSIONS</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">PROTECTEUR NATIONAL DE L'ÉLÈVE</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">NOUS JOINDRE</AnimatedMenuLink>
+            </nav>
+            <div className={css.socialMediaContainer}>
+                <a href="https://www.facebook.com/ecolearmeniennesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                    <img src="../images/footer-facebook.svg" alt="Facebook" className={css.facebookIcon}/>
+                </a>                
+                <a href="https://www.instagram.com/ecolesourphagop/?hl=en" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                    <img src="../images/footer-instagram.svg" alt="Instagram" className={css.facebookIcon}/>
+                </a>                   
+                <a href="https://www.linkedin.com/company/ecole-armenienne-sourphagop/" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                    <img src="../images/footer-linkedIn.svg" alt="LinkedIn" className={css.facebookIcon}/>
+                </a>                   
+                <a href="https://twitter.com/easourphagop?lang=en" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                    <img src="../images/footer-x.svg" alt="X" className={css.facebookIcon}/>
+                </a>                
+
+            </div>
+        </div>
 
     </footer>
 );
