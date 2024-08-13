@@ -255,8 +255,9 @@ const Main = () => {
             as="h1"
             type="h1"
             color="primary"
-            initial={{ opacity: 0, y: -100 }}
+            initial={{ opacity: 0, y: -400 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
             Pourquoi choisir Sourp Hagop
@@ -266,9 +267,10 @@ const Main = () => {
               as="p"
               type="h5"
               color="dark"
-              initial={{ opacity: 0, x: -100 }}
+              initial={{ opacity: 0, x: -400 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
+              viewport={{ once: true }}
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar, mauris vitae bibendum dictum, tellus
               velit fermentum dolor, rutrum porta est velit varius ligula. Vestibulum at finibus diam. Fusce commodo

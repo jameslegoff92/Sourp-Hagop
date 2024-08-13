@@ -3,6 +3,7 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { FaChevronDown } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
@@ -29,14 +30,14 @@ const StyledImage = styled(Image)`
 
 const fadeInVariants = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
     transition: {
       duration: 0.8,
       ease: "easeInOut",
-      delay: 1 // 1 second delay added here
-    }
-  }
+      delay: 1, // 1 second delay added here
+    },
+  },
 };
 
 const lineVariants = {
@@ -46,9 +47,94 @@ const lineVariants = {
     transition: {
       duration: 0.8,
       ease: "easeInOut",
-      delay: 1 // 1 second delay added here
+      delay: 1, // 1 second delay added here
+    },
+  },
+};
+
+const ScrollButton = () => {
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      transition: { duration: 0.3 }
     }
-  }
+  };
+
+  const containerVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.5,
+        repeat: Infinity,
+        repeatDelay: 0.5
+      }
+    }
+  };
+
+  const chevronVariants = {
+    initial: { opacity: 0, y: -5 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        delay: 1.5  // Adjust this delay to control how long all three chevrons stay visible
+      }
+    }
+  };
+
+
+  return (
+    <motion.button
+      className="scroll-button"
+      variants={buttonVariants}
+      whileHover="hover"
+      style={{
+        width: '60px',
+        height: '60px',
+        borderRadius: '50%',
+        backgroundColor: 'lightblue',
+        border: 'none',
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 0,
+        overflow: 'hidden'
+      }}
+    >
+      <motion.div
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        {[0, 1, 2].map((index) => (
+          <motion.div
+            key={index}
+            variants={chevronVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            style={{ marginTop: '-5px' }}
+          >
+            <FaChevronDown 
+              style={{ 
+                color: 'white', 
+                fontSize: '16px'
+              }} 
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.button>
+  );
 };
 
 function MainHeading() {
@@ -65,17 +151,14 @@ function MainHeading() {
           top: "-1rem",
         }}
       />
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={fadeInVariants}
-    >
-      <StyledImage src="images/logo-big.svg" width={353} height={315} alt="logo" />
-      <div>
-        <h1 className="h1">Toujours plus haut, toujours plus loin !</h1>
-        <p className="h3">Préscolaire | Primaire | Secondaire</p>
-      </div>
-    </motion.div>
+      <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
+        <StyledImage src="images/logo-big.svg" width={353} height={315} alt="logo" />
+        <div>
+          <h1 className="h1">Toujours plus haut, toujours plus loin !</h1>
+          <p className="h3">Préscolaire | Primaire | Secondaire</p>
+        </div>
+      </motion.div>
+      {/* <ScrollButton /> */}
     </Container>
   );
 }
