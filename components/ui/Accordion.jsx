@@ -149,14 +149,14 @@ const AccordionItem = ({ title, children }) => {
         <AccordionItemContainer>
             <AccordionHeader
                 onClick={toggleOpen}
-                isOpen={isOpen} // Pass the state to control the colors
+                isOpen={isOpen}
             >
                 <Title>{title}</Title>
                 <Icon
                     initial={false}
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    isOpen={isOpen} // Pass the state to control the icon color
+                    isOpen={isOpen}
                 >
                     +
                 </Icon>
@@ -168,7 +168,7 @@ const AccordionItem = ({ title, children }) => {
                     open: { height: 'auto', opacity: 1 },
                     collapsed: { height: 0, opacity: 0 }
                 }}
-                transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
             >
                 <ImageGrid>
                     {children}

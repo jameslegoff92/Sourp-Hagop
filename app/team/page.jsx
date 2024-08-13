@@ -63,6 +63,7 @@ export default function Team() {
                             initial={{ opacity: 0, y: 100 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
+                            viewport={{ once: true }}
                         >
                             Nous sommes une équipe dévouée et passionnée, engagée à offrir une expérience éducative exceptionnelle à nos élèves. Chaque membre de notre personnel, qu'il soit enseignant, personnel administratif, ou auxiliaire, joue un rôle essentiel dans la réussite de notre école et le bien-être de nos élèves. Nous valorisons la collaboration, le professionnalisme et l'engagement envers l'excellence dans tout ce que nous faisons. Ensemble, nous créons un environnement d'apprentissage accueillant, stimulant et sécuritaire où chaque élève peut s'épanouir et atteindre son plein potentiel.
                         </Typography>
@@ -76,6 +77,7 @@ export default function Team() {
                             initial={{ opacity: 0, y: 100 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
+                            viewport={{ once: true }}
                         >
                             Envie de contribuer à une mission éducative et de faire partie d’une équipe passionnée ? Rejoignez-nous dès maintenant !
                         </Typography>
@@ -85,6 +87,7 @@ export default function Team() {
                     initial={{ opacity: 0, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.5 }}
+                    viewport={{ once: true }}
                 >
                     Appliquer Maintenant
                 </ApplyButton>

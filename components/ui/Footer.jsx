@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import css from './Footer.module.css';
 
-const AnimatedMenuLink = ({ href, children }) => (
+export const AnimatedMenuLink = ({ href, children }) => (
     <motion.a 
         href={href}
         className={css.verticalWord}
