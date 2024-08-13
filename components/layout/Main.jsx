@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
 import Typography from "../display/Typography";
-import { motion } from "framer-motion";
+import { easeIn, motion } from "framer-motion";
 import Container from "./Container";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "../ui/Footer";
@@ -16,6 +16,7 @@ const StyledDiv = styled.div`
 
 const ExtendedStyledDiv = styled(StyledDiv)`
   background-color: var(--secondary-color);
+  padding: 40px 0 100px;
 `;
 
 const StyledImage = styled(Image)`
@@ -30,7 +31,8 @@ const MotionDiv = styled(motion.div)`
   display: flex;
   gap: var(--spacing-4);
   flex-direction: column;
-  margin: 100px auto 0;
+  padding-top: var(--spacing-8);
+  margin: 0 auto 0;
   width: 50%;
 `;
 
@@ -47,7 +49,7 @@ const TextContainer = styled.div`
 const ValueContainer = styled(motion.div)`
   background-color: transparent;
   overflow: hidden;
-  height: 600px;
+  height: 31.25rem;
 `;
 
 const ValueSubContainer = styled(motion.div)`
@@ -91,6 +93,7 @@ const CardContainer = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   gap: var(--spacing-4);
+  margin-top: var(--spacing-7);
 `;
 
 const listVariants = {
@@ -138,11 +141,7 @@ const ImageGrid = ({ images }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover rounded-lg"
-            />
+            <img src={image.src} alt={image.alt} className="w-full h-full object-cover rounded-lg" />
           </motion.div>
         ))}
       </div>
@@ -151,18 +150,12 @@ const ImageGrid = ({ images }) => {
 };
 
 const CalendarDay = ({ day, month, event, isActive }) => (
-  <div className={`flex flex-col items-center ${isActive ? 'relative' : ''}`}>
+  <div className={`flex flex-col items-center ${isActive ? "relative" : ""}`}>
     <span className="text-xs uppercase mb-1">{month}</span>
     <span className="text-4xl font-bold mb-1">{day}</span>
-    {event && (
-      <span className="text-[10px] text-center max-w-[100px] leading-tight">
-        {event}
-      </span>
-    )}
-    {isActive && (
-      <div className="absolute -top-1 right-1/2 transform translate-x-8 w-2 h-2 bg-white rounded-full" />
-    )}
-    </div>
+    {event && <span className="text-[10px] text-center max-w-[100px] leading-tight">{event}</span>}
+    {isActive && <div className="absolute -top-1 right-1/2 transform translate-x-8 w-2 h-2 bg-white rounded-full" />}
+  </div>
 );
 
 const Calendar = () => {
@@ -195,7 +188,6 @@ const Calendar = () => {
     </div>
   );
 };
-
 
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
   <div className={`flex flex-col ${!isLast ? "border-r border-blue-300 pr-4 md:pr-8" : ""}`}>
@@ -255,10 +247,10 @@ const Main = () => {
             as="h1"
             type="h1"
             color="primary"
-            initial={{ opacity: 0, y: -400 }}
+            initial={{ opacity: 0, y: -200 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            viewport={{ amount: "all", margin: "0px 0px -300px 0px", once: true }}
+            transition={{ duration: 1.7, ease: "easeInOut"}}
           >
             Pourquoi choisir Sourp Hagop
           </Typography>
@@ -269,7 +261,7 @@ const Main = () => {
               color="dark"
               initial={{ opacity: 0, x: -400 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 1.7, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar, mauris vitae bibendum dictum, tellus
