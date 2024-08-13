@@ -3,19 +3,34 @@
 }
 
 .dropdown {
+  border: 2.5px solid #CCC;
+  display: flex;
+  width: 266px;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--white);
   position: absolute;
+  top: 35px;
 }
 
 
 .listItem {
-  padding: 1rem;
   cursor: pointer;
+  padding: 1rem;
+  text-align: left;
+  width: 100%;
 }
 
 .listItem:not(:last-child) {
-  border-bottom: 1px solid var(--black);
+  border-bottom: 2.5px solid #CCC;
 }
 
 .listItem:hover {
   background-color: var(--light-gray);
+}
+
+.link {
+  color: var(--black);
+  text-decoration: none;
+  width: 100%;
 }

@@ -24,7 +24,7 @@ const ArrowDown = styled(KeyboardArrowDownIcon)`
   color: ${({ color }) => color};
 `;
 
-const NavItem = ({ title, color = 'primary', hover = 'primary' }) => {
+const NavItem = ({ title, color, hover = 'primary' }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const iconRotate = isHovered ? -180 : 0;
