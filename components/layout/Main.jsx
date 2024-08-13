@@ -5,7 +5,8 @@ import styled from "@emotion/styled";
 import Typography from "../display/Typography";
 import { motion } from "framer-motion";
 import Container from "./Container";
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Footer from "../ui/Footer";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -67,7 +68,14 @@ const ValueSubContainer2 = styled(ValueSubContainer)`
   background:
     linear-gradient(rgba(0, 96, 150, 0.5), rgba(0, 96, 150, 0.5)),
     // Blue tint overlay// Blue tint overlay
-    url("/images/value-img-2.png"); // Replace with your image URL
+    url("/images/respect.JPG"); // Replace with your image URL
+`;
+
+const ValueSubContainer3 = styled(ValueSubContainer)`
+  background:
+    linear-gradient(rgba(0, 96, 150, 0.5), rgba(0, 96, 150, 0.5)),
+    // Blue tint overlay// Blue tint overlay
+    url("/images/responsible.JPG"); // Replace with your image URL
 `;
 
 const ValueText = styled(Typography)`
@@ -122,74 +130,83 @@ const ImageGrid = ({ images }) => {
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {images.slice(0, 9).map((image, index) => (
-          <div key={index} className="aspect-square">
+          <motion.div
+            key={index}
+            className="aspect-square"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
             <img
               src={image.src}
               alt={image.alt}
               className="w-full h-full object-cover rounded-lg"
             />
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
   );
 };
 
-const CalendarDay = ({ day, month, event }) => (
-  <div className="flex flex-col items-center">
-    <span className="text-sm font-light uppercase">{month}</span>
-    <span className="text-4xl font-bold">{day}</span>
-    {event && <span className="text-xs text-center mt-1">{event}</span>}
+const CalendarDay = ({ day, month, event, isActive }) => (
+  <div className={`flex flex-col items-center ${isActive ? 'relative' : ''}`}>
+    <span className="text-xs uppercase mb-1">{month}</span>
+    <span className="text-4xl font-bold mb-1">{day}</span>
+    {event && (
+      <span className="text-[10px] text-center max-w-[100px] leading-tight">
+        {event}
+      </span>
+    )}
+    {isActive && (
+      <div className="absolute -top-1 right-1/2 transform translate-x-8 w-2 h-2 bg-white rounded-full" />
+    )}
   </div>
 );
 
 const Calendar = () => {
   return (
-    <div className="bg-blue-600 text-white p-8 font-sans">
-      <h1 className="text-4xl font-bold mb-8 text-center">CALENDRIER</h1>
-      <div className="flex justify-between items-center mb-8">
-        <ChevronLeft className="w-8 h-8 cursor-pointer" />
-        <div className="flex space-x-8">
-          <CalendarDay day="27" month="Juin" />
-          <CalendarDay day="28" month="Juin" event="Journée Pédagogique" />
-          <CalendarDay day="29" month="Juin" />
-          <CalendarDay day="30" month="Juin" />
-          <CalendarDay day="01" month="Juil" event="Canada Day" />
+    <div className="bg-[#0076BE] text-white py-12 px-6 font-sans">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-5xl font-bold mb-12 text-center">CALENDRIER</h1>
+        <div className="flex justify-between items-center mb-8">
+          <ChevronLeft className="w-8 h-8 cursor-pointer" />
+          <div className="flex justify-between w-full max-w-3xl">
+            <CalendarDay day="27" month="Juin" />
+            <CalendarDay day="28" month="Juin" event="Journée Pédagogique" />
+            <CalendarDay day="29" month="Juin" isActive={true} />
+            <CalendarDay day="30" month="Juin" />
+            <CalendarDay day="01" month="Juil" event="Canada Day" />
+          </div>
+          <ChevronRight className="w-8 h-8 cursor-pointer" />
         </div>
-        <ChevronRight className="w-8 h-8 cursor-pointer" />
-      </div>
-      <div className="flex justify-center space-x-2 mb-8">
-        <div className="w-2 h-2 bg-white bg-opacity-50 rounded-full"></div>
-        <div className="w-2 h-2 bg-white rounded-full"></div>
-        <div className="w-2 h-2 bg-white bg-opacity-50 rounded-full"></div>
-      </div>
-      <div className="flex justify-center">
-        <button className="text-sm uppercase border-b border-white pb-1">
-          Visualiser le calendrier
-        </button>
+        <div className="flex justify-center space-x-2 mb-8">
+          <div className="w-2 h-2 bg-white opacity-50 rounded-full"></div>
+          <div className="w-2 h-2 bg-white rounded-full"></div>
+          <div className="w-2 h-2 bg-white opacity-50 rounded-full"></div>
+        </div>
+        <div className="flex justify-end">
+          <button className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity">
+            Visualiser le calendrier
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-const NewsItem = ({ imageSrc, title, description }) => (
-  <div className="flex flex-col h-full">
-    <div className="relative w-full h-48 md:h-64">
-      <Image
-        src={imageSrc}
-        alt={title}
-        layout="fill"
-        objectFit="cover"
-        className="rounded-t-lg"
-      />
+
+const NewsItem = ({ imageSrc, title, description, isLast }) => (
+  <div className={`flex flex-col ${!isLast ? "border-r border-blue-300 pr-4 md:pr-8" : ""}`}>
+    <div className="relative w-full h-48 md:h-64 mb-4">
+      <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" />
     </div>
-    <div className="flex flex-col flex-grow p-4 bg-white rounded-b-lg">
-      <h3 className="font-semibold text-lg mb-2">{title}</h3>
-      <p className="text-sm mb-4 flex-grow">{description}</p>
-      <button className="text-blue-500 border border-blue-500 px-4 py-2 rounded text-sm self-start hover:bg-blue-500 hover:text-white transition-colors">
-        EN SAVOIR PLUS
-      </button>
-    </div>
+    <h3 className="font-normal text-base mb-2">{title}</h3>
+    <div className="flex-grow" />
+    <button className="text-blue-500 border border-blue-500 px-4 py-2 rounded text-sm self-start hover:bg-blue-500 hover:text-white transition-colors mt-4">
+      EN SAVOIR PLUS
+    </button>
   </div>
 );
 
@@ -198,32 +215,36 @@ const LatestNews = () => {
     {
       imageSrc: "/images/blogimg1.jpg",
       title: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
-      description: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!"
+      description: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
     },
     {
       imageSrc: "/images/blogimg2.jpg",
-      title: "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
-      description: "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR."
+      title:
+        "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
+      description:
+        "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
     },
     {
       imageSrc: "/images/blogimg3.jpg",
       title: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
-      description: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement."
-    }
+      description: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
+    },
   ];
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold text-blue-500 mb-8 text-center">DERNIÈRES NOUVELLES</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="flex flex-col md:flex-row md:space-x-8">
         {newsItems.map((item, index) => (
-          <NewsItem key={index} {...item} />
+          <div key={index} className="flex-1 mb-8 md:mb-0">
+            <NewsItem {...item} isLast={index === newsItems.length - 1} />
+          </div>
         ))}
       </div>
     </div>
   );
 };
- 
+
 const Main = () => {
   return (
     <>
@@ -268,11 +289,11 @@ const Main = () => {
           <CardContainer>
             <ExtendedMotionDiv>
               <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-                <ValueSubContainer variants={itemVariants}>
+                <ValueSubContainer2 variants={itemVariants}>
                   <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                    ACCOMPLISSEMENT DE SOI
+                    RESPECT
                   </Typography>
-                </ValueSubContainer>
+                </ValueSubContainer2>
 
                 <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
                   À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
@@ -282,15 +303,15 @@ const Main = () => {
             </ExtendedMotionDiv>
             <ExtendedMotionDiv>
               <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-                <ValueSubContainer variants={itemVariants}>
+                <ValueSubContainer3 variants={itemVariants}>
                   <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                    ACCOMPLISSEMENT DE SOI
+                    RESPONSABILITÉ
                   </Typography>
-                </ValueSubContainer>
+                </ValueSubContainer3>
 
                 <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                  À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
-                  développant leur plein potentiel pour une vie épanouie.
+                  La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en charge
+                  leurs actions et à s'engager activement dans leur communauté.
                 </ValueText>
               </ValueContainer>
             </ExtendedMotionDiv>
@@ -298,13 +319,13 @@ const Main = () => {
               <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
                 <ValueSubContainer variants={itemVariants}>
                   <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                    ACCOMPLISSEMENT DE SOI
+                    ACOMPLISSEMENT DE SOI
                   </Typography>
                 </ValueSubContainer>
 
                 <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                  À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
-                  développant leur plein potentiel pour une vie épanouie.
+                  Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous,
+                  créant un environnement de confiance et de considération mutuelle
                 </ValueText>
               </ValueContainer>
             </ExtendedMotionDiv>
@@ -321,8 +342,7 @@ const Main = () => {
         <Calendar />
         <LatestNews />
       </Container>
-
-
+      <Footer />
     </>
   );
 };
