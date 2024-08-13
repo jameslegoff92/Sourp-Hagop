@@ -83,13 +83,22 @@ const ValueSubContainer3 = styled(ValueSubContainer)`
     url("/images/responsible.JPG"); // Replace with your image URL
 `;
 
-const ValueText = styled(Typography)`
+const ValueText = styled(Typography)``;
+const ValueText2 = styled(ValueText)`
+  color: #fff;
+`;
+
+const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6rem 4rem 0;
+  padding: 3rem 4rem 0;
   height: 100%;
   background-color: var(--tertiary-color);
+`;
+
+const TextDiv2 = styled(TextDiv)`
+  background-color: #006096;
 `;
 
 const CardContainer = styled(motion.div)`
@@ -115,8 +124,8 @@ const itemVariants = {
 };
 
 const textVariants = {
-  initial: { opacity: 0, color: "#fff" },
-  hover: { color: "#000", opacity: 1, transition: { duration: 2 } },
+  initial: { opacity: 0 },
+  hover: { opacity: 1, transition: { duration: 2 } },
 };
 
 const images = [
@@ -307,11 +316,19 @@ const Main = () => {
                     RESPECT
                   </Typography>
                 </ValueSubContainer2>
-
-                <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                  À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
-                  développant leur plein potentiel pour une vie épanouie.
-                </ValueText>
+                <TextDiv>
+                  <ValueText
+                    initial="initial"
+                    whileHover="hover"
+                    as="p"
+                    type="h6"
+                    fontFamily="secondary"
+                    variants={textVariants}
+                  >
+                    À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
+                    développant leur plein potentiel pour une vie épanouie.
+                  </ValueText>
+                </TextDiv>
               </ValueContainer>
             </ExtendedMotionDiv>
             <ExtendedMotionDiv>
@@ -321,11 +338,19 @@ const Main = () => {
                     RESPONSABILITÉ
                   </Typography>
                 </ValueSubContainer3>
-
-                <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                  La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en charge
-                  leurs actions et à s'engager activement dans leur communauté.
-                </ValueText>
+                <TextDiv2>
+                  <ValueText2
+                    initial="initial"
+                    whileHover="hover"
+                    as="p"
+                    type="h6"
+                    fontFamily="secondary"
+                    variants={textVariants}
+                  >
+                    La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en
+                    charge leurs actions et à s'engager activement dans leur communauté.
+                  </ValueText2>
+                </TextDiv2>
               </ValueContainer>
             </ExtendedMotionDiv>
             <ExtendedMotionDiv>
@@ -335,11 +360,19 @@ const Main = () => {
                     ACOMPLISSEMENT DE SOI
                   </Typography>
                 </ValueSubContainer>
-
-                <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                  Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous,
-                  créant un environnement de confiance et de considération mutuelle
-                </ValueText>
+                <TextDiv>
+                  <ValueText
+                    initial="initial"
+                    whileHover="hover"
+                    as="p"
+                    type="h6"
+                    fontFamily="secondary"
+                    variants={textVariants}
+                  >
+                    Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous,
+                    créant un environnement de confiance et de considération mutuelle
+                  </ValueText>
+                </TextDiv>
               </ValueContainer>
             </ExtendedMotionDiv>
           </CardContainer>
