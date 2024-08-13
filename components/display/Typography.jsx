@@ -52,7 +52,7 @@ const headingStyles = {
     letter-spacing: 0.05rem;
   `,
   h6: `
-    font-size: 1.3125rem; 21px
+    font-size: clamp(1.1rem, 1.5vw, 2rem); 21px
     font-style: normal;
     font-weight: 300;
     line-height: 150%; /* 35.25px */
@@ -80,6 +80,7 @@ const fontFamilyMapping = {
 const colorMapping = {
   primary: "var(--primary-color)",
   secondary: "var(--secondary-color)",
+  seondaryDark: "var(--secondary-darkcolor)",
   dark: "var(--black)",
   light: "var(--white)",
   gray: "var(--light-gray)",
