@@ -148,6 +148,7 @@ function MainHeading() {
           height: "1px",
           backgroundColor: "white",
           position: "relative",
+          zIndex: -5,
           top: "-1rem",
         }}
       />
