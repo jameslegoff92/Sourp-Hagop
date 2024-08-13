@@ -31,6 +31,21 @@ const NavItem = ({ title, url }) => {
   );
 };
 
+
+const PortalLink = () => (
+  <motion.div
+    className={css.portal}
+    whileHover={{
+      backgroundColor: "var(--white)",
+    }}
+    transition={{ duration: 0.3 }}
+  >
+    <Link className={`${css.link} ${css.portal}`} target="_blank" href="https://ecolesourphagop.coba.ca/pednet/login.coba">
+      Portail
+    </Link>
+  </motion.div>
+);
+
 const TopNav = ({ animate = false }) => {
   const content = (
     <nav className={css.navContainer}>
@@ -47,9 +62,7 @@ const TopNav = ({ animate = false }) => {
             <NavItem key={index} title={item.title} url={item.url} />
           ))}
         </ul>
-        <Link className={`${css.link} ${css.portal}`} href="/portal">
-          Portail
-        </Link>
+        <PortalLink />
         <div className={css.langContainer}>
           <Image src="/images/chevron-down.svg" alt="chevron down" width={8} height={4} priority={true} />
           <Image src="/images/lang.svg" alt="logo" width={21} height={23} priority={true} />

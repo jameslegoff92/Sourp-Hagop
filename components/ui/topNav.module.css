@@ -17,6 +17,11 @@
   gap: 4px;
 }
 
+/* .portalWrapper {
+  margin-left: 3rem;
+  margin-right: 3.25rem;
+} */
+
 .portal {
   border: 2px solid #fff;
   display: flex;
@@ -28,6 +33,13 @@
   margin-right: 3.25rem;
   padding: 0.3125rem 1.6875rem 0.3125rem 1.75rem;
   width: 6.875rem;
+  transition: color 0.5s ease;
+}
+
+
+.portal:hover {
+  color: var(--primary-color);
+  border-color: var(--white);
 }
 
 .link {
