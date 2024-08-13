@@ -162,7 +162,7 @@ const CalendarDay = ({ day, month, event, isActive }) => (
     {isActive && (
       <div className="absolute -top-1 right-1/2 transform translate-x-8 w-2 h-2 bg-white rounded-full" />
     )}
-  </div>
+    </div>
 );
 
 const Calendar = () => {
