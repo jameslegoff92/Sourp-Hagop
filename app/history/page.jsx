@@ -1,26 +1,15 @@
 "use client";
 
 import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Brightness1Icon from '@mui/icons-material/Brightness1';
-
-const BackgroundImageContainer = ({ children, style }) => (
-    <motion.div 
-        className="fixed left-0 right-0 flex justify-center items-center z-[-1]"
-        style={style}
-    >
-        {children}
-    </motion.div>
-);
-
-const BackgroundImage = ({ src }) => (
-    <img src={src} className="w-full max-w-[800px] h-auto object-contain opacity-10 ml-[200px]" />
-);
+import BackgroundLogo from "@/components/ui/BackgroundLogo";
 
 const ProgressBarContainer = ({ children, style }) => (
     <motion.div 
-        className="fixed left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(350vh-80px)] bg-black/10 rounded-md overflow-hidden"
+        className="left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(350vh-80px)] bg-black/10 rounded-md overflow-hidden"
         style={style}
     >
         {children}
@@ -36,7 +25,7 @@ const ProgressBar = ({ style }) => (
 
 const CircleContainer = ({ children, style }) => (
     <div 
-        className="fixed left-[25%] transform -translate-x-1/2 h-[calc(350vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
+        className="left-[25%] transform -translate-x-1/2 h-[calc(350vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
         style={style}
     >
         {children}
@@ -90,14 +79,12 @@ export default function History() {
 
     const ref = useRef(null);
     const [elementTop, setElementTop] = useState(0);
-    const [viewportHeight, setViewportHeight] = useState(0);
 
     useEffect(() => {
         const updateLayout = () => {
             if (ref.current) {
                 setElementTop(ref.current.offsetTop);
             }
-            setViewportHeight(window.innerHeight);
         };
 
         updateLayout();
@@ -113,18 +100,6 @@ export default function History() {
     );
 
     const scaledProgress = useTransform(scaleY, value => value * 1.0);
-
-    const backgroundY = useTransform(
-        scrollY,
-        [0, viewportHeight * 0.1],
-        ["150%", "15%"]
-    );
-
-    const backgroundOpacity = useTransform(
-        scrollY,
-        [0, viewportHeight * 0.2],
-        [0.3, 0.3]
-    );
 
     const circleCount = timelineData.length;
     const circleScales = [...Array(circleCount)].map((_, index) => {
@@ -154,9 +129,7 @@ export default function History() {
 
     return (
         <>
-            <BackgroundImageContainer style={{ y: backgroundY, opacity: backgroundOpacity }}>
-                <BackgroundImage src="../images/logo-big.svg" />
-            </BackgroundImageContainer>
+            <BackgroundLogo/>
             <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
             <div className="h-20" ref={ref} />
             <ProgressBarContainer style={containerStyle}>
@@ -180,6 +153,7 @@ export default function History() {
                 {/* Your content here */}
                 </p>
             </div>
+            <Footer/>
         </>
     );
 }

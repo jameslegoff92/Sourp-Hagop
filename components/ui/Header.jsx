@@ -26,14 +26,14 @@ const HeaderImage = styled.div`
 
 const HeaderText = styled.div`
   position: absolute;
-  top: 60px;
-  right: 60px;
+  top: ${props => props.top || '10%'};
+  right: ${props => props.right || '60px'};
   color: white;
-  padding: 10px;
-  font-size: 90px;
+  padding: 1vw;
+  font-size: 5vw;
 `;
 
-const Header = ({ imageSrc, headerText }) => {
+const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight }) => {
   return (
     <>
       <TopNav/>
@@ -42,7 +42,7 @@ const Header = ({ imageSrc, headerText }) => {
       </Container>
       <HeaderImageContainer>
         <HeaderImage src={imageSrc}>
-          <HeaderText>{headerText}</HeaderText>
+          <HeaderText top={headerTextTop} right={headerTextRight}>{headerText}</HeaderText>
         </HeaderImage>
       </HeaderImageContainer>
     </>
