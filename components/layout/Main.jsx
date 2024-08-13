@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import ThreeColumnLayout from "../layout/flexbox/ThreeColumnLayout";
 import styled from "@emotion/styled";
 import Typography from "../display/Typography";
 import { motion } from "framer-motion";
 import Container from "./Container";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -47,7 +47,6 @@ const ValueContainer = styled(motion.div)`
   background-color: transparent;
   overflow: hidden;
   height: 600px;
-  width: 600px;
 `;
 
 const ValueSubContainer = styled(motion.div)`
@@ -80,6 +79,12 @@ const ValueText = styled(Typography)`
   background-color: var(--tertiary-color);
 `;
 
+const CardContainer = styled(motion.div)`
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+`;
+
 const listVariants = {
   initial: {},
   hover: {},
@@ -100,6 +105,125 @@ const textVariants = {
   hover: { color: "#000", opacity: 1, transition: { duration: 2 } },
 };
 
+const images = [
+  { src: "/images/force1.jpg", alt: "Image 1" },
+  { src: "/images/force2.jpg", alt: "Image 2" },
+  { src: "/images/force3.png", alt: "Image 3" },
+  { src: "/images/force4.jpg", alt: "Image 4" },
+  { src: "/images/force5.jpg", alt: "Image 5" },
+  { src: "/images/force6.jpg", alt: "Image 6" },
+  { src: "/images/force7.jpg", alt: "Image 7" },
+  { src: "/images/force8.jpg", alt: "Image 8" },
+  { src: "/images/force9.jpg", alt: "Image 9" },
+];
+
+const ImageGrid = ({ images }) => {
+  return (
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {images.slice(0, 9).map((image, index) => (
+          <div key={index} className="aspect-square">
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const CalendarDay = ({ day, month, event }) => (
+  <div className="flex flex-col items-center">
+    <span className="text-sm font-light uppercase">{month}</span>
+    <span className="text-4xl font-bold">{day}</span>
+    {event && <span className="text-xs text-center mt-1">{event}</span>}
+  </div>
+);
+
+const Calendar = () => {
+  return (
+    <div className="bg-blue-600 text-white p-8 font-sans">
+      <h1 className="text-4xl font-bold mb-8 text-center">CALENDRIER</h1>
+      <div className="flex justify-between items-center mb-8">
+        <ChevronLeft className="w-8 h-8 cursor-pointer" />
+        <div className="flex space-x-8">
+          <CalendarDay day="27" month="Juin" />
+          <CalendarDay day="28" month="Juin" event="Journée Pédagogique" />
+          <CalendarDay day="29" month="Juin" />
+          <CalendarDay day="30" month="Juin" />
+          <CalendarDay day="01" month="Juil" event="Canada Day" />
+        </div>
+        <ChevronRight className="w-8 h-8 cursor-pointer" />
+      </div>
+      <div className="flex justify-center space-x-2 mb-8">
+        <div className="w-2 h-2 bg-white bg-opacity-50 rounded-full"></div>
+        <div className="w-2 h-2 bg-white rounded-full"></div>
+        <div className="w-2 h-2 bg-white bg-opacity-50 rounded-full"></div>
+      </div>
+      <div className="flex justify-center">
+        <button className="text-sm uppercase border-b border-white pb-1">
+          Visualiser le calendrier
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const NewsItem = ({ imageSrc, title, description }) => (
+  <div className="flex flex-col h-full">
+    <div className="relative w-full h-48 md:h-64">
+      <Image
+        src={imageSrc}
+        alt={title}
+        layout="fill"
+        objectFit="cover"
+        className="rounded-t-lg"
+      />
+    </div>
+    <div className="flex flex-col flex-grow p-4 bg-white rounded-b-lg">
+      <h3 className="font-semibold text-lg mb-2">{title}</h3>
+      <p className="text-sm mb-4 flex-grow">{description}</p>
+      <button className="text-blue-500 border border-blue-500 px-4 py-2 rounded text-sm self-start hover:bg-blue-500 hover:text-white transition-colors">
+        EN SAVOIR PLUS
+      </button>
+    </div>
+  </div>
+);
+
+const LatestNews = () => {
+  const newsItems = [
+    {
+      imageSrc: "/images/blogimg1.jpg",
+      title: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
+      description: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!"
+    },
+    {
+      imageSrc: "/images/blogimg2.jpg",
+      title: "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
+      description: "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR."
+    },
+    {
+      imageSrc: "/images/blogimg3.jpg",
+      title: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
+      description: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement."
+    }
+  ];
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold text-blue-500 mb-8 text-center">DERNIÈRES NOUVELLES</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {newsItems.map((item, index) => (
+          <NewsItem key={index} {...item} />
+        ))}
+      </div>
+    </div>
+  );
+};
+ 
 const Main = () => {
   return (
     <>
@@ -141,23 +265,64 @@ const Main = () => {
           <Typography as="h1" type="h2" primary="secondary" color="primary">
             Nos Valeurs
           </Typography>
-          <ExtendedMotionDiv>
-            <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-              <ValueSubContainer variants={itemVariants}>
-                <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                  ACCOMPLISSEMENT DE SOI
-                </Typography>
-              </ValueSubContainer>
+          <CardContainer>
+            <ExtendedMotionDiv>
+              <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
+                <ValueSubContainer variants={itemVariants}>
+                  <Typography as="h1" type="h4" color="light" fontFamily="secondary">
+                    ACCOMPLISSEMENT DE SOI
+                  </Typography>
+                </ValueSubContainer>
 
-              <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
-                À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant
-                leur plein potentiel pour une vie épanouie.
-              </ValueText>
-            </ValueContainer>
-          </ExtendedMotionDiv>
+                <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
+                  À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
+                  développant leur plein potentiel pour une vie épanouie.
+                </ValueText>
+              </ValueContainer>
+            </ExtendedMotionDiv>
+            <ExtendedMotionDiv>
+              <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
+                <ValueSubContainer variants={itemVariants}>
+                  <Typography as="h1" type="h4" color="light" fontFamily="secondary">
+                    ACCOMPLISSEMENT DE SOI
+                  </Typography>
+                </ValueSubContainer>
+
+                <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
+                  À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
+                  développant leur plein potentiel pour une vie épanouie.
+                </ValueText>
+              </ValueContainer>
+            </ExtendedMotionDiv>
+            <ExtendedMotionDiv>
+              <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
+                <ValueSubContainer variants={itemVariants}>
+                  <Typography as="h1" type="h4" color="light" fontFamily="secondary">
+                    ACCOMPLISSEMENT DE SOI
+                  </Typography>
+                </ValueSubContainer>
+
+                <ValueText as="p" type="h6" fontFamily="secondary" variants={textVariants}>
+                  À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
+                  développant leur plein potentiel pour une vie épanouie.
+                </ValueText>
+              </ValueContainer>
+            </ExtendedMotionDiv>
+          </CardContainer>
         </Container>
       </ExtendedStyledDiv>
-      <ThreeColumnLayout components={[1, 2, 3]}/>
+
+      {/* Nos Forces */}
+      <Container>
+        <Typography style={{ textAlign: "center" }} as="h1" type="h2" primary="secondary" color="primary">
+          Nos Forces
+        </Typography>
+        <ImageGrid images={images} />
+        <Calendar />
+        <LatestNews />
+      </Container>
+
+
     </>
   );
 };
