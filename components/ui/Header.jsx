@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 const HeaderImageContainer = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 28.93%; /* Aspect ratio 506 / 1748 * 100% */
+  padding-top: 28.93%;
   overflow: hidden;
 `;
 
@@ -22,6 +22,7 @@ const HeaderImage = styled.div`
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
+  z-index: -1;
 `;
 
 const HeaderText = styled.div`

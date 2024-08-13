@@ -134,14 +134,14 @@
     top: 42%;
     transform: translateY(-50%);
     border-left: 3px solid white;
-    height: 370px;
+    height: 400px;
     z-index: 4;
 }
 
 .verticalWordsContainerLeft {
     position: absolute;
     left: 13%;
-    top: 45%;
+    top: 37.6%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
@@ -165,7 +165,7 @@
     font-family: var(--primary-ff); 
     font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     margin-bottom: 1.5vh;
-    line-height: 410%;
+    line-height: 370%;
     display: inline-block;
 }
 

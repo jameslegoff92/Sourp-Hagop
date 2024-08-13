@@ -11,7 +11,7 @@ const BackgroundImageContainer = ({ children, style }) => (
 );
 
 const BackgroundImage = ({ src }) => (
-    <img src={src} className="w-full max-w-[800px] h-auto object-contain opacity-10 ml-[200px]" />
+    <img src={src} className="w-full max-w-[800px] h-[auto] object-contain opacity-10 ml-[200px]" />
 );
 
 const BackgroundLogo = () => {

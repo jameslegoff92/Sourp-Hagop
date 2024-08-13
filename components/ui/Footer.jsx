@@ -67,6 +67,7 @@ const Footer = () => (
                 <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">ADMISSIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">PROTECTEUR NATIONAL DE L'ÉLÈVE</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">NOS LOCATIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">NOUS JOINDRE</AnimatedMenuLink>
             </nav>
             <div className={css.socialMediaContainer}>
