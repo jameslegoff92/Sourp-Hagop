@@ -50,7 +50,7 @@ export default function Team() {
     return (
         <>
             <BackgroundLogo />
-            <Header imageSrc="../images/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
+            <Header animate = {false} imageSrc="../images/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
 
             <StyledDiv>
                 <MotionDiv>

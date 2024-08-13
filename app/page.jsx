@@ -1,3 +1,5 @@
+'use client';
+
 //Local Components
 import TopNav from "@/components/ui/topNav";
 import BackgroundVideo from "@/components/ui/BackgroundVideo";
@@ -5,7 +7,6 @@ import Nav from "@/components/ui/Nav";
 import Container from "@/components/layout/Container";
 import MainHeading from "@/components/display/MainHeading";
 import Main from "@/components/layout/Main";
-import { motion } from "framer-motion";
 
 const lineVariants = {
   hidden: { width: 0 },

@@ -4,7 +4,10 @@
 
 .nav {
   display: none;
-  @media (min-width: 1114px) {
+}
+
+@media (min-width: 1114px) {
+  .nav {
     display: flex;
     width: 35.125rem;
     justify-content: space-around;
@@ -16,11 +19,6 @@
   width: 41.6px;
   gap: 4px;
 }
-
-/* .portalWrapper {
-  margin-left: 3rem;
-  margin-right: 3.25rem;
-} */
 
 .portal {
   border: 2px solid #fff;
@@ -35,7 +33,6 @@
   width: 6.875rem;
   transition: color 0.5s ease;
 }
-
 
 .portal:hover {
   color: var(--primary-color);
@@ -66,4 +63,10 @@
   left: 0;
   height: 2px;
   background-color: #fff;
+}
+
+@media (max-width: 1113px) {
+  .navContainer {
+    display: none;
+  }
 }

@@ -1,6 +1,5 @@
 "use client";
 
-//Native Imports
 import TopNav from "@/components/ui/topNav";
 import Container from "@/components/layout/Container";
 import Nav from "@/components/ui/Nav";
@@ -34,12 +33,12 @@ const HeaderText = styled.div`
   font-size: 5vw;
 `;
 
-const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight }) => {
+const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight, animate = false }) => {
   return (
     <>
-      <TopNav/>
+      <TopNav />
       <Container>
-        <Nav/>
+        <Nav animate={animate} />
       </Container>
       <HeaderImageContainer>
         <HeaderImage src={imageSrc}>
