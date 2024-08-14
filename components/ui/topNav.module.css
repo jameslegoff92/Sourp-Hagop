@@ -1,12 +1,13 @@
 .navContainer {
   background-color: var(--primary-color);
-  margin-bottom: 3.125rem;
 }
 
 .nav {
   display: none;
+}
 
-  @media (min-width: 1114px) {
+@media (min-width: 1114px) {
+  .nav {
     display: flex;
     width: 35.125rem;
     justify-content: space-around;
@@ -30,17 +31,42 @@
   margin-right: 3.25rem;
   padding: 0.3125rem 1.6875rem 0.3125rem 1.75rem;
   width: 6.875rem;
+  transition: color 0.5s ease;
+}
+
+.portal:hover {
+  color: var(--primary-color);
+  border-color: var(--white);
 }
 
 .link {
+  position: relative;
   color: #fff;
-  font-feature-settings:
-    "clig" off,
-    "liga" off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
   letter-spacing: 0.15px;
+  text-decoration: none;
+}
+
+.navItem {
+  position: relative;
+  display: inline-block;
+}
+
+.underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  background-color: #fff;
+}
+
+@media (max-width: 1113px) {
+  .navContainer {
+    display: none;
+  }
 }

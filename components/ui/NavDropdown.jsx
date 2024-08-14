@@ -8,7 +8,7 @@ import NavItem from "./NavItem";
 //Third-Party Imports
 import Link from "@mui/material/Link";
 
-export default function NavDropdown({ title = "add title", items = [] }) {
+export default function NavDropdown({ title = "add title", items = [], type }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -19,16 +19,19 @@ export default function NavDropdown({ title = "add title", items = [] }) {
     setIsHovered(false);
   };
 
+  const navColor = type === "secondary" ? "var(--white)" : "var(--black)";
+  const hoverColor = "var(--primary-color)";
+
   return (
-    <div className={css.container}>
-      <NavItem color="purple" hover="red" title={title} />
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={css.container}>
+      <NavItem  color={navColor} hover={hoverColor} title={title} />
 
       {isHovered && (
         <div className={css.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {items.map((item, index) => (
             <li className={css.listItem}>
-              <Link className={css.link} key={index}>
-                {item}
+              <Link className={css.link} key={index} href={item.link}>
+                {item.text}
               </Link>
             </li>
           ))}

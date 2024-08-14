@@ -76,7 +76,7 @@ body {
     "clig" off,
     "liga" off;
   font-family: Poppins;
-  font-size: 75px;
+  font-size: clamp(3.2rem, 5vw + 1rem, 3.2rem);
   font-style: normal;
   font-weight: 600;
   line-height: 150%; /* 112.5px */

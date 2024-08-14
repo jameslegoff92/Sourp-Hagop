@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import css from './Footer.module.css';
 
-const AnimatedMenuLink = ({ href, children }) => (
+export const AnimatedMenuLink = ({ href, children }) => (
     <motion.a 
         href={href}
         className={css.verticalWord}
@@ -67,6 +67,7 @@ const Footer = () => (
                 <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">ADMISSIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">PROTECTEUR NATIONAL DE L'ÉLÈVE</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">NOS LOCATIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">NOUS JOINDRE</AnimatedMenuLink>
             </nav>
             <div className={css.socialMediaContainer}>

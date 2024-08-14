@@ -11,7 +11,7 @@ const Container = styled.div`
 const Title = styled(motion.p)`
   color: ${(props) => props.color };
   cursor: pointer;
-  font-size: 1.125rem;
+  font-size: clamp(1.125rem, 2vw, 1.1rem);
   font-style: normal;
   font-weight: 500;
   margin-right: 0.625rem;
@@ -24,7 +24,7 @@ const ArrowDown = styled(KeyboardArrowDownIcon)`
   color: ${({ color }) => color};
 `;
 
-const NavItem = ({ title, color = 'primary', hover = 'primary' }) => {
+const NavItem = ({ title, color, hover = 'primary' }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const iconRotate = isHovered ? -180 : 0;

@@ -4,19 +4,11 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 0 auto 3.3rem;
+  padding: 1rem;
 }
 
 .navContainerSecondary {
   background-color: transparent;
-}
-
-.mainNavContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto 7rem;
 }
 
 .logoContainer {
@@ -25,52 +17,111 @@
   justify-content: center;
 }
 
+.logo {
+  width: 60px;
+  height: auto;
+}
+
 .logoText {
-  color: #000;
-  font-feature-settings:
-    "clig" off,
-    "liga" off;
-  font-family: "Times New Roman";
-  font-size: 12.24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 150%; /* 18.36px */
-  letter-spacing: 1.008px;
-}
-
-.logoTextLg {
-  font-size: 20.88px;
-  font-style: normal;
-  line-height: 103%;
-  letter-spacing: 0.72px;
-}
-
-.logoTextSm {
-  font-size: 8.64px;
-  line-height: 241%;
-  letter-spacing: 0.115px;
-}
-
-.logoTextSmAlternate {
-  font-size: 8.604px;
-  line-height: 131%;
-  letter-spacing: 0.115px;
-}
-
-.logoAlt {
-  color: var(--white);
+  display: none;
 }
 
 .nav {
   display: none;
-  
-  @media (min-width: 1114px) {
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.hamburgerLine {
+  width: 2rem;
+  height: 0.15rem;
+  background: #000;
+  border-radius: 10px;
+  transition: all 0.1s linear;
+  position: relative;
+}
+
+.hamburgerLineSecondary {
+  width: 2rem;
+  height: 0.15rem;
+  background: #fff;
+  border-radius: 10px;
+  transition: all 0.1s linear;
+  position: relative;
+}
+
+@media (min-width: 1114px) {
+  .navContainer {
+    padding: 3.125rem;
+  }
+
+  .logoText {
+    display: block;
+  }
+
+  .logo {
+    width: 89px;
+    height: 78px;
+  }
+
+  .logoTextItem {
+    color: #000;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: "Times New Roman";
+    font-size: 12.24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 1.008px;
+  }
+
+  .logoTextLg {
+    font-size: 20.88px;
+    font-style: normal;
+    line-height: 103%;
+    letter-spacing: 0.72px;
+  }
+
+  .logoTextSm {
+    font-size: 8.64px;
+    line-height: 241%;
+    letter-spacing: 0.115px;
+  }
+
+  .logoTextSmAlternate {
+    font-size: 8.604px;
+    line-height: 131%;
+    letter-spacing: 0.115px;
+  }
+
+  .logoAlt {
+    color: var(--white);
+  }
+
+  .nav {
     display: flex;
     justify-content: space-between;
     width: 70%;
   }
 
-  @media (min-width: 1287px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+@media (min-width: 1287px) {
+  .nav {
     width: 57.9375rem;
   }
 }
