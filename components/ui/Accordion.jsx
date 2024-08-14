@@ -363,7 +363,19 @@ const Accordion = () => {
                     alt="Lily Margossian"
                     name="Lily Margossian"
                     title="Enseignante de primaire"
-                />                
+                />
+                <ImageItemComponent
+                    src="../images/staff/Svetlana Racu.jpg"
+                    alt="Svetlana Racu"
+                    name="Svetlana Racu"
+                    title="Enseignante de primaire"
+                />  
+                <ImageItemComponent
+                    src="../images/staff/Svetlana Racu.jpg"
+                    alt="Svetlana Racu"
+                    name="Svetlana Racu"
+                    title="Enseignante de primaire"
+                />                  
                 <ImageItemComponent
                     src="../images/staff/Loucine Jebamkoussi.jpg"
                     alt="Loucine Jebamkoussi"
@@ -536,6 +548,12 @@ const Accordion = () => {
             </AccordionItem>
             <AccordionItem title="Services aux élèves">
                 <ImageItemComponent
+                    src="../images/staff/_default.jpg"
+                    alt="Anne-Sophie Assad"
+                    name="Anne-Sophie Assad"
+                    title="Orthopédagogue"
+                /> 
+                <ImageItemComponent
                     src="../images/staff/Emma Jeghelian.jpg"
                     alt="Emma Jeghelian"
                     name="Emma Jeghelian"
@@ -615,6 +633,30 @@ const Accordion = () => {
                 />
             </AccordionItem>
             <AccordionItem title="Vie scolaire">
+                <ImageItemComponent
+                    src="../images/staff/_default.jpg"
+                    alt="Gaby Matossian"
+                    name="Gaby Matossian"
+                    title="Chaffeur d'autobus"
+                /> 
+                <ImageItemComponent
+                    src="../images/staff/_default.jpg"
+                    alt="Anush Stepanyan"
+                    name="Anush Stepanyan"
+                    title="Cuisine - Propreté"
+                />
+                <ImageItemComponent
+                    src="../images/staff/_default.jpg"
+                    alt="Azadouhi Mardirossian"
+                    name="Azadouhi Mardirossian"
+                    title="Cuisine - Alimentation"
+                />
+                <ImageItemComponent
+                    src="../images/staff/_default.jpg"
+                    alt="Dzovinar Manoukian"
+                    name="Dzovinar Manoukian"
+                    title="Cuisine - Propreté"
+                />
                 <ImageItemComponent
                     src="../images/staff/_default.jpg"
                     alt="Hripsime Davidyan"
@@ -729,6 +771,18 @@ const Accordion = () => {
                 />
             </AccordionItem>
             <AccordionItem title="Services au bâtiment">
+                <ImageItemComponent
+                    src="../images/staff/Emma Leventakis.jpg"
+                    alt="Emma Leventakis"
+                    name="Emma Leventakis"
+                    title="Agente de services au bâtiment"
+                />
+                <ImageItemComponent
+                    src="../images/staff/Harout Sayegh.jpg"
+                    alt="Harout Sayegh"
+                    name="Harout Sayegh"
+                    title="Agent de services au bâtiment"
+                />
                 <ImageItemComponent
                     src="../images/staff/_default.jpg"
                     alt="Hovanness Bazarbachian"

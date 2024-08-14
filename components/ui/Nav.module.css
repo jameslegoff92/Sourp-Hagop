@@ -52,6 +52,15 @@
   position: relative;
 }
 
+.hamburgerLineSecondary {
+  width: 2rem;
+  height: 0.15rem;
+  background: #fff;
+  border-radius: 10px;
+  transition: all 0.1s linear;
+  position: relative;
+}
+
 @media (min-width: 1114px) {
   .navContainer {
     padding: 3.125rem;

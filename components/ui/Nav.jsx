@@ -82,7 +82,7 @@ const Nav = ({ type = "primary", animate = true }) => {
         animate={animationState}
         className={css.logoContainer}
       >
-        <Image src="/images/logo.svg" alt="logo" width={89} height={90} className={css.logo}/>
+        <Image src="images/logo-big.svg" alt="logo" width={89} height={90} className={css.logo}/>
         <div className={css.logoText}>
           <p className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}>L'ÉCOLE ARMÉNIENNE</p>
           <p className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}>
@@ -117,11 +117,11 @@ const Nav = ({ type = "primary", animate = true }) => {
         style={{ transformOrigin: "center" }}
       >
         <motion.span 
-          className={`${css.hamburgerLine}`}
+          className={`${css.hamburgerLine} ${type === "secondary" ? css.hamburgerLineSecondary : ""}`}
           variants={line1Variants}
         ></motion.span>
         <motion.span 
-          className={`${css.hamburgerLine}`}
+          className={`${css.hamburgerLine} ${type === "secondary" ? css.hamburgerLineSecondary : ""}`}
           variants={line2Variants}
           style={{ transformOrigin: "center" }}
         ></motion.span>
