@@ -5,6 +5,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 .imageContainer {
@@ -24,11 +25,13 @@
 }
 
 .footerImage {
-    right: 0;
+    position: absolute;
+    left: 0;
     width: auto;
     height: 100%;
     max-height: 100%;
     object-fit: cover;
+    object-position: left center;
 }
 
 .blueOverlay {
@@ -55,10 +58,14 @@
 }
 
 .logo {
-    height: 10.5vw;
+    height: 8vw;
     width: auto;
-    padding-left: 11%;
+    padding-left: 4%;
     margin-right: 0.8vw;
+}
+
+.textContainer{
+    margin-left: 10px;
 }
 
 .logoText {
@@ -67,7 +74,7 @@
         "clig" off,
         "liga" off;
     font-family: var(--primary-ff);
-    font-size: calc(0.07rem + 1.13vw);
+    font-size: calc(0.25rem + 1.13vw);
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
@@ -76,7 +83,7 @@
 }
 
 .logoTextAddress {
-    font-size: calc(0.18rem + 0.8vw);
+    font-size: calc(0.25rem + 0.8vw);
     font-style: normal;
     font-weight: 400;
     line-height: 108%;
@@ -95,14 +102,14 @@
 .letterTandC {
     font-family: var(--primary-ff); 
     color: var(--white);
-    font-size: calc(0.1rem + 1.13vw);
+    font-size: calc(0.2rem + 1.13vw);
     font-weight: 1000;
 }
 
 .phoneEmailText{
     font-family: var(--primary-ff); 
     color: var(--white);
-    font-size: calc(0.01rem + 1.13vw);
+    font-size: calc(0.13rem + 1.13vw);
     font-weight: 300;
     margin: 2px auto auto 10px;
 }
@@ -154,6 +161,8 @@
     top: 45%;
     transform: translateY(-50%);
     display: flex;
+    width: 118px;
+    text-wrap: wrap; 
     flex-direction: column;
     z-index: 5;
 }
@@ -212,4 +221,153 @@
 
 .facebookLink:hover .facebookIcon {
     transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column-reverse;
+    }
+
+    .imageContainer {
+        width: 100%;
+        height: 52%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+    
+    /* .imageContainer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0%;
+        background-color: rgba(0, 96, 150, 0.7);
+        z-index: 1;
+    }
+    
+    .footerImage {
+        right: 0;
+        width: auto;
+        height: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    } */
+
+    .blueOverlay {
+        position: relative;
+        justify-content: flex-start;
+        width: 100%;
+        height: 800px;
+        order: -1;
+        padding-bottom: 60px;
+    }
+
+    .logo {
+        height: auto;
+        width: 60%;
+        max-width: 35vw;
+        z-index: 2;
+    }
+
+    .logoTextContainer {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;        
+        padding: 20px;
+        z-index: 3;
+    }
+
+    .bottomText {
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        bottom: -315px;
+        padding: 0;
+        color: #fff;
+        font-size: calc(0.18rem + 0.5vw); 
+        z-index: 3;
+    }
+
+    .osblLogo {
+        width: 10%;
+        height: auto;
+        position: absolute;
+        right: 5px;
+        bottom: 2px;
+        z-index: 1;
+    }
+
+    /* Bottom */
+    .verticalLine {
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 0;
+        border-top: 1px solid white;
+        width: 300px;
+        z-index: 4;
+    }
+
+    .verticalWordsContainerLeft {
+        position: absolute;
+        left: 12%;
+        top: 20px;
+        transform: translateY(0%);
+        display: flex;
+        flex-direction: column;
+        z-index: 5;
+    }
+
+    .verticalWordsContainerRight {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        transform: translateY(0%);
+        display: flex;
+        flex-direction: column;
+        z-index: 5;
+    }
+
+    .protecteurText {
+        margin-top: 5px;
+        display: inline-block;
+        line-height: 180%;
+    }
+    
+    .verticalWord {
+        position: relative;
+        color: white;
+        text-decoration: none;
+        font-family: var(--primary-ff); 
+        font-size: clamp(0.65rem, 1.5vw, 1.2rem);
+        margin-bottom: 10px;
+        line-height: 280%;
+        display: inline-block;
+    }
+
+    .socialMediaContainer {
+        position: absolute;
+        bottom: 28px;
+        justify-content: center;
+        display: flex;
+        width: 100%;
+        gap: 4px;
+        margin: 0 16%;
+    }
+    
+    .facebookIcon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 70%;
+        transition: transform 0.2s ease-in-out;
+    }
 }

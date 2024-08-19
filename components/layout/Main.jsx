@@ -25,12 +25,19 @@ const StyledDiv2 = styled(StyledDiv)`
 
 const StyledImage = styled(Image)`
   position: absolute;
-  width: clamp(20rem, 7vw, 75rem);
+  width: clamp(15rem, 20vw, 85rem);
+  max-width: 90%;
+  height: auto;
   opacity: 0.07;
   z-index: -1;
-  margin-top: 14vh;
+  top: 110%;
   left: 50%;
   transform: translateX(-37%);
+
+  @media (max-width: 768px) {
+    width: clamp(10rem, 80vw, 20rem);
+    top: 122%;
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
