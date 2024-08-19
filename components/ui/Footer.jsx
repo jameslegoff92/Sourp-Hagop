@@ -24,7 +24,7 @@ const Footer = () => (
                 alt="School Logo" 
                 className={css.logo}
             />
-            <div>
+            <div className={`${css.textContainer}`}>
                 <p className={`${css.logoText}`}> École arménienne Sourp Hagop </p>
                 <p className={`${css.logoText} ${css.logoTextAddress}`}> 3400 Rue Nadon</p>
                 <p className={`${css.logoText} ${css.logoTextAddress}`}>Montréal, Québec</p>
@@ -57,18 +57,20 @@ const Footer = () => (
         </div>
         <div className={css.blueOverlay}>
             <nav className={css.verticalWordsContainerLeft}>
+                <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">CARRIÈRES</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">ÉVÉNEMETS</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">ANCIENS ET ANCIENNES</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">LA FONDATION</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">ANCIENS ET ANCIENNES</AnimatedMenuLink>
             </nav>
             <div className={css.verticalLine}></div>
             <nav className={css.verticalWordsContainerRight}>
-                <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">ADMISSIONS</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">PROTECTEUR NATIONAL DE L'ÉLÈVE</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">NOS LOCATIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">NOUS JOINDRE</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">
+                    <span className={css.protecteurText}>PROTECTEUR NATIONAL DE L'ÉLÈVE</span>
+                </AnimatedMenuLink>
             </nav>
             <div className={css.socialMediaContainer}>
                 <a href="https://www.facebook.com/ecolearmeniennesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
