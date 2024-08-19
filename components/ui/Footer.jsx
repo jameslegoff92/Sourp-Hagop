@@ -82,7 +82,7 @@ const Footer = () => (
                 <a href="https://www.linkedin.com/company/ecole-armenienne-sourphagop/" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
                     <img src="../images/footer-linkedIn.svg" alt="LinkedIn" className={css.facebookIcon}/>
                 </a>                   
-                <a href="https://twitter.com/easourphagop?lang=en" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                <a href="https://twitter.com/easourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
                     <img src="../images/footer-x.svg" alt="X" className={css.facebookIcon}/>
                 </a>                
 
