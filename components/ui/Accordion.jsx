@@ -52,13 +52,12 @@ const AccordionHeader = styled(motion.div)`
   }
 `;
 
-// Styled component for the title
 const Title = styled.span`
   font-size: 1.2rem;
-  transition: color 0.3s ease; /* Smooth color transition */
+  transition: color 0.3s ease;
+  text-align: left;
 `;
 
-// Styled component for the icon
 const Icon = styled(motion.span)`
   font-size: 1.5rem;
   line-height: 1;
@@ -93,7 +92,6 @@ const ImageItem = styled.div`
   }
 `;
 
-// Styled component for the accordion content
 const AccordionContent = styled(motion.div)`
   overflow: hidden;
   padding: 0 1rem;
@@ -107,6 +105,10 @@ const ImageGrid = styled.div`
   gap: 20px;
   text-align: center;
   padding: 20px 0;
+
+    @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const defaultImage = "../images/staff/_default.jpg";
