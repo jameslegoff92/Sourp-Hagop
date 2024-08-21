@@ -81,7 +81,7 @@ const Footer = () => (
                     <img src="../images/footer-linkedIn.svg" alt="LinkedIn" className={css.facebookIcon}/>
                 </a>                   
                 <a href="https://twitter.com/easourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
-                    <img src="../images/footer-X.svg" alt="X" className={css.facebookIcon}/>
+                    <img src="../images/footer-x.svg" alt="X" className={css.facebookIcon}/>
                 </a>                
 
             </div>
