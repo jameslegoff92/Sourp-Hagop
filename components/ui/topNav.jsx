@@ -1,12 +1,9 @@
 "use client";
 
-//Native Imports
 import Link from "next/link";
 import Image from "next/image";
 import css from "./topNav.module.css";
 import Container from "@/components/layout/Container";
-
-//Third-Party Imports
 import { motion } from "framer-motion";
 
 const navItems = [
@@ -15,6 +12,39 @@ const navItems = [
   { title: "Anciens et Anciennes", url: "/contact" },
   { title: "La Fondation", url: "/contact" },
 ];
+
+const NavItem = ({ title, url }) => {
+  return (
+    <motion.li className={css.navItem} whileHover="hover" initial="rest">
+      <Link className={css.link} href={url}>
+        {title}
+      </Link>
+      <motion.div
+        className={css.underline}
+        variants={{
+          rest: { width: 0 },
+          hover: { width: "105%" }
+        }}
+        transition={{ duration: 0.2 }}
+      />
+    </motion.li>
+  );
+};
+
+
+const PortalLink = () => (
+  <motion.div
+    className={css.portal}
+    whileHover={{
+      backgroundColor: "var(--white)",
+    }}
+    transition={{ duration: 0.3 }}
+  >
+    <Link className={`${css.link} ${css.portal}`} target="_blank" href="https://ecolesourphagop.coba.ca/pednet/login.coba">
+      Portail
+    </Link>
+  </motion.div>
+);
 
 const TopNav = ({ animate = false }) => {
   const content = (
@@ -28,18 +58,11 @@ const TopNav = ({ animate = false }) => {
         }}
       >
         <ul className={css.nav}>
-          {/* Iterates through the top navigation items */}
           {navItems.map((item, index) => (
-            <li key={index}>
-              <Link className={css.link} href={item.url}>
-                {item.title}
-              </Link>
-            </li>
+            <NavItem key={index} title={item.title} url={item.url} />
           ))}
         </ul>
-        <Link className={`${css.link} ${css.portal}`} href="/portal">
-          Portail
-        </Link>
+        <PortalLink />
         <div className={css.langContainer}>
           <Image src="/images/chevron-down.svg" alt="chevron down" width={8} height={4} priority={true} />
           <Image src="/images/lang.svg" alt="logo" width={21} height={23} priority={true} />
@@ -51,15 +74,14 @@ const TopNav = ({ animate = false }) => {
   if (animate) {
     return (
       <motion.div
-      initial={{ y: -90 }}
-      animate={{ y: 0 }}
-      transition={{ delay: 0.1, duration: 0.3, type: "easeIn" }}
-    >
-      {content}
-    </motion.div>
+        initial={{ y: -90 }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.1, duration: 0.3, type: "easeIn" }}
+      >
+        {content}
+      </motion.div>
     );
   }
-
   return content;
 };
 

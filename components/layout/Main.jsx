@@ -10,7 +10,7 @@ import Footer from "../ui/Footer";
 
 const StyledDiv = styled.div`
   text-align: center;
-  padding: 40px 0 300px;
+  padding: 40px 0 40px;
   position relative;
 `;
 
@@ -25,28 +25,43 @@ const StyledDiv2 = styled(StyledDiv)`
 
 const StyledImage = styled(Image)`
   position: absolute;
-  opacity: 0.1;
+  width: clamp(15rem, 20vw, 85rem);
+  max-width: 90%;
+  height: auto;
+  opacity: 0.07;
   z-index: -1;
+  top: 110%;
   left: 50%;
-  transform: translateX(-40%);
+  transform: translateX(-37%);
+
+  @media (max-width: 768px) {
+    width: clamp(10rem, 80vw, 20rem);
+    top: 122%;
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
   display: flex;
   gap: var(--spacing-4);
   flex-direction: column;
-  padding-top: var(--spacing-8);
+  padding-top: var(--spacing-2);
   margin: 0 auto 0;
   width: 50%;
 `;
 
 const ExtendedMotionDiv = styled(MotionDiv)`
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
+  margin-bottom: var(--spacing-4);
+
+  @media (min-width: 768px) {
+    width: calc(33.333% - var(--spacing-4));
+    margin-bottom: 0;
+  }
 `;
 
 const TextContainer = styled.div`
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 `;
 
@@ -83,7 +98,14 @@ const ValueSubContainer3 = styled(ValueSubContainer)`
     url("/images/responsible.JPG"); // Replace with your image URL
 `;
 
-const ValueText = styled(Typography)``;
+const ValueText = styled(Typography)`
+  font-size: 0.9rem;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
 const ValueText2 = styled(ValueText)`
   color: #fff;
 `;
@@ -92,9 +114,14 @@ const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 4rem 0;
-  height: 100%;
+  padding: 2rem 1rem;
+  height: auto;
   background-color: var(--tertiary-color);
+
+  @media (min-width: 768px) {
+    padding: 3rem 4rem 0;
+    height: 100%;
+  }
 `;
 
 const TextDiv2 = styled(TextDiv)`
@@ -103,9 +130,14 @@ const TextDiv2 = styled(TextDiv)`
 
 const CardContainer = styled(motion.div)`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   gap: var(--spacing-4);
   margin-top: var(--spacing-7);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const listVariants = {
@@ -269,7 +301,7 @@ const Main = () => {
   return (
     <>
       <StyledDiv>
-        <StyledImage src="/images/logo-big.svg" alt="hero image" width={635} height={558} />
+        <StyledImage src="/images/logo-big.svg" alt="transparent logo image" width={635} height={558} />
         <MotionDiv>
           <Typography
             as="h1"
@@ -280,15 +312,15 @@ const Main = () => {
             viewport={{ amount: "all", margin: "0px 0px -300px 0px", once: true }}
             transition={{ duration: 1.7, ease: "easeInOut" }}
           >
-            Pourquoi choisir Sourp Hagop
+            Pourquoi choisir Sourp Hagop ?
           </Typography>
           <TextContainer>
             <Typography
               as="p"
               type="h5"
               color="dark"
-              initial={{ opacity: 0, x: -400 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 400 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.7, ease: "easeInOut" }}
               viewport={{ once: true }}
             >

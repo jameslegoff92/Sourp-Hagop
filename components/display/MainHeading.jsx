@@ -4,6 +4,7 @@ import Image from "next/image";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
+import Typography from "@/components/display/Typography";
 
 const Container = styled.div`
   display: flex;
@@ -15,16 +16,48 @@ const Container = styled.div`
 const StyledImage = styled(Image)`
   display: block;
   margin: 0 auto 2.5rem;
-  width: clamp(10rem, 30vw, 35rem);
+  width: clamp(10rem, 30vw, 30rem);
   padding-left: 100px;
   height: auto;
 
   @media (max-width: 768px) {
-    width: clamp(8rem, 40vw, 30rem);
+    width: clamp(8rem, 40vw, 25rem);
+    margin-top: 100px;
+    padding-left: 0;
+    margin-left: 100px;
   }
 
   @media (max-width: 480px) {
     width: clamp(6rem, 50vw, 20rem);
+  }
+`;
+
+const TextContainer = styled.div`
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+`;
+
+const MainTitle = styled.h6`
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-family: var(--secondary-ff);
+  margin-bottom: 1rem;
+`;
+
+const SubTitle = styled.p`
+  font-size: clamp(1rem, 3vw, 1.5rem); // Responsive font size
+`;
+
+const LineContainer = styled(motion.div)`
+  height: 1px;
+  background-color: white;
+  position: relative;
+  top: -1rem;
+
+  @media (max-width: 768px) {
+    top: 0.5rem;  // Adjust this value to move the line lower on mobile
   }
 `;
 
@@ -140,7 +173,7 @@ const ScrollButton = () => {
 function MainHeading() {
   return (
     <Container>
-      <motion.div
+      <LineContainer
         initial="hidden"
         animate="visible"
         variants={lineVariants}
@@ -153,13 +186,12 @@ function MainHeading() {
         }}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo-big.svg" width={353} height={315} alt="logo" />
-        <div>
-          <h1 className="h1">Toujours plus haut, toujours plus loin !</h1>
-          <p className="h3">Préscolaire | Primaire | Secondaire</p>
-        </div>
+        <StyledImage src="images/logo.svg" width={300} height={265} alt="logo" />
+        <TextContainer>
+          <MainTitle>Toujours plus haut, toujours plus loin !</MainTitle>
+          <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>
+        </TextContainer>
       </motion.div>
-      {/* <ScrollButton /> */}
     </Container>
   );
 }
