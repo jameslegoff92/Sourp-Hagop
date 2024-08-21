@@ -1,0 +1,13 @@
+.timeline {
+  z-index: 200;
+  background-color: lightgrey;
+  color:black;
+}
+
+.timelineElement {
+  color: black;
+}
+
+.title {
+  color: black;
+}

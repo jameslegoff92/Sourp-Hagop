@@ -10,7 +10,7 @@ import Footer from "../ui/Footer";
 
 const StyledDiv = styled.div`
   text-align: center;
-  padding: 40px 0 300px;
+  padding: 40px 0 40px;
   position relative;
 `;
 

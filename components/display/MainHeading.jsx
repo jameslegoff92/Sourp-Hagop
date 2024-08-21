@@ -177,6 +177,13 @@ function MainHeading() {
         initial="hidden"
         animate="visible"
         variants={lineVariants}
+        style={{
+          height: "1px",
+          backgroundColor: "white",
+          position: "relative",
+          zIndex: -5,
+          top: "-1rem",
+        }}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
         <StyledImage src="images/logo.svg" width={300} height={265} alt="logo" />

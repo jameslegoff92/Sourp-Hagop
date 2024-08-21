@@ -25,18 +25,18 @@ const ArrowDown = styled(KeyboardArrowDownIcon)`
 `;
 
 const NavItem = ({ title, color, hover = 'primary' }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [navHover, setNavHover] = useState(false);
 
-  const iconRotate = isHovered ? -180 : 0;
-  const animationColor = isHovered ? hover : color;
+  const iconRotate = navHover ? -180 : 0;
+  const animationColor = navHover ? hover : color;
   const time = 0.3;
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    setNavHover(true);
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
+    setNavHover(false);
   };
 
   return (

@@ -38,10 +38,6 @@ const Footer = () => (
                     <span className={css.phoneEmailText}>info@ecolesourphagop.com</span>
                 </p>
             </div>
-            <div className={css.bottomText}>
-                <p>L’École arménienne Sourp Hagop donne l’enseignement en français.</p>
-                <p>Elle conduit ses élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p>
-            </div>
             <img 
                 src="../images/feep_sceau_osbl.svg" 
                 alt="OSBL Logo" 
@@ -61,7 +57,9 @@ const Footer = () => (
                 <AnimatedMenuLink href="#">CARRIÈRES</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">ÉVÉNEMETS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">LA FONDATION</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">ANCIENS ET ANCIENNES</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">
+                    <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>
+                </AnimatedMenuLink>
             </nav>
             <div className={css.verticalLine}></div>
             <nav className={css.verticalWordsContainerRight}>
@@ -69,17 +67,17 @@ const Footer = () => (
                 <AnimatedMenuLink href="#">NOS LOCATIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">NOUS JOINDRE</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">
-                    <span className={css.protecteurText}>PROTECTEUR NATIONAL DE L'ÉLÈVE</span>
+                    <span className={css.longTextWrap}>PROTECTEUR NATIONAL DE L'ÉLÈVE</span>
                 </AnimatedMenuLink>
             </nav>
             <div className={css.socialMediaContainer}>
                 <a href="https://www.facebook.com/ecolearmeniennesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
                     <img src="../images/footer-facebook.svg" alt="Facebook" className={css.facebookIcon}/>
                 </a>                
-                <a href="https://www.instagram.com/ecolesourphagop/?hl=en" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/ecolesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
                     <img src="../images/footer-instagram.svg" alt="Instagram" className={css.facebookIcon}/>
                 </a>                   
-                <a href="https://www.linkedin.com/company/ecole-armenienne-sourphagop/" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/company/ecole-armenienne-sourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
                     <img src="../images/footer-linkedIn.svg" alt="LinkedIn" className={css.facebookIcon}/>
                 </a>                   
                 <a href="https://twitter.com/easourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
@@ -87,6 +85,10 @@ const Footer = () => (
                 </a>                
 
             </div>
+        </div>
+        <div className={css.bottomText}>
+                <p>L’École arménienne Sourp Hagop donne l’enseignement en français.</p>
+                <p>Elle conduit ses élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p>
         </div>
 
     </footer>
