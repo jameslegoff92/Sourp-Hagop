@@ -9,9 +9,14 @@ const navList = [
     title: "École",
     items: [
       { text: "Historique", link: "/history" },
-      { text: "Notre Équipe", link: "/equipe" },
-      { text: "Notre Personel", link: "/personel" },
-      { text: "Project Éducatif", link: "/educatif" },
+      { text: "Notre Équipe", link: "/team" },
+      { text: "Conseil d'administration", link: "/conseiladministration" },
+      { text: "Projet Éducatif", link: "/projeteducatif" },
+      { text: "Comité de parents", link: "/comiteparents" },
+      { text: "Fondation", link: "/fondation" },
+      { text: "Anciens et anciennes", link: "/anciens" },
+      { text: "Protecteur National de l'élève", link: "/pne" },
+
     ],
   },
   {
@@ -19,8 +24,7 @@ const navList = [
     items: [
       { text: "Préscolaire", link: "/prescolaire" },
       { text: "Primaire", link: "/primaire" },
-      { text: "Grille Matières", link: "/grillematieres" },
-      { text: "Technologie", link: "/technologie" },
+      { text: "Secondaire", link: "/secondaire" },
     ],
   },
   {
@@ -29,16 +33,20 @@ const navList = [
       { text: "Vie Communautaire", link: "/viecommunautaire" },
       { text: "Voyages", link: "/voyages" },
       { text: "Activités Parascolaires", link: "/activitesparascolaires" },
-      { text: "Code de Vie", link: "/codedevie" },
+      { text: "Équipe des Aigles", link: "/aigles" },
+      { text: "Conseil étudiant", link: "/conseiletudiant" },
+      { text: "Sorties Scolaires", link: "/sortiesscolaires" },
+
     ],
   },
   {
     title: "Services À L'Élève",
     items: [
-      { text: "Services Professionnels", link: "/servicesprofessionnels" },
-      { text: "Cafétéria", link: "/cafeteria" },
+      { text: "Soutien aux élèves", link: "/soutien" },
+      { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
       { text: "Bibliothèque", link: "/bibliotheque" },
       { text: "Service de Garde", link: "/servicedegarde" },
+      { text: "Transport", link: "/transport" },
       { text: "Uniforme Scolaire", link: "/uniformescolaire" },
     ],
   },
