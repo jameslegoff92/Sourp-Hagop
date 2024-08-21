@@ -15,7 +15,8 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
     setIsHovered(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e) => {
+    console.log("event fired");
     setIsHovered(false);
   };
 
@@ -24,17 +25,19 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
 
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={css.container}>
-      <NavItem  color={navColor} hover={hoverColor} title={title} />
+      <NavItem color={navColor} hover={hoverColor} title={title} main={true}/>
 
       {isHovered && (
-        <div className={css.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          {items.map((item, index) => (
-            <li className={css.listItem}>
-              <Link className={css.link} key={index} href={item.link}>
-                {item.text}
-              </Link>
-            </li>
-          ))}
+        <div className={css.wrapper} onMouseLeave={handleMouseLeave}   >
+          <ul className={css.dropdown}  >
+            {items.map((item, index) => (
+              <li className={css.listItem}>
+                <Link className={css.link} key={index} href={item.link}>
+                  {item.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
