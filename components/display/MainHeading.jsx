@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
@@ -13,7 +12,7 @@ const Container = styled.div`
   gap: var(--spacing-4);
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled.img`
   display: block;
   margin: 0 auto 2.5rem;
   width: clamp(10rem, 30vw, 30rem);
@@ -186,7 +185,7 @@ function MainHeading() {
         }}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo.svg" width={300} height={265} alt="logo" />
+        <StyledImage src="images/logo-color.png" width={300} height={265} alt="logo" />
         <TextContainer>
           <MainTitle>Toujours plus haut, toujours plus loin !</MainTitle>
           <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>

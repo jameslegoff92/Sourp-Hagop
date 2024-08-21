@@ -90,7 +90,7 @@ const Nav = ({ type = "primary", animate = true }) => {
         animate={animationState}
         className={css.logoContainer}
       >
-        <Image src="images/logo-big.svg" alt="logo" width={89} height={90} className={css.logo}/>
+        <img src="images/logo-alt.png" alt="logo" width={89} height={90} className={css.logo}/>
         <div className={css.logoText}>
           <p className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}>L'ÉCOLE ARMÉNIENNE</p>
           <p className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}>
