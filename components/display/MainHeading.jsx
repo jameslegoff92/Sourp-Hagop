@@ -3,7 +3,6 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
-import Typography from "@/components/display/Typography";
 
 const Container = styled.div`
   display: flex;
@@ -55,8 +54,8 @@ const LineContainer = styled(motion.div)`
   position: relative;
   top: -1rem;
 
-  @media (max-width: 768px) {
-    top: 0.5rem;  // Adjust this value to move the line lower on mobile
+  @media (max-width: 1112px) {
+    top: 0.1rem;  // Adjust this value to move the line lower on mobile
   }
 `;
 
@@ -176,13 +175,6 @@ function MainHeading() {
         initial="hidden"
         animate="visible"
         variants={lineVariants}
-        style={{
-          height: "1px",
-          backgroundColor: "white",
-          position: "relative",
-          zIndex: -5,
-          top: "-1rem",
-        }}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
         <StyledImage src="images/logo-color.png" width={300} height={265} alt="logo" />
