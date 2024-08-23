@@ -9,7 +9,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 // Components
-import { PortalLink } from "./TopNav";
+import { PortalLink } from "./topNav";
 import NavDropdown from "./NavDropdown";
 
 // Styles
@@ -88,6 +88,7 @@ const MobileNavContainer = styled.div`
   left: 0;
   padding: 6rem 1.5rem;
   text-align: left;
+  z-index: 2;
 
   @media (min-width: 1112px) {
     display: none;
@@ -105,6 +106,7 @@ const SecondaryNavigation = styled.div`
 `;
 
 const SecondaryLink = styled(Link)`
+  color: var(--white);
   font-size: clamp(0.8rem, 2vw, 1.5rem);
   font-weight: 600;
 `;
@@ -133,6 +135,7 @@ const CSSMobileNavItem = styled(Link)`
 `;
 
 const CSSMobileNavHeader = styled.li`
+  color: var(--white);
   cursor: pointer;
   font-size: clamp(1.4rem, 3vw, 2.5rem);
   display: flex;
