@@ -23,21 +23,16 @@ const StyledDiv2 = styled(StyledDiv)`
   padding: 40px 0 100px;
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled.img`
   position: absolute;
-  width: clamp(15rem, 20vw, 85rem);
+  width: clamp(6rem, 20vw, 85rem);
   max-width: 90%;
   height: auto;
   opacity: 0.07;
   z-index: -1;
-  top: 110%;
+  top: 900px;
   left: 50%;
   transform: translateX(-37%);
-
-  @media (max-width: 768px) {
-    width: clamp(10rem, 80vw, 20rem);
-    top: 122%;
-  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -206,7 +201,7 @@ const Calendar = () => {
   return (
     <div className="bg-[#006096] text-white py-12 px-6 font-sans">
       <div className="max-w-4xl mx-auto text-center py-4">
-        <Typography as="h1" type="h2" primary="secondary" color="light">
+        <Typography as="h1" type="h2" color="light">
           CALENDRIER
         </Typography>
         <div className="flex justify-between items-center mt-[60px] mb-8">
@@ -248,9 +243,9 @@ const Calendar = () => {
 };
 
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
-  <div className={`flex flex-col ${!isLast ? "border-r border-blue-300 pr-4 md:pr-8" : ""}`}>
+  <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
     <div className="relative w-full h-48 md:h-[350px] mb-4">
-      <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" />
+      <Image src={imageSrc} alt={title} style={{objectFit:"cover"}}  fill/>
     </div>
     <h3 className="font-normal text-left mb-2">{title}</h3>
     <div className="flex-grow" />
@@ -283,7 +278,7 @@ const LatestNews = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Typography as="h1" type="h2" primary="secondary" color="primary">
+      <Typography as="h1" type="h2" color="primary">
         DERNIÈRES NOUVELLES
       </Typography>
       <div className="flex flex-col md:flex-row md:space-x-8 mt-[60px]">
@@ -337,7 +332,7 @@ const Main = () => {
 
       <ExtendedStyledDiv>
         <Container>
-          <Typography as="h1" type="h2" primary="secondary" color="primary">
+          <Typography as="h1" type="h2" color="primary">
             Nos Valeurs
           </Typography>
           <CardContainer>
@@ -414,7 +409,7 @@ const Main = () => {
       {/* Nos Forces */}
       <StyledDiv2>
         <Container>
-          <Typography style={{ textAlign: "center" }} as="h1" type="h2" primary="secondary" color="primary">
+          <Typography style={{ textAlign: "center" }} as="h1" type="h2" color="primary">
             Nos Forces
           </Typography>
           <ImageGrid images={images} />

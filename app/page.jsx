@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 //Local Components
 import TopNav from "@/components/ui/topNav";
@@ -8,18 +8,8 @@ import Container from "@/components/layout/Container";
 import MainHeading from "@/components/display/MainHeading";
 import Main from "@/components/layout/Main";
 
-const lineVariants = {
-  hidden: { width: 0 },
-  visible: {
-    width: "100%",
-    transition: {
-      duration: 0.8,
-      ease: "easeInOut",
-    },
-  },
-};
 
-export default async function Homepage() {
+export default function Homepage() {
   return (
     <>
       <BackgroundVideo src="videos/hero-video.mp4">

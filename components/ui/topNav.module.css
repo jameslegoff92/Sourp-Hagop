@@ -34,15 +34,18 @@
   transition: color 0.5s ease;
 }
 
-.portal:hover {
-  color: var(--primary-color);
-  border-color: var(--white);
+.mobile {
+  margin-left: 0;
+  margin-right: 0;
 }
+
 
 .link {
   position: relative;
   color: #fff;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings:
+  "clig" off,
+  "liga" off;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -50,6 +53,43 @@
   line-height: 150%;
   letter-spacing: 0.15px;
   text-decoration: none;
+}
+
+.portalLink:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+  border-color: var(--white);
+}
+
+.portalLink {
+  padding: 0.3125rem 1.6875rem 0.3125rem 1.75rem;
+  border: 2px solid #fff;
+  position: relative;
+  color: #fff;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  margin-left: 3rem;
+  margin-right: 3.25rem;
+  letter-spacing: 0.15px;
+  text-decoration: none;
+  transition:
+    color 1s ease,
+    background-color 0.5s ease;
+}
+
+.portalLinkMobile {
+  position: absolute;
+  margin-left: 0;
+  margin-right: 0;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .navItem {
