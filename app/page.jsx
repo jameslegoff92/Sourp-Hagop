@@ -8,16 +8,6 @@ import Container from "@/components/layout/Container";
 import MainHeading from "@/components/display/MainHeading";
 import Main from "@/components/layout/Main";
 
-const lineVariants = {
-  hidden: { width: 0 },
-  visible: {
-    width: "100%",
-    transition: {
-      duration: 0.8,
-      ease: "easeInOut",
-    },
-  },
-};
 
 export default async function Homepage() {
   return (

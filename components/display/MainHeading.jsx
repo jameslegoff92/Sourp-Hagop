@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
-import Typography from "@/components/display/Typography";
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +11,7 @@ const Container = styled.div`
   gap: var(--spacing-4);
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled.img`
   display: block;
   margin: 0 auto 2.5rem;
   width: clamp(10rem, 30vw, 30rem);
@@ -56,8 +54,8 @@ const LineContainer = styled(motion.div)`
   position: relative;
   top: -1rem;
 
-  @media (max-width: 768px) {
-    top: 0.5rem;  // Adjust this value to move the line lower on mobile
+  @media (max-width: 1112px) {
+    top: 0.1rem;  // Adjust this value to move the line lower on mobile
   }
 `;
 
@@ -177,16 +175,9 @@ function MainHeading() {
         initial="hidden"
         animate="visible"
         variants={lineVariants}
-        style={{
-          height: "1px",
-          backgroundColor: "white",
-          position: "relative",
-          zIndex: -5,
-          top: "-1rem",
-        }}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo.svg" width={300} height={265} alt="logo" />
+        <StyledImage src="images/logo-color.png" width={300} height={265} alt="logo" />
         <TextContainer>
           <MainTitle>Toujours plus haut, toujours plus loin !</MainTitle>
           <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>

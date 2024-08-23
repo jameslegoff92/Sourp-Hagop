@@ -2,14 +2,42 @@
 
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
+import style from "@emotion/styled";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import BackgroundLogo from "@/components/ui/BackgroundLogo";
 
+const Title = style.h1`
+  color: var(--black);
+  font-family: var(--secondary-ff) sans-serif;
+  margin-bottom: 0.5rem;
+  font-size: 2.6875rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%; /* 64.5px */
+  letter-spacing: 0.05rem;
+`;
+
+const Text = style.p`
+  color: var(--black);
+  font-family: var(--primary-ff) sans-serif;
+  margin-bottom: 1rem;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%; /* 64.5px */
+  letter-spacing: 0.05rem;
+`;
+
+const Img = style.img`
+  display: inline-block;
+  width: 500px;
+`;
+
 const ProgressBarContainer = ({ children, style }) => (
   <motion.div
-    className="left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(350vh-80px)] bg-black/10 rounded-md overflow-hidden"
+    className="left-[25%] transform -translate-x-1/2 w-[10px] h-[calc(400vh-80px)] bg-black/10 rounded-md overflow-hidden"
     style={style}
   >
     {children}
@@ -17,20 +45,34 @@ const ProgressBarContainer = ({ children, style }) => (
 );
 
 const ProgressBar = ({ style }) => (
-  <motion.div className="w-full h-full bg-[#007bff] rounded-md origin-top" style={style} />
+  <motion.div
+    className="w-full h-full bg-[#007bff] rounded-md origin-top"
+    style={style}
+  />
 );
 
 const CircleContainer = ({ children, style }) => (
   <div
-    className="left-[25%] transform -translate-x-1/2 h-[calc(350vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
+    className="left-[25%] transform -translate-x-1/2 h-[calc(400vh-80px)] w-[50%] flex flex-col justify-between items-center pointer-events-none z-[2]"
     style={style}
   >
     {children}
   </div>
 );
 
-const CircleWrapper = ({ children, scale, opacity, date, text }) => (
-  <motion.div className="w-full flex items-center justify-center relative" style={{ scale }}>
+const CircleWrapper = ({
+  children,
+  scale,
+  opacity,
+  date,
+  title,
+  text,
+  img,
+}) => (
+  <motion.div
+    className="w-full flex items-center justify-center relative"
+    style={{ transform: "scale(1)" }}
+  >
     <motion.div
       className="absolute right-[calc(50%+4rem)] text-right whitespace-nowrap text-[#007bff] font-bold"
       style={{ opacity, scale }}
@@ -44,22 +86,63 @@ const CircleWrapper = ({ children, scale, opacity, date, text }) => (
       </motion.div>
     </div>
     <motion.div
-      className="absolute left-[calc(50%+7rem)] whitespace-nowrap text-[#007bff] font-bold"
+      className="absolute top-[-20px] h-[500px] w-[650px] left-[55%] font-bold"
       style={{ opacity, scale }}
     >
-      {text}
+      <Title>{title}</Title>
+      <Text>{text}</Text>
+      {img && (
+        <div>
+          <Img src={img} alt="timeline img" />
+        </div>
+      )}
     </motion.div>
   </motion.div>
 );
 
 const timelineData = [
-  { date: "1950", text: "Foundation of the school" },
-  { date: "1975", text: "First major expansion" },
-  { date: "1990", text: "Introduction of new curriculum" },
-  { date: "2000", text: "Technology integration initiative" },
-  { date: "2010", text: "International partnerships established" },
-  { date: "2020", text: "Launch of online learning platform" },
-  { date: "2024", text: "Celebrating 75 years of excellence" },
+  {
+    date: "1950",
+    title: "Foundation of the school",
+    text: "At Sourp Hagop High School Foundation, we believe that a strong educational foundation is the key to unlocking the potential of every student. Our mission is to support and enhance the educational experience at [Your School Name] High School by providing resources, opportunities, and initiatives that empower our students to excel academically, socially, and personally.",
+    img: "/images/timeline1.jpg",
+  },
+  {
+    date: "1975",
+    title: "First major expansion",
+    text: "At [Your School Name] High School Foundation, we believe that a strong educational foundation is the key to unlocking the potential of every student. Our mission is to support and enhance the educational experience at [Your School Name] High School by providing resources, opportunities, and initiatives that empower our students to excel academically, socially, and personally.",
+    img: "/images/timeline1.jpg",
+  },
+  {
+    date: "1990",
+    title: "Introduction of new curriculum",
+    text: "At [Your School Name] High School Foundation, we believe that a strong educational foundation is the key to unlocking the potential of every student. Our mission is to support and enhance the educational experience at [Your School Name] High School by providing resources, opportunities, and initiatives that empower our students to excel academically, socially, and personally.",
+    img: "/images/timeline3.jpg",
+  },
+  {
+    date: "2000",
+    title: "Technology integration initiative",
+    text: "At [Your School Name] High School Foundation, we believe that a strong educational foundation is the key to unlocking the potential of every student. Our mission is to support and enhance the educational experience at [Your School Name] High School by providing resources, opportunities, and initiatives that empower our students to excel academically, socially, and personally.",
+    img: "/images/timeline3.jpg",
+  },
+  {
+    date: "2010",
+    title: "International partnerships established",
+    text: "slfkjlsfjlskfj",
+    img: "/images/timeline3.jpg",
+  },
+  {
+    date: "2020",
+    title: "Launch of online learning platform",
+    text: "slfkjlsfjlskfj",
+    img: "/images/timeline3.jpg",
+  },
+  {
+    date: "2024",
+    title: "Celebrating 75 years of excellence",
+    text: "slfkjlsfjlskfj",
+    img: "",
+  },
 ];
 
 export default function History() {
@@ -85,19 +168,29 @@ export default function History() {
     updateLayout();
   }, []);
 
-  const y = useTransform(scrollY, [elementTop, elementTop + 1], [0, 1], { clamp: false });
+  const y = useTransform(scrollY, [elementTop, elementTop + 1], [0, 1], {
+    clamp: false,
+  });
 
   const scaledProgress = useTransform(scaleY, (value) => value * 1.0);
 
   const circleCount = timelineData.length;
   const circleScales = [...Array(circleCount)].map((_, index) => {
-    return useTransform(scaledProgress, [index / circleCount, (index + 1) / circleCount], [1, 1.5]);
+    return useTransform(
+      scaledProgress,
+      [index / circleCount, (index + 1) / circleCount],
+      [1, 1.5]
+    );
   });
 
   const circleOpacities = [...Array(circleCount)].map((_, index) => {
     return useTransform(
       scaledProgress,
-      [(index - 0.3) / circleCount, index / circleCount, (index + 0.3) / circleCount],
+      [
+        (index - 0.3) / circleCount,
+        index / circleCount,
+        (index + 0.3) / circleCount,
+      ],
       [0.3, 0.2, 1]
     );
   });
@@ -111,7 +204,7 @@ export default function History() {
     <>
       <BackgroundLogo />
       <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
-      <div style={{ position: "relative"}}>
+      <div style={{ position: "relative" }}>
         <div className="h-20" ref={ref} />
         <ProgressBarContainer style={containerStyle}>
           <ProgressBar style={{ scaleY: scaledProgress }} />
@@ -120,16 +213,18 @@ export default function History() {
           {circleScales.map((scale, index) => (
             <CircleWrapper
               key={index}
-              scale={scale}
+              // scale={scale}
               opacity={circleOpacities[index]}
               date={timelineData[index].date}
+              title={timelineData[index].title}
               text={timelineData[index].text}
+              img={timelineData[index].img}
             >
               <Brightness1Icon style={{ color: "#007bff", fontSize: 24 }} />
             </CircleWrapper>
           ))}
         </CircleContainer>
-        <div className="h-[400vh]">
+        <div className="h-[450vh]">
           <p>{/* Your content here */}</p>
         </div>
       </div>
