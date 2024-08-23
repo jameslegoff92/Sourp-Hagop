@@ -83,7 +83,6 @@ const MobileNavContainer = styled.div`
   background-color: var(--primary-color-transparent);
   height: 100vh;
   width: 100vw;
-  overflow-y: hidden;
   position: absolute;
   top: 0;
   left: 0;
@@ -95,14 +94,14 @@ const MobileNavContainer = styled.div`
   }
 `;
 const SecondaryNavigation = styled.div`
-  padding: 2rem 1rem 0;
+  padding: 1rem 1rem 0;
   display: flex;
   row-gap: 1rem;
   gap: 1.5rem;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const SecondaryLink = styled(Link)`
@@ -110,33 +109,38 @@ const SecondaryLink = styled(Link)`
   font-weight: 600;
 `;
 
-const CSSUL = styled.ul`
-`
+const CSSUL = styled.ul``;
 
 const CSSNavDropdown = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   margin: 0 1rem;
-  padding: 2rem 0 0;
+  padding: 1rem 0 0;
 `;
 
 const CSSMobileNavItems = styled(motion.ul)`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.2rem;
   padding-botton: 1rem;
 `;
 
 const CSSMobileNavItem = styled(Link)`
   color: rgba(255, 255, 255, 0.7);
+
+  &:hover {
+    color: var(--white);
+  }
 `;
 
 const CSSMobileNavHeader = styled.li`
   cursor: pointer;
-  font-size: clamp(1rem, 3vw, 2.5rem);
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 0;
+  position: relative;
+  z-index: 2; // To prevent the dropdown from being hidden behind the next dropdown
 `;
 
 const CSSChevronContainer = styled(motion.div)``;
@@ -171,14 +175,12 @@ const MobileNav = ({ open }) => {
     Admissions: false,
   });
 
-  const handleDropdownClick = (e) => {
-    const textContent = e.target.textContent;
+  const handleDropdownClick = (text) => {
+    const title = text;
     setIsDropdownOpen((prevState) => {
-      console.log("prevState: ", prevState);
-      console.log("prevState[textContent]: ", prevState[textContent]);
       return {
         ...prevState,
-        [textContent]: !prevState[textContent], // Toggle the clicked nav item's state
+        [title]: !prevState[title], // Toggle the clicked nav item's state
       };
     });
   };
@@ -197,8 +199,8 @@ const MobileNav = ({ open }) => {
           <PortalLink mobile={true} />
           <CSSUL>
             {navList.map((navItem, index) => (
-              <CSSNavDropdown>
-                <CSSMobileNavHeader key={index} onClick={handleDropdownClick}>
+              <CSSNavDropdown key={index}>
+                <CSSMobileNavHeader  onClick={() => handleDropdownClick(navItem.title)}>
                   {navItem.title}
                   <CSSChevronContainer
                     animate={{
@@ -206,24 +208,21 @@ const MobileNav = ({ open }) => {
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <FaChevronDown style={{ fontSize: "1.4rem" }} />
+                    <FaChevronDown onClick={(e) => { e.stopPropagation(); handleDropdownClick(navItem.title)}}  style={{ fontSize: "1rem" }} />
                   </CSSChevronContainer>
                 </CSSMobileNavHeader>
-
-                {navItem.items.map((item, index) => (
-                  <CSSMobileNavItems
-                    variants={dropdownVariants}
-                    initial="hidden"
-                    animate={
-                      isDropdownOpen[navItem.title] ? "visible" : "hidden"
-                    }
-                  >
+                <CSSMobileNavItems
+                  variants={dropdownVariants}
+                  initial="hidden"
+                  animate={isDropdownOpen[navItem.title] ? "visible" : "hidden"}
+                >
+                  {navItem.items.map((item, index) => (
                     <CSSMobileNavItem href={item.link} key={index}>
                       {" "}
                       {item.text}{" "}
                     </CSSMobileNavItem>
-                  </CSSMobileNavItems>
-                ))}
+                  ))}
+                </CSSMobileNavItems>
               </CSSNavDropdown>
             ))}
           </CSSUL>

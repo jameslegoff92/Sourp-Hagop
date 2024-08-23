@@ -23,21 +23,16 @@ const StyledDiv2 = styled(StyledDiv)`
   padding: 40px 0 100px;
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled.img`
   position: absolute;
-  width: clamp(15rem, 20vw, 85rem);
+  width: clamp(6rem, 20vw, 85rem);
   max-width: 90%;
   height: auto;
   opacity: 0.07;
   z-index: -1;
-  top: 110%;
+  top: 900px;
   left: 50%;
   transform: translateX(-37%);
-
-  @media (max-width: 768px) {
-    width: clamp(10rem, 80vw, 20rem);
-    top: 122%;
-  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -248,7 +243,7 @@ const Calendar = () => {
 };
 
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
-  <div className={`flex flex-col ${!isLast ? "border-r border-blue-300 pr-4 md:pr-8" : ""}`}>
+  <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
     <div className="relative w-full h-48 md:h-[350px] mb-4">
       <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" />
     </div>
