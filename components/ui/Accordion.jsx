@@ -111,8 +111,6 @@ const ImageGrid = styled.div`
   }
 `;
 
-const defaultImage = "../images/staff/_default.jpg";
-
 const ImageItemComponent = ({ src, alt, name, title }) => (
     <ImageItem>
         <img
@@ -797,9 +795,6 @@ const Accordion = () => {
                     name="Sarkis Khachkhachyan"
                     title="Préposé à l'entretien ménager"
                 />
-            </AccordionItem>
-            <AccordionItem title="Conseil d'administration">
-                <p>This is the content for the fourth section.</p>
             </AccordionItem>
 
         </AccordionContainer>

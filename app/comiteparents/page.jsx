@@ -57,6 +57,7 @@ const Image = styled(motion.img)`
 
   @media (max-width: 1110px) {
     width: 100%;
+    align-items: stretch;
   }
 `;
 
@@ -69,8 +70,8 @@ const TextBlock = styled(motion.div)`
   flex: 1;
   overflow: hidden;
 
-  @media (max-width: 768px) {
-    align-items: center;
+  @media (max-width: 1110px) {
+    align-items: left;
     padding: 50px;
   }
 `;
@@ -106,7 +107,7 @@ export default function ComiteParents() {
         };
 
         const observerOptions = {
-            threshold: 0.5, // Adjust threshold as needed
+            threshold: 0.5,
         };
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
