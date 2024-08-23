@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 //Local Components
 import TopNav from "@/components/ui/topNav";
@@ -9,7 +9,7 @@ import MainHeading from "@/components/display/MainHeading";
 import Main from "@/components/layout/Main";
 
 
-export default async function Homepage() {
+export default function Homepage() {
   return (
     <>
       <BackgroundVideo src="videos/hero-video.mp4">

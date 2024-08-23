@@ -1,3 +1,5 @@
+"use client";
+
 import css from './BackgroundVideo.module.css';
 
 const BackgroundVideo = ({ src, children }) => {

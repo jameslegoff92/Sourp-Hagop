@@ -9,7 +9,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 // Components
-import { PortalLink } from "./TopNav";
+import { PortalLink } from "./topNav";
 import NavDropdown from "./NavDropdown";
 
 // Styles
