@@ -8,8 +8,8 @@ const navList = [
   {
     title: "École",
     items: [
-      { text: "Historique", link: "/history" },
-      { text: "Notre Équipe", link: "/team" },
+      { text: "Historique", link: "/historique" },
+      { text: "Notre Équipe", link: "/equipe" },
       { text: "Conseil d'administration", link: "/conseiladministration" },
       { text: "Projet Éducatif", link: "/projeteducatif" },
       { text: "Comité de parents", link: "/comiteparents" },
