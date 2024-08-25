@@ -200,7 +200,9 @@ const MobileNav = ({ open }) => {
           <CSSUL>
             {navList.map((navItem, index) => (
               <CSSNavDropdown key={index}>
-                <CSSMobileNavHeader  onClick={() => handleDropdownClick(navItem.title)}>
+                <CSSMobileNavHeader
+                  onClick={() => handleDropdownClick(navItem.title)}
+                >
                   {navItem.title}
                   <CSSChevronContainer
                     animate={{
@@ -208,7 +210,13 @@ const MobileNav = ({ open }) => {
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <FaChevronDown onClick={(e) => { e.stopPropagation(); handleDropdownClick(navItem.title)}}  style={{ fontSize: "1rem" }} />
+                    <FaChevronDown
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDropdownClick(navItem.title);
+                      }}
+                      style={{ fontSize: "1rem" }}
+                    />
                   </CSSChevronContainer>
                 </CSSMobileNavHeader>
                 <CSSMobileNavItems
@@ -231,9 +239,6 @@ const MobileNav = ({ open }) => {
     </>
   );
 };
-
-//Mobile navigation dropwon
-const MobileNavDropdown = ({ title, items }) => {};
 
 // Navigation menu component
 const Nav = ({ type = "primary", animate = true }) => {
@@ -278,13 +283,15 @@ const Nav = ({ type = "primary", animate = true }) => {
           animate={animationState}
           className={css.logoContainer}
         >
-          <img
-            src="images/logo-alt.png"
-            alt="logo"
-            width={89}
-            height={90}
-            className={css.logo}
-          />
+          <Link href="/">
+            <img
+              src="images/logo-alt.png"
+              alt="logo"
+              width={89}
+              height={90}
+              className={css.logo}
+            />
+          </Link>
           <div className={css.logoText}>
             <p
               className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}
