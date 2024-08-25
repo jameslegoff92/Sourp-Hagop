@@ -72,6 +72,9 @@ const TextBlock = styled(motion.div)`
 
   @media (max-width: 1110px) {
     align-items: left;
+    
+  @media (max-width: 768px) {
+    align-items: center;
     padding: 50px;
   }
 `;
