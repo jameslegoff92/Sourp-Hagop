@@ -31,6 +31,8 @@
   display: none;
 }
 
+
+
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -65,10 +67,6 @@
 @media (min-width: 1114px) {
   .navContainer {
     padding: 3.125rem;
-  }
-
-  .logoText {
-    display: block;
   }
 
   .logo {
@@ -113,7 +111,7 @@
   .nav {
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 80%;
   }
 
   .hamburger {
@@ -123,6 +121,10 @@
 
 @media (min-width: 1287px) {
   .nav {
-    width: 57.9375rem;
+    width: 70%;
+  }
+
+  .logoText {
+    display: block;
   }
 }
