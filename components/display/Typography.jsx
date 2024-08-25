@@ -16,7 +16,7 @@ const headingStyles = {
     font-feature-settings:
       "clig" off,
       "liga" off;
-    font-size: clamp(2.7rem, 5vw, 3.8125rem); //61px
+    font-size: clamp(2.7rem, 5vw, 61px); //61px
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 112.5px */
@@ -37,7 +37,7 @@ const headingStyles = {
     font-feature-settings:
       "clig" off,
       "liga" off;
-    font-size: clamp(2.0rem, 5vw, 3.8125rem); //36px
+    font-size: clamp(2.25rem, 5vw, 2.5rem); //36px - 40px
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 36px */

@@ -44,8 +44,37 @@ const ContentWrapper = styled(motion.div)`
   }
 `;
 
-//CSS For Section 2
+//CSS For Values Section
+const ValuesContainer = styled.div`
+  background-color: var(--secondary-color);
+  padding: 40px 0 100px;
+  position relative;
+  text-align: center;
+`
 
+//Animation for the Values Section
+const listVariants = {
+  initial: {},
+  hover: {},
+};
+
+const itemVariants = {
+  initial: { height: "100%" },
+  hover: {
+    height: "25%",
+    transition: {
+      duration: 0.2,
+    },
+  },
+};
+
+const textVariants = {
+  initial: { opacity: 0 },
+  hover: { opacity: 1, transition: { duration: 2 } },
+};
+
+
+//CSS For the following Section
 const StyledDiv = styled.div`
   text-align: center;
   padding: 40px 0 40px;
@@ -161,25 +190,7 @@ const CardContainer = styled(motion.div)`
   }
 `;
 
-const listVariants = {
-  initial: {},
-  hover: {},
-};
 
-const itemVariants = {
-  initial: { height: "100%" },
-  hover: {
-    height: "25%",
-    transition: {
-      duration: 0.2,
-    },
-  },
-};
-
-const textVariants = {
-  initial: { opacity: 0 },
-  hover: { opacity: 1, transition: { duration: 2 } },
-};
 
 const images = [
   { src: "/images/force1.jpg", alt: "Image 1" },
@@ -380,7 +391,7 @@ const Main = () => {
 
       {/* VALUES SECTION */}
 
-      <ExtendedStyledDiv>
+      <ValuesContainer>
         <Container>
           <Typography as="h1" type="h2" color="primary">
             Nos Valeurs
@@ -484,7 +495,7 @@ const Main = () => {
             </ExtendedMotionDiv>
           </CardContainer>
         </Container>
-      </ExtendedStyledDiv>
+      </ValuesContainer>
 
       {/* Nos Forces */}
       <StyledDiv2>
