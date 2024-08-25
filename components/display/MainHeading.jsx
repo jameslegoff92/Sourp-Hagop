@@ -14,7 +14,7 @@ const Container = styled.div`
 const StyledImage = styled.img`
   display: block;
   margin: 100px auto 2.5rem;
-  width: 30rem;
+  width: 23.5rem;
   padding-left: 67px;
   height: auto;
 `;
@@ -55,7 +55,7 @@ const fadeInVariants = {
     transition: {
       duration: 0.8,
       ease: "easeInOut",
-      delay: 1, // 1 second delay added here
+      delay: 1,
     },
   },
 };
@@ -67,7 +67,7 @@ const lineVariants = {
     transition: {
       duration: 0.8,
       ease: "easeInOut",
-      delay: 1, // 1 second delay added here
+      delay: 1,
     },
   },
 };
@@ -81,7 +81,7 @@ function MainHeading() {
         variants={lineVariants}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo-color.png" alt="logo" />
+        <StyledImage src="images/logo.svg" alt="logo" />
         <TextContainer>
           <MainTitle>Toujours plus haut, toujours plus loin !</MainTitle>
           <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>
