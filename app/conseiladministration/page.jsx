@@ -135,19 +135,19 @@ export default function Team() {
                 <ImageItemsContainer>
                     <ImageItemComponent
                         src="../images/staff/_default.jpg"
-                        alt="Lory Abrakian"
-                        name="Lory Abrakian"
+                        alt="Nom Prénom"
+                        name="Nom Prénom"
                         title="Description"
                     />
                     <ImageItemComponent
                         src="../images/staff/_default.jpg"
-                        alt="Marika Langlois"
-                        name="Marika Langlois"
+                        alt="Nom Prénom"
+                        name="Nom Prénom"
                         title="Description"
                     />
                     <ImageItemComponent
                         src="../images/staff/_default.jpg"
-                        alt="Diane Baygin"
+                        alt="Nom Prénom"
                         name="Diane Baygin"
                         title="Description"
                     />
