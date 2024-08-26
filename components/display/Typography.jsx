@@ -38,6 +38,7 @@ const headingStyles = {
       "clig" off,
       "liga" off;
     font-size: clamp(1rem, 4.3vw, 2rem);
+
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 36px */
