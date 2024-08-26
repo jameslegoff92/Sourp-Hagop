@@ -22,7 +22,7 @@ const MotionDiv = styled(motion.div)`
   display: flex;
   gap: var(--spacing-4);
   flex-direction: column;
-  margin: 100px auto 0;
+  margin: 50px auto 0;
   width: 70%;
 `;
 
