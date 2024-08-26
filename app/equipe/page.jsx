@@ -5,6 +5,7 @@ import Footer from "@/components/ui/Footer";
 import BackgroundLogo from "@/components/ui/BackgroundLogo";
 import Typography from "@/components/display/Typography";
 import Accordion from "@/components/ui/Accordion";
+import CustomButton from "@/components/inputs/Button"
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -25,24 +26,6 @@ const MotionDiv = styled(motion.div)`
   flex-direction: column;
   margin: 100px auto 0;
   width: 70%;
-`;
-
-const ApplyButton = styled(motion.button)`
-  background-color: transparent;
-  border: 2px solid #006096;
-  color: #006096;
-  margin-top: 60px;
-  wdith: 20%;
-  padding: 15px 25px;
-  border-radius: 50px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-
-  &:hover {
-    background-color: #006096;
-    color: #fff;
-  }
 `;
 
 export default function Equipe() {
@@ -74,7 +57,7 @@ export default function Equipe() {
                             as="p"
                             type="h4"
                             color="seondaryDark"
-                            initial={{ opacity: 0, y: 100 }}
+                            initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                             viewport={{ once: true }}
@@ -83,14 +66,15 @@ export default function Equipe() {
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
-                <ApplyButton
+                <CustomButton
                     initial={{ opacity: 0, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.5 }}
                     viewport={{ once: true }}
+                    style={{ marginTop: "50px" }}
                 >
                     Appliquer Maintenant
-                </ApplyButton>
+                </CustomButton>
             </StyledDiv>
             <Footer />
         </>

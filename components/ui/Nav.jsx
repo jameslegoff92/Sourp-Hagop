@@ -28,7 +28,7 @@ const navList = [
       { text: "Comité de parents", link: "/comite-parents" },
       { text: "Fondation", link: "/fondation" },
       { text: "Anciens et anciennes", link: "/anciens" },
-      { text: "Protecteur National de l'élève", link: "/pne" },
+      { text: "Protecteur National de l'élève", link: "/protecteur-national-eleve" },
     ],
   },
   {
@@ -73,7 +73,7 @@ const navList = [
 
 const navItems = [
   { title: "Carrières", url: "/" },
-  { title: "Événements", url: "/about" },
+  { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
   { title: "La Fondation", url: "/contact" },
 ];
