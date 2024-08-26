@@ -37,7 +37,7 @@ const headingStyles = {
     font-feature-settings:
       "clig" off,
       "liga" off;
-    font-size: clamp(2.25rem, 5vw, 2.5rem); //36px - 40px
+    font-size: clamp(28px, 5vw, 32px); //36px - 40px
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 36px */

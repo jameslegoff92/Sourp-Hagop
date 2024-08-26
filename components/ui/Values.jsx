@@ -1,6 +1,5 @@
 import { useRef } from "react";
 
-
 //Third Party Imports
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
@@ -14,14 +13,17 @@ const valueData = [
   {
     title: "Respect",
     text: "À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant leur plein potentiel pour une vie épanouie.",
+    url: "/images/value4.jpg",
   },
   {
     title: "Responsabilité",
     text: "La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en charge leurs actions et à s'engager activement dans leur communauté.",
+    url: "/images/value5.jpg",
   },
   {
     title: "Accomplissement de Soi",
     text: "Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous, créant un environnement de confiance et de considération mutuelle.",
+    url: "/images/value6.jpg",
   },
 ];
 
@@ -29,17 +31,17 @@ const valueData = [
 const styleVariants = {
   0: {
     background:
-      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/value-img-1.png')",
+      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/value-img-1.png'), no-repeat",
     backgroundColor: "var(--tertiary-color)",
   },
   1: {
     background:
-      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/respect.JPG')",
+      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/respect.JPG'), no-repeat",
     backgroundColor: "#006096",
   },
   2: {
     background:
-      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/responsible.JPG')",
+      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/responsible.JPG'), no-repeat",
     backgroundColor: "var(--tertiary-color)",
   },
 };
@@ -58,9 +60,8 @@ const CardContainer = styled(motion.div)`
   gap: var(--spacing-4);
   margin-top: var(--spacing-7);
 
-  @media (min-width: 768px) {
+  @media (min-width: 1093px) {
     flex-direction: row;
-    justify-content: space-between;
   }
 `;
 const ValueWrapper = styled(motion.div)`
@@ -69,20 +70,47 @@ const ValueWrapper = styled(motion.div)`
   flex-direction: column;
   padding-top: var(--spacing-2);
   margin: 0 auto 0;
-  width: 50%;
-  flex-direction: column;
   width: 100%;
   margin-bottom: var(--spacing-4);
 
-  @media (min-width: 768px) {
+  @media (min-width: 48rem) {
+    flex-direction: row;
+  }
+
+  @media (min-width: 68.3125rem) {
     width: calc(33.333% - var(--spacing-4));
     margin-bottom: 0;
   }
 `;
 
+const ImgContainer = styled.div`
+  display: none;
+
+  @media (min-width: 48rem) {
+    display: block;
+    width: 100%;
+    height: 31.25rem;
+  }
+
+  @media (min-width: 68.3125rem) {
+    display: none;
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+`;
+
 const ValueContainer = styled(motion.div)`
   overflow: hidden;
   height: 31.25rem;
+  order: ${(props) => (props.index == 1 ? 1 : 0)};
+
+    @media (min-width: 768px) { 
+    width: 600px;
+  }
 `;
 
 const ValueSubContainer = styled(motion.div)`
@@ -94,6 +122,8 @@ const ValueSubContainer = styled(motion.div)`
   align-items: center;
   height: 100%;
   padding: 0 40px;
+
+
 `;
 
 const TextDiv = styled(motion.div)`
@@ -127,8 +157,7 @@ const ValueItem = ({ value, index }) => {
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();
-  const isOpen = useRef(false);  // Internal flag to track the open/closed state
-
+  const isOpen = useRef(false); // Internal flag to track the open/closed state
 
   const handleHoverStart = async () => {
     await parentControls.start({});
@@ -181,7 +210,7 @@ const ValueItem = ({ value, index }) => {
       });
     }
 
-    isOpen.current = !isOpen.current;  // Toggle the flag
+    isOpen.current = !isOpen.current; // Toggle the flag
   };
 
   return (
@@ -191,6 +220,7 @@ const ValueItem = ({ value, index }) => {
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
         onTap={handleTap}
+        index={index}
       >
         <ValueSubContainer
           index={index}
@@ -214,6 +244,9 @@ const ValueItem = ({ value, index }) => {
           </ValueText>
         </TextDiv>
       </ValueContainer>
+      <ImgContainer>
+        <Img src={value.url} />
+      </ImgContainer>
     </ValueWrapper>
   );
 };
