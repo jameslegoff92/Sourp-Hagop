@@ -26,79 +26,87 @@ const MotionDiv = styled(motion.div)`
   width: 70%;
 `;
 
-const ImageItem = styled.div`
-  display: flex;
-  flex-direction: column;
+const ItemsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem;
+  justify-items: center;
   align-items: center;
-  text-align: center;
+  margin: 50px auto;
+  max-width: 1200px;
+  padding: 0 20px;
 
-  img {
-    width: clamp(15rem, 2vw, 15rem);
-    height: clamp(19rem, 2vw, 15rem);
-    object-fit: cover;
-    margin: 20px 0 10px 0;
+  @media (max-width: 1234px) {
+    grid-template-columns: repeat(2, 1fr);
   }
-  h4 {
-    margin: 10px 0 5px;
-    font-size: 2rem;
-  }
-  p {
-    font-size: 1.5rem;
-    color: #555;
-  }
-`;
-
-const ImageItemsContainer = styled.div`
-  display: flex;
-  padding-top: 40px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 15rem;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 `;
 
-const ImageItemComponent = ({ src, alt, name, title }) => (
-    <ImageItem>
-        <img
-            src={src}
-            alt={alt}
-        />
-        <Typography
-            as="p"
-            type="h4"
-            color="dark"
-            initial={{ opacity: 0, y: 2 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-        >
-            {name}
-        </Typography>
-        <Typography
-            as="p"
-            type="p"
-            color="dark"
-            initial={{ opacity: 0, y: 2 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-        >
-            {title}
-        </Typography>
-    </ImageItem>
+const BlueRectangle = styled(motion.div)`
+  background-color: var(--secondary-color);
+  width: 220px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Slightly offset initially */
+
+  @media (max-width: 1234px) {
+    width: 70%;
+    height: 250px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 200px;
+  }
+`;
+
+const Paragraph = styled.p`
+  padding: 10px 10px;
+  color: #333;
+  font-size: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
+`;
+
+const StyledIcon = styled.img`
+  width: ${(props) => props.size || '80px'};
+  height: ${(props) => props.size || '80px'};
+  padding: 10px 0;
+`;
+
+const RectangleItem = ({ src, text, size, index }) => (
+    <BlueRectangle
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5, delay: index * 0.2 }}
+    >
+        <StyledIcon src={src} alt="" size={size} />
+        <Paragraph>{text}</Paragraph>
+    </BlueRectangle>
 );
 
-export default function Team() {
+export default function ProjetEducatif() {
     return (
         <>
-            <BackgroundLogo />
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header
                 animate={false}
-                imageSrc="../images/conseiladministration-header.jpg"
+                imageSrc="../images/header/projet-educatif-header.jpg"
                 headerText="PROJET EDUCATIF"
-                headerTextTop="-3%"
+                headerTextTop="60%"
             />
 
             <StyledDiv>
@@ -107,12 +115,12 @@ export default function Team() {
                         as="h1"
                         type="h1"
                         color="primary"
-                        initial={{ opacity: 0, y: -200 }}
+                        initial={{ opacity: 0, y: -25 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ amount: "all", margin: "0px 0px -300px 0px", once: true }}
-                        transition={{ duration: 1.7, ease: "easeInOut" }}
+                        viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
+                        transition={{ duration: 0.9, ease: "easeIn" }}
                     >
-                        Rôle et Responsabilités
+                        Notre Mission
                     </Typography>
                     <TextContainer>
                         <Typography
@@ -124,34 +132,49 @@ export default function Team() {
                             transition={{ duration: 1 }}
                             viewport={{ once: true }}
                         >
-                            Le Conseil d'Administration de l'École arménienne Sourp Hagop, composé de parents, anciens élèves et professionnels engagés,
-                            veille au bon fonctionnement de l'école. Il établit les orientations générales, planifie et approuve le budget,
-                            supervise les rénovations majeures, modernise le matériel pédagogique, et s'assure du respect des normes ministérielles.
-                            Le Conseil s'occupe également des relations avec la communauté et veille à répondre aux besoins de l'école et de sa clientèle.
+                            L'école arménienne Sourp Hagop a pour mission d'éduquer, instruire et socialiser chaque élève,
+                            en favorisant sa réussite scolaire et son épanouissement personnel.
+                            Nous transmettons la langue, l'histoire et la culture arméniennes,
+                            tout en préparant chaque élève à s'engager pleinement dans son parcours professionnel et personnel.
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
 
-                <ImageItemsContainer>
-                    <ImageItemComponent
-                        src="../images/staff/_default.jpg"
-                        alt="Nom Prénom"
-                        name="Nom Prénom"
-                        title="Description"
-                    />
-                    <ImageItemComponent
-                        src="../images/staff/_default.jpg"
-                        alt="Nom Prénom"
-                        name="Nom Prénom"
-                        title="Description"
-                    />
-                    <ImageItemComponent
-                        src="../images/staff/_default.jpg"
-                        alt="Nom Prénom"
-                        name="Diane Baygin"
-                        title="Description"
-                    />
-                </ImageItemsContainer>
+                <Typography
+                    as="h1"
+                    type="h1"
+                    color="primary"
+                    initial={{ opacity: 0, y: -25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ amount: "all", margin: "0px 0px -80px 0px", once: true }}
+                    transition={{ duration: 0.9, ease: "easeIn" }}
+                    style={{ marginTop: '80px' }}
+                >
+                    Nos engagements
+                </Typography>
+                <ItemsContainer>
+                    <RectangleItem src="../images/icon/plant.svg" text="Développer le potentiel de chaque élève et lui inculquer les valeurs de l’école." index={0} />
+                    <RectangleItem src="../images/icon/trophy.svg" text="Contribuer à la réussite de chaque élève." index={1} />
+                    <RectangleItem src="../images/icon/handshake.svg" text="Promouvoir la fierté d’appartenir à la communauté scolaire." index={2} />
+                    <RectangleItem src="../images/icon/star.svg" text="Servir de modèles positifs." index={3} />
+                    <RectangleItem src="../images/icon/rocket.svg" text="Être une équipe dynamique, passionnée et innovatrice qui s’entraide et qui collabore." index={4} />
+                    <RectangleItem src="../images/icon/sun.svg" text="Créer un climat de travail positif" index={5} />
+                    <RectangleItem src="../images/icon/school.svg" text="Créer et maintenir des liens de collaboration avec des parents pour la réussite de leurs enfants, dans un esprit de respect mutuel." index={6} />
+                    <RectangleItem src="../images/icon/confetti.svg" text="Célébrer nos succès" index={7} />
+                </ItemsContainer>
+
+                <Typography
+                    as="h1"
+                    type="h1"
+                    color="primary"
+                    initial={{ opacity: 0, y: -50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ amount: "all", margin: "0px 0px -90px 0px", once: true }}
+                    transition={{ duration: 1.7, ease: "easeInOut" }}
+                    style={{ marginTop: '80px' }}
+                >
+                    Orientations Générales
+                </Typography>
             </StyledDiv>
             <Footer />
         </>

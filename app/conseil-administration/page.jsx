@@ -90,13 +90,13 @@ const ImageItemComponent = ({ src, alt, name, title }) => (
     </ImageItem>
 );
 
-export default function Team() {
+export default function ConseilAdministration() {
     return (
         <>
-            <BackgroundLogo />
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header
                 animate={false}
-                imageSrc="../images/conseiladministration-header.jpg"
+                imageSrc="../images/header/conseil-administration-header.jpg"
                 headerText="CONSEIL ADMINISTRATION"
                 headerTextTop="-3%"
             />

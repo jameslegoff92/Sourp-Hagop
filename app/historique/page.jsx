@@ -145,7 +145,7 @@ const timelineData = [
   },
 ];
 
-export default function History() {
+export default function Historique() {
   const { scrollY, scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 500,
@@ -202,8 +202,8 @@ export default function History() {
 
   return (
     <>
-      <BackgroundLogo />
-      <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
       <div style={{ position: "relative" }}>
         <div className="h-20" ref={ref} />
         <ProgressBarContainer style={containerStyle}>

@@ -128,10 +128,12 @@ export default function ComiteParents() {
 
     return (
         <>
-            <BackgroundLogo />
+            <BackgroundLogo src="../images/comite-parents.jpg" style={{
+                marginLeft: '0',
+            }} />
             <Header
                 animate={false}
-                imageSrc="../images/parent-header.jpg"
+                imageSrc="../images/header/parent-header.jpg"
                 headerText="COMITÉ DE PARENTS"
                 headerTextTop="60%"
             />

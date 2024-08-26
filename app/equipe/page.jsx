@@ -45,12 +45,12 @@ const ApplyButton = styled(motion.button)`
   }
 `;
 
-export default function Team() {
+export default function Equipe() {
 
     return (
         <>
-            <BackgroundLogo />
-            <Header animate = {false} imageSrc="../images/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            <Header animate = {false} imageSrc="../images/header/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
 
             <StyledDiv>
                 <MotionDiv>
