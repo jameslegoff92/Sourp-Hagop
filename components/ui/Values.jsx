@@ -6,26 +6,39 @@ import { motion, useAnimation } from "framer-motion";
 import Typography from "../display/Typography";
 import Container from "../layout/Container";
 
-//Animation for the Values Section
-const listVariants = {
-  initial: {},
-  hover: {},
-};
-
-const itemVariants = {
-  initial: { height: "100%" },
-  hover: {
-    height: "25%",
-    transition: {
-      duration: 0.2,
-    },
+//Data Structure for the Value Component
+const valueData = [
+  {
+    title: "Respect",
+    text: "À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant leur plein potentiel pour une vie épanouie.",
   },
+  {
+    title: "Responsabilité",
+    text: "La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en charge leurs actions et à s'engager activement dans leur communauté.",
+  },
+  {
+    title: "Accomplissement de Soi",
+    text: "Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous, créant un environnement de confiance et de considération mutuelle.",
+  },
+];
+
+//CSS Style Variants
+const styleVariants = {
+  0: {
+    background: "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/value-img-1.png')",
+    backgroundColor: "var(--tertiary-color)",
+
+  },
+  1: {
+    background: "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/respect.JPG')",
+    backgroundColor: "#006096"
+  },
+  2: {
+    background: "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/responsible.JPG')",
+    backgroundColor: "var(--tertiary-color)"
+  }
 };
 
-const textVariants = {
-  initial: { opacity: 0 },
-  hover: { opacity: 1 },
-};
 
 //CSS For Values Section
 const ValuesContainer = styled.div`
@@ -46,7 +59,7 @@ const CardContainer = styled(motion.div)`
     justify-content: space-between;
   }
 `;
-const ExtendedMotionDiv = styled(motion.div)`
+const ValueWrapper = styled(motion.div)`
   display: flex;
   gap: var(--spacing-4);
   flex-direction: column;
@@ -69,10 +82,7 @@ const ValueContainer = styled(motion.div)`
 `;
 
 const ValueSubContainer = styled(motion.div)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/value-img-1.png"); // Replace with your image URL
+  background: ${(props) => styleVariants[props.index].background};
   background-size: cover; // Ensures the image covers the whole div
   background-position: center; // Centers the image
   display: flex;
@@ -82,30 +92,13 @@ const ValueSubContainer = styled(motion.div)`
   padding: 0 40px;
 `;
 
-const ValueSubContainer2 = styled(ValueSubContainer)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/respect.JPG"); // Replace with your image URL
-`;
-
-const ValueSubContainer3 = styled(ValueSubContainer)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/responsible.JPG"); // Replace with your image URL
-`;
-
 const ValueText = styled(Typography)`
   font-size: 0.9rem;
+  color: ${(props) => props.index == 1 ? "#fff" : "var(--black)"};
 
   @media (min-width: 768px) {
     font-size: 1rem;
   }
-`;
-
-const ValueText2 = styled(ValueText)`
-  color: #fff;
 `;
 
 const TextDiv = styled(motion.div)`
@@ -114,7 +107,7 @@ const TextDiv = styled(motion.div)`
   align-items: center;
   padding: 2rem 1rem;
   height: auto;
-  background-color: var(--tertiary-color);
+  background-color: ${(props) => styleVariants[props.index].backgroundColor};
 
   @media (min-width: 768px) {
     padding: 6rem 4rem 0;
@@ -122,11 +115,7 @@ const TextDiv = styled(motion.div)`
   }
 `;
 
-const TextDiv2 = styled(TextDiv)`
-  background-color: #006096;
-`;
-
-const Values = () => {
+const ValueItem = ({ value, index }) => {
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();
@@ -140,7 +129,7 @@ const Values = () => {
     await childControls2.start({
       scale: 1.2,
       opacity: 1,
-      transition: { duration: 1 },
+      transition: { duration: 0.5 },
     });
   };
 
@@ -158,6 +147,40 @@ const Values = () => {
   };
 
   return (
+    <ValueWrapper>
+      <ValueContainer
+        animate={parentControls}
+        onHoverStart={handleHoverStart}
+        onHoverEnd={handleHoverEnd}
+      >
+        <ValueSubContainer
+          index={index}
+          initial={{ height: "100%" }}
+          animate={childControls1}
+        >
+          <Typography as="h1" type="h4" color="light" fontFamily="secondary">
+            {value.title}
+          </Typography>
+        </ValueSubContainer>
+        <TextDiv index={index}>
+          <ValueText
+            index={index}
+            as="p"
+            type="h6"
+            fontFamily="secondary"
+            initial={{ opacity: 0 }}
+            animate={childControls2}
+          >
+            {value.text}
+          </ValueText>
+        </TextDiv>
+      </ValueContainer>
+    </ValueWrapper>
+  );
+};
+
+const Values = () => {
+  return (
     <>
       <ValuesContainer>
         <Container>
@@ -165,104 +188,9 @@ const Values = () => {
             Nos Valeurs
           </Typography>
           <CardContainer>
-            <ExtendedMotionDiv>
-              <ValueContainer
-                animate={parentControls}
-                onHoverStart={handleHoverStart}
-                onHoverEnd={handleHoverEnd}
-              >
-                <ValueSubContainer2
-                  initial={{ height: "100%" }}
-                  animate={childControls1}
-                >
-                  <Typography
-                    as="h1"
-                    type="h4"
-                    color="light"
-                    fontFamily="secondary"
-                  >
-                    RESPECT
-                  </Typography>
-                </ValueSubContainer2>
-                <TextDiv variants={{}}>
-                  <ValueText
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    initial={{ opacity: 0 }}
-                    animate={childControls2}
-                  >
-                    À Sourp Hagop, nous aidons nos élèves à atteindre
-                    l'accomplissement de soi en découvrant et développant leur
-                    plein potentiel pour une vie épanouie.
-                  </ValueText>
-                </TextDiv>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-            <ExtendedMotionDiv>
-              <ValueContainer
-                inital="initial"
-                whileHover="hover"
-                variants={listVariants}
-              >
-                <ValueSubContainer3 variants={itemVariants}>
-                  <Typography
-                    as="h1"
-                    type="h4"
-                    color="light"
-                    fontFamily="secondary"
-                  >
-                    RESPONSABILITÉ
-                  </Typography>
-                </ValueSubContainer3>
-                <TextDiv2>
-                  <ValueText2
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    La responsabilité nous rend autonomes. À Sourp Hagop, nous
-                    encourageons les élèves à prendre en charge leurs actions et
-                    à s'engager activement dans leur communauté.
-                  </ValueText2>
-                </TextDiv2>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-            <ExtendedMotionDiv>
-              <ValueContainer
-                inital="initial"
-                whileHover="hover"
-                variants={listVariants}
-              >
-                <ValueSubContainer variants={itemVariants}>
-                  <Typography
-                    as="h1"
-                    type="h4"
-                    color="light"
-                    fontFamily="secondary"
-                  >
-                    ACOMPLISSEMENT DE SOI
-                  </Typography>
-                </ValueSubContainer>
-                <TextDiv>
-                  <ValueText
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    Le respect est essentiel. À l'école arménienne Sourp Hagop,
-                    nous valorisons le respect envers tous, créant un
-                    environnement de confiance et de considération mutuelle
-                  </ValueText>
-                </TextDiv>
-              </ValueContainer>
-            </ExtendedMotionDiv>
+            {valueData.map((value, index) => (
+              <ValueItem key={index} value={value} index={index} />
+            ))}
           </CardContainer>
         </Container>
       </ValuesContainer>
