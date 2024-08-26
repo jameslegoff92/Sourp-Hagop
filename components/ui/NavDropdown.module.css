@@ -17,6 +17,7 @@
   align-items: flex-start;
   background-color: var(--white);
   position: relative;
+  z-index: 2;
 }
 
 
