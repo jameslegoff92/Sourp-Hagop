@@ -283,7 +283,7 @@ const Nav = ({ type = "primary", animate = true }) => {
           animate={animationState}
           className={css.logoContainer}
         >
-          <Link href="/">
+          <Link href="/" style={{ display: "flex", gap: "4px"}}>
             <img
               src="images/logo-alt.png"
               alt="logo"
@@ -291,29 +291,29 @@ const Nav = ({ type = "primary", animate = true }) => {
               height={90}
               className={css.logo}
             />
+            <div className={css.logoText}>
+              <p
+                className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                L'ÉCOLE ARMÉNIENNE
+              </p>
+              <p
+                className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                SOURP HAGOP
+              </p>
+              <p
+                className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                ÉCOLE PRIMAIRE V. ET A. SAFARIAN
+              </p>
+              <p
+                className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                ÉCOLE SECONDAIRE PASDERMAJIAN
+              </p>
+            </div>
           </Link>
-          <div className={css.logoText}>
-            <p
-              className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              L'ÉCOLE ARMÉNIENNE
-            </p>
-            <p
-              className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              SOURP HAGOP
-            </p>
-            <p
-              className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              ÉCOLE PRIMAIRE V. ET A. SAFARIAN
-            </p>
-            <p
-              className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              ÉCOLE SECONDAIRE PASDERMAJIAN
-            </p>
-          </div>
         </motion.div>
         <motion.ul
           className={css.nav}
