@@ -23,9 +23,9 @@ const navList = [
     items: [
       { text: "Historique", link: "/historique" },
       { text: "Notre Équipe", link: "/equipe" },
-      { text: "Conseil d'administration", link: "/conseiladministration" },
-      { text: "Projet Éducatif", link: "/projeteducatif" },
-      { text: "Comité de parents", link: "/comiteparents" },
+      { text: "Conseil d'administration", link: "/conseil-administration" },
+      { text: "Projet Éducatif", link: "/projet-educatif" },
+      { text: "Comité de parents", link: "/comite-parents" },
       { text: "Fondation", link: "/fondation" },
       { text: "Anciens et anciennes", link: "/anciens" },
       { text: "Protecteur National de l'élève", link: "/pne" },
@@ -42,12 +42,12 @@ const navList = [
   {
     title: "Vie Étudiante",
     items: [
-      { text: "Vie Communautaire", link: "/viecommunautaire" },
+      { text: "Vie Communautaire", link: "/vie-communautaire" },
       { text: "Voyages", link: "/voyages" },
-      { text: "Activités Parascolaires", link: "/activitesparascolaires" },
+      { text: "Activités Parascolaires", link: "/activites-parascolaires" },
       { text: "Équipe des Aigles", link: "/aigles" },
-      { text: "Conseil étudiant", link: "/conseiletudiant" },
-      { text: "Sorties Scolaires", link: "/sortiesscolaires" },
+      { text: "Conseil étudiant", link: "/conseil-etudiant" },
+      { text: "Sorties Scolaires", link: "/sorties-scolaires" },
     ],
   },
   {
@@ -56,16 +56,16 @@ const navList = [
       { text: "Soutien aux élèves", link: "/soutien" },
       { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
       { text: "Bibliothèque", link: "/bibliotheque" },
-      { text: "Service de Garde", link: "/servicedegarde" },
+      { text: "Service de Garde", link: "/service-de-garde" },
       { text: "Transport", link: "/transport" },
-      { text: "Uniforme Scolaire", link: "/uniformescolaire" },
+      { text: "Uniforme Scolaire", link: "/uniforme-scolaire" },
     ],
   },
   {
     title: "Admissions",
     items: [
       { text: "Pourquoi Sourp Hagop", link: "/pourquoi" },
-      { text: "Demande d'Admission", link: "/demandeadmission" },
+      { text: "Demande d'Admission", link: "/admissions" },
       { text: "Droits de scolarité et autres frais", link: "/droits" },
     ],
   },
@@ -203,7 +203,9 @@ const MobileNav = ({ open }) => {
           <CSSUL>
             {navList.map((navItem, index) => (
               <CSSNavDropdown key={index}>
-                <CSSMobileNavHeader  onClick={() => handleDropdownClick(navItem.title)}>
+                <CSSMobileNavHeader
+                  onClick={() => handleDropdownClick(navItem.title)}
+                >
                   {navItem.title}
                   <CSSChevronContainer
                     animate={{
@@ -211,7 +213,13 @@ const MobileNav = ({ open }) => {
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <FaChevronDown onClick={(e) => { e.stopPropagation(); handleDropdownClick(navItem.title)}}  style={{ fontSize: "1rem" }} />
+                    <FaChevronDown
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDropdownClick(navItem.title);
+                      }}
+                      style={{ fontSize: "1rem" }}
+                    />
                   </CSSChevronContainer>
                 </CSSMobileNavHeader>
                 <CSSMobileNavItems
@@ -234,9 +242,6 @@ const MobileNav = ({ open }) => {
     </>
   );
 };
-
-//Mobile navigation dropwon
-const MobileNavDropdown = ({ title, items }) => {};
 
 // Navigation menu component
 const Nav = ({ type = "primary", animate = true }) => {
@@ -281,13 +286,15 @@ const Nav = ({ type = "primary", animate = true }) => {
           animate={animationState}
           className={css.logoContainer}
         >
-          <img
-            src="images/logo-alt.png"
-            alt="logo"
-            width={89}
-            height={90}
-            className={css.logo}
-          />
+          <Link href="/">
+            <img
+              src="images/logo-alt.png"
+              alt="logo"
+              width={89}
+              height={90}
+              className={css.logo}
+            />
+          </Link>
           <div className={css.logoText}>
             <p
               className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}

@@ -11,10 +11,10 @@ const BackgroundImageContainer = ({ children, style }) => (
 );
 
 const BackgroundImage = ({ src }) => (
-    <img src={src} className="w-full max-w-[800px] h-[auto] object-contain opacity-10 ml-[200px]" />
+    <img src={src} className="w-full max-w-[800px] h-[auto] object-contain opacity-10" />
 );
 
-const BackgroundLogo = () => {
+const BackgroundLogo = ( {src, style} ) => {
 
     const { scrollY, scrollYProgress } = useScroll();
     const ref = useRef(null);
@@ -47,8 +47,8 @@ const BackgroundLogo = () => {
 
     return (
         <>
-            <BackgroundImageContainer style={{ y: backgroundY, opacity: backgroundOpacity }}>
-                <BackgroundImage src="../images/logo-big.svg" />
+            <BackgroundImageContainer style={{ y: backgroundY, opacity: backgroundOpacity, ...style }}>
+                <BackgroundImage src={ src } />
             </BackgroundImageContainer>
         </>
     );
