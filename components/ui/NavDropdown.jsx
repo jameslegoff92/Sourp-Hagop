@@ -25,7 +25,7 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
 
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={css.container}>
-      <NavItem color={navColor} hover={hoverColor} title={title} main={true}/>
+      <NavItem  color={navColor} hover={hoverColor} title={title} main={true} isHovered={isHovered}/>
 
       {isHovered && (
         <div className={css.wrapper} onMouseLeave={handleMouseLeave}   >
