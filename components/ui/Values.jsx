@@ -1,3 +1,6 @@
+import { useRef } from "react";
+
+
 //Third Party Imports
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
@@ -25,20 +28,21 @@ const valueData = [
 //CSS Style Variants
 const styleVariants = {
   0: {
-    background: "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/value-img-1.png')",
+    background:
+      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/value-img-1.png')",
     backgroundColor: "var(--tertiary-color)",
-
   },
   1: {
-    background: "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/respect.JPG')",
-    backgroundColor: "#006096"
+    background:
+      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/respect.JPG')",
+    backgroundColor: "#006096",
   },
   2: {
-    background: "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/responsible.JPG')",
-    backgroundColor: "var(--tertiary-color)"
-  }
+    background:
+      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/responsible.JPG')",
+    backgroundColor: "var(--tertiary-color)",
+  },
 };
-
 
 //CSS For Values Section
 const ValuesContainer = styled.div`
@@ -92,22 +96,13 @@ const ValueSubContainer = styled(motion.div)`
   padding: 0 40px;
 `;
 
-const ValueText = styled(Typography)`
-  font-size: 0.9rem;
-  color: ${(props) => props.index == 1 ? "#fff" : "var(--black)"};
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
-`;
-
 const TextDiv = styled(motion.div)`
+  background-color: ${(props) => styleVariants[props.index].backgroundColor};
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
-  height: auto;
-  background-color: ${(props) => styleVariants[props.index].backgroundColor};
+  padding: 6rem 1rem;
+  height: 100%;
 
   @media (min-width: 768px) {
     padding: 6rem 4rem 0;
@@ -115,10 +110,25 @@ const TextDiv = styled(motion.div)`
   }
 `;
 
+const ValueText = styled(Typography)`
+  color: ${(props) => (props.index == 1 ? "#fff" : "var(--black)")};
+  font-size: 0.9rem;
+  width: 75%;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+    width: 100%;
+  }
+`;
+
+//ValueItem Component
 const ValueItem = ({ value, index }) => {
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();
+  const isOpen = useRef(false);  // Internal flag to track the open/closed state
+
 
   const handleHoverStart = async () => {
     await parentControls.start({});
@@ -146,12 +156,41 @@ const ValueItem = ({ value, index }) => {
     });
   };
 
+  const handleTap = async () => {
+    if (isOpen.current) {
+      // If the element is in its initial state (scale: 1), expand it
+      await childControls1.start({
+        height: "100%",
+        transition: { duration: 0.3 },
+      });
+      await childControls2.start({
+        scale: 1,
+        opacity: 0,
+        transition: { duration: 0.2 },
+      });
+    } else {
+      // If the element is expanded, collapse it back to its original size
+      await childControls1.start({
+        height: "25%",
+        transition: { duration: 0.3 },
+      });
+      await childControls2.start({
+        scale: 1.2,
+        opacity: 1,
+        transition: { duration: 0.5 },
+      });
+    }
+
+    isOpen.current = !isOpen.current;  // Toggle the flag
+  };
+
   return (
     <ValueWrapper>
       <ValueContainer
         animate={parentControls}
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
+        onTap={handleTap}
       >
         <ValueSubContainer
           index={index}
@@ -179,6 +218,7 @@ const ValueItem = ({ value, index }) => {
   );
 };
 
+//Values Component: Used to simply map() the ValueItem Component
 const Values = () => {
   return (
     <>
