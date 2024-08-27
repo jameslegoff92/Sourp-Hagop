@@ -3,41 +3,59 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
 import Typography from "../display/Typography";
-import { easeIn, motion } from "framer-motion";
+import Values from "../ui/Values";
+import { motion } from "framer-motion";
 import Container from "./Container";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "../ui/Footer";
 
+//CSS For Section1
+const Section1 = styled.section`
+  text-align: center;
+  padding: 2.5rem 0 2.5rem;
+  position relative;
+  
+  @media (min-width: 650px) {
+    height: 37.5rem;
+  }
+`;
+
+const StyledImage = styled.img`
+  position: absolute;
+  width: clamp(15rem, 60vw, 35rem);
+  max-width: 90%;
+  height: auto;
+  opacity: 0.07;
+  z-index: -1;
+  left: 50%;
+  transform: translateX(-37%);
+`;
+
+const ContentWrapper = styled(motion.div)`
+  display: flex;
+  gap: var(--spacing-4);
+  flex-direction: column;
+  padding-top: var(--spacing-2);
+  margin: 0 auto 0;
+  width: 90%;
+  max-width: 1000px;
+
+  @media (min-width: 1024px) {
+    padding-top: var(--spacing-8);
+  }
+`;
+
+
+
+//CSS For the following Section
 const StyledDiv = styled.div`
   text-align: center;
   padding: 40px 0 40px;
   position relative;
 `;
 
-const ExtendedStyledDiv = styled(StyledDiv)`
-  background-color: var(--secondary-color);
-  padding: 40px 0 100px;
-`;
-
 const StyledDiv2 = styled(StyledDiv)`
   padding: 40px 0 100px;
-`;
-
-const StyledImage = styled(Image)`
-  position: absolute;
-  width: clamp(15rem, 20vw, 85rem);
-  max-width: 90%;
-  height: auto;
-  opacity: 0.07;
-  z-index: -1;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-37%);
-
-  @media (max-width: 768px) {
-    width: clamp(10rem, 80vw, 20rem);
-    top: 122%;
-  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -49,65 +67,9 @@ const MotionDiv = styled(motion.div)`
   width: 50%;
 `;
 
-const ExtendedMotionDiv = styled(MotionDiv)`
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: var(--spacing-4);
-
-  @media (min-width: 768px) {
-    width: calc(33.333% - var(--spacing-4));
-    margin-bottom: 0;
-  }
-`;
-
 const TextContainer = styled.div`
   width: 100%;
   margin: 0 auto;
-`;
-
-const ValueContainer = styled(motion.div)`
-  overflow: hidden;
-  height: 31.25rem;
-`;
-
-const ValueSubContainer = styled(motion.div)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/value-img-1.png"); // Replace with your image URL
-  background-size: cover; // Ensures the image covers the whole div
-  background-position: center; // Centers the image
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 0 40px;
-`;
-
-const ValueSubContainer2 = styled(ValueSubContainer)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/respect.JPG"); // Replace with your image URL
-`;
-
-const ValueSubContainer3 = styled(ValueSubContainer)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/responsible.JPG"); // Replace with your image URL
-`;
-
-const ValueText = styled(Typography)`
-  font-size: 0.9rem;
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
-`;
-
-const ValueText2 = styled(ValueText)`
-  color: #fff;
 `;
 
 const TextDiv = styled.div`
@@ -140,25 +102,7 @@ const CardContainer = styled(motion.div)`
   }
 `;
 
-const listVariants = {
-  initial: {},
-  hover: {},
-};
 
-const itemVariants = {
-  initial: { height: "100%" },
-  hover: {
-    height: "25%",
-    transition: {
-      duration: 0.2,
-    },
-  },
-};
-
-const textVariants = {
-  initial: { opacity: 0 },
-  hover: { opacity: 1, transition: { duration: 2 } },
-};
 
 const images = [
   { src: "/images/force1.jpg", alt: "Image 1" },
@@ -185,7 +129,11 @@ const ImageGrid = ({ images }) => {
             viewport={{ once: true }}
             transition={{ duration: 1, delay: index * 0.3 }}
           >
-            <img src={image.src} alt={image.alt} className="w-full h-full object-cover rounded-lg" />
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-full object-cover rounded-lg"
+            />
           </motion.div>
         ))}
       </div>
@@ -197,8 +145,14 @@ const CalendarDay = ({ day, month, event, isActive }) => (
   <div className={`flex flex-col items-center ${isActive ? "relative" : ""}`}>
     <span className="text-xs uppercase mb-1">{month}</span>
     <span className="text-4xl font-bold mb-1">{day}</span>
-    {event && <span className="text-[10px] text-center max-w-[100px] leading-tight">{event}</span>}
-    {isActive && <div className="absolute top-[-16px] left-[70px] w-2 h-2 bg-white rounded-full" />}
+    {event && (
+      <span className="text-[10px] text-center max-w-[100px] leading-tight">
+        {event}
+      </span>
+    )}
+    {isActive && (
+      <div className="absolute top-[-16px] left-[70px] w-2 h-2 bg-white rounded-full" />
+    )}
   </div>
 );
 
@@ -206,7 +160,7 @@ const Calendar = () => {
   return (
     <div className="bg-[#006096] text-white py-12 px-6 font-sans">
       <div className="max-w-4xl mx-auto text-center py-4">
-        <Typography as="h1" type="h2" primary="secondary" color="light">
+        <Typography as="h1" type="h2" color="light">
           CALENDRIER
         </Typography>
         <div className="flex justify-between items-center mt-[60px] mb-8">
@@ -248,9 +202,9 @@ const Calendar = () => {
 };
 
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
-  <div className={`flex flex-col ${!isLast ? "border-r border-blue-300 pr-4 md:pr-8" : ""}`}>
+  <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
     <div className="relative w-full h-48 md:h-[350px] mb-4">
-      <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" />
+      <Image src={imageSrc} alt={title} style={{ objectFit: "cover" }} fill />
     </div>
     <h3 className="font-normal text-left mb-2">{title}</h3>
     <div className="flex-grow" />
@@ -264,8 +218,10 @@ const LatestNews = () => {
   const newsItems = [
     {
       imageSrc: "/images/blogimg1.jpg",
-      title: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
-      description: "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
+      title:
+        "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
+      description:
+        "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
     },
     {
       imageSrc: "/images/blogimg2.jpg",
@@ -276,14 +232,16 @@ const LatestNews = () => {
     },
     {
       imageSrc: "/images/blogimg3.jpg",
-      title: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
-      description: "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
+      title:
+        "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
+      description:
+        "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
     },
   ];
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Typography as="h1" type="h2" primary="secondary" color="primary">
+      <Typography as="h1" type="h2" color="primary">
         DERNIÈRES NOUVELLES
       </Typography>
       <div className="flex flex-col md:flex-row md:space-x-8 mt-[60px]">
@@ -300,17 +258,24 @@ const LatestNews = () => {
 const Main = () => {
   return (
     <>
-      <StyledDiv>
-        <StyledImage src="/images/logo-big.svg" alt="transparent logo image" width={635} height={558} />
-        <MotionDiv>
+      <Section1>
+        <StyledImage
+          src="/images/logo-big.svg"
+          alt="transparent logo image"
+        />
+        <ContentWrapper>
           <Typography
             as="h1"
             type="h1"
             color="primary"
-            initial={{ opacity: 0, y: -200 }}
+            initial={{ opacity: 0, y: -25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: "all", margin: "0px 0px -300px 0px", once: true }}
-            transition={{ duration: 1.7, ease: "easeInOut" }}
+            viewport={{
+              amount: "all",
+              margin: "0px 0px -100px 0px",
+              once: true,
+            }}
+            transition={{ duration: 0.9, ease: "easeIn" }}
           >
             Pourquoi choisir Sourp Hagop ?
           </Typography>
@@ -324,97 +289,31 @@ const Main = () => {
               transition={{ duration: 1.7, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar, mauris vitae bibendum dictum, tellus
-              velit fermentum dolor, rutrum porta est velit varius ligula. Vestibulum at finibus diam. Fusce commodo
-              risus nulla, eleifend mattis mi pharetra a. Fusce vitae elit id ipsum mattis vulputate. Aliquam quis dolor
-              ligula. Nulla facilisi. In hac habitasse platea dictumst. Cras sed tellus est.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              pulvinar, mauris vitae bibendum dictum, tellus velit fermentum
+              dolor, rutrum porta est velit varius ligula. Vestibulum at finibus
+              diam. Fusce commodo risus nulla, eleifend mattis mi pharetra a.
+              Fusce vitae elit id ipsum mattis vulputate. Aliquam quis dolor
+              ligula. Nulla facilisi. In hac habitasse platea dictumst. Cras sed
+              tellus est.
             </Typography>
           </TextContainer>
-        </MotionDiv>
-      </StyledDiv>
+        </ContentWrapper>
+      </Section1>
 
-      {/* VALUES SECTION */}
+      <Values/>
 
-      <ExtendedStyledDiv>
-        <Container>
-          <Typography as="h1" type="h2" primary="secondary" color="primary">
-            Nos Valeurs
-          </Typography>
-          <CardContainer>
-            <ExtendedMotionDiv>
-              <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-                <ValueSubContainer2 variants={itemVariants}>
-                  <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                    RESPECT
-                  </Typography>
-                </ValueSubContainer2>
-                <TextDiv>
-                  <ValueText
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et
-                    développant leur plein potentiel pour une vie épanouie.
-                  </ValueText>
-                </TextDiv>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-            <ExtendedMotionDiv>
-              <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-                <ValueSubContainer3 variants={itemVariants}>
-                  <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                    RESPONSABILITÉ
-                  </Typography>
-                </ValueSubContainer3>
-                <TextDiv2>
-                  <ValueText2
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en
-                    charge leurs actions et à s'engager activement dans leur communauté.
-                  </ValueText2>
-                </TextDiv2>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-            <ExtendedMotionDiv>
-              <ValueContainer inital="initial" whileHover="hover" variants={listVariants}>
-                <ValueSubContainer variants={itemVariants}>
-                  <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-                    ACOMPLISSEMENT DE SOI
-                  </Typography>
-                </ValueSubContainer>
-                <TextDiv>
-                  <ValueText
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous,
-                    créant un environnement de confiance et de considération mutuelle
-                  </ValueText>
-                </TextDiv>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-          </CardContainer>
-        </Container>
-      </ExtendedStyledDiv>
+
 
       {/* Nos Forces */}
       <StyledDiv2>
         <Container>
-          <Typography style={{ textAlign: "center" }} as="h1" type="h2" primary="secondary" color="primary">
+          <Typography
+            style={{ textAlign: "center" }}
+            as="h1"
+            type="h2"
+            color="primary"
+          >
             Nos Forces
           </Typography>
           <ImageGrid images={images} />

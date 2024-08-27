@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import css from './Footer.module.css';
@@ -55,7 +57,7 @@ const Footer = () => (
             <nav className={css.verticalWordsContainerLeft}>
                 <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">CARRIÈRES</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">ÉVÉNEMETS</AnimatedMenuLink>
+                <AnimatedMenuLink href="#">CALENDRIER</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">LA FONDATION</AnimatedMenuLink>
                 <AnimatedMenuLink href="#">
                     <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>

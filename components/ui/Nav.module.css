@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .logo {
@@ -63,23 +64,19 @@
 
 @media (min-width: 1114px) {
   .navContainer {
-    padding: 3.125rem;
-  }
-
-  .logoText {
-    display: block;
+    padding: 1.5rem;
   }
 
   .logo {
-    width: 89px;
-    height: 78px;
+    width: 85px;
+    height: 73px;
   }
 
   .logoTextItem {
     color: #000;
     font-feature-settings: "clig" off, "liga" off;
     font-family: "Times New Roman";
-    font-size: 12.24px;
+    font-size: 12.2px;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
@@ -112,7 +109,7 @@
   .nav {
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 80%;
   }
 
   .hamburger {
@@ -122,6 +119,10 @@
 
 @media (min-width: 1287px) {
   .nav {
-    width: 57.9375rem;
+    width: 70%;
+  }
+
+  .logoText {
+    display: block;
   }
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
@@ -24,23 +26,14 @@ const ArrowDown = styled(KeyboardArrowDownIcon)`
   color: ${({ color }) => color};
 `;
 
-const NavItem = ({ title, color, hover = 'primary' }) => {
-  const [navHover, setNavHover] = useState(false);
+const NavItem = ({ title, color, hover = 'primary', isHovered }) => {
 
-  const iconRotate = navHover ? -180 : 0;
-  const animationColor = navHover ? hover : color;
+  const iconRotate = isHovered ? -180 : 0;
+  const animationColor = isHovered ? hover : color;
   const time = 0.3;
 
-  const handleMouseEnter = () => {
-    setNavHover(true);
-  };
-
-  const handleMouseLeave = () => {
-    setNavHover(false);
-  };
-
   return (
-    <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <Container >
       <Title color={color} animate={{ color: animationColor }} transition={{ duration: time }}>
         {title}
       </Title>

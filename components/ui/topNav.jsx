@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import styled from "@emotion/styled";
 import css from "./topNav.module.css";
 import Container from "@/components/layout/Container";
 import { motion } from "framer-motion";
 
 const navItems = [
   { title: "Carrières", url: "/" },
-  { title: "Événements", url: "/about" },
-  { title: "Anciens et Anciennes", url: "/contact" },
+  { title: "Calendrier", url: "/about" },
+  { title: "Locations", url: "/contact" },
   { title: "La Fondation", url: "/contact" },
 ];
 
@@ -23,7 +24,7 @@ const NavItem = ({ title, url }) => {
         className={css.underline}
         variants={{
           rest: { width: 0 },
-          hover: { width: "105%" }
+          hover: { width: "105%" },
         }}
         transition={{ duration: 0.2 }}
       />
@@ -31,19 +32,17 @@ const NavItem = ({ title, url }) => {
   );
 };
 
+//Portal Link Component
+const StyledPortalLink = styled(Link)``;
 
-const PortalLink = () => (
-  <motion.div
-    className={css.portal}
-    whileHover={{
-      backgroundColor: "var(--white)",
-    }}
-    transition={{ duration: 0.3 }}
+export const PortalLink = ({ mobile }) => (
+  <StyledPortalLink
+    className={`${css.portalLink} ${ mobile ? css.portalLinkMobile : ""}`}
+    target="_blank"
+    href="https://ecolesourphagop.coba.ca/pednet/login.coba"
   >
-    <Link className={`${css.link} ${css.portal}`} target="_blank" href="https://ecolesourphagop.coba.ca/pednet/login.coba">
-      Portail
-    </Link>
-  </motion.div>
+    Portail
+  </StyledPortalLink>
 );
 
 const TopNav = ({ animate = false }) => {
@@ -54,7 +53,7 @@ const TopNav = ({ animate = false }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          minHeight: "4.375rem"
+          minHeight: "4.375rem",
         }}
       >
         <ul className={css.nav}>
@@ -64,8 +63,20 @@ const TopNav = ({ animate = false }) => {
         </ul>
         <PortalLink />
         <div className={css.langContainer}>
-          <Image src="/images/chevron-down.svg" alt="chevron down" width={8} height={4} priority={true} />
-          <Image src="/images/lang.svg" alt="logo" width={21} height={23} priority={true} />
+          <Image
+            src="/images/chevron-down.svg"
+            alt="chevron down"
+            width={8}
+            height={4}
+            priority={true}
+          />
+          <Image
+            src="/images/lang.svg"
+            alt="logo"
+            width={21}
+            height={23}
+            priority={true}
+          />
         </div>
       </Container>
     </nav>

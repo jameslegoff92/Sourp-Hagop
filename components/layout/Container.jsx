@@ -1,3 +1,5 @@
+"Use Client";
+
 import css from './Container.module.css';
 
 const Container = ({ children, style }) => {
