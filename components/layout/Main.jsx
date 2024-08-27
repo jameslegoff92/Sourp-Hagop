@@ -230,14 +230,14 @@ const Main = () => {
             as="h1"
             type="h1"
             color="primary"
-            initial={{ opacity: 0, y: -200 }}
+            initial={{ opacity: 0, y: -25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{
               amount: "all",
-              margin: "0px 0px -300px 0px",
+              margin: "0px 0px -100px 0px",
               once: true,
             }}
-            transition={{ duration: 1.7, ease: "easeInOut" }}
+            transition={{ duration: 0.9, ease: "easeIn" }}
           >
             Pourquoi choisir Sourp Hagop ?
           </Typography>

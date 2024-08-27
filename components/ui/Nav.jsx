@@ -21,14 +21,14 @@ const navList = [
   {
     title: "École",
     items: [
-      { text: "Historique", link: "/history" },
-      { text: "Notre Équipe", link: "/team" },
-      { text: "Conseil d'administration", link: "/conseiladministration" },
-      { text: "Projet Éducatif", link: "/projeteducatif" },
-      { text: "Comité de parents", link: "/comiteparents" },
+      { text: "Historique", link: "/historique" },
+      { text: "Notre Équipe", link: "/equipe" },
+      { text: "Conseil d'administration", link: "/conseil-administration" },
+      { text: "Projet Éducatif", link: "/projet-educatif" },
+      { text: "Comité de parents", link: "/comite-parents" },
       { text: "Fondation", link: "/fondation" },
       { text: "Anciens et anciennes", link: "/anciens" },
-      { text: "Protecteur National de l'élève", link: "/pne" },
+      { text: "Protecteur National de l'élève", link: "/protecteur-national-eleve" },
     ],
   },
   {
@@ -42,30 +42,30 @@ const navList = [
   {
     title: "Vie Étudiante",
     items: [
-      { text: "Vie Communautaire", link: "/viecommunautaire" },
+      { text: "Vie Communautaire", link: "/vie-communautaire" },
       { text: "Voyages", link: "/voyages" },
-      { text: "Activités Parascolaires", link: "/activitesparascolaires" },
+      { text: "Activités Parascolaires", link: "/activites-parascolaires" },
       { text: "Équipe des Aigles", link: "/aigles" },
-      { text: "Conseil étudiant", link: "/conseiletudiant" },
-      { text: "Sorties Scolaires", link: "/sortiesscolaires" },
+      { text: "Conseil étudiant", link: "/conseil-etudiant" },
+      { text: "Sorties Scolaires", link: "/sorties-scolaires" },
     ],
   },
   {
-    title: "Services À L'Élève",
+    title: "Services à l'élève",
     items: [
       { text: "Soutien aux élèves", link: "/soutien" },
       { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
       { text: "Bibliothèque", link: "/bibliotheque" },
-      { text: "Service de Garde", link: "/servicedegarde" },
+      { text: "Service de Garde", link: "/service-de-garde" },
       { text: "Transport", link: "/transport" },
-      { text: "Uniforme Scolaire", link: "/uniformescolaire" },
+      { text: "Uniforme Scolaire", link: "/uniforme-scolaire" },
     ],
   },
   {
     title: "Admissions",
     items: [
       { text: "Pourquoi Sourp Hagop", link: "/pourquoi" },
-      { text: "Demande d'Admission", link: "/demandeadmission" },
+      { text: "Demande d'Admission", link: "/admissions" },
       { text: "Droits de scolarité et autres frais", link: "/droits" },
     ],
   },
@@ -73,7 +73,7 @@ const navList = [
 
 const navItems = [
   { title: "Carrières", url: "/" },
-  { title: "Événements", url: "/about" },
+  { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
   { title: "La Fondation", url: "/contact" },
 ];
@@ -88,6 +88,7 @@ const MobileNavContainer = styled.div`
   left: 0;
   padding: 6rem 1.5rem;
   text-align: left;
+  z-index: 2;
 
   @media (min-width: 1112px) {
     display: none;
@@ -105,6 +106,7 @@ const SecondaryNavigation = styled.div`
 `;
 
 const SecondaryLink = styled(Link)`
+  color: var(--white);
   font-size: clamp(0.8rem, 2vw, 1.5rem);
   font-weight: 600;
 `;
@@ -133,6 +135,7 @@ const CSSMobileNavItem = styled(Link)`
 `;
 
 const CSSMobileNavHeader = styled.li`
+  color: var(--white);
   cursor: pointer;
   font-size: clamp(1.4rem, 3vw, 2.5rem);
   display: flex;
@@ -171,7 +174,7 @@ const MobileNav = ({ open }) => {
     École: false,
     Pédagogie: false,
     "Vie Étudiante": false,
-    "Services À L'Élève": false,
+    "Services à l'élève": false,
     Admissions: false,
   });
 
@@ -180,7 +183,7 @@ const MobileNav = ({ open }) => {
     setIsDropdownOpen((prevState) => {
       return {
         ...prevState,
-        [title]: !prevState[title], // Toggle the clicked nav item's state
+        [title]: !prevState[title],
       };
     });
   };
