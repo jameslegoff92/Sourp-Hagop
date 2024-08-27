@@ -27,13 +27,14 @@ const MotionDiv = styled(motion.div)`
   width: 70%;
 `;
 
-export default function Equipe() {
+export default function Soutien() {
     const contentData = {
         "Plan d'intervention": "Le plan d'intervention est élaboré en fonction des forces et des besoins particuliers de certains élèves qui ont besoin d'un coup de pouce additionnel, en collaboration avec l'enseignante titulaire, les parents et la coordonnatrice pédagogique ou en présence de l'élève du secondaire, le cas échéant.",
         "Études surveillées": "Les études surveillées ont lieu après les heures de classe soit entre 16h et 18h, à la bibliothèque de l'école, sous la supervision d'étudiants universitaires et du surveillant général.",
         "Programmes de récupération": "Le programme de récupération est offert aux élèves qui ont besoin de temps ou d'accompagnement supplémentaire en vue d'assurer leur réussite scolaire. Ils sont offerts par les enseignants de Sourp Hagop, durant la journée scolaire.",
         "Programme «Pairs aidants»": "Le programme de tutorat «Pairs aidants» permet à nos élèves de secondaire de fournir un coup de pouce supplémentaire aux élèves du primaire qui ont besoin d'un accompagnement supplémentaire dans leurs devoirs. Cette initiative permet, à la fois, aux jeunes du primaire de progresser dans leurs apprentissages et aux adolescents aidants de développer leurs habiletés.",
         "Service d'orthophonie et d'orthopédagogie ($)": "Un parrainage avec l'organisme Parcours d'enfants permet aux jeunes présentant certaines difficultés d'apprentissage d'être suivis par une orthopédagogue et une orthophoniste lors des heures d'école.",
+        "Service de tutorat ($)": "Le service de tutorat est offert aux élèves du secondaire en français et en mathématiques. L'objectif est de fournir un accompagnement individualisé afin de permettre à chaque élève de progresser à son rythme et de renforcer ses compétences. Pour toute information, veuillez contacter le secrétariat.",
     };
 
     return (
