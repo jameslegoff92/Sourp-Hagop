@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Container from "./Container";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "../ui/Footer";
+import Strengths from "../ui/Strength";
 
 //CSS For Section1
 const Section1 = styled.section`
@@ -101,45 +102,6 @@ const CardContainer = styled(motion.div)`
     justify-content: space-between;
   }
 `;
-
-
-
-const images = [
-  { src: "/images/force1.jpg", alt: "Image 1" },
-  { src: "/images/force2.jpg", alt: "Image 2" },
-  { src: "/images/force3.png", alt: "Image 3" },
-  { src: "/images/force4.jpg", alt: "Image 4" },
-  { src: "/images/force5.jpg", alt: "Image 5" },
-  { src: "/images/force6.jpg", alt: "Image 6" },
-  { src: "/images/force7.jpg", alt: "Image 7" },
-  { src: "/images/force8.jpg", alt: "Image 8" },
-  { src: "/images/force9.jpg", alt: "Image 9" },
-];
-
-const ImageGrid = ({ images }) => {
-  return (
-    <div className="container mx-auto px-4 mt-20">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {images.slice(0, 9).map((image, index) => (
-          <motion.div
-            key={index}
-            className="aspect-square"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: index * 0.3 }}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const CalendarDay = ({ day, month, event, isActive }) => (
   <div className={`flex flex-col items-center ${isActive ? "relative" : ""}`}>
@@ -303,20 +265,9 @@ const Main = () => {
 
       <Values/>
 
-
-
-      {/* Nos Forces */}
       <StyledDiv2>
         <Container>
-          <Typography
-            style={{ textAlign: "center" }}
-            as="h1"
-            type="h2"
-            color="primary"
-          >
-            Nos Forces
-          </Typography>
-          <ImageGrid images={images} />
+          <Strengths />
         </Container>
       </StyledDiv2>
       <Calendar />

@@ -201,7 +201,7 @@ const ValueItem = ({ value, index }) => {
       // If the element is expanded, collapse it back to its original size
       await childControls1.start({
         height: "25%",
-        transition: { duration: 0.3 },
+        transition: { duration: 0.3, },
       });
       await childControls2.start({
         scale: 1.2,

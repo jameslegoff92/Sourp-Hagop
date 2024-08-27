@@ -8,7 +8,6 @@ import Container from "@/components/layout/Container";
 import MainHeading from "@/components/display/MainHeading";
 import Main from "@/components/layout/Main";
 
-
 export default function Homepage() {
   return (
     <>
