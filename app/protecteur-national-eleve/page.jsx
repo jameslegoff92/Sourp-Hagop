@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 const StyledDiv = styled.div`
   text-align: center;
-  padding: 10px 0 200px;
+  padding: 10px 0 150px;
   position: relative;
 `;
 

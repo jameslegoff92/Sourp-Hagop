@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 // Define styles for different heading levels
 const headingStyles = {
   h1: `
-    font-size: clamp(1.3rem, 5vw, 3rem); //80px
+    font-size: clamp(1.5rem, 5vw, 3rem); //80px
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 64.5px */
@@ -55,7 +55,7 @@ const headingStyles = {
     letter-spacing: 0.05rem;
   `,
   h6: `
-    font-size: clamp(0.8rem, 3.5vw, 1.3rem);
+    font-size: clamp(1.1rem, 3.5vw, 1.3rem);
     font-style: normal;
     font-weight: 300;
     line-height: 150%; /* 35.25px */
@@ -66,8 +66,8 @@ const headingStyles = {
     font-weight: 390;
   `,
   subtitle: `
-    font-size: 0.75rem; //12px
-    font-weight: normal;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 390;
   `,
   label: `
     font-size: 0.5625rem; //9px
