@@ -48,7 +48,7 @@ export default function ConseilAdministration() {
       <StyledDiv>
         <MotionDiv>
           <Typography as="h1" type="h1" color="primary">
-            PROCESSUS DE TRAITEMENT DES PLAINTES
+            Processus de traitement des plaintes
           </Typography>
           <TextContainer>
             <Typography as="p" type="h5" color="dark">
@@ -137,7 +137,13 @@ export default function ConseilAdministration() {
           <StyledParagraph>
             L’établissement d’enseignement privé a 10 jours ouvrables pour informer la personne plaignante et le protecteur régional de l’élève des suites qu’il entend donner aux conclusions et aux recommandations et, le cas échéant, les motifs justifiant son refus d’y donner suite.
           </StyledParagraph>
-            <img src="../images/pne-fr.jpg" alt="" />
+          <a href="../images/pne-fr.jpg" target="_blank" rel="noopener noreferrer">
+            <img 
+              src="../images/pne-fr.jpg" 
+              alt="Illustration related to the Protecteur National de l'Élève" 
+              style={{ maxWidth: "100%", height: "auto", cursor: "pointer" }} 
+            />
+          </a>
           <Typography as="h4" type="h4" color="primary" style={{ textAlign: "left", marginTop: "23px" }}>
             Comment signaler un acte de <a id="ref1" href="#definition1"> violence à caractère sexuel <sup>[1]</sup></a> ?
           </Typography>

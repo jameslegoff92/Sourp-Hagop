@@ -62,7 +62,7 @@ const headingStyles = {
     letter-spacing: 0.05rem;
   `,
   p: `
-    font-size: clamp(0.78rem, 4.5vw, 1.3rem);
+    font-size: clamp(0.72rem, 3.8vw, 1.3rem);
     font-weight: 390;
   `,
   subtitle: `
