@@ -36,15 +36,15 @@
 }
 
 .blueOverlay {
-    width: 50%; /* Takes half the width of the footer */
-    height: 100%; /* Ensures the blue overlay is the same height as the footer */
+    width: 50%;
+    height: 100%;
     background-color: #006096;
     display: flex;
-    justify-content: left; /* Space containers to the left and right */
-    align-items: flex-start; /* Align containers to the top */
+    justify-content: left;
+    align-items: flex-start;
     position: relative;
     z-index: 3;
-    padding-top: 50px; /* Add equal spacing from the top */
+    padding-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
 }

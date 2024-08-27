@@ -51,7 +51,7 @@ const navList = [
     ],
   },
   {
-    title: "Services À L'Élève",
+    title: "Services à l'élève",
     items: [
       { text: "Soutien aux élèves", link: "/soutien" },
       { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
@@ -174,7 +174,7 @@ const MobileNav = ({ open }) => {
     École: false,
     Pédagogie: false,
     "Vie Étudiante": false,
-    "Services À L'Élève": false,
+    "Services à l'élève": false,
     Admissions: false,
   });
 
@@ -183,7 +183,7 @@ const MobileNav = ({ open }) => {
     setIsDropdownOpen((prevState) => {
       return {
         ...prevState,
-        [title]: !prevState[title], // Toggle the clicked nav item's state
+        [title]: !prevState[title],
       };
     });
   };

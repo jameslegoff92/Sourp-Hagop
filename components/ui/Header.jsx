@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 const HeaderImageContainer = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 28.93%; /* Aspect ratio for the image container */
+  padding-top: 37%;
   overflow: hidden;
 
   @media (max-width: 1024px) {
