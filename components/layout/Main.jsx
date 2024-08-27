@@ -3,6 +3,7 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
 import Typography from "../display/Typography";
+import Values from "../ui/Values";
 import { motion } from "framer-motion";
 import Container from "./Container";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -44,34 +45,6 @@ const ContentWrapper = styled(motion.div)`
   }
 `;
 
-//CSS For Values Section
-const ValuesContainer = styled.div`
-  background-color: var(--secondary-color);
-  padding: 40px 0 100px;
-  position relative;
-  text-align: center;
-`
-
-//Animation for the Values Section
-const listVariants = {
-  initial: {},
-  hover: {},
-};
-
-const itemVariants = {
-  initial: { height: "100%" },
-  hover: {
-    height: "25%",
-    transition: {
-      duration: 0.2,
-    },
-  },
-};
-
-const textVariants = {
-  initial: { opacity: 0 },
-  hover: { opacity: 1, transition: { duration: 2 } },
-};
 
 
 //CSS For the following Section
@@ -79,11 +52,6 @@ const StyledDiv = styled.div`
   text-align: center;
   padding: 40px 0 40px;
   position relative;
-`;
-
-const ExtendedStyledDiv = styled(StyledDiv)`
-  background-color: var(--secondary-color);
-  padding: 40px 0 100px;
 `;
 
 const StyledDiv2 = styled(StyledDiv)`
@@ -99,65 +67,9 @@ const MotionDiv = styled(motion.div)`
   width: 50%;
 `;
 
-const ExtendedMotionDiv = styled(MotionDiv)`
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: var(--spacing-4);
-
-  @media (min-width: 768px) {
-    width: calc(33.333% - var(--spacing-4));
-    margin-bottom: 0;
-  }
-`;
-
 const TextContainer = styled.div`
   width: 100%;
   margin: 0 auto;
-`;
-
-const ValueContainer = styled(motion.div)`
-  overflow: hidden;
-  height: 31.25rem;
-`;
-
-const ValueSubContainer = styled(motion.div)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/value-img-1.png"); // Replace with your image URL
-  background-size: cover; // Ensures the image covers the whole div
-  background-position: center; // Centers the image
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 0 40px;
-`;
-
-const ValueSubContainer2 = styled(ValueSubContainer)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/respect.JPG"); // Replace with your image URL
-`;
-
-const ValueSubContainer3 = styled(ValueSubContainer)`
-  background:
-    linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)),
-    // Blue tint overlay// Blue tint overlay
-    url("/images/responsible.JPG"); // Replace with your image URL
-`;
-
-const ValueText = styled(Typography)`
-  font-size: 0.9rem;
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
-`;
-
-const ValueText2 = styled(ValueText)`
-  color: #fff;
 `;
 
 const TextDiv = styled.div`
@@ -356,14 +268,14 @@ const Main = () => {
             as="h1"
             type="h1"
             color="primary"
-            initial={{ opacity: 0, y: -200 }}
+            initial={{ opacity: 0, y: -25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{
               amount: "all",
-              margin: "0px 0px -300px 0px",
+              margin: "0px 0px -100px 0px",
               once: true,
             }}
-            transition={{ duration: 1.7, ease: "easeInOut" }}
+            transition={{ duration: 0.9, ease: "easeIn" }}
           >
             Pourquoi choisir Sourp Hagop ?
           </Typography>
@@ -389,113 +301,9 @@ const Main = () => {
         </ContentWrapper>
       </Section1>
 
-      {/* VALUES SECTION */}
+      <Values/>
 
-      <ValuesContainer>
-        <Container>
-          <Typography as="h1" type="h2" color="primary">
-            Nos Valeurs
-          </Typography>
-          <CardContainer>
-            <ExtendedMotionDiv>
-              <ValueContainer
-                inital="initial"
-                whileHover="hover"
-                variants={listVariants}
-              >
-                <ValueSubContainer2 variants={itemVariants}>
-                  <Typography
-                    as="h1"
-                    type="h4"
-                    color="light"
-                    fontFamily="secondary"
-                  >
-                    RESPECT
-                  </Typography>
-                </ValueSubContainer2>
-                <TextDiv>
-                  <ValueText
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    À Sourp Hagop, nous aidons nos élèves à atteindre
-                    l'accomplissement de soi en découvrant et développant leur
-                    plein potentiel pour une vie épanouie.
-                  </ValueText>
-                </TextDiv>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-            <ExtendedMotionDiv>
-              <ValueContainer
-                inital="initial"
-                whileHover="hover"
-                variants={listVariants}
-              >
-                <ValueSubContainer3 variants={itemVariants}>
-                  <Typography
-                    as="h1"
-                    type="h4"
-                    color="light"
-                    fontFamily="secondary"
-                  >
-                    RESPONSABILITÉ
-                  </Typography>
-                </ValueSubContainer3>
-                <TextDiv2>
-                  <ValueText2
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    La responsabilité nous rend autonomes. À Sourp Hagop, nous
-                    encourageons les élèves à prendre en charge leurs actions et
-                    à s'engager activement dans leur communauté.
-                  </ValueText2>
-                </TextDiv2>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-            <ExtendedMotionDiv>
-              <ValueContainer
-                inital="initial"
-                whileHover="hover"
-                variants={listVariants}
-              >
-                <ValueSubContainer variants={itemVariants}>
-                  <Typography
-                    as="h1"
-                    type="h4"
-                    color="light"
-                    fontFamily="secondary"
-                  >
-                    ACOMPLISSEMENT DE SOI
-                  </Typography>
-                </ValueSubContainer>
-                <TextDiv>
-                  <ValueText
-                    initial="initial"
-                    whileHover="hover"
-                    as="p"
-                    type="h6"
-                    fontFamily="secondary"
-                    variants={textVariants}
-                  >
-                    Le respect est essentiel. À l'école arménienne Sourp Hagop,
-                    nous valorisons le respect envers tous, créant un
-                    environnement de confiance et de considération mutuelle
-                  </ValueText>
-                </TextDiv>
-              </ValueContainer>
-            </ExtendedMotionDiv>
-          </CardContainer>
-        </Container>
-      </ValuesContainer>
+
 
       {/* Nos Forces */}
       <StyledDiv2>

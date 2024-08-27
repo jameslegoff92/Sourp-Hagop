@@ -28,7 +28,7 @@ const navList = [
       { text: "Comité de parents", link: "/comite-parents" },
       { text: "Fondation", link: "/fondation" },
       { text: "Anciens et anciennes", link: "/anciens" },
-      { text: "Protecteur National de l'élève", link: "/pne" },
+      { text: "Protecteur National de l'élève", link: "/protecteur-national-eleve" },
     ],
   },
   {
@@ -73,7 +73,7 @@ const navList = [
 
 const navItems = [
   { title: "Carrières", url: "/" },
-  { title: "Événements", url: "/about" },
+  { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
   { title: "La Fondation", url: "/contact" },
 ];
@@ -286,7 +286,7 @@ const Nav = ({ type = "primary", animate = true }) => {
           animate={animationState}
           className={css.logoContainer}
         >
-          <Link href="/">
+          <Link href="/" style={{ display: "flex", gap: "4px"}}>
             <img
               src="images/logo-alt.png"
               alt="logo"
@@ -294,29 +294,29 @@ const Nav = ({ type = "primary", animate = true }) => {
               height={90}
               className={css.logo}
             />
+            <div className={css.logoText}>
+              <p
+                className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                L'ÉCOLE ARMÉNIENNE
+              </p>
+              <p
+                className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                SOURP HAGOP
+              </p>
+              <p
+                className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                ÉCOLE PRIMAIRE V. ET A. SAFARIAN
+              </p>
+              <p
+                className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}
+              >
+                ÉCOLE SECONDAIRE PASDERMAJIAN
+              </p>
+            </div>
           </Link>
-          <div className={css.logoText}>
-            <p
-              className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              L'ÉCOLE ARMÉNIENNE
-            </p>
-            <p
-              className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              SOURP HAGOP
-            </p>
-            <p
-              className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              ÉCOLE PRIMAIRE V. ET A. SAFARIAN
-            </p>
-            <p
-              className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}
-            >
-              ÉCOLE SECONDAIRE PASDERMAJIAN
-            </p>
-          </div>
         </motion.div>
         <motion.ul
           className={css.nav}

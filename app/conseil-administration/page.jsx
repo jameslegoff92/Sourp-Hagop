@@ -22,7 +22,7 @@ const MotionDiv = styled(motion.div)`
   display: flex;
   gap: var(--spacing-4);
   flex-direction: column;
-  margin: 100px auto 0;
+  margin: 50px auto 0;
   width: 70%;
 `;
 
@@ -33,17 +33,17 @@ const ImageItem = styled.div`
   text-align: center;
 
   img {
-    width: clamp(15rem, 2vw, 15rem);
-    height: clamp(19rem, 2vw, 15rem);
+    width: clamp(12rem, 2vw, 12rem);
+    height: clamp(15rem, 2vw, 12rem);
     object-fit: cover;
     margin: 20px 0 10px 0;
   }
   h4 {
     margin: 10px 0 5px;
-    font-size: 2rem;
+    font-size: 1.1rem;
   }
   p {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
     color: #555;
   }
 `;
@@ -53,11 +53,12 @@ const ImageItemsContainer = styled.div`
   padding-top: 40px;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  gap: 15rem;
+  align-items: center;
+  gap: 10%;
 
   @media (max-width: 768px) {
     flex-direction: column;
+    gap: 2rem;
   }
 `;
 
@@ -107,10 +108,10 @@ export default function ConseilAdministration() {
                         as="h1"
                         type="h1"
                         color="primary"
-                        initial={{ opacity: 0, y: -200 }}
+                        initial={{ opacity: 0, y: -25 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ amount: "all", margin: "0px 0px -300px 0px", once: true }}
-                        transition={{ duration: 1.7, ease: "easeInOut" }}
+                        viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
+                        transition={{ duration: 0.9, ease: "easeInOut" }}
                     >
                         Rôle et Responsabilités
                     </Typography>

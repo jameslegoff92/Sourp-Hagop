@@ -9,8 +9,8 @@ import { motion } from "framer-motion";
 
 const navItems = [
   { title: "Carrières", url: "/" },
-  { title: "Événements", url: "/about" },
-  { title: "Anciens et Anciennes", url: "/contact" },
+  { title: "Calendrier", url: "/about" },
+  { title: "Locations", url: "/contact" },
   { title: "La Fondation", url: "/contact" },
 ];
 
