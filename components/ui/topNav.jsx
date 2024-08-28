@@ -11,7 +11,7 @@ const navItems = [
   { title: "Carrières", url: "/" },
   { title: "Calendrier", url: "/about" },
   { title: "Locations", url: "/contact" },
-  { title: "La Fondation", url: "/contact" },
+  { title: "La Fondation", url: "https://fondationsh.com/" },
 ];
 
 const NavItem = ({ title, url }) => {

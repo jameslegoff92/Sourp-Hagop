@@ -70,14 +70,14 @@ const headingStyles = {
     font-weight: 390;
   `,
   label: `
-    font-size: 0.5625rem; //9px
+    font-size: clamp(0.7rem, 1.4vw, 1.1rem);
     font-weight: normal;
   `,
 };
 
 const fontFamilyMapping = {
-  primary: "var(--primary-ff)", //Roboto
-  secondary: "var(--secondary-ff)", //Poppings
+  primary: "var(--primary-ff)",
+  secondary: "var(--secondary-ff)",
 };
 
 const colorMapping = {

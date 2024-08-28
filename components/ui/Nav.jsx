@@ -26,7 +26,6 @@ const navList = [
       { text: "Conseil d'administration", link: "/conseil-administration" },
       { text: "Projet Éducatif", link: "/projet-educatif" },
       { text: "Comité de parents", link: "/comite-parents" },
-      { text: "Fondation", link: "/fondation" },
       { text: "Anciens et anciennes", link: "/anciens" },
       { text: "Protecteur National de l'élève", link: "/protecteur-national-eleve" },
     ],
@@ -75,7 +74,7 @@ const navItems = [
   { title: "Carrières", url: "/" },
   { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
-  { title: "La Fondation", url: "/contact" },
+  { title: "La Fondation", url: "https://fondationsh.com/" },
 ];
 
 //Mobile Navigation Styling

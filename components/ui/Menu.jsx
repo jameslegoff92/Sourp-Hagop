@@ -11,41 +11,41 @@ const weeks = [
     {
         id: 1,
         circles: [
-            { description: "Description for Circle 1" },
-            { description: "Description for Circle 2" },
-            { description: "Description for Circle 3" },
-            { description: "Description for Circle 4" },
-            { description: "Description for Circle 5" },
+            { description: "Lentilles au blé concassé avec salade" },
+            { description: "Filet aux poivrons rouges avec légumes variées et riz" },
+            { description: "Penne sauce tomate avec salade verte" },
+            { description: "Souvlaki au poulet avec tzatziki, riz et légumes" },
+            { description: "Sous-marin avec salade de choux" },
         ],
     },
     {
         id: 2,
         circles: [
-            { description: "Description for Circle A" },
-            { description: "Description for Circle B" },
-            { description: "Description for Circle C" },
-            { description: "Description for Circle D" },
-            { description: "Description for Circle E" },
+            { description: "Pain de viande macaroni avec salade" },
+            { description: "Sandwich au jambon et fromage avec soupe" },
+            { description: "Haricots blanc riz avec salade" },
+            { description: "Manicotti avec salade" },
+            { description: "Hamburger avec salade de choux" },
         ],
     },
     {
         id: 3,
         circles: [
-            { description: "Description for Circle X" },
-            { description: "Description for Circle Y" },
-            { description: "Description for Circle Z" },
-            { description: "Description for Circle W" },
-            { description: "Description for Circle V" },
+            { description: "Poulet pilaf au blé concassé avec salade" },
+            { description: "Salade césar au poulet avec pain au fromage" },
+            { description: "Rotini sauce à la viande avec salade" },
+            { description: "Saumon avec sauce aux herbes avec riz et légumes" },
+            { description: "Boulettes de viande et patate purée avec légumes" },
         ],
     },
     {
         id: 4,
         circles: [
-            { description: "Description for Circle L" },
-            { description: "Description for Circle M" },
-            { description: "Description for Circle N" },
-            { description: "Description for Circle O" },
-            { description: "Description for Circle P" },
+            { description: "Fajita et riz mexicain avec légumes" },
+            { description: "Tortellini sauce rosée avec salade" },
+            { description: "Pâté chinois avec salade" },
+            { description: "Crevette et légumes sauce teriyaki avec riz et salade" },
+            { description: "Burger de poitrine de poulet avec salade" },
         ],
     },
 ];
@@ -53,7 +53,7 @@ const weeks = [
 // CSS for the Main Background Container
 const BackgroundContainer = styled.div`
   background-color: var(--secondary-color); /* Pale blue background */
-  padding: 40px 40px 100px;
+  padding: 40px 100px 100px;
   margin-top: 6%;
   display: flex;
   flex-direction: column;
@@ -94,38 +94,42 @@ const ChevronButton = styled.button`
 // CSS for Circles
 const CircleContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 7%;
+  justify-content: space-between;
+  width: 100%; // Ensure it spans the same width as DaysContainer
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const CircleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 15px;
+  width: 10vw;
+
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 35px;
+    flex-direction: column;
+  }
 `;
 
 const CircleItem = styled(motion.div)`
   background-color: var(--primary-color);
   color: white;
-  width: 10vw;
-  height: 10vw;
+  width: 15vw;
+  height: 15vw;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* Needed for image positioning */
+  position: relative;
 
   @media (max-width: 768px) {
-    width: 20vw;
-    height: 20vw;
-  }
-
-  @media (max-width: 480px) {
-    width: 30vw;
-    height: 30vw;
+    width: 50vw;
+    height: 50vw;
   }
 `;
 
@@ -139,33 +143,49 @@ const CircleImage = styled.img`
 `;
 
 const CircleDescription = styled(Typography)`
-  font-size: 0.7rem;
   text-align: center;
   margin-top: 10px;
 `;
 
 const DaysContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin-bottom: 8px;
-  gap: 23%;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const DayItem = styled(Typography)`
-  width: 10vw; // Same as CircleItem for consistency
+  width: 10vw;
   text-align: center;
-  font-size: calc(1vw + 0.5rem); // Responsive font size
   font-weight: 500;
-  display: flex; // Make it flex to align content similarly to CircleItem
+  display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+
 
   @media (max-width: 768px) {
-    width: 20vw; // Adjust for tablets
+    width: 20vw;
   }
 
   @media (max-width: 480px) {
-    width: 30vw; // Adjust for mobile
+    width: 30vw;
+  }
+`;
+
+const DayItemMobile = styled(Typography)`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 10px;
   }
 `;
 
@@ -173,6 +193,13 @@ const CirclesAndDaysContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 `;
 
 const slideVariants = {
@@ -236,7 +263,7 @@ const Menu = () => {
             <CirclesAndDaysContainer>
                 <DaysContainer>
                     {titles.map((day) => (
-                        <DayItem key={day} as="p">
+                        <DayItem key={day} as="p" type="h6">
                             {day}
                         </DayItem>
                     ))}
@@ -246,17 +273,21 @@ const Menu = () => {
                 <CircleContainer key={currentWeek}>
                     {weeks[currentWeek].circles.map((circle, index) => (
                         <CircleWrapper key={index}>
-                            <CircleItem
-                                custom={direction}
-                                variants={slideVariants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                transition={{ duration: 0.3 }}
-                            >
-                                <CircleImage src="../images/menu/fish-menu.jpg" alt="fish" />
-                            </CircleItem>
-                            <CircleDescription as="p">{circle.description}</CircleDescription>
+                            <DayItemMobile as="p" type="p">{titles[index]}</DayItemMobile>
+                            <a href="../images/menu/fish-menu.jpg" target="_blank" rel="noopener noreferrer">
+
+                                <CircleItem
+                                    custom={direction}
+                                    variants={slideVariants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <CircleImage src="../images/menu/fish-menu.jpg" alt="fish" />
+                                </CircleItem>
+                            </a>
+                            <CircleDescription as="p" type="label">{circle.description}</CircleDescription>
                         </CircleWrapper>
                     ))}
                 </CircleContainer>
