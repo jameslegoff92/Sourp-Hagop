@@ -5,8 +5,11 @@
   justify-content: space-between;
   width: 100%;
   padding: 1rem;
-}
 
+  @media only screen and (orientation: landscape) {
+    justify-content: space-around;
+  }
+}
 .navContainerSecondary {
   background-color: transparent;
 }
