@@ -1,5 +1,3 @@
-"use client"
-
 //Local Components
 import TopNav from "@/components/ui/topNav";
 import BackgroundVideo from "@/components/ui/BackgroundVideo";
