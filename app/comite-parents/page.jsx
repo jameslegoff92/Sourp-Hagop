@@ -10,7 +10,7 @@ import { motion, useAnimation } from "framer-motion";
 
 const StyledDiv = styled.div`
   text-align: left;
-  padding: 10px 0 200px;
+  padding: 10px 0 150px;
   position: relative;
 `;
 
@@ -27,7 +27,7 @@ const MotionDiv = styled(motion.div)`
   display: flex;
   gap: var(--spacing-4);
   flex-direction: column;
-  margin: 100px auto 0;
+  margin: 50px auto 0;
   width: 70%;
 `;
 
@@ -70,12 +70,13 @@ const TextBlock = styled(motion.div)`
   flex: 1;
   overflow: hidden;
 
-  @media (max-width: 1110px) {
+  @media (max-width: 1200px) {
     align-items: left;
+    padding: 50px 30px 50px 45px;
     
   @media (max-width: 768px) {
-    align-items: center;
-    padding: 50px;
+    align-items: left;
+    padding: 50px 20px 50px 35px;
   }
 `;
 

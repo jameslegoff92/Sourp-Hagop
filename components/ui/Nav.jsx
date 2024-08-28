@@ -26,7 +26,6 @@ const navList = [
       { text: "Conseil d'administration", link: "/conseil-administration" },
       { text: "Projet Éducatif", link: "/projet-educatif" },
       { text: "Comité de parents", link: "/comite-parents" },
-      { text: "Fondation", link: "/fondation" },
       { text: "Anciens et anciennes", link: "/anciens" },
       { text: "Protecteur National de l'élève", link: "/protecteur-national-eleve" },
     ],
@@ -51,7 +50,7 @@ const navList = [
     ],
   },
   {
-    title: "Services À L'Élève",
+    title: "Services à l'élève",
     items: [
       { text: "Soutien aux élèves", link: "/soutien" },
       { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
@@ -75,7 +74,7 @@ const navItems = [
   { title: "Carrières", url: "/" },
   { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
-  { title: "La Fondation", url: "/contact" },
+  { title: "La Fondation", url: "https://fondationsh.com/" },
 ];
 
 //Mobile Navigation Styling
@@ -174,7 +173,7 @@ const MobileNav = ({ open }) => {
     École: false,
     Pédagogie: false,
     "Vie Étudiante": false,
-    "Services À L'Élève": false,
+    "Services à l'élève": false,
     Admissions: false,
   });
 
@@ -183,7 +182,7 @@ const MobileNav = ({ open }) => {
     setIsDropdownOpen((prevState) => {
       return {
         ...prevState,
-        [title]: !prevState[title], // Toggle the clicked nav item's state
+        [title]: !prevState[title],
       };
     });
   };
@@ -288,7 +287,7 @@ const Nav = ({ type = "primary", animate = true }) => {
         >
           <Link href="/" style={{ display: "flex", gap: "4px"}}>
             <img
-              src="images/logo-alt.png"
+              src="images/logo-blackWhite.jpg"
               alt="logo"
               width={89}
               height={90}

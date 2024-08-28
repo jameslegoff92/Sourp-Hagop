@@ -5,8 +5,11 @@
   justify-content: space-between;
   width: 100%;
   padding: 1rem;
-}
 
+  @media only screen and (orientation: landscape) {
+    justify-content: space-around;
+  }
+}
 .navContainerSecondary {
   background-color: transparent;
 }
@@ -30,8 +33,6 @@
 .nav {
   display: none;
 }
-
-
 
 .hamburger {
   display: flex;
@@ -66,19 +67,19 @@
 
 @media (min-width: 1114px) {
   .navContainer {
-    padding: 3.125rem;
+    padding: 1.5rem;
   }
 
   .logo {
-    width: 89px;
-    height: 78px;
+    width: 85px;
+    height: 73px;
   }
 
   .logoTextItem {
     color: #000;
     font-feature-settings: "clig" off, "liga" off;
     font-family: "Times New Roman";
-    font-size: 12.24px;
+    font-size: 12.2px;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;

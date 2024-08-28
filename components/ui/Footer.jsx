@@ -22,7 +22,7 @@ const Footer = () => (
     <footer className={css.footer}>
         <div className={css.logoTextContainer}>
             <img 
-                src="../images/logo.svg" 
+                src="../images/logo.jpg" 
                 alt="School Logo" 
                 className={css.logo}
             />

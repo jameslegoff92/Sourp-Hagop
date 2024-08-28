@@ -203,7 +203,7 @@ export default function Historique() {
   return (
     <>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
-            <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" />
+            <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" mobileTop/>
       <div style={{ position: "relative" }}>
         <div className="h-20" ref={ref} />
         <ProgressBarContainer style={containerStyle}>

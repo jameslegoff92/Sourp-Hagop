@@ -41,7 +41,7 @@ const LineContainer = styled(motion.div)`
   height: 1px;
   background-color: white;
   position: relative;
-  top: -1rem;
+  top: -0.1rem;
 
   @media (max-width: 1112px) {
     top: 0.1rem;  // Adjust this value to move the line lower on mobile
@@ -81,7 +81,7 @@ function MainHeading() {
         variants={lineVariants}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo.svg" alt="logo" />
+        <StyledImage src="images/logo.jpg" alt="logo" />
         <TextContainer>
           <MainTitle>Toujours plus haut, toujours plus loin !</MainTitle>
           <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>

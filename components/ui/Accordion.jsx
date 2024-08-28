@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 const AccordionContainer = styled.div`
   width: 100%;
   max-width: 1000px;
-  margin: 50px auto;
+  margin: 25px auto;
 `;
 
 // Styled component for each accordion item

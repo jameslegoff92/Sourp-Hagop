@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 const StyledDiv = styled.div`
   text-align: center;
-  padding: 10px 0 200px;
+  padding: 10px 0 150px;
   position: relative;
 `;
 
@@ -43,6 +43,7 @@ export default function ConseilAdministration() {
         imageSrc="../images/header/pne-header.jpg"
         headerText="PROTECTEUR NATIONAL DE L'ÉLÈVE"
         headerTextTop="60%"
+        mobileRight="5px"
       />
 
       <StyledDiv>
