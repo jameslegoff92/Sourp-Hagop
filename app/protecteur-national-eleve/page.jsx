@@ -43,6 +43,7 @@ export default function ConseilAdministration() {
         imageSrc="../images/header/pne-header.jpg"
         headerText="PROTECTEUR NATIONAL DE L'ÉLÈVE"
         headerTextTop="60%"
+        mobileRight="5px"
       />
 
       <StyledDiv>

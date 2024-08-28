@@ -99,7 +99,7 @@ export default function ConseilAdministration() {
                 animate={false}
                 imageSrc="../images/header/conseil-administration-header.jpg"
                 headerText="CONSEIL ADMINISTRATION"
-                headerTextTop="-3%"
+                headerTextTop="60%"
             />
 
             <StyledDiv>
@@ -149,7 +149,7 @@ export default function ConseilAdministration() {
                     <ImageItemComponent
                         src="../images/staff/_default.jpg"
                         alt="Nom Prénom"
-                        name="Diane Baygin"
+                        name="Nom Prénom"
                         title="Description"
                     />
                 </ImageItemsContainer>

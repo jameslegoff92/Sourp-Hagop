@@ -81,7 +81,7 @@ function MainHeading() {
         variants={lineVariants}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo.svg" alt="logo" />
+        <StyledImage src="images/logo.jpg" alt="logo" />
         <TextContainer>
           <MainTitle>Toujours plus haut, toujours plus loin !</MainTitle>
           <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>

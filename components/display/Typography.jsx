@@ -55,7 +55,7 @@ const headingStyles = {
     letter-spacing: 0.05rem;
   `,
   h6: `
-    font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+    font-size: clamp(0.2rem, 3.5vw, 1.3rem);
     font-style: normal;
     font-weight: 300;
     line-height: 150%; /* 35.25px */

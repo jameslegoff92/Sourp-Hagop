@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 const HeaderImageContainer = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 37%;
+  padding-top: 28%;
   overflow: hidden;
 
   @media (max-width: 1024px) {
@@ -58,19 +58,18 @@ const HeaderText = styled.div`
 
   @media (max-width: 1024px) {
     top: ${props => props.mobileTop || '62%'};
-    right: ${props => props.mobileRight || '25px'};
+    right:'25px';
     padding: 4vw 0 0 3vw;
   }
 
   @media (max-width: 768px) {
-    font-size: clamp(1.5rem, 4.5vw, 4rem);
+    font-size: clamp(1.7rem, 4vw, 4rem);
     top: ${props => props.mobileTop || props.top || '20%'};
-    right: ${props => props.mobileRight || '30px'};
     padding: 4vw 0 0 3vw;
   }
 
-  @media (max-width: 480px) {
-    font-size: clamp(1.2rem, 5vw, 3rem);
+  @media (max-width: 508px) {
+    font-size: clamp(1.4rem, 5vw, 3rem);
     top: ${props => props.mobileTop || props.top || '50%'};
     right: ${props => props.mobileRight || '20px'};
     padding-left: 5vw;
