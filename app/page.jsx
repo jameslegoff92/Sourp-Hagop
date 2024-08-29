@@ -4,7 +4,12 @@ import BackgroundVideo from "@/components/ui/BackgroundVideo";
 import Nav from "@/components/ui/Nav";
 import Container from "@/components/layout/Container";
 import MainHeading from "@/components/display/MainHeading";
-import Main from "@/components/layout/Main";
+import Intro from "@/components/display/Intro";
+import Values from "@/components/ui/Values";
+import Strengths from "@/components/ui/Strength";
+import MiniCalendar from "@/components/display/Calendar";
+import InstagramFeed from "@/components/display/Instagram";
+import Footer from "@/components/ui/Footer";
 
 export default function Homepage() {
   return (
@@ -16,7 +21,12 @@ export default function Homepage() {
           <MainHeading />
         </Container>
       </BackgroundVideo>
-      <Main />
+      <Intro />
+      <Values />
+      <Strengths />
+      <MiniCalendar />
+      <InstagramFeed />
+      <Footer />
     </>
   );
 }

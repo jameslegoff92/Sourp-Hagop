@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect} from "react";
 
 //Third Party Imports
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -61,6 +61,20 @@ const Day = ({ day, month, event, isActive }) => (
 const MiniCalendar = () => {
   const [dateArrays, setDateArrays] = useState([]);
   const [currentWeek, setCurrentWeek] = useState(0);
+
+
+  const handleChevronLeft = () => {
+    setCurrentWeek((prev) => {
+      if (prev === 0) return 2;
+      return prev - 1;
+    });
+  };
+  const handleChevronRight = () => {
+    setCurrentWeek((prev) => {
+      if (prev === 2) return 0;
+      return prev + 1;
+    });
+  };
 
   useEffect(() => {
     //Helper Functions
@@ -126,7 +140,10 @@ const MiniCalendar = () => {
           CALENDRIER
         </Typography>
         <SubContainer>
-          <ChevronLeft className="w-8 h-8 cursor-pointer" />
+          <ChevronLeft
+            onClick={handleChevronLeft}
+            className="w-8 h-8 cursor-pointer"
+          />
           <CSSCalendar>
             {dateArrays.length > 0 ? (
               dateArrays[currentWeek].map((date, index) => (
@@ -138,13 +155,22 @@ const MiniCalendar = () => {
               <h1> loading </h1>
             )}
           </CSSCalendar>
-          <ChevronRight className="w-8 h-8 cursor-pointer" />
+          <ChevronRight
+            onClick={handleChevronRight}
+            className="w-8 h-8 cursor-pointer"
+          />
         </SubContainer>
         <div className="relative flex flex-col items-center">
           <div className="flex justify-center space-x-3 mb-8">
-            <div className="w-3 h-3 bg-white opacity-50 rounded-full"></div>
-            <div className="w-3 h-3 bg-white rounded-full"></div>
-            <div className="w-3 h-3 bg-white opacity-50 rounded-full"></div>
+            <div
+              className={`w-3 h-3 bg-white ${currentWeek == 0 ? "" : 'opacity-50'} rounded-full`}
+            ></div>
+            <div
+              className={`w-3 h-3 bg-white ${currentWeek == 1 ? "" : 'opacity-50'} rounded-full`}
+            ></div>
+            <div
+              className={`w-3 h-3 bg-white ${currentWeek == 2 ? "" : 'opacity-50'} rounded-full`}
+            ></div>
           </div>
           <div className="absolute top-0 right-0 h-full flex items-center">
             <button className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity">
