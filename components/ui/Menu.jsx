@@ -7,12 +7,55 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 // Data Structure for the Weeks
 const titles = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
 
+const primaireWeeks = [
+  {
+      id: 1,
+      circles: [
+          { description: "Lentilles au blé concassé avec salade" },
+          { description: "Filet de sole et sauce aux poivrons rouges avec légumes variées et riz" },
+          { description: "Penne sauce tomate avec salade verte" },
+          { description: "Souvlaki au poulet avec tzatziki, riz et légumes" },
+          { description: "Soupe aux lentilles avec pain au fromage" },
+      ],
+  },
+  {
+      id: 2,
+      circles: [
+          { description: "Pain de viande macaroni avec salade" },
+          { description: "Spaghetti bolognaise avec légumes" },
+          { description: "Haricots blanc et riz avec salade" },
+          { description: "Macaroni et fromage avec salade" },
+          { description: "Hamburger avec salade de choux" },
+      ],
+  },
+  {
+      id: 3,
+      circles: [
+          { description: "Poulet pilaf au blé concassé avec salade" },
+          { description: "Haricots verts avec viande hachée et riz" },
+          { description: "Rotini sauce à la viande avec salade" },
+          { description: "Saumon avec sauce aux herbes avec riz et légumes" },
+          { description: "Boulettes de viande et patate purée avec légumes" },
+      ],
+  },
+  {
+      id: 4,
+      circles: [
+          { description: "poulet et riz mexicain avec légumes" },
+          { description: "Macaroni sauce rosée avec salade" },
+          { description: "Pâté chinois avec salade" },
+          { description: "Macédoine carotte et pois verts avec riz" },
+          { description: "Burger de poitrine de poulet avec salade" },
+      ],
+  },
+];
+
 const weeks = [
     {
         id: 1,
         circles: [
             { description: "Lentilles au blé concassé avec salade" },
-            { description: "Filet aux poivrons rouges avec légumes variées et riz" },
+            { description: "Filet de sole et sauce aux poivrons rouges avec légumes variées et riz" },
             { description: "Penne sauce tomate avec salade verte" },
             { description: "Souvlaki au poulet avec tzatziki, riz et légumes" },
             { description: "Sous-marin avec salade de choux" },
@@ -23,7 +66,7 @@ const weeks = [
         circles: [
             { description: "Pain de viande macaroni avec salade" },
             { description: "Sandwich au jambon et fromage avec soupe" },
-            { description: "Haricots blanc riz avec salade" },
+            { description: "Haricots blanc et riz avec salade" },
             { description: "Manicotti avec salade" },
             { description: "Hamburger avec salade de choux" },
         ],
@@ -52,12 +95,35 @@ const weeks = [
 
 // CSS for the Main Background Container
 const BackgroundContainer = styled.div`
-  background-color: var(--secondary-color); /* Pale blue background */
+  background-color: var(--secondary-color);
   padding: 40px 100px 100px;
   margin-top: 6%;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+// CSS for the Toggle Container
+const ToggleContainer = styled.div`
+  display: flex;
+  border: 2px solid #006096;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 300px;
+  margin-bottom: 60px;
+`;
+
+const ToggleButton = styled.button`
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  outline: none;
+  background-color: ${({ active }) => (active ? "#006096" : "transparent")};
+  color: ${({ active }) => (active ? "#ffffff" : "#006096")};
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
 `;
 
 // CSS for the Week List Container
@@ -86,7 +152,7 @@ const WeekItem = styled(motion.div)`
 const ChevronButton = styled.button`
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: var(--secondary-darkcolor);
   font-size: 1.5rem;
   cursor: pointer;
 `;
@@ -117,7 +183,7 @@ const CircleWrapper = styled.div`
 `;
 
 const CircleItem = styled(motion.div)`
-  background-color: var(--primary-color);
+  background-color: var(--secondary-darkcolor);
   color: white;
   width: 15vw;
   height: 15vw;
@@ -143,9 +209,11 @@ const CircleImage = styled.img`
 `;
 
 const CircleDescription = styled(Typography)`
-  text-align: center;
+  text-align: center;  // This keeps the text centered horizontally
   margin-top: 10px;
+  width: 150%; // Increase the width to make the description wider
 `;
+
 
 const DaysContainer = styled.div`
   display: flex;
@@ -220,6 +288,7 @@ const slideVariants = {
 const Menu = () => {
     const [currentWeek, setCurrentWeek] = useState(0);
     const [direction, setDirection] = useState(0);
+    const [menuType, setMenuType] = useState("secondary");
 
     const handleNext = () => {
         setDirection(1);
@@ -231,9 +300,29 @@ const Menu = () => {
         setCurrentWeek((prev) => (prev === 0 ? weeks.length - 1 : prev - 1));
     };
 
+    const getCurrentWeeks = () => {
+      return menuType === "secondary" ? primaireWeeks : weeks;
+    };
+
     return (
         <BackgroundContainer>
-            <Typography as="h4" type="h4" color="primary">
+            {/* Toggle Button */}
+            <ToggleContainer>
+                <ToggleButton
+                    active={menuType === "secondary"}
+                    onClick={() => setMenuType("secondary")}
+                >
+                    Primaire
+                </ToggleButton>
+                <ToggleButton
+                    active={menuType === "elementary"}
+                    onClick={() => setMenuType("elementary")}
+                >
+                    Secondaire
+                </ToggleButton>
+            </ToggleContainer>
+
+            <Typography as="h4" type="h4" color="seondaryDark">
                 Semaine
             </Typography>
 
@@ -243,7 +332,7 @@ const Menu = () => {
                 </ChevronButton>
 
                 <WeekItem
-                    key={weeks[currentWeek].id}
+                    key={getCurrentWeeks()[currentWeek].id}
                     custom={direction}
                     variants={slideVariants}
                     initial="enter"
@@ -251,7 +340,7 @@ const Menu = () => {
                     exit="exit"
                     transition={{ duration: 0.3 }}
                 >
-                    {weeks[currentWeek].id}
+                    {getCurrentWeeks()[currentWeek].id}
                 </WeekItem>
 
                 <ChevronButton onClick={handleNext}>
@@ -271,7 +360,7 @@ const Menu = () => {
 
                 {/* Circle Container */}
                 <CircleContainer key={currentWeek}>
-                    {weeks[currentWeek].circles.map((circle, index) => (
+                    {getCurrentWeeks()[currentWeek].circles.map((circle, index) => (
                         <CircleWrapper key={index}>
                             <DayItemMobile as="p" type="p">{titles[index]}</DayItemMobile>
                             <a href="../images/menu/fish-menu.jpg" target="_blank" rel="noopener noreferrer">
