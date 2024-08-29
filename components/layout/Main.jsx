@@ -1,14 +1,17 @@
 "use client";
-
 import Image from "next/image";
-import styled from "@emotion/styled";
-import Typography from "../display/Typography";
-import Values from "../ui/Values";
+
+//Third Party Imports
 import { motion } from "framer-motion";
+import styled from "@emotion/styled";
+
+//Local Imports
+import MiniCalendar from "../display/Calendar";
 import Container from "./Container";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "../ui/Footer";
+import Typography from "../display/Typography";
 import Strengths from "../ui/Strength";
+import Values from "../ui/Values";
 
 //CSS For Section1
 const Section1 = styled.section`
@@ -103,65 +106,6 @@ const CardContainer = styled(motion.div)`
   }
 `;
 
-const CalendarDay = ({ day, month, event, isActive }) => (
-  <div className={`flex flex-col items-center ${isActive ? "relative" : ""}`}>
-    <span className="text-xs uppercase mb-1">{month}</span>
-    <span className="text-4xl font-bold mb-1">{day}</span>
-    {event && (
-      <span className="text-[10px] text-center max-w-[100px] leading-tight">
-        {event}
-      </span>
-    )}
-    {isActive && (
-      <div className="absolute top-[-16px] left-[70px] w-2 h-2 bg-white rounded-full" />
-    )}
-  </div>
-);
-
-const Calendar = () => {
-  return (
-    <div className="bg-[#006096] text-white py-12 px-6 font-sans">
-      <div className="max-w-4xl mx-auto text-center py-4">
-        <Typography as="h1" type="h2" color="light">
-          CALENDRIER
-        </Typography>
-        <div className="flex justify-between items-center mt-[60px] mb-8">
-          <ChevronLeft className="w-8 h-8 cursor-pointer" />
-          <div className="flex justify-between w-full max-w-3xl">
-            <div className="flex-1 px-1">
-              <CalendarDay day="27" month="Juin" />
-            </div>
-            <div className="flex-1 px-1">
-              <CalendarDay day="28" month="Juin" event="Journée Pédagogique" />
-            </div>
-            <div className="flex-1 px-1">
-              <CalendarDay day="29" month="Juin" isActive={true} />
-            </div>
-            <div className="flex-1 px-1">
-              <CalendarDay day="30" month="Juin" />
-            </div>
-            <div className="flex-1 px-1">
-              <CalendarDay day="01" month="Juil" event="Canada Day" />
-            </div>
-          </div>
-          <ChevronRight className="w-8 h-8 cursor-pointer" />
-        </div>
-        <div className="relative flex flex-col items-center">
-          <div className="flex justify-center space-x-3 mb-8">
-            <div className="w-3 h-3 bg-white opacity-50 rounded-full"></div>
-            <div className="w-3 h-3 bg-white rounded-full"></div>
-            <div className="w-3 h-3 bg-white opacity-50 rounded-full"></div>
-          </div>
-          <div className="absolute top-0 right-0 h-full flex items-center">
-            <button className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity">
-              Visualiser le calendrier
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
   <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
@@ -270,7 +214,7 @@ const Main = () => {
           <Strengths />
         </Container>
       </StyledDiv2>
-      <Calendar />
+      <MiniCalendar />
       <StyledDiv2>
         <LatestNews />
       </StyledDiv2>

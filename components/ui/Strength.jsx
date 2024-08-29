@@ -1,3 +1,5 @@
+"use client";
+
 //Third Party Imports
 import { motion, useAnimation } from "framer-motion";
 import styled from "@emotion/styled";
@@ -176,7 +178,7 @@ const StyledGrid = styled.div`
   }
 `;
 
-const Grid = ({ images }) => {
+const Grid = () => {
   return (
       <StyledGrid>
         {data.map((item, index) => (

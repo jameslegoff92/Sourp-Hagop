@@ -13,8 +13,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             "profile",
             "email",
             "https://www.googleapis.com/auth/calendar",
-            "https://www.googleapis.com/auth/drive.file",
-            "https://www.googleapis.com/auth/gmail.readonly",
+            "https://www.googleapis.com/auth/calendar.events.public.readonly",
+            "https://www.googleapis.com/auth/calendar.settings.readonly",
+            "https://www.googleapis.com/auth/iam.test",
+            "https://www.googleapis.com/auth/calendar.acls.readonly",
+            "https://www.googleapis.com/auth/calendar.readonly",
+            "https://www.googleapis.com/auth/calendar.calendars.readonly",
+            "https://www.googleapis.com/auth/calendar.events.readonly",
+            "https://www.googleapis.com/auth/service.management",
+            "https://www.googleapis.com/auth/service.management.readonly",
+            
             // Add more scopes as needed based on your Google Cloud Console
           ].join(" "),  // Join the scopes with a spac
         },
