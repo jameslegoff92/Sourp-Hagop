@@ -27,7 +27,10 @@ const navList = [
       { text: "Projet Éducatif", link: "/projet-educatif" },
       { text: "Comité de parents", link: "/comite-parents" },
       { text: "Anciens et anciennes", link: "/anciens" },
-      { text: "Protecteur National de l'élève", link: "/protecteur-national-eleve" },
+      {
+        text: "Protecteur National de l'élève",
+        link: "/protecteur-national-eleve",
+      },
     ],
   },
   {
@@ -149,15 +152,18 @@ const CSSChevronContainer = styled(motion.div)``;
 
 //Component Framer Motion Variants
 const dropdownVariants = {
-  hidden: {
+  hidden: { 
+    pointerEvents: "none",
     opacity: 0,
     height: 0,
     transition: {
       height: { duration: 0.3 },
       opacity: { duration: 0.2, delay: 0.1 },
+
     },
   },
   visible: {
+    pointerEvents: "auto",
     opacity: 1,
     height: "auto",
     transition: {
@@ -227,10 +233,12 @@ const MobileNav = ({ open }) => {
                   animate={isDropdownOpen[navItem.title] ? "visible" : "hidden"}
                 >
                   {navItem.items.map((item, index) => (
-                    <CSSMobileNavItem href={item.link} key={index}>
-                      {" "}
-                      {item.text}{" "}
-                    </CSSMobileNavItem>
+                    <li>
+                      <CSSMobileNavItem href={item.link} key={index}>
+                        {" "}
+                        {item.text}{" "}
+                      </CSSMobileNavItem>
+                    </li>
                   ))}
                 </CSSMobileNavItems>
               </CSSNavDropdown>
@@ -285,7 +293,7 @@ const Nav = ({ type = "primary", animate = true }) => {
           animate={animationState}
           className={css.logoContainer}
         >
-          <Link href="/" style={{ display: "flex", gap: "4px"}}>
+          <Link href="/" style={{ display: "flex", gap: "4px" }}>
             <img
               src="images/logo-blackWhite.jpg"
               alt="logo"
