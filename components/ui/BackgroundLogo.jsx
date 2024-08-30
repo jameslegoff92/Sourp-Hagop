@@ -1,58 +1,22 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import styled from 'styled-components';
 
-const BackgroundImageContainer = ({ children, style }) => (
-    <motion.div 
-        className="fixed left-0 right-0 flex justify-center items-center z-[-1]"
-        style={style}
-    >
-        {children}
-    </motion.div>
-);
+const Logo = styled.img`
+  position: fixed;
+  top: 50%;
+  left: calc(50% + 25px); /* Adjust the '20px' for the desired left margin */
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  width: clamp(200px, 20vw, 500px);  
+  height: auto;
+  background: ${({ src }) => `url(${src}) no-repeat center`};
+  background-size: contain;
+  z-index: -1;
+`;
 
-const BackgroundImage = ({ src }) => (
-    <img src={src} className="w-full max-w-[800px] h-[auto] object-contain opacity-10" />
-);
-
-const BackgroundLogo = ( {src, style} ) => {
-
-    const { scrollY, scrollYProgress } = useScroll();
-    const ref = useRef(null);
-    const [viewportHeight, setViewportHeight] = useState(0);
-
-    useEffect(() => {
-        const updateLayout = () => {
-            if (ref.current) {
-                setElementTop(ref.current.offsetTop);
-            }
-            setViewportHeight(window.innerHeight);
-        };
-
-        updateLayout();
-        window.addEventListener('resize', updateLayout);
-        return () => window.removeEventListener('resize', updateLayout);
-    }, []);
-
-    const backgroundY = useTransform(
-        scrollY,
-        [0, viewportHeight * 0.1],
-        ["150%", "15%"]
-    );
-
-    const backgroundOpacity = useTransform(
-        scrollY,
-        [0, viewportHeight * 0.2],
-        [0.3, 0.3]
-    );
-
-    return (
-        <>
-            <BackgroundImageContainer style={{ y: backgroundY, opacity: backgroundOpacity, ...style }}>
-                <BackgroundImage src={ src } />
-            </BackgroundImageContainer>
-        </>
-    );
+const BackgroundLogo = ({ src, alt = "Background Logo" }) => {
+  return (
+    <Logo src={src} aria-label={alt} />
+  );
 };
 
 export default BackgroundLogo;
-
