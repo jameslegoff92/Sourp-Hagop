@@ -7,7 +7,7 @@ import MainHeading from "@/components/display/MainHeading";
 import Intro from "@/components/display/Intro";
 import Values from "@/components/ui/Values";
 import Strengths from "@/components/ui/Strength";
-import MiniCalendar from "@/components/display/Calendar";
+import Calendar from "@/components/display/Calendar";
 import InstagramFeed from "@/components/display/Instagram";
 import Footer from "@/components/ui/Footer";
 
@@ -15,7 +15,7 @@ export default function Homepage() {
   return (
     <>
       <BackgroundVideo src="videos/hero-video.mp4">
-        <TopNav animate={true}/>
+        <TopNav animate={true} />
         <Container>
           <Nav type="secondary" />
           <MainHeading />
@@ -24,7 +24,7 @@ export default function Homepage() {
       <Intro />
       <Values />
       <Strengths />
-      <MiniCalendar />
+      <Calendar />
       <InstagramFeed />
       <Footer />
     </>

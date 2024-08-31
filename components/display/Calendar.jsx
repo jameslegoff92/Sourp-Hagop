@@ -1,14 +1,20 @@
 "use client";
-import { useState, useEffect} from "react";
+import { useState, useEffect, use } from "react";
+import Link from "next/link";
 
 //Third Party Imports
+import { useSession } from "next-auth/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 
 //Local Imports
 import Typography from "./Typography";
 
-//CSS for the Mini Calendar Component
+//Utiliy Imports
+import { generateDateArrays, toISO8601, getDay } from "@/utils/date";
+
+//CSSinJS
 const Section = styled.section`
   background-color: #006096;
   color: white;
@@ -16,6 +22,10 @@ const Section = styled.section`
 `;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
   margin: 0 auto;
   max-width: 1200px;
   width: 100%;
@@ -27,8 +37,6 @@ const SubContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3.75rem;
-  margin-bottom: 0.5rem;
 `;
 
 const CSSCalendar = styled.div`
@@ -37,18 +45,30 @@ const CSSCalendar = styled.div`
   width: 100%;
 `;
 
-const DateWrapper = styled.div`
+const DateWrapper = styled(motion.div)`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
 `;
 
+const Icons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+`;
+
+const ButtonWrapper = styled.div``;
+
 //Date Component
-const Day = ({ day, month, event, isActive }) => (
+const Day = ({ day, month, title, isActive }) => (
   <div className={`flex flex-col items-center ${isActive ? "relative" : ""}`}>
     <span className="text-xs uppercase mb-1">{month}</span>
     <span className="text-4xl font-bold mb-1">{day}</span>
     {event && (
       <span className="text-[10px] text-center max-w-[100px] leading-tight">
-        {event}
+        {title}
       </span>
     )}
     {isActive && (
@@ -59,9 +79,14 @@ const Day = ({ day, month, event, isActive }) => (
 
 //Mini Calendar Component
 const MiniCalendar = () => {
-  const [dateArrays, setDateArrays] = useState([]);
+  const [dateArrays, setDateArrays] = useState([[]]);
   const [currentWeek, setCurrentWeek] = useState(0);
+  const [authToken, setAuthToken] = useState("");
+  const [googleEvents, setGoogleEvents] = useState([]);
+  console.log("dateArrays: ", dateArrays);  
 
+  //How to acquire the session object. This is an asynchronous operation.
+  const { data, status } = useSession();
 
   const handleChevronLeft = () => {
     setCurrentWeek((prev) => {
@@ -69,6 +94,7 @@ const MiniCalendar = () => {
       return prev - 1;
     });
   };
+
   const handleChevronRight = () => {
     setCurrentWeek((prev) => {
       if (prev === 2) return 0;
@@ -77,61 +103,107 @@ const MiniCalendar = () => {
   };
 
   useEffect(() => {
-    //Helper Functions
-    function generateDateArrays() {
-      const today = new Date();
-      const dates = [[], [], []]; // Step 1: Initialize the array with 3 nested arrays
-
-      // Define an array of month names
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-
-      // Function to add days to the date and store in the appropriate nested array
-      function addDateToNestedArray(index, offset) {
-        const adjustedDate = new Date(today);
-        adjustedDate.setDate(today.getDate() + offset);
-
-        const day = adjustedDate.getDate();
-        const monthName = monthNames[adjustedDate.getMonth()];
-        const year = adjustedDate.getFullYear();
-
-        dates[index].push({ day, month: monthName, year });
-      }
-
-      // Fill the first 5 days
-      for (let i = 0; i < 5; i++) {
-        addDateToNestedArray(0, i);
-      }
-
-      // Fill the next 5 days
-      for (let i = 0; i < 5; i++) {
-        addDateToNestedArray(1, 5 + i);
-      }
-
-      // Fill the last 5 days
-      for (let i = 0; i < 5; i++) {
-        addDateToNestedArray(2, 10 + i);
-      }
-
-      return dates;
-    }
-
     // Generate the date arrays
     const dateArrays = generateDateArrays();
     setDateArrays(dateArrays);
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      const token = data.accessToken;
+      setAuthToken(token);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const fetchGoogleData = async (authToken) => {
+      const timeMin = encodeURIComponent(toISO8601(dateArrays[0][0]));
+      const timeMax = encodeURIComponent(toISO8601(dateArrays[2][4]));
+      console.log("timeMin & timeMax: ", timeMin, timeMax);
+      const url = `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMax=${timeMax}&timeMin=${timeMin}`;
+      const headers = {
+        Authorization: `Bearer ${authToken}`,
+        Accept: "application/json",
+      };
+
+      try {
+        // Make the fetch request
+        const response = await fetch(url, {
+          headers,
+        });
+
+        // Check if the response is not OK (status code outside 200-299)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the JSON data
+        const data = await response.json();
+        console.log("Data: ", data.items);
+
+        // Map through the events to create a new array with desired fields
+        const events = data.items
+          .map((event) => {
+            return {
+              title: event.description || "No title posted",
+              location: event.location || "No location posted",
+              start: event.start.dateTime || event.start.date,
+              end: event.end.dateTime || event.end.date,
+              details: event.summary || "No details posted",
+            }; //Sorts the new array by start date
+          })
+          .sort((a, b) => {
+            return new Date(a.start) - new Date(b.start);
+          });
+
+        console.log("Events: ", events);
+        console.log("Date Arrays: ", dateArrays);
+
+        console.log("Updated Date Arrays: ", dateArrays);
+
+        return setGoogleEvents(events);
+      } catch (error) {
+        // Handle errors
+        console.error("Failed to fetch events:", error.message);
+        return []; // Return an empty array or handle as needed
+      }
+    };
+
+    if (
+      status === "unauthenticated" ||
+      status === undefined ||
+      status === "loading"
+    )
+      return;
+
+    if (!authToken) return;
+
+    if (authToken) {
+      fetchGoogleData(authToken);
+    }
+  }, [authToken]);
+
+  useEffect(() => {
+
+    setDateArrays((prevState) => { 
+      return prevState.map((week) => {
+        return week.map((date) => {
+          for (let i = 0; i < googleEvents.length; i++) {
+            console.log("google events: ,", getDay(googleEvents[i].start));
+            if(date.day == getDay(googleEvents[i].start)) {
+              console.log("Matched");
+              return {
+                ...date,
+                title: googleEvents[i].title
+              }
+            }
+          }
+          return date
+        })
+      })
+    });
+;
+  }, [googleEvents]);
 
   return (
     <Section>
@@ -147,8 +219,13 @@ const MiniCalendar = () => {
           <CSSCalendar>
             {dateArrays.length > 0 ? (
               dateArrays[currentWeek].map((date, index) => (
-                <DateWrapper key={index}>
-                  <Day day={date.day} month={date.month} />
+                <DateWrapper
+                  key={`${currentWeek} - ${index}}`}
+                  initial={{ x: "-100vw" }} // Start off-screen to the left
+                  animate={{ x: 0 }} // Slide to the final position
+                  transition={{ duration: 0.5, ease: "easeInOut" }} // Stagger the animations
+                >
+                  <Day day={date.day} month={date.month} title={date.title} />
                 </DateWrapper>
               ))
             ) : (
@@ -160,23 +237,26 @@ const MiniCalendar = () => {
             className="w-8 h-8 cursor-pointer"
           />
         </SubContainer>
-        <div className="relative flex flex-col items-center">
-          <div className="flex justify-center space-x-3 mb-8">
+        <div className="flex flex-col items-center relative">
+          <Icons>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 0 ? "" : 'opacity-50'} rounded-full`}
+              className={`w-3 h-3 bg-white ${currentWeek == 0 ? "" : "opacity-50"} rounded-full`}
             ></div>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 1 ? "" : 'opacity-50'} rounded-full`}
+              className={`w-3 h-3 bg-white ${currentWeek == 1 ? "" : "opacity-50"} rounded-full`}
             ></div>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 2 ? "" : 'opacity-50'} rounded-full`}
+              className={`w-3 h-3 bg-white ${currentWeek == 2 ? "" : "opacity-50"} rounded-full`}
             ></div>
-          </div>
-          <div className="absolute top-0 right-0 h-full flex items-center">
-            <button className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity">
+          </Icons>
+          <ButtonWrapper className="absolute top-0 right-0 h-full flex items-center">
+            <Link
+              href="/calendrier"
+              className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity"
+            >
               Visualiser le calendrier
-            </button>
-          </div>
+            </Link>
+          </ButtonWrapper>
         </div>
       </Container>
     </Section>

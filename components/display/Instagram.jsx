@@ -21,7 +21,7 @@ const StyledDiv2 = styled(StyledDiv)`
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
   <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
     <div className="relative w-full h-48 md:h-[350px] mb-4">
-      <img src={imageSrc} alt={title} style={{ objectFit: "cover" }} fill />
+      <img src={imageSrc} alt={title} style={{ objectFit: "cover" }} fill="true" />
     </div>
     <h3 className="font-normal text-left mb-2">{title}</h3>
     <div className="flex-grow" />

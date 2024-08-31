@@ -29,6 +29,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, account }) {
+      // Store the access token in the token object if it's available
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Pass the access token to the session if it's available in the token
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  },
 });
 
 export default handlers;

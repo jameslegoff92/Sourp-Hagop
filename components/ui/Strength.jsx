@@ -215,8 +215,8 @@ const Grid = () => {
   return (
     <StyledGrid>
       {data.map((item, index) => (
-        <div style={{ height: "400px" }}>
-          <GridItem key={index} index={index} item={item} />
+        <div key={index} style={{ height: "400px" }}>
+          <GridItem  index={index} item={item} />
         </div>
       ))}
     </StyledGrid>
