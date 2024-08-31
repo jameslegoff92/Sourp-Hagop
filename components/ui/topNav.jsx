@@ -37,7 +37,7 @@ const StyledPortalLink = styled(Link)``;
 
 export const PortalLink = ({ mobile }) => (
   <StyledPortalLink
-    className={`${css.portalLink} ${ mobile ? css.portalLinkMobile : ""}`}
+    className={`${css.portalLink} ${mobile ? css.portalLinkMobile : ""}`}
     target="_blank"
     href="https://ecolesourphagop.coba.ca/pednet/login.coba"
   >
@@ -63,20 +63,8 @@ const TopNav = ({ animate = false }) => {
         </ul>
         <PortalLink />
         <div className={css.langContainer}>
-          <Image
-            src="/images/chevron-down.svg"
-            alt="chevron down"
-            width={8}
-            height={4}
-            priority={true}
-          />
-          <Image
-            src="/images/lang.svg"
-            alt="logo"
-            width={21}
-            height={23}
-            priority={true}
-          />
+          <img src="/images/chevron-down.svg" alt="chevron down" />
+          <img src="/images/lang.svg" alt="logo" />
         </div>
       </Container>
     </nav>
