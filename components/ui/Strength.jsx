@@ -1,4 +1,6 @@
 "use client";
+import { useRef } from "react";
+
 //Third Party Imports
 import { motion, useAnimation } from "framer-motion";
 import styled from "@emotion/styled";
@@ -119,10 +121,19 @@ const GridItemWrapper = styled(motion.div)`
   position: relative;
 `;
 
+const GridItemText = styled(Typography)`
+  bottom: "30px";
+  top: "auto";
+  position: "absolute";
+  transform: "translateX(-50%)";
+  left: "50%";
+`;
+
 const GridItem = ({ item, index }) => {
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();
+  let isOpen = useRef(false);
 
   const handleHoverStart = async () => {
     parentControls.start({
@@ -157,15 +168,52 @@ const GridItem = ({ item, index }) => {
     });
   };
 
+  const handleTap = async (e) => {
+    e.preventDefault();
+    if (!isOpen.current) {
+      parentControls.start({
+        backgroundSize: "120% 120%",
+        transition: { duration: 0.5, ease: "easeIn" },
+      });
+      childControls1.start({
+        top: "30px",
+        transition: { duration: 0.5, ease: "easeIn" },
+      });
+      childControls2.start({
+        display: "block",
+        opacity: 1,
+        transition: { duration: 0.7, ease: "easeIn" },
+      });
+    } else {
+      parentControls.start({
+        backgroundSize: "100% 100%",
+        transition: { duration: 0.5, ease: "easeOut" },
+      });
+      childControls1.start({
+        bottom: "5px",
+        top: "auto",
+        transition: { duration: 0.5, ease: "easeOut" },
+      });
+      childControls2.start({
+        display: "none",
+        opacity: 0,
+        transition: { duration: 0.2, ease: "easeOut" },
+      });
+    }
+
+    isOpen.current = !isOpen.current;
+  };
+
   return (
     <GridItemWrapper
       animate={parentControls}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
+      onTap={handleTap}
       index={index}
       initial={{ backgroundSize: "100% 100%", position: "relative" }}
     >
-      <Typography
+      <GridItemText
         animate={childControls1}
         type="h4"
         color="light"
@@ -173,7 +221,7 @@ const GridItem = ({ item, index }) => {
         as="h4"
         style={{ width: "350px" }}
         initial={{
-          bottom: "30px",
+          bottom: "5px",
           top: "auto",
           position: "absolute",
           transform: "translateX(-50%)",
@@ -181,7 +229,7 @@ const GridItem = ({ item, index }) => {
         }}
       >
         {item.title}
-      </Typography>
+      </GridItemText>
       <Typography
         animate={childControls2}
         initial={{ display: "none", opacity: 0 }}
@@ -216,7 +264,7 @@ const Grid = () => {
     <StyledGrid>
       {data.map((item, index) => (
         <div key={index} style={{ height: "400px" }}>
-          <GridItem  index={index} item={item} />
+          <GridItem index={index} item={item} />
         </div>
       ))}
     </StyledGrid>
