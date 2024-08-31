@@ -41,7 +41,7 @@ const LineContainer = styled(motion.div)`
   height: 1px;
   background-color: white;
   position: relative;
-  top: -0.1rem;
+  top: 0.1rem;
 
   @media (max-width: 1112px) {
     top: 0.1rem;  // Adjust this value to move the line lower on mobile
