@@ -15,6 +15,43 @@ import Typography from "./Typography";
 import { generateDateArrays, toISO8601, getDay } from "@/utils/date";
 
 //CSSinJS
+//Day Component CSS
+const EventTitle = styled(Link)`
+  display: -webkit-box; /* Required for ellipsis on multiline text */
+  height: 50px;
+  overflow: hidden; /* Hide overflow content both horizontally and vertically */
+  text-overflow: ellipsis; /* Optional for inline content */
+  font-size: 0.8rem;
+  -webkit-line-clamp: 3; /* Number of lines to show before cutting off */
+  -webkit-box-orient: vertical;
+
+  &:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+`;
+
+const DayWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+
+//Mini Calendar Component CSS
+const CSSChevronLeft = styled(ChevronLeft)`
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+`;
+
+const CSSChevronRight = styled(ChevronRight)`
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+`;
+
 const Section = styled.section`
   background-color: #006096;
   color: white;
@@ -27,29 +64,59 @@ const Container = styled.div`
   justify-content: center;
   gap: 3rem;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1300px;
   width: 100%;
   text-align: center;
   padding: 0 1.5rem;
 `;
 
 const SubContainer = styled.div`
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 3rem;
 `;
 
 const CSSCalendar = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
+  gap: 1rem;
+
+  @media (min-width: 999px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
 `;
 
 const DateWrapper = styled(motion.div)`
+  border-bottom: 1px solid white;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
   justify-content: center;
-  width: 80px;
+  width: 100px;
+
+  :nth-child(3) {
+    margin-top: 50px;
+  }
+
+  @media (min-width: 999px) {
+    width: 150px;
+    border-bottom: none;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    :nth-child(3) {
+      margin-top: 0;
+    }
+  }
 `;
 
 const Icons = styled.div`
@@ -59,22 +126,34 @@ const Icons = styled.div`
   width: 100%;
 `;
 
-const ButtonWrapper = styled.div``;
+const OpenCalendar = styled(Link)``;
 
-//Date Component
+const ButtonWrapper = styled.div`
+  margin-top: 2rem;
+  position: none;
+  
+
+  @media (min-width: 600px) {
+    margin-top: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+`;
+
+//Day Component
 const Day = ({ day, month, title, isActive }) => (
-  <div className={`flex flex-col items-center ${isActive ? "relative" : ""}`}>
-    <span className="text-xs uppercase mb-1">{month}</span>
+  <DayWrapper className={`${isActive ? "relative" : ""}`}>
+    <span className="text-md uppercase mb-1">{month}</span>
     <span className="text-4xl font-bold mb-1">{day}</span>
-    {event && (
-      <span className="text-[10px] text-center max-w-[100px] leading-tight">
-        {title}
-      </span>
+    <EventTitle href="/calendrier" className="text-center">
+      {title}
+    </EventTitle>
+
+    {isActive == 2 && (
+      <div className="absolute top-[-16px]  w-2 h-2 bg-white rounded-full" />
     )}
-    {isActive && (
-      <div className="absolute top-[-16px] left-[70px] w-2 h-2 bg-white rounded-full" />
-    )}
-  </div>
+  </DayWrapper>
 );
 
 //Mini Calendar Component
@@ -83,7 +162,7 @@ const MiniCalendar = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [authToken, setAuthToken] = useState("");
   const [googleEvents, setGoogleEvents] = useState([]);
-  console.log("dateArrays: ", dateArrays);  
+  console.log("dateArrays: ", dateArrays);
 
   //How to acquire the session object. This is an asynchronous operation.
   const { data, status } = useSession();
@@ -145,11 +224,11 @@ const MiniCalendar = () => {
         const events = data.items
           .map((event) => {
             return {
-              title: event.description || "No title posted",
-              location: event.location || "No location posted",
+              title: event.description || "",
+              location: event.location || "",
               start: event.start.dateTime || event.start.date,
               end: event.end.dateTime || event.end.date,
-              details: event.summary || "No details posted",
+              details: event.summary || "",
             }; //Sorts the new array by start date
           })
           .sort((a, b) => {
@@ -184,25 +263,23 @@ const MiniCalendar = () => {
   }, [authToken]);
 
   useEffect(() => {
-
-    setDateArrays((prevState) => { 
+    setDateArrays((prevState) => {
       return prevState.map((week) => {
         return week.map((date) => {
           for (let i = 0; i < googleEvents.length; i++) {
             console.log("google events: ,", getDay(googleEvents[i].start));
-            if(date.day == getDay(googleEvents[i].start)) {
+            if (date.day == getDay(googleEvents[i].start)) {
               console.log("Matched");
               return {
                 ...date,
-                title: googleEvents[i].title
-              }
+                title: googleEvents[i].title,
+              };
             }
           }
-          return date
-        })
-      })
+          return date;
+        });
+      });
     });
-;
   }, [googleEvents]);
 
   return (
@@ -212,10 +289,7 @@ const MiniCalendar = () => {
           CALENDRIER
         </Typography>
         <SubContainer>
-          <ChevronLeft
-            onClick={handleChevronLeft}
-            className="w-8 h-8 cursor-pointer"
-          />
+          <CSSChevronLeft onClick={handleChevronLeft} />
           <CSSCalendar>
             {dateArrays.length > 0 ? (
               dateArrays[currentWeek].map((date, index) => (
@@ -225,17 +299,19 @@ const MiniCalendar = () => {
                   animate={{ x: 0 }} // Slide to the final position
                   transition={{ duration: 0.5, ease: "easeInOut" }} // Stagger the animations
                 >
-                  <Day day={date.day} month={date.month} title={date.title} />
+                  <Day
+                    day={date.day}
+                    month={date.month}
+                    title={date.title}
+                    isActive={index}
+                  />
                 </DateWrapper>
               ))
             ) : (
               <h1> loading </h1>
             )}
           </CSSCalendar>
-          <ChevronRight
-            onClick={handleChevronRight}
-            className="w-8 h-8 cursor-pointer"
-          />
+          <CSSChevronRight onClick={handleChevronRight} />
         </SubContainer>
         <div className="flex flex-col items-center relative">
           <Icons>
@@ -249,13 +325,13 @@ const MiniCalendar = () => {
               className={`w-3 h-3 bg-white ${currentWeek == 2 ? "" : "opacity-50"} rounded-full`}
             ></div>
           </Icons>
-          <ButtonWrapper className="absolute top-0 right-0 h-full flex items-center">
-            <Link
+          <ButtonWrapper className="h-full flex items-center">
+            <OpenCalendar
               href="/calendrier"
               className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity"
             >
               Visualiser le calendrier
-            </Link>
+            </OpenCalendar>
           </ButtonWrapper>
         </div>
       </Container>
