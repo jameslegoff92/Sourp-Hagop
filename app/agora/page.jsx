@@ -31,7 +31,7 @@ export default function Soutien() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            <BackgroundLogo src="../images/logo-big.svg"/>
             <Header animate = {false} imageSrc="../images/header/agora-header.jpg" headerText="AGORA ET CANTINE" headerTextTop="60%" />
 
             <StyledDiv>
