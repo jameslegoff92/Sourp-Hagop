@@ -1,3 +1,4 @@
+"use client";
 import { useRef } from "react";
 
 //Third Party Imports
@@ -13,17 +14,17 @@ const valueData = [
   {
     title: "Respect",
     text: "À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant leur plein potentiel pour une vie épanouie.",
-    url: "/images/value4.jpg",
+    url: "/images/value-img-1-color.png",
   },
   {
     title: "Responsabilité",
     text: "La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en charge leurs actions et à s'engager activement dans leur communauté.",
-    url: "/images/value5.jpg",
+    url: "/images/value-img-2-color.png",
   },
   {
     title: "Accomplissement de Soi",
     text: "Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous, créant un environnement de confiance et de considération mutuelle.",
-    url: "/images/value6.jpg",
+    url: "/images/value-img-3-color.png",
   },
 ];
 
@@ -31,17 +32,17 @@ const valueData = [
 const styleVariants = {
   0: {
     background:
-      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/value-img-1.png'), no-repeat",
+      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/value-img-1-color.png'), no-repeat",
     backgroundColor: "var(--tertiary-color)",
   },
   1: {
     background:
-      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/respect.JPG'), no-repeat",
+      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/value-img-2-color.png'), no-repeat",
     backgroundColor: "#006096",
   },
   2: {
     background:
-      "linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3)), url('/images/responsible.JPG'), no-repeat",
+      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/value-img-3-color.png'), no-repeat",
     backgroundColor: "var(--tertiary-color)",
   },
 };
@@ -87,6 +88,7 @@ const ImgContainer = styled.div`
   display: none;
 
   @media (min-width: 48rem) {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); 
     display: block;
     width: 100%;
     height: 31.25rem;
@@ -122,6 +124,10 @@ const ValueSubContainer = styled(motion.div)`
   align-items: center;
   height: 100%;
   padding: 0 40px;
+
+  @media (min-width: 768px) and (max-width: 1093px) {
+    background: linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3));
+  }
 
 
 `;
