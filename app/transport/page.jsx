@@ -72,6 +72,16 @@ const LegendContainer = styled.div`
   align-items: flex-start;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
+
+  @media (max-width: 768px) and (orientation: portrait) {
+    display: none;
+  }
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    display: flex;
+    bottom: 1vh;
+    left: 1vw;
+  }
 `;
 
 const LegendItem = styled.div`
@@ -90,6 +100,32 @@ const LegendText = styled.span`
   font-size: 12px;
   color: black;
   text-align: left;
+
+    @media (max-width: 768px) and (orientation: landscape) {
+font-size: 8px;
+  }
+`;
+
+const RotateMessage = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  @media (orientation: landscape) {
+    display: none;
+  }
 `;
 
 export default function Transport() {
@@ -213,6 +249,7 @@ export default function Transport() {
             transition={{ duration: 1 }}
             viewport={{ once: true }}
           >
+            <RotateMessage>Tournez votre apareil pour une meilleure visualisation</RotateMessage>
             <StyledSVG viewBox="0 0 802.95 493.34" ref={svgRef}>
               <g onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                 <path
