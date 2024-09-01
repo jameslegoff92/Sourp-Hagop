@@ -5,7 +5,7 @@ const Logo = styled.img`
   top: 50%;
   left: calc(50% + 25px); /* Adjust the '20px' for the desired left margin */
   transform: translate(-50%, -50%);
-  opacity: 0.1;
+  opacity: 0.05;
   width: clamp(200px, 20vw, 500px);  
   height: auto;
   background: ${({ src }) => `url(${src}) no-repeat center`};
