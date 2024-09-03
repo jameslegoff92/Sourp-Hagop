@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import Image from "next/image";
 
-const Logo = styled.img``;
+const Logo = styled(Image)``;
 
 const css = {
   position: "fixed",
@@ -14,7 +15,7 @@ const css = {
 };
 
 const BackgroundLogo = ({ src, alt = "Background Logo" }) => {
-  return <Logo src={src} aria-label={alt} style={css} />;
+  return <Logo src={src} aria-label={alt} style={css} width={350} height={311} />;
 };
 
 export default BackgroundLogo;
