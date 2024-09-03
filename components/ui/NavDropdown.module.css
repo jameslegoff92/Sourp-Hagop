@@ -38,6 +38,7 @@
 }
 
 .link {
+  display: block;
   color: var(--white);
   text-decoration: none;
   width: 100%;
