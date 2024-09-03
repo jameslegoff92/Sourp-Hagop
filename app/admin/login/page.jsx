@@ -1,9 +1,9 @@
 import Login from "@/components/ui/Login";
 
-export default function SignIn() {
+const SignIn = () => {
   return (
-    <>
-      <Login />
-    </>
-  );
+    <Login />
+  )
 }
+
+export default SignIn;

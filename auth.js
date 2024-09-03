@@ -43,6 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+  debug: true,
 });
 
 export default handlers;
