@@ -1,22 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const Logo = styled.img`
-  position: fixed;
-  top: 50%;
-  left: calc(50% + 25px); /* Adjust the '20px' for the desired left margin */
-  transform: translate(-50%, -50%);
-  opacity: 0.05;
-  width: clamp(200px, 20vw, 500px);  
-  height: auto;
-  background: ${({ src }) => `url(${src}) no-repeat center`};
-  background-size: contain;
-  z-index: -1;
-`;
+const Logo = styled.img``;
+
+const css = {
+  position: "fixed",
+  top: "50%",
+  left: "calc(50% + 45px)",
+  transform: "translateX(-50%)",
+  opacity: 0.05,
+  width: "350px",
+  height: "auto",
+  zIndex: -2,
+};
 
 const BackgroundLogo = ({ src, alt = "Background Logo" }) => {
-  return (
-    <Logo src={src} aria-label={alt} />
-  );
+  return <Logo src={src} aria-label={alt} style={css} />;
 };
 
 export default BackgroundLogo;

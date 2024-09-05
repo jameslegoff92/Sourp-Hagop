@@ -30,9 +30,8 @@ export default function Soutien() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg"/>
             <Header animate = {false} imageSrc="../images/header/bibliotheque-header.jpg" headerText="Bibliothèque" headerTextTop="60%" />
-
+                    <BackgroundLogo src="../images/logo-big.svg"/>
             <StyledDiv>
                 <MotionDiv>
 
