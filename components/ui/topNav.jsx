@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import styled from "@emotion/styled";
 import css from "./topNav.module.css";
 import Container from "@/components/layout/Container";

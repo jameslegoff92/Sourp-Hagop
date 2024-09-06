@@ -11,14 +11,7 @@ export default function SignIn() {
       >
         <button type="submit">Signin with Google</button>
       </form>
-      <form
-        action={async () => {
-          "use server";
-          await signIn("instagram", { redirectTo: "/" });
-        }}
-      >
-        <button type="submit">Signin with Instagram</button>
-      </form>
+
     </>
   );
 }

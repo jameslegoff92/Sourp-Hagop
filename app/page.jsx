@@ -12,6 +12,7 @@ import InstagramFeed from "@/components/display/Instagram";
 import Footer from "@/components/ui/Footer";
 
 export default function Homepage() {
+
   return (
     <>
       <BackgroundVideo src="videos/hero-video.mp4">
