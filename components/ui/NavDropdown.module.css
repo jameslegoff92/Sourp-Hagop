@@ -38,7 +38,7 @@
 }
 
 .link {
-  color: var(--white);
+  color: var(--white) !important; 
   text-decoration: none;
   width: 100%;
 }
