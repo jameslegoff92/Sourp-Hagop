@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FacebookLoginLogout() {
+  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -27,33 +29,34 @@ export default function FacebookLoginLogout() {
     FB.login(
       function (response) {
         if (response.authResponse) {
-
           const accessToken = response.authResponse.accessToken;
-          const expiresIn = response.authResponse.expiresIn;  
-  
+          const expiresIn = response.authResponse.expiresIn;
+
           // Call the API route with the access token
-          fetch('/api/facebook/post-token', {
-            method: 'POST',
+          fetch("/api/facebook/post-token", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ accessToken, expiresIn }), // Just send the token for simplicity
           })
             .then((response) => {
               console.log("Fetch response status:", response.status); // Log the status to check if it's 200 or an error
               if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error("Network response was not ok");
               }
               return response.json();
             })
             .then((data) => {
-              console.log('Server response:', data);  // Log the data returned by the API route
+              console.log("Server response:", data); // Log the data returned by the API route
+              // Ensure router is ready
             })
             .catch((error) => {
-              console.error('Fetch error:', error);  // Catch and log any errors
+              console.error("Fetch error:", error); // Catch and log any errors
             });
-  
-          setIsLoggedIn(true);
+            
+            setIsLoggedIn(true);
+            router.push("/");
         } else {
           console.log("User cancelled login or did not fully authorize.");
         }
