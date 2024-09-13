@@ -15,7 +15,7 @@ export default function Homepage() {
 
   return (
     <>
-      <BackgroundVideo src="videos/hero-video.mp4">
+      <BackgroundVideo src="/videos/hero-video.mp4">
         <TopNav animate={true} />
         <Container>
           <Nav type="secondary" />

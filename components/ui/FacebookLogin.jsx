@@ -81,6 +81,7 @@ export default function FacebookLoginLogout() {
       ) : (
         <button onClick={handleLogin}>Login with Facebook</button>
       )}
+      <button onClick={() => router.push("/")} > Homepage </button>
     </>
   );
 }
