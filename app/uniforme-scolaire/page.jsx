@@ -56,7 +56,7 @@ export default function UniformeScolaire() {
             <Header
                 animate={false}
                 imageSrc="../images/header/uniforme-header.jpg"
-                headerText="UNIFORME SCOLAIRE blablabla"
+                headerText="UNIFORME SCOLAIRE"
                 headerTextTop="60%"
             />
 
