@@ -106,7 +106,7 @@ export default function ProjetEducatif() {
                 animate={false}
                 imageSrc="../images/header/projet-educatif-header.jpg"
                 headerText="PROJET EDUCATIF"
-                headerTextTop="60%"
+                headerTextTop="70%"
             />
 
             <StyledDiv>

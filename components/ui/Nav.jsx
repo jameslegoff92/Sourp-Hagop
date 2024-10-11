@@ -66,8 +66,8 @@ const navList = [
   {
     title: "Admissions",
     items: [
-      { text: "Pourquoi Sourp Hagop", link: "/pourquoi" },
-      { text: "Demande d'Admission", link: "/admissions" },
+      { text: "Pourquoi Sourp Hagop", link: "/pourquoi-sourp-hagop" },
+      { text: "Demande d'admission", link: "/admissions" },
       { text: "Droits de scolarité et autres frais", link: "/droits" },
     ],
   },

@@ -137,7 +137,7 @@ export default function ComiteParents() {
                 animate={false}
                 imageSrc="../images/header/parent-header.jpg"
                 headerText="COMITÉ DE PARENTS"
-                headerTextTop="60%"
+                headerTextTop="70%"
 
             />
 

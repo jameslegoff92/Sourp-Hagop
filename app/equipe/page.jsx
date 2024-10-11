@@ -33,7 +33,7 @@ export default function Equipe() {
     return (
         <>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
-            <Header animate = {false} imageSrc="../images/header/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
+            <Header animate = {false} imageSrc="../images/header/equipe-header.jpg" headerText="NOTRE ÉQUIPE" headerTextTop="70%" />
 
             <StyledDiv>
                 <MotionDiv>
