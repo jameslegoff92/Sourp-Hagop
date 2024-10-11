@@ -139,3 +139,9 @@ body {
   line-height: 150%; /* 36px */
   letter-spacing: 0.05rem;
 }
+
+.disable-interaction {
+  pointer-events: none;
+  filter: blur(2px);
+  opacity: 0.6;
+}
