@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 const HeaderImageContainer = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 28%;
+  padding-top: 33%;
   overflow: hidden;
 
   @media (max-width: 1024px) {
@@ -20,7 +20,7 @@ const HeaderImageContainer = styled.div`
   }
 
   @media (max-width: 480px) {
-    padding-top: 50%; /* Adjust for mobile phones */
+    padding-top: 50%;
   }
 `;
 
@@ -29,7 +29,7 @@ const HeaderImage = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 105%;
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
@@ -45,6 +45,18 @@ const HeaderImage = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 1;
   }
+    
+`;
+
+const HeaderVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: -1;
 `;
 
 const HeaderText = styled.div`
@@ -76,7 +88,7 @@ const HeaderText = styled.div`
   }
 `;
 
-const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight, mobileTop, mobileRight, animate = false }) => {
+const Header = ({ videoSrc, imageSrc, headerText, headerTextTop, headerTextRight, mobileTop, mobileRight, animate = false }) => {
   return (
     <>
       <TopNav />
@@ -84,16 +96,20 @@ const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight, mobileTo
         <Nav animate={animate} />
       </Container>
       <HeaderImageContainer>
-        <HeaderImage src={imageSrc}>
-          <HeaderText
-            top={headerTextTop}
-            right={headerTextRight}
-            mobileTop={mobileTop}
-            mobileRight={mobileRight}
-          >
-            {headerText}
-          </HeaderText>
-        </HeaderImage>
+        {/* Conditionally render video or image */}
+        {videoSrc ? (
+          <HeaderVideo src={videoSrc} autoPlay loop muted playsInline />
+        ) : (
+          <HeaderImage src={imageSrc} />
+        )}
+        <HeaderText
+          top={headerTextTop}
+          right={headerTextRight}
+          mobileTop={mobileTop}
+          mobileRight={mobileRight}
+        >
+          {headerText}
+        </HeaderText>
       </HeaderImageContainer>
     </>
   );

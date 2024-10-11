@@ -24,7 +24,7 @@ const primaireWeeks = [
       { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
       { description: "Spaghetti bolognaise avec légumes", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
       { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
-      { description: "Macaroni sauce à la viande avec salade", image: "../images/menu/macaroni-viande-salade.jpg" },
+      { description: "Macaroni sauce à la viande avec salade", image: "../images/menu/Untitled-1.png" },
       { description: "Hamburger avec salade de choux", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
     ],
   },

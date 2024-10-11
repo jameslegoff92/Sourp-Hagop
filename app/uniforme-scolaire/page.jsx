@@ -57,7 +57,7 @@ export default function UniformeScolaire() {
                 animate={false}
                 imageSrc="../images/header/uniforme-header.jpg"
                 headerText="UNIFORME SCOLAIRE"
-                headerTextTop="60%"
+                headerTextTop="70%"
             />
 
             <StyledDiv>
