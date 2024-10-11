@@ -133,10 +133,12 @@ export default function ComiteParents() {
                 marginLeft: '0',
             }} />
             <Header
+                className="target-header-image"
                 animate={false}
                 imageSrc="../images/header/parent-header.jpg"
                 headerText="COMITÉ DE PARENTS"
                 headerTextTop="60%"
+
             />
 
             <StyledDiv>

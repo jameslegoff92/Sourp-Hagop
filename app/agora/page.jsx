@@ -32,7 +32,7 @@ export default function Soutien() {
     return (
         <>
             <BackgroundLogo src="../images/logo-big.svg"/>
-            <Header animate = {false} imageSrc="../images/header/agora-header.jpg" headerText="AGORA ET CANTINE" headerTextTop="60%" />
+            <Header animate = {false} videoSrc="../videos/video-agora.mp4" headerText="AGORA ET CANTINE" headerTextTop="60%" />
 
             <StyledDiv>
                 <MotionDiv>
