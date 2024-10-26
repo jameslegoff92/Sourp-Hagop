@@ -16,7 +16,7 @@ export default function FacebookSDK() {
       <Script
         id="facebook-sdk"
         strategy="afterInteractive"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0&appId=3699864420327149"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0&appId=453471724522393"
         nonce="AUbqPMsr"
         async
         defer
@@ -24,7 +24,7 @@ export default function FacebookSDK() {
         onLoad={() => {
           window.fbAsyncInit = function () {
             FB.init({
-              appId: "3699864420327149", // Replace with your actual Facebook App ID
+              appId: "453471724522393", // Replace with your actual Facebook App ID
               cookie: true,
               xfbml: true, // This will automatically parse XFBML
               version: "v20.0",
