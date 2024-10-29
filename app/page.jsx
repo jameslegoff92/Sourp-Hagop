@@ -28,6 +28,7 @@ export default function Homepage() {
       <Calendar />
       <InstagramFeed />
       <Footer />
+      <a id="historyid" href="/historique">historique</a>
     </>
   );
 }
