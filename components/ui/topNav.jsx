@@ -8,29 +8,38 @@ import Container from "@/components/layout/Container";
 import { motion } from "framer-motion";
 
 const navItems = [
+  { title: "", url: "https://eash50.wixsite.com/site", logo: "/images/header/50e-logo-secmenu.svg", },
   { title: "Carrières", url: "/" },
   { title: "Calendrier", url: "/about" },
   { title: "Locations", url: "/contact" },
   { title: "La Fondation", url: "https://fondationsh.com/" },
 ];
 
-const NavItem = ({ title, url }) => {
-  return (
-    <motion.li className={css.navItem} whileHover="hover" initial="rest">
-      <Link className={css.link} href={url}>
-        {title}
-      </Link>
+const NavItem = ({ title, url, logo }) => (
+  <motion.li
+    className={`${css.navItem} ${logo ? css.logoItem : ""}`}
+    whileHover="hover"
+    initial="rest"
+  >
+    <Link className={css.link} href={url} target={logo ? "_blank" : "_self"}>
+      {logo ? (
+        <Image src={logo} alt="50e logo" width={45} height={40} />
+      ) : (
+        title
+      )}
+    </Link>
+    {!logo && (
       <motion.div
         className={css.underline}
         variants={{
           rest: { width: 0 },
-          hover: { width: "105%" },
+          hover: { width: "100%" },
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.3 }}
       />
-    </motion.li>
-  );
-};
+    )}
+  </motion.li>
+);
 
 //Portal Link Component
 const StyledPortalLink = styled(Link)``;
@@ -58,7 +67,12 @@ const TopNav = ({ animate = false }) => {
       >
         <ul className={css.nav}>
           {navItems.map((item, index) => (
-            <NavItem key={index} title={item.title} url={item.url} />
+            <NavItem
+              key={index}
+              title={item.title}
+              url={item.url}
+              logo={item.logo}
+            />
           ))}
         </ul>
         <PortalLink />

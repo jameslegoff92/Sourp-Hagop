@@ -95,6 +95,11 @@
 .navItem {
   position: relative;
   display: inline-block;
+  margin-bottom: -9px;
+}
+
+.logoItem img {
+  margin-top: -5px;
 }
 
 .underline {
