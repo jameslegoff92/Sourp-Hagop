@@ -12,7 +12,7 @@ import styled from "@emotion/styled";
 import Typography from "./Typography";
 
 //Utiliy Imports
-import { generateDateArrays, toISO8601, getDay } from "@/utils/date";
+import { generateDateArrays, toISO8601, getDay } from "@/js/date";
 
 //CSSinJS
 //Day Component CSS
