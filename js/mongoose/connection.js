@@ -1,4 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: ".env.local" });
+
 import mongoose from 'mongoose';
+import logger from '../logger/logger.js';
 
 let isConnected = false; // Track the connection state. This stops us from creating unnecessary connections for different users. 
 
@@ -14,7 +18,7 @@ async function connectToDatabase() {
       useUnifiedTopology: true,
     });
     isConnected = true;
-    console.log('✅ Successfully connected to MongoDB');
+    logger.info('✅ Successfully connected to MongoDB');
   } catch (error) {
     console.error('❌ Error connecting to MongoDB:', error.message);
     throw error;
