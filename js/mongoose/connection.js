@@ -17,22 +17,22 @@ async function connectToDatabase() {
 
   // Use the existing connection if available
   if (cached.conn) {
-    console.log("🔄 Using existing MongoDB connection");
+    logger.info("Using existing MongoDB connection");
     return cached.conn;
   }
 
   // Create a new connection if none exists
   if (!cached.promise) {
-    console.log("⚡ Establishing new MongoDB connection...");
+    logger.info("Establishing new MongoDB connection...");
     cached.promise = mongoose.connect(process.env.MONGODB_URI);
   }
 
   try {
     cached.conn = await cached.promise;
-    console.log("✅ Successfully connected to MongoDB");
+    logger.info("Successfully connected to MongoDB");
     return cached.conn;
   } catch (error) {
-    console.error("❌ Error connecting to MongoDB:", error.message);
+    logger.error("Error connecting to MongoDB:", error.message);
     cached.promise = null; // Reset the promise if the connection fails
     throw error;
   }
@@ -41,7 +41,7 @@ async function connectToDatabase() {
 // Close MongoDB connection gracefully
 async function closeDatabaseConnection() {
   if (!cached.conn) {
-    console.log("🚪 No MongoDB connection to close");
+    logger.info("No MongoDB connection to close");
     return;
   }
 
@@ -49,22 +49,22 @@ async function closeDatabaseConnection() {
     await mongoose.disconnect();
     cached.conn = null;
     cached.promise = null;
-    console.log("🚪 MongoDB connection closed");
+    logger.info("MongoDB connection closed");
   } catch (error) {
-    console.error("❌ Error closing MongoDB connection:", error.message);
+    logger.error("Error closing MongoDB connection:", error.message);
   }
 }
 
 // Attach handlers for application shutdown
 function setupShutdownHooks() {
   process.on("SIGINT", async () => {
-    console.log("🛑 SIGINT received. Closing MongoDB connection...");
+    logger.info("SIGINT received. Closing MongoDB connection...");
     await closeDatabaseConnection();
     process.exit(0);
   });
 
   process.on("SIGTERM", async () => {
-    console.log("🛑 SIGTERM received. Closing MongoDB connection...");
+    logger.info("SIGTERM received. Closing MongoDB connection...");
     await closeDatabaseConnection();
     process.exit(0);
   });
@@ -72,7 +72,7 @@ function setupShutdownHooks() {
   // For development purposes with hot reloading
   if (process.env.NODE_ENV === "development") {
     process.once("SIGUSR2", async () => {
-      console.log("🛠️ Restarting due to Nodemon...");
+      logger.info("Restarting due to Nodemon...");
       await closeDatabaseConnection();
       process.kill(process.pid, "SIGUSR2");
     });
