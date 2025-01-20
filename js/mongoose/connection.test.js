@@ -20,9 +20,6 @@ describe('Test Suite For Mongoose DB Connection', () => {
 
     await connectToDatabase();
 
-    expect(mongoose.connect).toHaveBeenCalledWith("MONGODB_URI", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    expect(mongoose.connect).toHaveBeenCalledWith("MONGODB_URI");
   });  
 });
