@@ -7,7 +7,13 @@ import connectToDatabase from "./connection.js";
     await connectToDatabase();
     const admin = await Admin.findByUsername();
     const instagramAccessToken = admin.getInstagramAccessToken();
-    const updateInstagramAccessToken = admin.updateInstagramAccessToken("newToken");
+    const updateInstagramAccessToken = await admin.updateInstagramAccessToken("newToken");
+    const googleAccessToken = admin.getGoogleAccessToken();
+    const updateGoogleAccessToken = await admin.updateGoogleAccessToken("googleToken");
+    const googleTokenExpiry = admin.getGoogleTokenExpiry();
+    const updateGoogleTokenExpiry = await admin.updateGoogleTokenExpiry(new Date());
+    const instagramTokenExpiry = admin.getInstagramTokenExpiry();
+    const updateInstagramTokenExpiry = await admin.updateInstagramTokenExpiry(new Date());
   } catch (error) {
     logger.error( error , "Error occurred while finding admin ");
   }
