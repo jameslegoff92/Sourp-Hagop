@@ -5,7 +5,7 @@ import connectToDatabase from "./connection.js";
 (async () => {
   try {
     await connectToDatabase();
-    const admin = await Admin.findByUsername();
+    const admin = await Admin.getAdmin();
     const instagramAccessToken = admin.getInstagramAccessToken();
     const updateInstagramAccessToken = await admin.updateInstagramAccessToken("newToken");
     const googleAccessToken = admin.getGoogleAccessToken();

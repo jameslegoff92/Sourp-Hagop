@@ -13,7 +13,7 @@ if (!cached) {
 
 async function connectToDatabase() {
   // // Enable query logging for debugging
-  // mongoose.set("debug", true);
+  mongoose.set("debug", true);
 
   // Use the existing connection if available
   if (cached.conn) {

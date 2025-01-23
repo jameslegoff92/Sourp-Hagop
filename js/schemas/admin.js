@@ -83,11 +83,11 @@ adminSchema.methods.updateInstagramTokenExpiry = async function (newExpiry) {
 }
 
 //Static methods
-adminSchema.statics.findByUsername = async function () {
-  const username = "admin";
-  logger.debug(`Finding user by username: ${username}`);
-  const user = this.findOne({ username: username });
-  return user;
+adminSchema.statics.getAdmin = async function () {
+  const admin = "admin";
+  logger.debug(`Finding user by username: ${admin}`);
+  const superUser = this.findOne({ username: admin });
+  return superUser;
 };
 
 //Post hooks
