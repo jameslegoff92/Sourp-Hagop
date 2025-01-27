@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import logger from "../logger/logger.js";
+import logger from "@/js/logger/logger.js";
 
 // Define the schema
 const adminSchema = new mongoose.Schema(
