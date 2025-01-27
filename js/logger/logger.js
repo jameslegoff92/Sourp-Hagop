@@ -12,7 +12,8 @@ const logger = pino({
           colorize: true, // Add colors to logs
           translateTime: true, // Show timestamps in human-readable format
           ignore: 'pid,hostname', // Omit PID and hostname for cleaner output
-          messageFormat: '{msg} - {error.message} - {error.stack} - {...rest}',
+          messageFormat: '{msg} - {error?.message || ""} - {error?.stack || ""} - {...rest}'
+
         },
       },
 });
