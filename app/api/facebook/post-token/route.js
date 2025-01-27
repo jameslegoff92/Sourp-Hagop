@@ -1,15 +1,16 @@
 const axios = require("axios");
-import connectToDatabase from "@/js/mongoose/connection";
-import Admin from "@/js/schemas/admin.js";
-import logger from "@/js/logger/logger.js";
+import connectToDatabase from "@/js/mongoose/connection.js";
+// import Admin from "../../../js/schemas/admin.js";
+// import logger from "../../../js/logger/logger.js";
 
 
 
 export async function POST(request) {
-
-    try {
-      const body = await request.json(); // Extract accessToken from request body
-      logger.debug("Request body received:", body); // Log the request body to ensure it's received
+  let body;
+  try {
+      // await connectToDatabase();
+      body = await request.json(); // Extract accessToken from request body
+      console.log("Request body received:", body); // Log the request body to ensure it's received
     } catch (error) {
       logger.error("Error parsing request body:", error.message); // Log an error if the request body cannot be parsed
       return new Response(
@@ -17,7 +18,7 @@ export async function POST(request) {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    
+
     const shortLivedToken = body.accessToken; // Extract the access token from the request body
     const appId = process.env.FACEBOOK_APP_ID; // Get the Facebook App ID from the environment variables
     const appSecret = process.env.FACEBOOK_APP_SECRET; // Get the Facebook App Secret from the environment variables
