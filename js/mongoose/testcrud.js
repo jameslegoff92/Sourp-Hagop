@@ -11,9 +11,9 @@ import connectToDatabase from "./connection.js";
     const googleAccessToken = admin.getGoogleAccessToken();
     const updateGoogleAccessToken = await admin.updateGoogleAccessToken("googleToken");
     const googleTokenExpiry = admin.getGoogleTokenExpiry();
-    const updateGoogleTokenExpiry = await admin.updateGoogleTokenExpiry(new Date());
+    const updateGoogleTokenExpiry = await admin.updateGoogleTokenExpiry(5);
     const instagramTokenExpiry = admin.getInstagramTokenExpiry();
-    const updateInstagramTokenExpiry = await admin.updateInstagramTokenExpiry(new Date());
+    const updateInstagramTokenExpiry = await admin.updateInstagramTokenExpiry(5);
   } catch (error) {
     logger.error( error , "Error occurred while finding admin ");
   }

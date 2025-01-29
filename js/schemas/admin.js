@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
-import logger from "@/js/logger/logger.js";
+import logger from "../logger/logger.js";
 
 // Define the schema
 const adminSchema = new mongoose.Schema(
   {
     username: { type: String, default: "admin" },
     instagramAccessToken: { type: String, required: false, default: "null" },
-    instagramTokenExpirty: { type: Date, required: false },
+    instagramTokenExpirty: { type: Number, required: false },
     googleAccessToken: { type: String, required: false, default: "null" },
-    googleTokenExpiry: { type: Date, required: false },
+    googleTokenExpiry: { type: Number, required: false },
   },
   { collection: "admins" }
 );
@@ -100,7 +100,7 @@ adminSchema.post("save", function (doc) {
 });
 
 // Create the model
-const Admin = mongoose.model("Admin", adminSchema);
+const Admin = mongoose.models.Admin || mongoose.model('Admin', adminSchema);
 
 // Export the model
 export default Admin;
