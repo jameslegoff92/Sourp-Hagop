@@ -1,0 +1,51 @@
+.react-calendar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.react-calendar {
+  border: none;
+  width: 90%;
+  max-width: 1000px;
+  font-size: 20px;
+}
+
+.react-calendar__tile {
+  height: 150px; /* Adjust as needed */
+  min-height: 100px; /* Ensures all tiles are at least this height */
+  display: flex;
+  align-items: flex-start; /* Aligns content to the top */
+  justify-content: flex-end; /* Moves text to the top right */
+  padding: 10px;
+  position: relative;
+}
+
+.react-calendar__tile {
+  border: 1px solid black !important; 
+  border-radius: 5px; /* Optional: rounds the corners */
+}
+
+.react-calendar__tile {
+  position: relative;
+  text-align: right;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+.react-calendar__tile abbr {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-weight: medium
+}
+
+.react-calendar__month-view__weekdays {
+  font-weight: normal; /* Removes bold */
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  font-weight: normal; /* Ensures each weekday is not bold */
+}
