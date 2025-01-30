@@ -8,7 +8,7 @@ import Intro from "@/components/display/Intro";
 import Values from "@/components/ui/Values";
 import Strengths from "@/components/ui/Strength";
 import Calendar from "@/components/display/Calendar";
-import InstagramFeed from "@/components/display/Instagram";
+import InstagramData from "@/components/display/InstagramData";
 import Footer from "@/components/ui/Footer";
 
 export default function Homepage() {
@@ -26,9 +26,8 @@ export default function Homepage() {
       <Values />
       <Strengths />
       <Calendar />
-      <InstagramFeed />
+      <InstagramData />
       <Footer />
-      <a id="historyid" href="/historique">historique</a>
     </>
   );
 }

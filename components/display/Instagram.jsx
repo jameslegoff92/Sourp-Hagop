@@ -21,7 +21,12 @@ const StyledDiv2 = styled(StyledDiv)`
 const NewsItem = ({ imageSrc, title, description, isLast }) => (
   <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
     <div className="relative w-full h-48 md:h-[350px] mb-4">
-      <img src={imageSrc} alt={title} style={{ objectFit: "cover" }} fill="true" />
+      <img
+        src={imageSrc}
+        alt={title}
+        style={{ objectFit: "cover" }}
+        fill="true"
+      />
     </div>
     <h3 className="font-normal text-left mb-2">{title}</h3>
     <div className="flex-grow" />
@@ -32,30 +37,12 @@ const NewsItem = ({ imageSrc, title, description, isLast }) => (
 );
 
 //Instagram Feed Component
-const InstagramFeed = () => {
-  const newsItems = [
-    {
-      imageSrc: "/images/blogimg1.jpg",
-      title:
-        "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
-      description:
-        "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
-    },
-    {
-      imageSrc: "/images/blogimg2.jpg",
-      title:
-        "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
-      description:
-        "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
-    },
-    {
-      imageSrc: "/images/blogimg3.jpg",
-      title:
-        "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
-      description:
-        "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
-    },
-  ];
+const InstagramFeed = ({ data }) => {
+  const newsItems = data.map((item) => ({
+    imageSrc: item.media_url,
+    title: item.caption,
+    description: item.caption,
+  }));
 
   return (
     <StyledDiv2>
