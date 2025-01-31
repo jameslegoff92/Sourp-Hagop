@@ -13,6 +13,14 @@
   font-size: 20px;
 }
 
+.react-calendar__navigation {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 400px !important;
+  margin: 0 auto !important;
+}
+
 .react-calendar__tile {
   height: 150px; /* Adjust as needed */
   min-height: 100px; /* Ensures all tiles are at least this height */
