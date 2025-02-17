@@ -104,18 +104,22 @@ const Img = styled.img`
   height: 100%;
 `;
 
-const ValueContainer = styled(motion.div)`
+const ValueContainer = styled(motion.div,{
+  shouldForwardProp: (prop) => prop !== '_index'
+})`
   overflow: hidden;
   height: 31.25rem;
-  order: ${(props) => (props.index == 1 ? 1 : 0)};
+  order: ${(props) => (props._index == 1 ? 1 : 0)};
 
     @media (min-width: 768px) { 
     width: 600px;
   }
 `;
 
-const ValueSubContainer = styled(motion.div)`
-  background: ${(props) => styleVariants[props.index].background};
+const ValueSubContainer = styled(motion.div,{
+  shouldForwardProp: (prop) => prop !== '_index'
+})`
+  background: ${(props) => styleVariants[props._index].background};
   background-size: cover; // Ensures the image covers the whole div
   background-position: center; // Centers the image
   display: flex;
@@ -127,8 +131,10 @@ const ValueSubContainer = styled(motion.div)`
 
 `;
 
-const TextDiv = styled(motion.div)`
-  background-color: ${(props) => styleVariants[props.index].backgroundColor};
+const TextDiv = styled(motion.div,{
+  shouldForwardProp: (prop) => prop !== '_index'
+})`
+  background-color: ${(props) => styleVariants[props._index].backgroundColor};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,8 +147,10 @@ const TextDiv = styled(motion.div)`
   }
 `;
 
-const ValueText = styled(Typography)`
-  color: ${(props) => (props.index == 1 ? "#fff" : "var(--black)")};
+const ValueText = styled(Typography,{
+  shouldForwardProp: (prop) => prop !== '_index'
+})`
+  color: ${(props) => (props._index == 1 ? "#fff" : "var(--black)")};
   font-size: 0.9rem;
   width: 75%;
   margin: 0 auto;
@@ -154,7 +162,8 @@ const ValueText = styled(Typography)`
 `;
 
 //ValueItem Component
-const ValueItem = ({ value, index }) => {
+const ValueItem = ({ value, _index }) => {
+  console.log('ValueItem index:', _index);
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();
@@ -221,10 +230,10 @@ const ValueItem = ({ value, index }) => {
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
         onTap={handleTap}
-        index={index}
+        _index={_index}
       >
         <ValueSubContainer
-          index={index}
+          _index={_index}
           initial={{ height: "100%" }}
           animate={childControls1}
         >
@@ -232,9 +241,9 @@ const ValueItem = ({ value, index }) => {
             {value.title}
           </Typography>
         </ValueSubContainer>
-        <TextDiv index={index}>
+        <TextDiv _index={_index}>
           <ValueText
-            index={index}
+            _index={_index}
             as="p"
             type="h6"
             fontFamily="secondary"
@@ -263,7 +272,7 @@ const Values = () => {
           </Typography>
           <CardContainer>
             {valueData.map((value, index) => (
-              <ValueItem key={index} value={value} index={index} />
+              <ValueItem key={index} value={value} _index={index} />
             ))}
           </CardContainer>
         </Container>
