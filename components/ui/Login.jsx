@@ -1,5 +1,6 @@
 import { signIn } from "@/auth";
 
+//Google OAuth Login Component
 export default function SignIn() {
   return (
     <>

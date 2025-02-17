@@ -103,7 +103,7 @@ const DateWrapper = styled(motion.div)`
   justify-content: center;
   width: 100px;
 
-  :nth-child(3) {
+  :nth-of-type(3) {
     margin-top: 50px;
   }
 
@@ -113,7 +113,7 @@ const DateWrapper = styled(motion.div)`
     margin-top: 0;
     margin-bottom: 0;
 
-    :nth-child(3) {
+    :nth-of-type(3) {
       margin-top: 0;
     }
   }
@@ -162,7 +162,6 @@ const MiniCalendar = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [authToken, setAuthToken] = useState("");
   const [googleEvents, setGoogleEvents] = useState([]);
-  console.log("dateArrays: ", dateArrays);
 
   //How to acquire the session object. This is an asynchronous operation.
   const { data, status } = useSession();
@@ -234,11 +233,6 @@ const MiniCalendar = () => {
           .sort((a, b) => {
             return new Date(a.start) - new Date(b.start);
           });
-
-        console.log("Events: ", events);
-        console.log("Date Arrays: ", dateArrays);
-
-        console.log("Updated Date Arrays: ", dateArrays);
 
         return setGoogleEvents(events);
       } catch (error) {
