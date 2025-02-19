@@ -163,7 +163,6 @@ const ValueText = styled(Typography,{
 
 //ValueItem Component
 const ValueItem = ({ value, _index }) => {
-  console.log('ValueItem index:', _index);
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();

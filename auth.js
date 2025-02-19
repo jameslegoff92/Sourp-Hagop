@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import logger from 'js/logger/logger.js';
+import connectToDatabase from "./js/mongoose/connection";
+import Admin from 'js/schemas/admin.js';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -30,19 +33,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
-      // Store the access token in the token object if it's available
+    async signIn({ user, account}) {
+      logger.debug(`Inside the OAuth callback. The value of ${user}, and the value of ${account}`)
       if (account) {
-        token.accessToken = account.access_token;
+        await connectToDatabase();
+        const user = await Admin.getAdmin();
+        const accessToken = await user.updateGoogleAccessToken(account.access_token);
       }
-      return token;
-    },
-    async session({ session, token }) {
-      // Pass the access token to the session if it's available in the token
-      session.accessToken = token.accessToken;
-      return session;
-    },
+
+
+      return true;
+    }
   },
+  // callbacks: {
+  //   async jwt({ token, account }) {
+  //     // Store the access token in the token object if it's available
+  //     if (account) {
+  //       token.accessToken = account.access_token;
+  //     }
+  //     return token;
+  //   },
+  //   async session({ session, token }) {
+  //     // Pass the access token to the session if it's available in the token
+  //     session.accessToken = token.accessToken;
+  //     return session;
+  //   },
+  // },
   debug: true,
 });
 
