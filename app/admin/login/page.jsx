@@ -1,12 +1,14 @@
 import Login from "@/components/ui/Login";
 import FacebookLogin from "@/components/ui/FacebookLogin";
-
+import css from "./Page.module.css";
 
 const SignIn = () => {
   return (
     <>
-      <Login />
-      <FacebookLogin />
+      <div className={css.container} >
+        <Login />
+        <FacebookLogin />
+      </div>
     </>
   );
 };

@@ -1,4 +1,8 @@
 import { signIn } from "@/auth";
+import { Button } from "@/components/ui/button";
+import { FcGoogle } from "react-icons/fc";
+import css from "./Login.module.css";
+
 
 //Google OAuth Login Component
 export default function SignIn() {
@@ -10,7 +14,7 @@ export default function SignIn() {
           await signIn("google", { redirectTo: "/" });
         }}
       >
-        <button type="submit">Signin with Google</button>
+        <Button className={css.button} type="submit"> < FcGoogle/> Sign in with Google </Button>
       </form>
 
     </>
