@@ -28,37 +28,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             
             // Add more scopes as needed based on your Google Cloud Console
           ].join(" "),  // Join the scopes with a spac
+          access_type: "offline",
+          prompt: "consent"
         },
       },
     }),
   ],
   callbacks: {
     async signIn({ user, account}) {
-      logger.debug(`Inside the OAuth callback. The value of ${user}, and the value of ${account}`)
+      logger.debug(`Inside the OAuth callback. The value of  is ${user}, and the value of access_token: ${account.access_token}, refreshToken: ${account.refresh_token}, expiration time: ${account.expires_in} `);
       if (account) {
         await connectToDatabase();
         const user = await Admin.getAdmin();
         const accessToken = await user.updateGoogleAccessToken(account.access_token);
+        const refreshToken = await user.updateGoogleRefreshToken(account.refresh_token);
+        const expires_in = await user.updateGoogleTokenExpiry(account.expires_in);
       }
 
 
       return true;
     }
   },
-  // callbacks: {
-  //   async jwt({ token, account }) {
-  //     // Store the access token in the token object if it's available
-  //     if (account) {
-  //       token.accessToken = account.access_token;
-  //     }
-  //     return token;
-  //   },
-  //   async session({ session, token }) {
-  //     // Pass the access token to the session if it's available in the token
-  //     session.accessToken = token.accessToken;
-  //     return session;
-  //   },
-  // },
   debug: true,
 });
 

@@ -8,7 +8,8 @@ const adminSchema = new mongoose.Schema(
     instagramAccessToken: { type: String, required: false, default: "null" },
     instagramTokenExpirty: { type: Number, required: false },
     googleAccessToken: { type: String, required: false, default: "null" },
-    googleTokenExpiry: { type: Number, required: false },
+    googleRefreshToken: {type: String, required: false, default: "null"},
+    googleTokenExpiry: { type: Number, required: false, default: 0},
   },
   { collection: "admins" }
 );
@@ -44,6 +45,23 @@ adminSchema.methods.updateGoogleAccessToken = async function (newToken) {
     `Updating Google access token for ${this.username}. Token: ${newToken}`
   );
   this.googleAccessToken = newToken;
+
+  return this.save();
+};
+
+adminSchema.methods.getGoogleRefreshToken = function () {
+  //this refers to the document instance
+  logger.debug(
+    `Getting Google Refresh token for ${this.username}. Token: ${this.googleRefreshToken}`
+  );
+  return this.googleRefreshToken;
+};
+
+adminSchema.methods.updateGoogleRefreshToken = async function (newToken) {
+  logger.debug(
+    `Updating Google Refresh token for ${this.username}. Token: ${newToken}`
+  );
+  this.googleRefreshToken = newToken;
 
   return this.save();
 };
