@@ -1,3 +1,4 @@
+//dotenv is used to load the .env.local env variables from the nextjs environment into our nodejs environment
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
