@@ -7,7 +7,7 @@ import MainHeading from "@/components/display/MainHeading";
 import Intro from "@/components/display/Intro";
 import Values from "@/components/ui/Values";
 import Strengths from "@/components/ui/Strength";
-import Calendar from "@/components/display/Calendar";
+import MiniCalendar from "@/components/display/Calendar";
 import InstagramData from "@/components/display/InstagramData";
 import Footer from "@/components/ui/Footer";
 
@@ -25,7 +25,7 @@ export default function Homepage() {
       <Intro />
       <Values />
       <Strengths />
-      <Calendar />
+      <MiniCalendar />
       <InstagramData />
       <Footer />
     </>

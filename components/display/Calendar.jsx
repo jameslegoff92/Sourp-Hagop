@@ -194,6 +194,10 @@ const MiniCalendar = () => {
   }, [data]);
 
   useEffect(() => {
+  })
+  
+  useEffect(() => {
+    console.log("The calendar component useEffect is running: ")
     const fetchGoogleData = async (authToken) => {
       const timeMin = encodeURIComponent(toISO8601(dateArrays[0][0]));
       const timeMax = encodeURIComponent(toISO8601(dateArrays[2][4]));
