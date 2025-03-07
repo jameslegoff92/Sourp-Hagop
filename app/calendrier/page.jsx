@@ -1,13 +1,18 @@
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import ReactCalendar from "@/components/display/ReactCalendar";
+import CalendarPage from "@/components/pages/CalendarPage";
+import { fetchGoogleCalendarData } from "@/libs/fetchData.js";
+import connectToDatabase from "@/js/mongoose/connection.js";
+import Admin from "@/js/schemas/admin.js";
+import logger from "@/js/logger/logger.js";
 
-export default function Calendar() {
+export default async function Calendar() {
+  await connectToDatabase();
+  const user = await Admin.getAdmin();
+  const googleAccessToken = await user.getGoogleAccessToken();
+  
+
   return (
     <>
-       <Header animate = {false} imageSrc="../images/header/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
-      <ReactCalendar />
-      <Footer />
+      <CalendarPage />
     </>
   );
 }
