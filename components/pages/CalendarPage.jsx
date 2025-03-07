@@ -12,7 +12,7 @@ export default function CalendarPage({ data }) {
         headerText="CALENDRIER"
         headerTextTop="60%"
       />
-      <ReactCalendar />
+      <ReactCalendar data={data}  />
       <Footer />
     </>
   );
