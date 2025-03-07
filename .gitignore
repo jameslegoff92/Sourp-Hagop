@@ -35,5 +35,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#JSON files
-sourp-hagop-433819*
+certificates
+
+#Google Cloud Platform
+sourp-hagop-433819-4a18457fbc45.json
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+tests-examples

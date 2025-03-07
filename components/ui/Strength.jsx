@@ -111,7 +111,9 @@ const StyledDiv2 = styled(StyledDiv)`
   padding: 40px 0 100px;
 `;
 
-const GridItemWrapper = styled(motion.div)`
+const GridItemWrapper = styled(motion.div, {
+  shouldForwardProp: (prop) => prop !== 'index'
+})`
   background: ${(props) => stylingMap[props.index].background};
   display: flex;
   flex-direction: column;

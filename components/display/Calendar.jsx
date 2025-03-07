@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 //Third Party Imports
@@ -12,7 +12,7 @@ import styled from "@emotion/styled";
 import Typography from "./Typography";
 
 //Utiliy Imports
-import { generateDateArrays, toISO8601, getDay } from "@/utils/date";
+import { generateDateArrays, toISO8601, getDay } from "@/js/date";
 
 //CSSinJS
 //Day Component CSS
@@ -103,7 +103,7 @@ const DateWrapper = styled(motion.div)`
   justify-content: center;
   width: 100px;
 
-  :nth-child(3) {
+  :nth-of-type(3) {
     margin-top: 50px;
   }
 
@@ -113,7 +113,7 @@ const DateWrapper = styled(motion.div)`
     margin-top: 0;
     margin-bottom: 0;
 
-    :nth-child(3) {
+    :nth-of-type(3) {
       margin-top: 0;
     }
   }
@@ -162,7 +162,6 @@ const MiniCalendar = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [authToken, setAuthToken] = useState("");
   const [googleEvents, setGoogleEvents] = useState([]);
-  console.log("dateArrays: ", dateArrays);
 
   //How to acquire the session object. This is an asynchronous operation.
   const { data, status } = useSession();
@@ -195,6 +194,10 @@ const MiniCalendar = () => {
   }, [data]);
 
   useEffect(() => {
+  })
+  
+  useEffect(() => {
+    console.log("The calendar component useEffect is running: ")
     const fetchGoogleData = async (authToken) => {
       const timeMin = encodeURIComponent(toISO8601(dateArrays[0][0]));
       const timeMax = encodeURIComponent(toISO8601(dateArrays[2][4]));
@@ -234,11 +237,6 @@ const MiniCalendar = () => {
           .sort((a, b) => {
             return new Date(a.start) - new Date(b.start);
           });
-
-        console.log("Events: ", events);
-        console.log("Date Arrays: ", dateArrays);
-
-        console.log("Updated Date Arrays: ", dateArrays);
 
         return setGoogleEvents(events);
       } catch (error) {
