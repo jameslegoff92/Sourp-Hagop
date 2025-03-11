@@ -22,7 +22,7 @@ const Footer = () => (
     <footer className={css.footer}>
         <div className={css.logoTextContainer}>
             <img 
-                src="../images/logo.jpg" 
+                src="/images/logo.jpg" 
                 alt="School Logo" 
                 className={css.logo}
             />
@@ -41,14 +41,14 @@ const Footer = () => (
                 </p>
             </div>
             <img 
-                src="../images/feep_sceau_osbl.svg" 
+                src="/images/feep_sceau_osbl.svg" 
                 alt="OSBL Logo" 
                 className={css.osblLogo}
             />
         </div>
         <div className={css.imageContainer}>
             <img 
-                src="../images/school.svg" 
+                src="/images/school.svg" 
                 alt="Sourp Hagop School" 
                 className={css.footerImage}
             />
@@ -74,16 +74,16 @@ const Footer = () => (
             </nav>
             <div className={css.socialMediaContainer}>
                 <a href="https://www.facebook.com/ecolearmeniennesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
-                    <img src="../images/footer-facebook.svg" alt="Facebook" className={css.facebookIcon}/>
+                    <img src="/images/footer-facebook.svg" alt="Facebook" className={css.facebookIcon}/>
                 </a>                
                 <a href="https://www.instagram.com/ecolesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
-                    <img src="../images/footer-instagram.svg" alt="Instagram" className={css.facebookIcon}/>
+                    <img src="/images/footer-instagram.svg" alt="Instagram" className={css.facebookIcon}/>
                 </a>                   
                 <a href="https://www.linkedin.com/company/ecole-armenienne-sourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
-                    <img src="../images/footer-linkedIn.svg" alt="LinkedIn" className={css.facebookIcon}/>
+                    <img src="/images/footer-linkedIn.svg" alt="LinkedIn" className={css.facebookIcon}/>
                 </a>                   
                 <a href="https://twitter.com/easourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
-                    <img src="../images/footer-x.svg" alt="X" className={css.facebookIcon}/>
+                    <img src="/images/footer-x.svg" alt="X" className={css.facebookIcon}/>
                 </a>                
 
             </div>
