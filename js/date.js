@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 /**
  * Function to return the string value of the current month.
  * 
@@ -208,4 +209,35 @@ export function getDay(isoDateString) {
   const day = dateObject.getDate().toString().padStart(2, "0");
 
   return day;
+}
+
+
+/**
+ * Get the first neighboring day before the current month in a calendar grid.
+ * @param {number} year - The year of the current month
+ * @param {number} month - The month (1-12)
+ * @returns {DateTime} The first neighboring day
+ */
+export function getFirstNeighboringDay(year, month) {
+  const firstDayOfMonth = DateTime.local(year, month, 1);
+  const daysBefore = firstDayOfMonth.weekday % 7; // 0 = Sunday, 1 = Monday, etc.
+
+  return firstDayOfMonth.minus({ days: daysBefore });
+}
+
+
+/**
+ * Get the last neighboring day after the current month in a calendar grid.
+ * @param {number} year - The year of the current month
+ * @param {number} month - The month (1-12)
+ * @returns {DateTime} The last neighboring day
+ */
+export function getLastNeighboringDay(year, month) {
+  const lastDayOfMonth = DateTime.local(year, month, 1).endOf("month");
+
+  const daysBefore = DateTime.local(year, month, 1).weekday % 7;
+  const totalDaysInGrid = 42; // 6 weeks × 7 days
+  const daysAfter = totalDaysInGrid - (daysBefore + lastDayOfMonth.day);
+
+  return lastDayOfMonth.plus({ days: daysAfter });
 }

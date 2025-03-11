@@ -2,21 +2,31 @@ import ReactCalendar from "@/components/display/ReactCalendar";
 import { fetchGoogleCalendarData } from "@/libs/fetchData.js";
 import connectToDatabase from "@/js/mongoose/connection.js";
 import Admin from "@/js/schemas/admin.js";
+import { getFirstNeighboringDay, getLastNeighboringDay } from "@/js/date.js";
 import { DateTime } from "luxon";
 
 
+/**
+ * Server-side component to fetch calendar events from Google's API. 
+ *
+ * @export
+ * @async
+ * @returns {unknown} 
+ */
 export default async function Calendar() {
+  //Check that the db connection is good.
   await connectToDatabase();
   const user = await Admin.getAdmin();
   const googleAccessToken = await user.getGoogleAccessToken();
-  const now = DateTime.local();
+
+  const today = DateTime.local();
 
   // Get the current day at midnight in RFC3339 format
-  const currentDayRFC3339 = now.startOf("day").toISO();
+  const startDate = getFirstNeighboringDay(today.year, today.month).toISO();
 
   // Get the last day of the month at midnight in RFC3339 format
-  const lastDayRFC3339 = now.endOf("month").startOf("day").toISO();
-  const calendarData = await fetchGoogleCalendarData("primary", currentDayRFC3339, lastDayRFC3339, googleAccessToken);
+  const endDate = getLastNeighboringDay(today.year, today.month).toISO();
+  const calendarData = await fetchGoogleCalendarData("primary", startDate, endDate, googleAccessToken);
 
   return (
     <>
