@@ -159,7 +159,7 @@ const timelineData = [
     date: "2024",
     title: "Célébration de 50 ans d'excellence",
     text: "À l'occasion de nos 50 ans d'excellence, nous célébrons un demi-siècle de réussite et de dévouement. Aujourd'hui, près de 800 élèves fréquentent l'École Sourp Hagop, de la maternelle à la 5e secondaire, où ils bénéficient d'une éducation de haute qualité en français, en arménien et en anglais.",
-    img: "/images/history/2024.jpg",
+    img: "/images/history/50th.png",
   },
 ];
 
@@ -221,7 +221,7 @@ export default function Historique() {
   return (
     <>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
-            <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" mobileTop/>
+            <Header imageSrc="../images/school.svg" headerText="NOTRE HISTOIRE" headerTextTop="3%"/>
       <div style={{ position: "relative", marginBottom: "20rem" }}>
         <div className="h-20" ref={ref} />
         <ProgressBarContainer style={containerStyle}>

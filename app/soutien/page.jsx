@@ -40,7 +40,7 @@ export default function Soutien() {
     return (
         <>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
-            <Header animate = {false} imageSrc="../images/header/soutien-header.jpg" headerText="SOUTIEN AUX ÉLÈVES" headerTextTop="60%" />
+            <Header animate = {false} imageSrc="../images/header/soutien-header.jpg" headerText="SOUTIEN AUX ÉLÈVES" headerTextTop="70%" />
 
             <StyledDiv>
                 <MotionDiv>

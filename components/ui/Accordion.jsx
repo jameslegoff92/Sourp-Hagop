@@ -203,6 +203,12 @@ const staffData = {
     ],
     "Enseignants": [
         {
+            src: "../images/staff/Aida Durdia.jpg",
+            alt: "Aida Durdia",
+            name: "Alik Boulgarian",
+            title: "Enseignante d'éthique et culture religieuse",
+        },
+        {
             src: "../images/staff/Alik Boulgarian.jpg",
             alt: "Alik Boulgarian",
             name: "Alik Boulgarian",
@@ -227,18 +233,6 @@ const staffData = {
             title: "Enseignante de primaire",
         },
         {
-            src: "../images/staff/_default.jpg",
-            alt: "Arlyne Polosajian",
-            name: "Arlyne Polosajian",
-            title: "Enseignante de préscolaire",
-        },
-        {
-            src: "../images/staff/_default.jpg",
-            alt: "Arman Dubois-Ranjbaran",
-            name: "Arman Dubois-Ranjbaran",
-            title: "Enseignant d'histoire",
-        },
-        {
             src: "../images/staff/Arminee Yaghejian.jpg",
             alt: "Arminée Yaghejian",
             name: "Arminée Yaghejian",
@@ -257,15 +251,9 @@ const staffData = {
             title: "Enseignant d'éducation physique primaire/secondaire",
         },
         {
-            src: "../images/staff/Clement Amphyon.jpg",
-            alt: "Clément Amphyon",
-            name: "Clément Amphyon",
-            title: "Enseignant de la langue française",
-        },
-        {
-            src: "../images/staff/_default.jpg",
-            alt: "Djedjiga Attil",
-            name: "Djedjiga Attil",
+            src: "../images/staff/Dina Attil.jpg",
+            alt: "Dina Attil",
+            name: "Dina Attil",
             title: "Enseignante de primaire",
         },
         {
@@ -287,10 +275,16 @@ const staffData = {
             title: "Enseignant de mathématiques",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Gacia Demirdjian.jpg",
             alt: "Gacia Demerdjian",
             name: "Gacia Demerdjian",
             title: "Enseignante de la langue arménienne",
+        },        
+        {
+            src: "../images/staff/Gariné Garabetian.jpg",
+            alt: "Gariné Garabetian",
+            name: "Gariné Garabetian",
+            title: "Description",
         },
         {
             src: "../images/staff/Gacia Lakhoyan.jpg",
@@ -353,16 +347,34 @@ const staffData = {
             title: "Enseignante de la langue anglaise de primaire",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Lena Keusseyan.jpg",
             alt: "Lena Keusseyan",
             name: "Lena Keusseyan",
             title: "Enseignante de la langue arménienne",
+        },
+        {
+            src: "../images/staff/Levon Arabian.jpg",
+            alt: "Levon Arabian",
+            name: "Levon Arabian",
+            title: "Description",
         },
         {
             src: "../images/staff/Lily Margossian.jpg",
             alt: "Lily Margossian",
             name: "Lily Margossian",
             title: "Enseignante de primaire",
+        },
+        {
+            src: "../images/staff/Lisa Rossini.jpg",
+            alt: "Lisa Rossini",
+            name: "Lisa Rossini",
+            title: "Description",
+        },
+        {
+            src: "../images/staff/Lorig Saboundjian.jpg",
+            alt: "Lorig Saboundjian",
+            name: "Lorig Saboundjian",
+            title: "Description",
         },
         {
             src: "../images/staff/Svetlana Racu.jpg",
@@ -389,19 +401,19 @@ const staffData = {
             title: "Enseignante de la langue arménienne primaire/secondaire",
         },
         {
-            src: "../images/staff/Marie Hovannessian.jpg",
-            alt: "Marie Hovannessian",
-            name: "Marie Hovannessian",
-            title: "Enseignante de la langue anglaise",
-        },
-        {
             src: "../images/staff/Marie Choueiry.jpg",
             alt: "Marie Choueiry",
             name: "Marie Choueiry",
             title: "Enseignante de la langue anglaise de primaire",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Marie Hovannessian.jpg",
+            alt: "Marie Hovannessian",
+            name: "Marie Hovannessian",
+            title: "Enseignante de la langue anglaise",
+        },
+        {
+            src: "../images/staff/Marina Kurkjian.jpg",
             alt: "Marina Kurkjian",
             name: "Marina Kurkjian",
             title: "Enseignante de primaire",
@@ -419,13 +431,19 @@ const staffData = {
             title: "Enseignante de primaire",
         },
         {
+            src: "../images/staff/Mireille Challita Boueiry.jpg",
+            alt: "Mireille Challita Boueiry",
+            name: "Mireille Challita Boueiry",
+            title: "Description",
+        },
+        {
             src: "../images/staff/Lauzon Miriam.jpg",
             alt: "Miriam Lauzon",
             name: "Miriam Lauzon",
             title: "Enseignante de la langue française",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Mirna Abou Rgess.jpg",
             alt: "Mirna Abou Rgess",
             name: "Mirna Abou Rgess",
             title: "Enseignante de préscolaire",
@@ -437,7 +455,7 @@ const staffData = {
             title: "Enseignant de mathémathiques",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Nathalie Burkulian.jpg",
             alt: "Nathalie Burkulian",
             name: "Nathalie Burkulian",
             title: "Enseignante d'histoire arménienne de primaire",
@@ -455,7 +473,7 @@ const staffData = {
             title: "Enseignant d'éducation physique",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Patil Darakjian.jpg",
             alt: "Patil Darakjian",
             name: "Patil Darakjian",
             title: "Enseignante de primaire",
@@ -464,6 +482,12 @@ const staffData = {
             src: "../images/staff/Patrick Gionet.jpg",
             alt: "Patrick Gionet",
             name: "Patrick Gionet",
+            title: "Enseignant d'histoire",
+        },
+        {
+            src: "../images/staff/Rose El Khoury.jpg",
+            alt: "Rose El Khoury",
+            name: "Rose El Khoury",
             title: "Enseignant d'histoire",
         },
         {
@@ -479,7 +503,7 @@ const staffData = {
             title: "Enseignante d'éducation physique préscolaire",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Seta Basmadjian.jpg",
             alt: "Seta Basmadjian",
             name: "Seta Basmadjian",
             title: "Enseignante de préscolaire",
@@ -515,7 +539,7 @@ const staffData = {
             title: "Enseignante d'arts de primaire",
         },
         {
-            src: "../images/staff/_default.jpg",
+            src: "../images/staff/Talia Bachekjian.jpg",
             alt: "Talia Bachekdjian",
             name: "Talia Bachekdjian",
             title: "Enseignante de la langue arménienne",

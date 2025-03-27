@@ -16,7 +16,7 @@
   align-items: flex-start;
   background-color: var(--primary-color);
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 

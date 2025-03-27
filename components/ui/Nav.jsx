@@ -66,8 +66,8 @@ const navList = [
   {
     title: "Admissions",
     items: [
-      { text: "Pourquoi Sourp Hagop", link: "/pourquoi" },
-      { text: "Demande d'Admission", link: "/admissions" },
+      { text: "Pourquoi Sourp Hagop", link: "/pourquoi-sourp-hagop" },
+      { text: "Demande d'admission", link: "/admissions" },
       { text: "Droits de scolarité et autres frais", link: "/droits" },
     ],
   },
@@ -145,7 +145,7 @@ const CSSMobileNavHeader = styled.li`
   justify-content: space-between;
   padding: 0.5rem 0;
   position: relative;
-  z-index: 2; // To prevent the dropdown from being hidden behind the next dropdown
+  z-index: 2;
 `;
 
 const CSSChevronContainer = styled(motion.div)``;

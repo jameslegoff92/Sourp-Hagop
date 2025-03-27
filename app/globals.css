@@ -140,6 +140,12 @@ body {
   letter-spacing: 0.05rem;
 }
 
+.disable-interaction {
+  pointer-events: none;
+  filter: blur(2px);
+  opacity: 0.6;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

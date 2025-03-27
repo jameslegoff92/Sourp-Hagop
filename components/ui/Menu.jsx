@@ -11,41 +11,41 @@ const primaireWeeks = [
   {
     id: 1,
     circles: [
-      { description: "Lentilles au blé concassé avec salade" },
-      { description: "Filet de sole sauce poivron rouge, légumes variés et riz." },
-      { description: "Penne sauce tomate avec salade verte" },
-      { description: "Souvlaki au poulet avec tzatziki, riz et légumes" },
-      { description: "Soupe aux lentilles avec pain au fromage" },
+      { description: "Lentilles au blé concassé avec salade", image: "../images/menu/lentilles-ble-concasse.jpg" },
+      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/lentilles-ble-concasqse.jpg" },
+      { description: "Penne sauce tomate avec salade verte", image: "../images/menu/penne-sauce-tomate.jpg" },
+      { description: "Souvlaki au poulet avec tzatziki, riz et légumes", image: "../images/menu/souvlaki-poulet.jpg" },
+      { description: "Soupe aux lentilles avec pain au fromage", image: "../images/menu/soupe-lentilles-pain.jpg" },
     ],
   },
   {
     id: 2,
     circles: [
-      { description: "Pain de viande macaroni avec salade" },
-      { description: "Spaghetti bolognaise avec légumes" },
-      { description: "Haricots blanc et riz avec salade" },
-      { description: "Macaroni et fromage avec salade" },
-      { description: "Hamburger avec salade de choux" },
+      { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
+      { description: "Spaghetti bolognaise avec légumes", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
+      { description: "Macaroni sauce à la viande avec salade", image: "../images/menu/Untitled-1.png" },
+      { description: "Hamburger avec salade de choux", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
     ],
   },
   {
     id: 3,
     circles: [
-      { description: "Poulet pilaf au blé concassé avec salade" },
-      { description: "Haricots verts avec viande hachée et riz" },
-      { description: "Rotini sauce à la viande avec salade" },
-      { description: "Saumon avec sauce aux herbes avec riz et légumes" },
-      { description: "Boulettes de viande et patate purée avec légumes" },
+      { description: "Poulet pilaf au blé concassé avec salade", image: "../images/menu/poulet-ble-concasse.jpg" },
+      { description: "Haricots verts avec viande hachée et riz", image: "../images/menu/haricots-vert-viande.jpg" },
+      { description: "Penne sauce à la viande avec salade", image: "../images/menu/rotini-sauce-viande.jpg" },
+      { description: "Saumon avec sauce aux herbes avec riz et légumes", image: "../images/menu/saumon-sauce-herbes.jpg" },
+      { description: "Boulettes de viande et patate purée avec légumes", image: "../images/menu/boulettes-viande-patate.jpg" },
     ],
   },
   {
     id: 4,
     circles: [
-      { description: "poulet et riz mexicain avec légumes" },
-      { description: "Macaroni sauce rosée avec salade" },
-      { description: "Pâté chinois avec salade" },
-      { description: "Macédoine carotte et pois verts avec riz" },
-      { description: "Burger de poitrine de poulet avec salade" },
+      { description: "Poulet et riz mexicain avec légumes", image: "../images/menu/poulet-riz-mexicain.jpg" },
+      { description: "Macaroni sauce rosée avec salade", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Pâté chinois avec salade", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Macédoine carotte et pois verts avec riz", image: "../images/menu/macedonie-riz.jpg" },
+      { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
     ],
   },
 ];
@@ -54,41 +54,41 @@ const weeks = [
   {
     id: 1,
     circles: [
-      { description: "Lentilles au blé concassé avec salade" },
-      { description: "Filet de sole sauce poivron rouge, légumes variés et riz." },
-      { description: "Penne sauce tomate avec salade verte" },
-      { description: "Souvlaki au poulet avec tzatziki, riz et légumes" },
-      { description: "Sous-marin avec salade de choux" },
+      { description: "Lentilles au blé concassé avec salade", image: "../images/menu/lentilles-ble-concasse.jpg" },
+      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Penne sauce tomate avec salade verte", image: "../images/menu/penne-sauce-tomate.jpg" },
+      { description: "Souvlaki au poulet avec tzatziki, riz et légumes", image: "../images/menu/souvlaki-poulet.jpg" },
+      { description: "Sous-marin avec salade de choux", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
     ],
   },
   {
     id: 2,
     circles: [
-      { description: "Pain de viande macaroni avec salade" },
-      { description: "Sandwich au jambon et fromage avec soupe" },
-      { description: "Haricots blanc et riz avec salade" },
-      { description: "Manicotti avec salade" },
-      { description: "Hamburger avec salade de choux" },
+      { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
+      { description: "Sandwich au jambon et fromage avec soupe", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
+      { description: "Manicotti avec salade", image: "../images/menu/manicotti.jpg" },
+      { description: "Hamburger avec salade de choux", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
     ],
   },
   {
     id: 3,
     circles: [
-      { description: "Poulet pilaf au blé concassé avec salade" },
-      { description: "Salade césar au poulet avec pain au fromage" },
-      { description: "Rotini sauce à la viande avec salade" },
-      { description: "Saumon avec sauce aux herbes avec riz et légumes" },
-      { description: "Boulettes de viande et patate purée avec légumes" },
+      { description: "Poulet pilaf au blé concassé avec salade", image: "../images/menu/poulet-ble-concasse.jpg" },
+      { description: "Salade césar au poulet avec pain au fromage", image: "../images/menu/salade-cesar.jpg" },
+      { description: "Macaroni au fromage avec salade", image: "../images/menu/macaroni-fromage.jpg" },
+      { description: "Saumon avec sauce aux herbes avec riz et légumes", image: "../images/menu/saumon-sauce-herbes.jpg" },
+      { description: "Boulettes de viande et patate purée avec légumes", image: "../images/menu/boulettes-viande-patate.jpg" },
     ],
   },
   {
     id: 4,
     circles: [
-      { description: "Fajita et riz mexicain avec légumes" },
-      { description: "Tortellini sauce rosée avec salade" },
-      { description: "Pâté chinois avec salade" },
-      { description: "Crevette et légumes sauce teriyaki avec riz et salade" },
-      { description: "Burger de poitrine de poulet avec salade" },
+      { description: "Fajita et riz mexicain avec légumes", image: "../images/menu/fajita-riz.jpg" },
+      { description: "Tortellini sauce rosée avec salade", image: "../images/menu/tortellini-sauce-rose.jpg" },
+      { description: "Pâté chinois avec salade", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Crevette et légumes sauce teriyaki avec riz et salade", image: "../images/menu/crevettes-sauce-teriyaki.jpg" },
+      { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
     ],
   },
 ];
@@ -390,8 +390,7 @@ const Menu = () => {
           {getCurrentWeeks()[currentWeek].circles.map((circle, index) => (
             <CircleWrapper key={index}>
               <DayItemMobile as="p" type="p">{titles[index]}</DayItemMobile>
-              <a href="../images/menu/fish-menu.jpg" target="_blank" rel="noopener noreferrer">
-
+              <a href={circle.image} target="_blank" rel="noopener noreferrer">
                 <CircleItem
                   custom={direction}
                   variants={slideVariants}
@@ -400,13 +399,14 @@ const Menu = () => {
                   exit="exit"
                   transition={{ duration: 0.3 }}
                 >
-                  <CircleImage src="../images/menu/fish-menu.jpg" alt="fish" />
+                  <CircleImage src={circle.image} alt={circle.description} />
                 </CircleItem>
               </a>
               <CircleDescription as="p" type="label">{circle.description}</CircleDescription>
             </CircleWrapper>
           ))}
         </CircleContainer>
+
       </CirclesAndDaysContainer>
 
       {/* Conditional Footer Text */}
