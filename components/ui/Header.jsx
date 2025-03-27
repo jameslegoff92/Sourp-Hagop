@@ -68,7 +68,15 @@ const HeaderText = styled.div`
   font-size: clamp(2rem, 5vw, 5rem);
   z-index: 2;
 
+    @media (max-width: 1652px) {
+    font-size: clamp(1.7rem, 4vw, 4rem);
+    top: ${props => props.mobileTop || '62%'};
+    right:'25px';
+    padding: 4vw 0 0 3vw;
+  }
+
   @media (max-width: 1024px) {
+    font-size: clamp(1.7rem, 4vw, 4rem);
     top: ${props => props.mobileTop || '62%'};
     right:'25px';
     padding: 4vw 0 0 3vw;
@@ -80,8 +88,8 @@ const HeaderText = styled.div`
     padding: 4vw 0 0 3vw;
   }
 
-  @media (max-width: 508px) {
-    font-size: clamp(1.4rem, 5vw, 3rem);
+  @media (max-width: 615px) {
+    font-size: clamp(1.0rem, 4vw, 3rem);
     top: ${props => props.mobileTop || props.top || '50%'};
     right: ${props => props.mobileRight || '20px'};
     padding-left: 5vw;

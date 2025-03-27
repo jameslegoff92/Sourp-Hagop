@@ -105,7 +105,7 @@ export default function ProjetEducatif() {
             <Header
                 animate={false}
                 imageSrc="../images/header/projet-educatif-header.jpg"
-                headerText="PROJET EDUCATIF"
+                headerText="PROJET ÉDUCATIF"
                 headerTextTop="70%"
             />
 

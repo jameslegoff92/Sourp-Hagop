@@ -99,7 +99,7 @@ export default function ConseilAdministration() {
                 animate={false}
                 imageSrc="../images/header/conseil-administration-header.jpg"
                 headerText="CONSEIL ADMINISTRATION"
-                headerTextTop="70%"
+                headerTextTop="72%"
             />
 
             <StyledDiv>
