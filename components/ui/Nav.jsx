@@ -295,7 +295,7 @@ const Nav = ({ type = "primary", animate = true }) => {
         >
           <Link href="/" style={{ display: "flex", gap: "4px" }}>
             <img
-              src="images/logo-blackWhite.jpg"
+              src="/images/logo-blackWhite.jpg"
               alt="logo"
               width={89}
               height={90}

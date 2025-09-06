@@ -4,6 +4,13 @@ import  connectToDatabase  from "@/js/mongoose/connection.js";
 import Admin from "@/js/schemas/admin";
 
 
+
+/**
+ * Server-side components to retrieve Instagram Media and Captions
+ *
+ * 
+ * @returns {JSX.Element} The rendered InstagramFeed JSX Component 
+ */
 export default async function InstagramData() {
   await connectToDatabase();
   const user = await Admin.getAdmin();
