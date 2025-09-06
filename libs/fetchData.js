@@ -13,11 +13,15 @@ import logger from "../js/logger/logger.js";
  * @returns {array}  
  */
 export const fetchGoogleCalendarData = async (primary, startDate, endDate, accessToken) => {
+  if (!primary || !startDate || !endDate || !accessToken) return [];
+
   const CALENDAR_ID = primary;
   const API_KEY = process.env.GOOGLE_API_KEY;
+  if (!API_KEY) return [];
+
   const timeMin = startDate;
   const timeMax = endDate;
-  const url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}`;
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}`;
 
   const headers = {
     "Content-Type": "application/json",
@@ -26,12 +30,18 @@ export const fetchGoogleCalendarData = async (primary, startDate, endDate, acces
 
   try {
     logger.info("Sending request to Google Calendar API.");
-    const res = await fetch(url, { headers });
-    logger.info("Response from Google Calendar API received.")
+    const res = await fetch(url, { headers, cache: "no-store", next: { revalidate: 0 } });
+    logger.info("Response from Google Calendar API received.");
+    if (!res.ok) {
+      logger.error({ status: res.status }, "Google Calendar API non-OK response");
+      return [];
+    }
     const data = await res.json();
-    logger.debug(data, "Parsed data from Google Calendar API.")
-    return data.items;
+    logger.debug(data, "Parsed data from Google Calendar API.");
+    const items = Array.isArray(data?.items) ? data.items : [];
+    return items;
   } catch (error) {
     logger.error(error, "Error from Google Calendar API events request: ");
+    return [];
   }
 };
