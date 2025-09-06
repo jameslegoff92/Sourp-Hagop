@@ -26,7 +26,7 @@ export default function Homepage() {
       <Values />
       <Strengths />
       <MiniCalendar />
-      <InstagramData />
+    {/*   <InstagramData /> */}
       <Footer />
     </>
   );
