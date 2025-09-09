@@ -1,13 +1,13 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
 import styled from "@emotion/styled";
-import Typography from "@/components/display/Typography";
+import Typography from "../../components/display/Typography";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
 
 // const Title = style.h1`
 //   color: var(--black);

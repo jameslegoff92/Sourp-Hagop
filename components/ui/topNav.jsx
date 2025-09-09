@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import Image from 'next/image';
 import css from "./topNav.module.css";
-import Container from "@/components/layout/Container";
+import Container from "../layout/Container";
 import { motion } from "framer-motion";
 
 const navItems = [

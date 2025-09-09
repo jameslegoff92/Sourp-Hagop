@@ -1,8 +1,8 @@
 "use client";
 
-import TopNav from "@/components/ui/topNav";
-import Container from "@/components/layout/Container";
-import Nav from "@/components/ui/Nav";
+import TopNav from "../../components/ui/topNav";
+import Container from "../../components/layout/Container";
+import Nav from "../../components/ui/Nav";
 import styled from "@emotion/styled";
 
 const HeaderImageContainer = styled.div`

@@ -1,9 +1,7 @@
 import InstagramFeed from "./Instagram";
-import { fetchInstagramMedia } from "@/js/axios/axios.js";
-import  connectToDatabase  from "@/js/mongoose/connection.js";
-import Admin from "@/js/schemas/admin";
-
-
+import { fetchInstagramMedia } from "../../js/axios/axios.js";
+import  connectToDatabase  from "../../js/mongoose/connection.js";
+import Admin from "../../js/schemas/admin";
 
 /**
  * Server-side components to retrieve Instagram Media and Captions

@@ -11,95 +11,6 @@ import Container from "../layout/Container";
 //Local Imports
 import Typography from "../display/Typography";
 
-//Data Structure for the Strengths Component
-const data = [
-  {
-    title: "Collaboration d'équipe",
-    text: "Construire une équipe engagée et positive.",
-  },
-  {
-    title: "Bien-être des élèves",
-    text: "Assurer la réussite et le bien-être des élèves.",
-  },
-  {
-    title: "Intégration culturelle",
-    text: "Favoriser la culture scolaire et l'héritage arménien.",
-  },
-  {
-    title: "Attentes comportementales",
-    text: "Promouvoir la conduite appropriée et le civisme.",
-  },
-  {
-    title: "Intégration technologique",
-    text: "Intégrer la technologie dans l'enseignement.",
-  },
-  {
-    title: "Collaboration parentale",
-    text: "Partenariat avec les parents pour la réussite des élèves.",
-  },
-  {
-    title: "Intégration sociale",
-    text: "Préparer les élèves à la société québécoise.",
-  },
-  {
-    title: "Sensibilisation environnementale",
-    text: "Éduquer à la conservation de l'environnement.",
-  },
-  {
-    title: "Vie scolaire stimulante",
-    text: "Contribuer à une vie scolaire enrichissante.",
-  },
-];
-
-//CSS Style Variants
-const stylingMap = {
-  0: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force9.jpg') no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-  1: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force2.jpg') no-repeat",
-    backgroundColor: "#006096",
-  },
-  2: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force7.jpg') no-repeat",
-    backgroundColor: "#006096",
-  },
-  3: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force2.jpg') no-repeat",
-    backgroundColor: "#006096",
-  },
-  4: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force5.jpg') no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-  5: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force6.jpg') no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-  6: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force7.jpg') no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-  7: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force6.jpg') no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-  8: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/force9.jpg') no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-};
-
 //CSS in JS for Strengths Section
 const StyledDiv = styled.div`
   text-align: center;
@@ -112,9 +23,9 @@ const StyledDiv2 = styled(StyledDiv)`
 `;
 
 const GridItemWrapper = styled(motion.div, {
-  shouldForwardProp: (prop) => prop !== 'index'
+  shouldForwardProp: (prop) => prop !== 'index' && prop !== 'imageUrl'
 })`
-  background: ${(props) => stylingMap[props.index].background};
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.8)), url('${(props) => props.imageUrl}');
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -213,6 +124,7 @@ const GridItem = ({ item, index }) => {
       onHoverEnd={handleHoverEnd}
       onTap={handleTap}
       index={index}
+      imageUrl={item.imageUrl}
       initial={{ backgroundSize: "100% 100%", position: "relative" }}
     >
       <GridItemText
@@ -261,11 +173,11 @@ const StyledGrid = styled.div`
   }
 `;
 
-const Grid = () => {
+const Grid = ({ strengths }) => {
   return (
     <StyledGrid>
-      {data.map((item, index) => (
-        <div key={index} style={{ height: "400px" }}>
+      {strengths.map((item, index) => (
+        <div key={item._id || index} style={{ height: "400px" }}>
           <GridItem index={index} item={item} />
         </div>
       ))}
@@ -273,7 +185,11 @@ const Grid = () => {
   );
 };
 
-const Strengths = () => {
+const Strengths = ({ sectionTitle = "Nos Forces", strengths = [] }) => {
+  if (!strengths || strengths.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <StyledDiv2>
@@ -284,9 +200,9 @@ const Strengths = () => {
             type="h2"
             color="primary"
           >
-            Nos Forces
+            {sectionTitle}
           </Typography>
-          <Grid />
+          <Grid strengths={strengths} />
         </Container>
       </StyledDiv2>
     </>

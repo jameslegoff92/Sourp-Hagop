@@ -12,17 +12,17 @@ import styled from "@emotion/styled";
 import Typography from "./Typography";
 
 //Utiliy Imports
-import { generateDateArrays, toISO8601, getDay } from "@/js/date";
+import { generateDateArrays, toISO8601, getDay } from "../../js/date";
 
 //CSSinJS
 //Day Component CSS
 const EventTitle = styled(Link)`
-  display: -webkit-box; /* Required for ellipsis on multiline text */
+  display: -webkit-box;
   height: 50px;
-  overflow: hidden; /* Hide overflow content both horizontally and vertically */
-  text-overflow: ellipsis; /* Optional for inline content */
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 0.8rem;
-  -webkit-line-clamp: 3; /* Number of lines to show before cutting off */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 
   &:hover {
@@ -53,8 +53,8 @@ const CSSChevronRight = styled(ChevronRight)`
 `;
 
 const Section = styled.section`
-  background-color: #006096;
-  color: white;
+  background-color: var(--secondary-color);
+  color: #006096;
   padding: 3rem 1.5rem;
 `;
 
@@ -151,7 +151,7 @@ const Day = ({ day, month, title, isActive }) => (
     </EventTitle>
 
     {isActive == 2 && (
-      <div className="absolute top-[-16px]  w-2 h-2 bg-white rounded-full" />
+      <div className="absolute top-[-16px]  w-2 h-2 bg-[#006096] rounded-full" />
     )}
   </DayWrapper>
 );
@@ -283,8 +283,8 @@ const MiniCalendar = () => {
   return (
     <Section>
       <Container>
-        <Typography as="h1" type="h2" color="light">
-          CALENDRIER
+        <Typography as="h1" type="h2" style={{ color: '#006096' }}>
+          Calendrier Scolaire
         </Typography>
         <SubContainer>
           <CSSChevronLeft onClick={handleChevronLeft} />
@@ -314,19 +314,22 @@ const MiniCalendar = () => {
         <div className="flex flex-col items-center relative">
           <Icons>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 0 ? "" : "opacity-50"} rounded-full`}
-            ></div>
+              className={`w-3 h-3 ${currentWeek == 0 ? "" : "opacity-30"} rounded-full`}
+              style={{ backgroundColor: '#006096' }}>
+            </div>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 1 ? "" : "opacity-50"} rounded-full`}
-            ></div>
+              className={`w-3 h-3 ${currentWeek == 1 ? "" : "opacity-30"} rounded-full`}
+              style={{ backgroundColor: '#006096' }}>
+            </div>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 2 ? "" : "opacity-50"} rounded-full`}
-            ></div>
+              className={`w-3 h-3 ${currentWeek == 2 ? "" : "opacity-30"} rounded-full`}
+              style={{ backgroundColor: '#006096' }}>
+            </div>
           </Icons>
           <ButtonWrapper className="h-full flex items-center">
             <OpenCalendar
               href="/calendrier"
-              className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity"
+              className="text-sm uppercase border-b border-[#006096] pb-1 hover:opacity-80 transition-opacity"
             >
               Visualiser le calendrier
             </OpenCalendar>

@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import logger from 'js/logger/logger.js';
+import logger from './js/logger/logger.js';
 import connectToDatabase from "./js/mongoose/connection";
-import Admin from 'js/schemas/admin.js';
+import Admin from './js/schemas/admin.js';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -25,9 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             "https://www.googleapis.com/auth/calendar.events.readonly",
             "https://www.googleapis.com/auth/service.management",
             "https://www.googleapis.com/auth/service.management.readonly",
-            
-            // Add more scopes as needed based on your Google Cloud Console
-          ].join(" "),  // Join the scopes with a spac
+                      ].join(" "),
           access_type: "offline",
           prompt: "consent"
         },
