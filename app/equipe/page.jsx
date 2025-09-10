@@ -1,11 +1,11 @@
 "use client";
 
-import Header from "../components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
-import Accordion from "@/components/ui/Accordion";
-import CustomButton from "@/components/inputs/Button"
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
+import Accordion from "../../components/ui/Accordion";
+import CustomButton from "../../components/inputs/Button"
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 

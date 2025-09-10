@@ -41,7 +41,7 @@ const navList = [
       { text: "Secondaire", link: "/secondaire" },
     ],
   },
-  {
+  /**{
     title: "Vie Étudiante",
     items: [
       { text: "Vie Communautaire", link: "/vie-communautaire" },
@@ -52,6 +52,7 @@ const navList = [
       { text: "Sorties Scolaires", link: "/sorties-scolaires" },
     ],
   },
+  */
   {
     title: "Services à l'élève",
     items: [
@@ -74,7 +75,7 @@ const navList = [
 ];
 
 const navItems = [
-  { title: "Carrières", url: "/" },
+  { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
   { title: "La Fondation", url: "https://fondationsh.com/" },

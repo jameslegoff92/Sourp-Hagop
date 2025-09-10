@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
 import Button from '@mui/material/Button';
-import Typography from "@/components/display/Typography";
+import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
 
