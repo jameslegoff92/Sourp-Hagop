@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 const navItems = [
   { title: "Carrières", url: "/" },
-  { title: "Calendrier", url: "/about" },
+  { title: "Calendrier", url: "/calendrier" },
   { title: "Locations", url: "/contact" },
   { title: "La Fondation", url: "https://fondationsh.com/" },
 ];
