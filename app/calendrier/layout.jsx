@@ -7,7 +7,7 @@ export default function CalendarLayout({ children }) {
       <Header
         animate={false}
         imageSrc="/images/header/team-header.svg"
-        headerText="NOTRE ÉQUIPE"
+        headerText="Calendrier"
         headerTextTop="60%"
       />
       {children}
