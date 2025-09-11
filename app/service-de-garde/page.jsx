@@ -363,7 +363,6 @@ export default function ServiceParascolaire() {
                     </ContentContainer>
                 </MotionDiv>
 
-                {/* Important Information Section */}
                 <MotionDiv className="flex gap-8 flex-col mt-12 mx-auto w-4/5">
                     <ContentContainer containerRef={containerRef5}>
                         <Image 
