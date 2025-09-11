@@ -238,7 +238,9 @@ const SpaceItem = ({ space, index }) => {
   );
 };
 
-export default function RentalSpacesPage({ data }) {
+export default function RentalSpacesPage() {
+  const data = null; // This will be replaced with Sanity data later
+  
   const spaces = [
     {
       id: 1,
