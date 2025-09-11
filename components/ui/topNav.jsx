@@ -77,10 +77,11 @@ const TopNav = ({ animate = false }) => {
           ))}
         </ul>
         <PortalLink />
-        <div className={css.langContainer}>
+{/*        <div className={css.langContainer}>
           <img src="/images/chevron-down.svg" alt="chevron down" />
           <img src="/images/lang.svg" alt="logo" />
         </div>
+*/}
       </Container>
     </nav>
   );
