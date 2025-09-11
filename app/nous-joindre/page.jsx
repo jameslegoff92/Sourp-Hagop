@@ -240,12 +240,8 @@ const MapOverlay = styled.div`
 `
 
 export default function Contact() {
-<<<<<<< HEAD
 
   const data = null;
-=======
-  const data = null; // This will be replaced with Sanity data later
->>>>>>> e781d697e16dd798393a3657176bfc04de2d319e
   
   const [formData, setFormData] = useState({
     firstName: '',
