@@ -31,7 +31,6 @@ export default function Soutien() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg"/>
             <Header animate = {false} videoSrc="../videos/video-agora.mp4" headerText="AGORA ANNA & MANOUK DJOUKHADJIAN" headerTextTop="70%" />
 
             <StyledDiv>
@@ -64,6 +63,7 @@ export default function Soutien() {
                 </MotionDiv>
                 <Menu />
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg"/>
             <Footer />
         </>
     );

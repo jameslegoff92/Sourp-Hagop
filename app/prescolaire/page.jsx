@@ -138,7 +138,6 @@ export default function Prescolaire() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header 
                 animate={false} 
                 imageSrc="../images/header/prescolaire-header.jpg" 
@@ -261,6 +260,7 @@ export default function Prescolaire() {
                     </motion.div>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

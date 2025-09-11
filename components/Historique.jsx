@@ -182,7 +182,6 @@ export default function Historique({ historyData }) {
 
   return (
     <>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
       <Header 
         imageSrc={pageHeader.headerImageUrl || "../images/school.svg"} 
         headerText={pageHeader.headerText || "NOTRE HISTOIRE"} 
@@ -211,6 +210,7 @@ export default function Historique({ historyData }) {
           <p>{/* Your content here */}</p>
         </div>
       </div>
+      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
       <Footer />
     </>
   );

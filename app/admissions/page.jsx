@@ -101,7 +101,6 @@ const textBlocksData = [
 export default function Admissions() {
   return (
     <>
-      <BackgroundLogo src="../images/logo-big.svg"/>
       <Header animate={false} imageSrc="../images/header/admissions-header.jpg" headerText="ADMISSIONS" headerTextTop="70%" />
 
       <StyledDiv>
@@ -114,7 +113,7 @@ export default function Admissions() {
         ))}
       </TextBlockContainer>
       </StyledDiv>
-      
+      <BackgroundLogo src="../images/logo-big.svg"/>
       <Footer />
     </>
   );

@@ -280,9 +280,6 @@ export default function ComiteParents() {
             )}
 
             <div className={showPopup ? "disable-interaction" : ""}>
-                <BackgroundLogo src="../images/logo-big.svg" style={{
-                    marginLeft: '0',
-                }} />
                 <Header
                     animate={false}
                     imageSrc="../images/header/pourquoi-header.jpg"
@@ -426,7 +423,9 @@ export default function ComiteParents() {
                     </MotionDiv>
 
                 </StyledDiv>
-
+                <BackgroundLogo src="../images/logo-big.svg" style={{
+                    marginLeft: '0',
+                }} />
                 <Footer />
             </div>
         </>

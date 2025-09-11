@@ -129,9 +129,6 @@ export default function ComiteParents() {
 
     return (
         <>
-            <BackgroundLogo src="../images/comite-parents.jpg" style={{
-                marginLeft: '0',
-            }} />
             <Header
                 className="target-header-image"
                 animate={false}
@@ -221,7 +218,9 @@ export default function ComiteParents() {
                     </ContentContainer>
                 </MotionDiv>
             </StyledDiv>
-
+            <BackgroundLogo src="../images/comite-parents.jpg" style={{
+                marginLeft: '0',
+            }} />
             <Footer />
         </>
     );

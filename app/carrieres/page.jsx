@@ -217,7 +217,6 @@ export default function CareerPage() {
 
   return (
     <>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
       <Header
         animate={false}
         imageSrc={data?.headerImage?.asset?.url || "../images/header/careers-header.jpg"}
@@ -345,6 +344,7 @@ export default function CareerPage() {
         onClose={() => setSelectedJob(null)}
         job={selectedJob}
       />
+      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
       <Footer />
     </>
   );

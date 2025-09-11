@@ -3,6 +3,17 @@ export default {
   title: 'Home Page',
   type: 'document',
   fields: [
+
+    // Video Section
+    {
+      name: "heroVideo",
+      title: "Background Video",
+      type: "file",
+      options: {
+        accept: "video/mp4,video/webm",
+      },
+    },
+
     // Intro Section
     {
       name: 'introSection',

@@ -200,7 +200,6 @@ export default function Secondaire() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header 
                 animate={false} 
                 imageSrc="../images/header/secondaire-header.jpg" 
@@ -388,6 +387,7 @@ export default function Secondaire() {
                     </TableContainer>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

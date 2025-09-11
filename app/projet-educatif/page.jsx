@@ -101,7 +101,6 @@ const RectangleItem = ({ src, text, size, index }) => (
 export default function ProjetEducatif() {
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header
                 animate={false}
                 imageSrc="../images/header/projet-educatif-header.jpg"
@@ -176,6 +175,7 @@ export default function ProjetEducatif() {
                     Orientations Générales
                 </Typography>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

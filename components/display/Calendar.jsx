@@ -284,7 +284,7 @@ const MiniCalendar = () => {
     <Section>
       <Container>
         <Typography as="h1" type="h2" style={{ color: '#006096' }}>
-          Calendrier Scolaire
+          CALENDRIER
         </Typography>
         <SubContainer>
           <CSSChevronLeft onClick={handleChevronLeft} />

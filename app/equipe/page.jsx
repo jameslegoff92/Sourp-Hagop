@@ -32,7 +32,6 @@ export default function Equipe() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header animate = {false} imageSrc="../images/header/equipe-header.jpg" headerText="NOTRE ÉQUIPE" headerTextTop="70%" />
 
             <StyledDiv>
@@ -76,6 +75,7 @@ export default function Equipe() {
                     Appliquer Maintenant
                 </CustomButton>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

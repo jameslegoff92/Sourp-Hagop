@@ -16,9 +16,11 @@ import { getHomePage } from '../lib/sanity-queries';
 export default async function Homepage() {
   const data = await getHomePage();
 
+  const videoUrl = data?.heroVideo?.asset?.url;
+
   return (
     <>
-      <BackgroundVideo src="/videos/hero-video.mp4">
+      <BackgroundVideo src={videoUrl}>
         <TopNav animate={true} />
         <Container>
           <Nav type="secondary" />
@@ -27,11 +29,11 @@ export default async function Homepage() {
       </BackgroundVideo>
       <Intro />
       <Values 
-        sectionTitle={data?.valuesSection?.sectionTitle || "Nos Valeurs"} 
+        sectionTitle={data?.valuesSection?.sectionTitle || "NOS VALEURS"} 
         values={data?.valuesSection?.values || []} 
       />
       <Strengths 
-        sectionTitle={data?.strengthsSection?.sectionTitle || "Nos Forces"}
+        sectionTitle={data?.strengthsSection?.sectionTitle || "NOS FORCES"}
         strengths={data?.strengthsSection?.strengths || []}
       />
       <MiniCalendar />

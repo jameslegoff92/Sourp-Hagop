@@ -31,7 +31,6 @@ export default function Soutien() {
     return (
         <>
             <Header animate = {false} imageSrc="../images/header/bibliotheque-header.jpg" headerText="Bibliothèque" headerTextTop="70%" />
-                    <BackgroundLogo src="../images/logo-big.svg"/>
             <StyledDiv>
                 <MotionDiv>
 
@@ -61,6 +60,7 @@ export default function Soutien() {
                     </TextContainer>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg"/>
             <Footer />
         </>
     );

@@ -11,8 +11,9 @@ const navItems = [
 /*   { title: "", url: "https://eash50.wixsite.com/site", logo: "/images/header/50e-logo-secmenu.svg", },
  */  { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/about" },
-  /* { title: "Locations", url: "/contact" }, */
+  { title: "Locations", url: "/locations" },
   { title: "La Fondation", url: "https://fondationsh.com/" },
+  { title: "Nous joindre", url: "/nous-joindre" },
 ];
 
 const NavItem = ({ title, url, logo }) => (

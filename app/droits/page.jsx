@@ -346,7 +346,6 @@ export default function TuitionFees() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header 
                 animate={false} 
                 imageSrc="../images/header/frais-header.jpg" 
@@ -544,6 +543,7 @@ export default function TuitionFees() {
                     </TableContainer>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

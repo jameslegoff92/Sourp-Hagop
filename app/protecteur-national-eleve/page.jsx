@@ -37,7 +37,6 @@ const StyledParagraph = styled(Typography)`
 export default function ConseilAdministration() {
   return (
     <>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
       <Header
         animate={false}
         imageSrc="../images/header/pne-header.jpg"
@@ -226,6 +225,7 @@ export default function ConseilAdministration() {
         </Typography>
         </MotionDiv>
       </StyledDiv>
+      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
       <Footer />
     </>
   );

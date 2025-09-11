@@ -84,7 +84,6 @@ export default function Historique() {
 
     return (
         <>
-            <BackgroundLogo src="../images/anciens/anciens-logo.jpg" />
             <Header imageSrc="../images/header/anciens-header.jpg" headerText="ANCIENS ET ANCIENNES" headerTextTop="70%" />
             <StyledDiv>
                 <MotionDiv>
@@ -194,6 +193,7 @@ export default function Historique() {
                     </SocialMediaContainer>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/anciens/anciens-logo.jpg" />
             <Footer />
         </>
     );
