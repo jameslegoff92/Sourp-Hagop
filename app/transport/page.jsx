@@ -2,10 +2,10 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { debounce } from 'lodash';
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -204,6 +204,23 @@ export default function Transport() {
     setHoverInfo({ show: false, text: "", x: 0, y: 0 });
   }, [hoveredPath]);
 
+  const memoizedMapTitle = useMemo(() => (
+    <>
+      <Typography
+        as="p"
+        type="h4"
+        color="primary"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        style={{ marginTop: "2vh" }}
+      >
+        Plan des zones couvertes par le transport scolaire
+      </Typography>
+    </>
+  ), []); 
+
   const memoizedTextContent = useMemo(() => (
     <>
       <Typography
@@ -214,34 +231,37 @@ export default function Transport() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
+        style={{ marginTop: "4vh" }}
       >
         Le service de transport est assuré en fonction du quartier avant 8h30 et après 16h10. Les enfants âgés de moins de 12 ans doivent être accompagnés par un adulte à l'arrêt d'autobus. En l'absence d'un adulte, le conducteur n'est pas autorisé à laisser l'enfant, que ce soit dans la rue ou devant le domicile. Dans une telle situation, l'enfant sera reconduit à l'école.
       </Typography>
+
       <Typography
         as="p"
-        type="h4"
-        color="primary"
+        type="label"
+        color="dark"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        style={{ marginTop: "5vh" }}
+        style={{ marginTop: "4vh" }}
       >
-        Plan des zones couvertes par le transport scolaire
+        Pour plus d'information veuillez contacter le responsable du service de transport <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>M. Vartan Papakhian</span>, tél: <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>(514) 331-3091</span> poste: <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>214</span> 
       </Typography>
     </>
   ), []);
+
   
 
   return (
     <>
       <BackgroundLogo src="../images/logo-big.svg" />
-      <Header animate={false} imageSrc="../images/header/transport-header.jpg" headerText="Service de Transport" headerTextTop="-3%" />
+      <Header animate={false} imageSrc="../images/header/transport-header.jpg" headerText="Service de Transport" headerTextTop="3%" />
 
       <StyledDiv>
         <MotionDiv>
-          <TextContainer>
-            {memoizedTextContent}
+        <TextContainer>
+            {memoizedMapTitle}
           </TextContainer>
           <MapFrameContainer
             initial={{ opacity: 0, y: 30 }}
@@ -348,6 +368,9 @@ export default function Transport() {
               </LegendItem>
             </LegendContainer>
           </MapFrameContainer>
+          <TextContainer>
+            {memoizedTextContent}
+          </TextContainer>
         </MotionDiv>
       </StyledDiv>
 

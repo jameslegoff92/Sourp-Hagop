@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -30,8 +30,7 @@ export default function Soutien() {
 
     return (
         <>
-            <Header animate = {false} imageSrc="../images/header/bibliotheque-header.jpg" headerText="Bibliothèque" headerTextTop="60%" />
-                    <BackgroundLogo src="../images/logo-big.svg"/>
+            <Header animate = {false} imageSrc="../images/header/bibliotheque-header.jpg" headerText="Bibliothèque" headerTextTop="70%" />
             <StyledDiv>
                 <MotionDiv>
 
@@ -61,6 +60,7 @@ export default function Soutien() {
                     </TextContainer>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg"/>
             <Footer />
         </>
     );

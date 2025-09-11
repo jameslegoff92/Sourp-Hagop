@@ -9,44 +9,6 @@ import { motion, useAnimation } from "framer-motion";
 import Typography from "../display/Typography";
 import Container from "../layout/Container";
 
-//Data Structure for the Value Component
-const valueData = [
-  {
-    title: "Respect",
-    text: "À Sourp Hagop, nous aidons nos élèves à atteindre l'accomplissement de soi en découvrant et développant leur plein potentiel pour une vie épanouie.",
-    url: "/images/value-img-1-color.png",
-  },
-  {
-    title: "Responsabilité",
-    text: "La responsabilité nous rend autonomes. À Sourp Hagop, nous encourageons les élèves à prendre en charge leurs actions et à s'engager activement dans leur communauté.",
-    url: "/images/value-img-2-color.png",
-  },
-  {
-    title: "Accomplissement de Soi",
-    text: "Le respect est essentiel. À l'école arménienne Sourp Hagop, nous valorisons le respect envers tous, créant un environnement de confiance et de considération mutuelle.",
-    url: "/images/value-img-3-color.png",
-  },
-];
-
-//CSS Style Variants
-const styleVariants = {
-  0: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/value-img-1-color.png'), no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-  1: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/value-img-2-color.png'), no-repeat",
-    backgroundColor: "#006096",
-  },
-  2: {
-    background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/value-img-3-color.png'), no-repeat",
-    backgroundColor: "var(--tertiary-color)",
-  },
-};
-
 //CSS For Values Section
 const ValuesContainer = styled.div`
   background-color: var(--secondary-color);
@@ -105,18 +67,22 @@ const Img = styled.img`
   height: 100%;
 `;
 
-const ValueContainer = styled(motion.div)`
+const ValueContainer = styled(motion.div,{
+  shouldForwardProp: (prop) => prop !== '_index'
+})`
   overflow: hidden;
   height: 31.25rem;
-  order: ${(props) => (props.index == 1 ? 1 : 0)};
+  order: ${(props) => (props._index == 1 ? 1 : 0)};
 
     @media (min-width: 768px) { 
     width: 600px;
   }
 `;
 
-const ValueSubContainer = styled(motion.div)`
-  background: ${(props) => styleVariants[props.index].background};
+const ValueSubContainer = styled(motion.div,{
+  shouldForwardProp: (prop) => prop !== '_index' && prop !== 'imageUrl'
+})`
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${(props) => props.imageUrl}');
   background-size: cover; // Ensures the image covers the whole div
   background-position: center; // Centers the image
   display: flex;
@@ -132,8 +98,10 @@ const ValueSubContainer = styled(motion.div)`
 
 `;
 
-const TextDiv = styled(motion.div)`
-  background-color: ${(props) => styleVariants[props.index].backgroundColor};
+const TextDiv = styled(motion.div,{
+  shouldForwardProp: (prop) => prop !== '_index' && prop !== 'backgroundColor'
+})`
+  background-color: ${(props) => props.backgroundColor || 'var(--tertiary-color)'};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,8 +114,10 @@ const TextDiv = styled(motion.div)`
   }
 `;
 
-const ValueText = styled(Typography)`
-  color: ${(props) => (props.index == 1 ? "#fff" : "var(--black)")};
+const ValueText = styled(Typography,{
+  shouldForwardProp: (prop) => prop !== '_index' && prop !== 'textColor'
+})`
+  color: ${(props) => props.textColor || 'var(--black)'};
   font-size: 0.9rem;
   width: 75%;
   margin: 0 auto;
@@ -159,7 +129,7 @@ const ValueText = styled(Typography)`
 `;
 
 //ValueItem Component
-const ValueItem = ({ value, index }) => {
+const ValueItem = ({ value, _index }) => {
   const parentControls = useAnimation();
   const childControls1 = useAnimation();
   const childControls2 = useAnimation();
@@ -176,6 +146,14 @@ const ValueItem = ({ value, index }) => {
       opacity: 1,
       transition: { duration: 0.5 },
     });
+  };
+
+  const getTextColor = (backgroundColor) => {
+    if (!backgroundColor) return 'var(--black)';
+    if (backgroundColor === '#006096' || backgroundColor.toLowerCase().includes('006096')) {
+      return '#fff';
+    }
+    return 'var(--black)';
   };
 
   const handleHoverEnd = async () => {
@@ -226,10 +204,11 @@ const ValueItem = ({ value, index }) => {
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
         onTap={handleTap}
-        index={index}
+        _index={_index}
       >
         <ValueSubContainer
-          index={index}
+          _index={_index}
+          imageUrl={value.imageUrl}
           initial={{ height: "100%" }}
           animate={childControls1}
         >
@@ -237,9 +216,10 @@ const ValueItem = ({ value, index }) => {
             {value.title}
           </Typography>
         </ValueSubContainer>
-        <TextDiv index={index}>
+        <TextDiv _index={_index} backgroundColor={value.backgroundColor}>
           <ValueText
-            index={index}
+            _index={_index}
+            textColor={getTextColor(value.backgroundColor)}
             as="p"
             type="h6"
             fontFamily="secondary"
@@ -251,24 +231,28 @@ const ValueItem = ({ value, index }) => {
         </TextDiv>
       </ValueContainer>
       <ImgContainer>
-        <Img src={value.url} />
+        <Img src={value.imageUrl} alt={value.title} />
       </ImgContainer>
     </ValueWrapper>
   );
 };
 
 //Values Component: Used to simply map() the ValueItem Component
-const Values = () => {
+const Values = ({ sectionTitle = "Nos Valeurs", values = [] }) => {
+  if (!values || values.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <ValuesContainer>
         <Container>
           <Typography as="h1" type="h2" color="primary">
-            Nos Valeurs
+            {sectionTitle}
           </Typography>
           <CardContainer>
-            {valueData.map((value, index) => (
-              <ValueItem key={index} value={value} index={index} />
+            {values.map((value, index) => (
+              <ValueItem key={value._id || index} value={value} _index={index} />
             ))}
           </CardContainer>
         </Container>

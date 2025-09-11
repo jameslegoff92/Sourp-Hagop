@@ -1,14 +1,14 @@
 "use client";
 
-import TopNav from "@/components/ui/topNav";
-import Container from "@/components/layout/Container";
-import Nav from "@/components/ui/Nav";
+import TopNav from "../../components/ui/topNav";
+import Container from "../../components/layout/Container";
+import Nav from "../../components/ui/Nav";
 import styled from "@emotion/styled";
 
 const HeaderImageContainer = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 28%;
+  padding-top: 33%;
   overflow: hidden;
 
   @media (max-width: 1024px) {
@@ -20,7 +20,7 @@ const HeaderImageContainer = styled.div`
   }
 
   @media (max-width: 480px) {
-    padding-top: 50%; /* Adjust for mobile phones */
+    padding-top: 50%;
   }
 `;
 
@@ -29,7 +29,7 @@ const HeaderImage = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 105%;
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
@@ -45,6 +45,18 @@ const HeaderImage = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 1;
   }
+    
+`;
+
+const HeaderVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: -1;
 `;
 
 const HeaderText = styled.div`
@@ -56,7 +68,15 @@ const HeaderText = styled.div`
   font-size: clamp(2rem, 5vw, 5rem);
   z-index: 2;
 
+    @media (max-width: 1652px) {
+    font-size: clamp(1.7rem, 4vw, 4rem);
+    top: ${props => props.mobileTop || '62%'};
+    right:'25px';
+    padding: 4vw 0 0 3vw;
+  }
+
   @media (max-width: 1024px) {
+    font-size: clamp(1.7rem, 4vw, 4rem);
     top: ${props => props.mobileTop || '62%'};
     right:'25px';
     padding: 4vw 0 0 3vw;
@@ -68,15 +88,15 @@ const HeaderText = styled.div`
     padding: 4vw 0 0 3vw;
   }
 
-  @media (max-width: 508px) {
-    font-size: clamp(1.4rem, 5vw, 3rem);
+  @media (max-width: 615px) {
+    font-size: clamp(1.0rem, 4vw, 3rem);
     top: ${props => props.mobileTop || props.top || '50%'};
     right: ${props => props.mobileRight || '20px'};
     padding-left: 5vw;
   }
 `;
 
-const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight, mobileTop, mobileRight, animate = false }) => {
+const Header = ({ videoSrc, imageSrc, headerText, headerTextTop, headerTextRight, mobileTop, mobileRight, animate = false }) => {
   return (
     <>
       <TopNav />
@@ -84,16 +104,20 @@ const Header = ({ imageSrc, headerText, headerTextTop, headerTextRight, mobileTo
         <Nav animate={animate} />
       </Container>
       <HeaderImageContainer>
-        <HeaderImage src={imageSrc}>
-          <HeaderText
-            top={headerTextTop}
-            right={headerTextRight}
-            mobileTop={mobileTop}
-            mobileRight={mobileRight}
-          >
-            {headerText}
-          </HeaderText>
-        </HeaderImage>
+        {/* Conditionally render video or image */}
+        {videoSrc ? (
+          <HeaderVideo src={videoSrc} autoPlay loop muted playsInline />
+        ) : (
+          <HeaderImage src={imageSrc} />
+        )}
+        <HeaderText
+          top={headerTextTop}
+          right={headerTextRight}
+          mobileTop={mobileTop}
+          mobileRight={mobileRight}
+        >
+          {headerText}
+        </HeaderText>
       </HeaderImageContainer>
     </>
   );

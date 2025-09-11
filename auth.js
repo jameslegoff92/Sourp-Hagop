@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import connectToDatabase from "./js/mongoose/connection";
+import Admin from './js/schemas/admin.js';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -22,27 +24,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             "https://www.googleapis.com/auth/calendar.events.readonly",
             "https://www.googleapis.com/auth/service.management",
             "https://www.googleapis.com/auth/service.management.readonly",
-            
-            // Add more scopes as needed based on your Google Cloud Console
-          ].join(" "),  // Join the scopes with a spac
+                      ].join(" "),
+          access_type: "offline",
+          prompt: "consent"
         },
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
-      // Store the access token in the token object if it's available
+    async signIn({ user, account}) {
       if (account) {
-        token.accessToken = account.access_token;
+        await connectToDatabase();
+        const user = await Admin.getAdmin();
+        const accessToken = await user.updateGoogleAccessToken(account.access_token);
+        const refreshToken = await user.updateGoogleRefreshToken(account.refresh_token);
+        const expires_in = await user.updateGoogleTokenExpiry(account.expires_in);
       }
-      return token;
-    },
-    async session({ session, token }) {
-      // Pass the access token to the session if it's available in the token
-      session.accessToken = token.accessToken;
-      return session;
-    },
+
+
+      return true;
+    }
   },
+  debug: true,
 });
 
 export default handlers;

@@ -1,10 +1,10 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
-import Accordion from "@/components/ui/AccordionSoutien";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
+import Accordion from "../../components/ui/AccordionSoutien";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -40,7 +40,7 @@ export default function Soutien() {
     return (
         <>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
-            <Header animate = {false} imageSrc="../images/header/soutien-header.jpg" headerText="SOUTIEN AUX ÉLÈVES" headerTextTop="60%" />
+            <Header animate = {false} imageSrc="../images/header/soutien-header.jpg" headerText="SOUTIEN AUX ÉLÈVES" headerTextTop="70%" />
 
             <StyledDiv>
                 <MotionDiv>

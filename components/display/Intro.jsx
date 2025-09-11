@@ -3,15 +3,18 @@
 //Third Party Imports
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
+import { useState, useEffect } from "react";
 
 //Local Imports
 import Typography from "../display/Typography";
+import { getHomePage } from "../../lib/sanity-queries";
+import { urlFor } from "../../lib/sanity";
 
 //CSS For Section1
 const Section1 = styled.section`
   text-align: center;
   padding: 2.5rem 0 2.5rem;
-  position relative;
+  position: relative;
   
   @media (min-width: 650px) {
     height: 37.5rem;
@@ -49,6 +52,25 @@ const TextContainer = styled.div`
 `;
 
 function Intro() {
+  const [homePageData, setHomePageData] = useState(null);
+
+  useEffect(() => {
+    async function fetchHomePageData() {
+      try {
+        const data = await getHomePage();
+        setHomePageData(data);
+      } catch (error) {
+        console.error('Error fetching home page data:', error);
+      }
+    }
+
+    fetchHomePageData();
+  }, []);
+
+  // Fallback content if Sanity data isn't available
+  const title = homePageData?.introSection?.title;
+  const content = homePageData?.introSection?.content;
+
   return (
     <>
       <Section1>
@@ -70,7 +92,7 @@ function Intro() {
             }}
             transition={{ duration: 0.9, ease: "easeIn" }}
           >
-            Pourquoi choisir Sourp Hagop ?
+            {title}
           </Typography>
           <TextContainer>
             <Typography
@@ -82,13 +104,7 @@ function Intro() {
               transition={{ duration: 1.7, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-              pulvinar, mauris vitae bibendum dictum, tellus velit fermentum
-              dolor, rutrum porta est velit varius ligula. Vestibulum at finibus
-              diam. Fusce commodo risus nulla, eleifend mattis mi pharetra a.
-              Fusce vitae elit id ipsum mattis vulputate. Aliquam quis dolor
-              ligula. Nulla facilisi. In hac habitasse platea dictumst. Cras sed
-              tellus est.
+              {content}
             </Typography>
           </TextContainer>
         </ContentWrapper>

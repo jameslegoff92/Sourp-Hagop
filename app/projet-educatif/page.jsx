@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -101,12 +101,11 @@ const RectangleItem = ({ src, text, size, index }) => (
 export default function ProjetEducatif() {
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header
                 animate={false}
                 imageSrc="../images/header/projet-educatif-header.jpg"
-                headerText="PROJET EDUCATIF"
-                headerTextTop="60%"
+                headerText="PROJET ÉDUCATIF"
+                headerTextTop="70%"
             />
 
             <StyledDiv>
@@ -176,6 +175,7 @@ export default function ProjetEducatif() {
                     Orientations Générales
                 </Typography>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

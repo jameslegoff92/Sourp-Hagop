@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 //Third Party Imports
@@ -12,17 +12,17 @@ import styled from "@emotion/styled";
 import Typography from "./Typography";
 
 //Utiliy Imports
-import { generateDateArrays, toISO8601, getDay } from "@/utils/date";
+import { generateDateArrays, toISO8601, getDay } from "../../js/date";
 
 //CSSinJS
 //Day Component CSS
 const EventTitle = styled(Link)`
-  display: -webkit-box; /* Required for ellipsis on multiline text */
+  display: -webkit-box;
   height: 50px;
-  overflow: hidden; /* Hide overflow content both horizontally and vertically */
-  text-overflow: ellipsis; /* Optional for inline content */
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 0.8rem;
-  -webkit-line-clamp: 3; /* Number of lines to show before cutting off */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 
   &:hover {
@@ -53,8 +53,8 @@ const CSSChevronRight = styled(ChevronRight)`
 `;
 
 const Section = styled.section`
-  background-color: #006096;
-  color: white;
+  background-color: var(--secondary-color);
+  color: #006096;
   padding: 3rem 1.5rem;
 `;
 
@@ -103,7 +103,7 @@ const DateWrapper = styled(motion.div)`
   justify-content: center;
   width: 100px;
 
-  :nth-child(3) {
+  :nth-of-type(3) {
     margin-top: 50px;
   }
 
@@ -113,7 +113,7 @@ const DateWrapper = styled(motion.div)`
     margin-top: 0;
     margin-bottom: 0;
 
-    :nth-child(3) {
+    :nth-of-type(3) {
       margin-top: 0;
     }
   }
@@ -141,20 +141,60 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-//Day Component
-const Day = ({ day, month, title, isActive }) => (
-  <DayWrapper className={`${isActive ? "relative" : ""}`}>
-    <span className="text-md uppercase mb-1">{month}</span>
-    <span className="text-4xl font-bold mb-1">{day}</span>
-    <EventTitle href="/calendrier" className="text-center">
-      {title}
-    </EventTitle>
+// French month names (full names)
+const FRENCH_MONTHS = {
+  'jan': 'janvier',
+  'feb': 'février', 
+  'mar': 'mars',
+  'apr': 'avril',
+  'may': 'mai',
+  'jun': 'juin',
+  'jul': 'juillet',
+  'aug': 'août',
+  'sep': 'septembre',
+  'oct': 'octobre',
+  'nov': 'novembre',
+  'dec': 'décembre'
+};
 
-    {isActive == 2 && (
-      <div className="absolute top-[-16px]  w-2 h-2 bg-white rounded-full" />
-    )}
-  </DayWrapper>
-);
+// Helper function to convert month to French
+const getFrenchMonth = (englishMonth) => {
+  const monthKey = englishMonth?.toLowerCase().slice(0, 3);
+  return FRENCH_MONTHS[monthKey] || englishMonth;
+};
+
+// Helper function to check if a date is today
+const isToday = (day, month, year) => {
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toLowerCase();
+  const currentYear = today.getFullYear();
+  
+  return (
+    day === currentDay && 
+    month?.toLowerCase().slice(0, 3) === currentMonth.slice(0, 3) &&
+    year === currentYear
+  );
+};
+
+//Day Component
+const Day = ({ day, month, year, title, isActive }) => {
+  const isTodayDate = isToday(day, month, year);
+  
+  return (
+    <DayWrapper className={`${isActive ? "relative" : ""}`}>
+      <span className="text-md uppercase mb-1">{getFrenchMonth(month)}</span>
+      <span className="text-4xl font-bold mb-1">{day}</span>
+      <EventTitle href="/calendrier" className="text-center">
+        {title}
+      </EventTitle>
+
+      {isTodayDate && (
+        <div className="absolute top-[-16px] w-2 h-2 bg-white rounded-full" />
+      )}
+    </DayWrapper>
+  );
+};
 
 //Mini Calendar Component
 const MiniCalendar = () => {
@@ -162,7 +202,6 @@ const MiniCalendar = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [authToken, setAuthToken] = useState("");
   const [googleEvents, setGoogleEvents] = useState([]);
-  console.log("dateArrays: ", dateArrays);
 
   //How to acquire the session object. This is an asynchronous operation.
   const { data, status } = useSession();
@@ -195,6 +234,10 @@ const MiniCalendar = () => {
   }, [data]);
 
   useEffect(() => {
+  })
+  
+  useEffect(() => {
+    console.log("The calendar component useEffect is running: ")
     const fetchGoogleData = async (authToken) => {
       const timeMin = encodeURIComponent(toISO8601(dateArrays[0][0]));
       const timeMax = encodeURIComponent(toISO8601(dateArrays[2][4]));
@@ -234,11 +277,6 @@ const MiniCalendar = () => {
           .sort((a, b) => {
             return new Date(a.start) - new Date(b.start);
           });
-
-        console.log("Events: ", events);
-        console.log("Date Arrays: ", dateArrays);
-
-        console.log("Updated Date Arrays: ", dateArrays);
 
         return setGoogleEvents(events);
       } catch (error) {
@@ -285,7 +323,7 @@ const MiniCalendar = () => {
   return (
     <Section>
       <Container>
-        <Typography as="h1" type="h2" color="light">
+        <Typography as="h1" type="h2" style={{ color: '#006096' }}>
           CALENDRIER
         </Typography>
         <SubContainer>
@@ -302,6 +340,7 @@ const MiniCalendar = () => {
                   <Day
                     day={date.day}
                     month={date.month}
+                    year={date.year}
                     title={date.title}
                     isActive={index}
                   />
@@ -316,19 +355,22 @@ const MiniCalendar = () => {
         <div className="flex flex-col items-center relative">
           <Icons>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 0 ? "" : "opacity-50"} rounded-full`}
-            ></div>
+              className={`w-3 h-3 ${currentWeek == 0 ? "" : "opacity-30"} rounded-full`}
+              style={{ backgroundColor: '#006096' }}>
+            </div>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 1 ? "" : "opacity-50"} rounded-full`}
-            ></div>
+              className={`w-3 h-3 ${currentWeek == 1 ? "" : "opacity-30"} rounded-full`}
+              style={{ backgroundColor: '#006096' }}>
+            </div>
             <div
-              className={`w-3 h-3 bg-white ${currentWeek == 2 ? "" : "opacity-50"} rounded-full`}
-            ></div>
+              className={`w-3 h-3 ${currentWeek == 2 ? "" : "opacity-30"} rounded-full`}
+              style={{ backgroundColor: '#006096' }}>
+            </div>
           </Icons>
           <ButtonWrapper className="h-full flex items-center">
             <OpenCalendar
               href="/calendrier"
-              className="text-sm uppercase border-b border-white pb-1 hover:opacity-80 transition-opacity"
+              className="text-sm uppercase border-b border-[#006096] pb-1 hover:opacity-80 transition-opacity"
             >
               Visualiser le calendrier
             </OpenCalendar>

@@ -19,16 +19,16 @@ import styled from "@emotion/styled";
 // Data for the navigation menu
 const navList = [
   {
-    title: "École",
+    title: "l'École",
     items: [
       { text: "Historique", link: "/historique" },
-      { text: "Notre Équipe", link: "/equipe" },
+      { text: "L'équipe", link: "/equipe" },
       { text: "Conseil d'administration", link: "/conseil-administration" },
-      { text: "Projet Éducatif", link: "/projet-educatif" },
+      { text: "Projet éducatif", link: "/projet-educatif" },
       { text: "Comité de parents", link: "/comite-parents" },
       { text: "Anciens et anciennes", link: "/anciens" },
       {
-        text: "Protecteur National de l'élève",
+        text: "Protecteur national de l'élève",
         link: "/protecteur-national-eleve",
       },
     ],
@@ -36,45 +36,45 @@ const navList = [
   {
     title: "Pédagogie",
     items: [
-      { text: "Préscolaire", link: "/prescolaire" },
-      { text: "Primaire", link: "/primaire" },
-      { text: "Secondaire", link: "/secondaire" },
+      { text: "Programme éducatif au préscolaire", link: "/prescolaire" },
+      { text: "Programme éducatif au primaire", link: "/primaire" },
+      { text: "Programme éducatif au secondaire", link: "/secondaire" },
     ],
   },
   {
     title: "Vie Étudiante",
     items: [
-      { text: "Vie Communautaire", link: "/vie-communautaire" },
-      { text: "Voyages", link: "/voyages" },
-      { text: "Activités Parascolaires", link: "/activites-parascolaires" },
-      { text: "Équipe des Aigles", link: "/aigles" },
+      /* { text: "Vie Communautaire", link: "/vie-communautaire" }, */
+      { text: "Activités parascolaires", link: "/activites-parascolaires" },
       { text: "Conseil étudiant", link: "/conseil-etudiant" },
-      { text: "Sorties Scolaires", link: "/sorties-scolaires" },
+      { text: "Équipe des Aigles", link: "/aigles" },
+      { text: "Sorties scolaires et voyages", link: "/sorties-scolaires-voyages" },
     ],
   },
+ 
   {
     title: "Services à l'élève",
     items: [
       { text: "Soutien aux élèves", link: "/soutien" },
       { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
       { text: "Bibliothèque", link: "/bibliotheque" },
-      { text: "Service de Garde", link: "/service-de-garde" },
+      { text: "Service de garde", link: "/service-de-garde" },
       { text: "Transport", link: "/transport" },
-      { text: "Uniforme Scolaire", link: "/uniforme-scolaire" },
+      { text: "Uniforme scolaire", link: "/uniforme-scolaire" },
     ],
   },
   {
     title: "Admissions",
     items: [
-      { text: "Pourquoi Sourp Hagop", link: "/pourquoi" },
-      { text: "Demande d'Admission", link: "/admissions" },
+      { text: "Pourquoi Sourp Hagop", link: "/pourquoi-sourp-hagop" },
+      { text: "Demande d'admission", link: "/admissions" },
       { text: "Droits de scolarité et autres frais", link: "/droits" },
     ],
   },
 ];
 
 const navItems = [
-  { title: "Carrières", url: "/" },
+  { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
   { title: "La Fondation", url: "https://fondationsh.com/" },
@@ -145,7 +145,7 @@ const CSSMobileNavHeader = styled.li`
   justify-content: space-between;
   padding: 0.5rem 0;
   position: relative;
-  z-index: 2; // To prevent the dropdown from being hidden behind the next dropdown
+  z-index: 2;
 `;
 
 const CSSChevronContainer = styled(motion.div)``;
@@ -295,7 +295,7 @@ const Nav = ({ type = "primary", animate = true }) => {
         >
           <Link href="/" style={{ display: "flex", gap: "4px" }}>
             <img
-              src="images/logo-blackWhite.jpg"
+              src="/images/logo-blackWhite.jpg"
               alt="logo"
               width={89}
               height={90}

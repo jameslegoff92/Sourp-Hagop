@@ -26,7 +26,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env*
 
 # vercel
 .vercel
@@ -34,3 +34,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+certificates
+
+#Google Cloud Platform
+sourp-hagop-433819-4a18457fbc45.json
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+tests-examples

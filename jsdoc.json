@@ -1,0 +1,14 @@
+{
+  "tags": {
+    "allowUnknownTags": true},
+  "source": {
+    "include": ["pages", "components", "lib", "js", "app"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|.next/)"
+  },
+  "opts": {
+    "destination": "./docs",
+    "recurse": true,
+    "readme": "./README.md"
+  }
+}

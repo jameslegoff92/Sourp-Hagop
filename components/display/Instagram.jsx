@@ -18,13 +18,18 @@ const StyledDiv2 = styled(StyledDiv)`
 `;
 
 //News Item Component
-const NewsItem = ({ imageSrc, title, description, isLast }) => (
+const InstagramMedia = ({ imageSrc, title, isLast }) => (
   <div className={`flex flex-col ${!isLast ? "pr-4 md:pr-8" : ""}`}>
     <div className="relative w-full h-48 md:h-[350px] mb-4">
-      <img src={imageSrc} alt={title} style={{ objectFit: "cover" }} fill="true" />
+      <img
+        className="h-full w-full"
+        src={imageSrc}
+        alt={title}
+        style={{ objectFit: "cover" }}
+        fill="true"
+      />
     </div>
     <h3 className="font-normal text-left mb-2">{title}</h3>
-    <div className="flex-grow" />
     <button className="text-[#007DC3] border border-[#007DC3] px-4 py-2 rounded text-sm self-start hover:bg-[#007DC3] hover:text-white transition-colors mt-4">
       EN SAVOIR PLUS
     </button>
@@ -32,30 +37,11 @@ const NewsItem = ({ imageSrc, title, description, isLast }) => (
 );
 
 //Instagram Feed Component
-const InstagramFeed = () => {
-  const newsItems = [
-    {
-      imageSrc: "/images/blogimg1.jpg",
-      title:
-        "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
-      description:
-        "Nous souhaitons bonne session d'examens à tous nos élèves qui sont en période d'évaluations !!!",
-    },
-    {
-      imageSrc: "/images/blogimg2.jpg",
-      title:
-        "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
-      description:
-        "Les élèves de 4e secondaire préparent leurs projets « stop motion » au Créalab, dans le cadre de leur cours d'ÉCR.",
-    },
-    {
-      imageSrc: "/images/blogimg3.jpg",
-      title:
-        "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
-      description:
-        "Les élèves du secondaire ont eu une journée agréable avec plein d'activités et de divertissement.",
-    },
-  ];
+const InstagramFeed = ({ data }) => {
+  const instagramList = data.map((item) => ({
+    imageSrc: item.media_url,
+    title: `${item.caption ? item.caption : "Fond memories"}`,
+  }));
 
   return (
     <StyledDiv2>
@@ -63,10 +49,13 @@ const InstagramFeed = () => {
         <Typography as="h1" type="h2" color="primary">
           DERNIÈRES NOUVELLES
         </Typography>
-        <div className="flex flex-col md:flex-row md:space-x-8 mt-[60px]">
-          {newsItems.map((item, index) => (
+        <div className="flex flex-col md:space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0 mt-[60px]">
+          {instagramList.map((item, index) => (
             <div key={index} className="flex-1 mb-8 md:mb-0">
-              <NewsItem {...item} isLast={index === newsItems.length - 1} />
+              <InstagramMedia
+                {...item}
+                isLast={index === instagramList.length - 1}
+              />
             </div>
           ))}
         </div>

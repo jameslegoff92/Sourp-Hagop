@@ -1,11 +1,11 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
-import Accordion from "@/components/ui/Accordion";
-import CustomButton from "@/components/inputs/Button"
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
+import Accordion from "../../components/ui/Accordion";
+import CustomButton from "../../components/inputs/Button"
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -32,8 +32,7 @@ export default function Equipe() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
-            <Header animate = {false} imageSrc="../images/header/team-header.svg" headerText="NOTRE ÉQUIPE" headerTextTop="60%" />
+            <Header animate = {false} imageSrc="../images/header/equipe-header.jpg" headerText="NOTRE ÉQUIPE" headerTextTop="70%" />
 
             <StyledDiv>
                 <MotionDiv>
@@ -76,6 +75,7 @@ export default function Equipe() {
                     Appliquer Maintenant
                 </CustomButton>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );

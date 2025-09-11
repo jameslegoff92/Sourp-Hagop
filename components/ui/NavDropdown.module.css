@@ -16,7 +16,7 @@
   align-items: flex-start;
   background-color: var(--primary-color);
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 
@@ -38,8 +38,7 @@
 }
 
 .link {
-  display: block;
-  color: var(--white);
+  color: var(--white) !important; 
   text-decoration: none;
   width: 100%;
 }

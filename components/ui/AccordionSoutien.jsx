@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styled from "@emotion/styled";
-import Typography from "@/components/display/Typography";
+import Typography from "../../components/display/Typography";
 import { motion } from "framer-motion";
 
 // Styled component for the accordion container
