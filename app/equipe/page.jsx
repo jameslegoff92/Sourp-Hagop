@@ -71,6 +71,7 @@ export default function Equipe() {
                     transition={{ duration: 1, delay: 0.5 }}
                     viewport={{ once: true }}
                     style={{ marginTop: "50px" }}
+                    onClick={() => navigate('/carrieres')}
                 >
                     Appliquer Maintenant
                 </CustomButton>
