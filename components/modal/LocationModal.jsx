@@ -303,234 +303,238 @@ const SuccessText = styled.p`
 `;
 
 const LocationModal = ({ isOpen, onClose, space }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [showForm, setShowForm] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        date: '',
-        eventType: '',
-        comments: ''
-    });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    date: '',
+    eventType: '',
+    comments: ''
+  });
 
-    useEffect(() => {
-        if (isOpen) document.body.style.overflow = "hidden";
-        else document.body.style.overflow = "unset";
-        return () => (document.body.style.overflow = "unset");
-    }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+    return () => (document.body.style.overflow = "unset");
+  }, [isOpen]);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        try {
-            // Create FormData object for W3Forms
-            const formDataToSend = new FormData();
-            formDataToSend.append('access_key', process.env.NEXT_PUBLIC_W3F_CONTACT_KEY);
-            formDataToSend.append('subject', `Nouvelle demande de réservation - ${space.title}`);
-            formDataToSend.append('firstName', formData.firstName);
-            formDataToSend.append('lastName', formData.lastName);
-            formDataToSend.append('email', formData.email);
-            formDataToSend.append('phone', formData.phone);
-            formDataToSend.append('date', formData.date);
-            formDataToSend.append('eventType', formData.eventType);
-            formDataToSend.append('comments', formData.comments);
-            formDataToSend.append('space', space.title);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formDataToSend
-            });
+    try {
+      // Create FormData object for W3Forms
+      const formDataToSend = new FormData();
+      formDataToSend.append('access_key', process.env.NEXT_PUBLIC_W3F_CONTACT_KEY);
+      formDataToSend.append('subject', `Nouvelle demande de réservation - ${space.title}`);
+      formDataToSend.append('firstName', formData.firstName);
+      formDataToSend.append('lastName', formData.lastName);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('date', formData.date);
+      formDataToSend.append('eventType', formData.eventType);
+      formDataToSend.append('comments', formData.comments);
+      formDataToSend.append('space', space.title);
 
-            const result = await response.json();
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataToSend
+      });
 
-            if (result.success) {
-                setShowSuccessMessage(true);
-                setShowForm(false);
-                setFormData({
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    phone: '',
-                    date: '',
-                    eventType: '',
-                    comments: ''
-                });
-            } else {
-                alert('Erreur lors de l\'envoi. Veuillez réessayer.');
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('Erreur lors de l\'envoi. Veuillez réessayer.');
-        }
-    };
+      const result = await response.json();
 
-    const resetForm = () => {
+      if (result.success) {
+        setShowSuccessMessage(true);
         setShowForm(false);
-        setShowSuccessMessage(false);
         setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            date: '',
-            eventType: '',
-            comments: ''
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          date: '',
+          eventType: '',
+          comments: ''
         });
-    };
+      } else {
+        alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+    }
+  };
 
-    if (!isOpen || !space) return null;
+  const resetForm = () => {
+    setShowForm(false);
+    setShowSuccessMessage(false);
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      date: '',
+      eventType: '',
+      comments: ''
+    });
+  };
 
-    // Mock images
-    const images = [
-        "https://picsum.photos/800/400?random=1",
-        "https://picsum.photos/800/400?random=2",
-        "https://picsum.photos/800/400?random=3",
-    ];
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen, space]);
 
-    const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
-    const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
-    return (
-<ModalOverlay onClick={onClose}>
-  <ModalContent onClick={(e) => e.stopPropagation()}>
-    <CloseButton onClick={onClose}>&times;</CloseButton>
-    <ModalHeader>
-      <ModalTitle>{space.title}</ModalTitle>
-    </ModalHeader>
+  if (!isOpen || !space) return null;
 
-    {showSuccessMessage ? (
-      // === SUCCESS MESSAGE ===
-      <SuccessMessage>
-        <SuccessTitle>Envoyé avec succès!</SuccessTitle>
-        <SuccessText>
-          Nous avons bien reçu votre demande de réservation.<br />
-          Nous vous recontacterons bientôt avec la confirmation.
-        </SuccessText>
-      </SuccessMessage>
-    ) : showForm ? (
-      // === STEP 2: FORM PAGE ===
-      <FormContainer>
-        <FormTitle>Formulaire de Réservation</FormTitle>
-        <form onSubmit={handleSubmit}>
-          <FormGrid>
-            <FormGroup>
-              <Label htmlFor="firstName">Prénom *</Label>
-              <Input type="text" id="firstName" name="firstName"
-                value={formData.firstName} onChange={handleInputChange} required />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="lastName">Nom de famille *</Label>
-              <Input type="text" id="lastName" name="lastName"
-                value={formData.lastName} onChange={handleInputChange} required />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="email">Email *</Label>
-              <Input type="email" id="email" name="email"
-                value={formData.email} onChange={handleInputChange} required />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="phone">Téléphone *</Label>
-              <Input type="tel" id="phone" name="phone"
-                value={formData.phone} onChange={handleInputChange} required />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="date">Date de réservation *</Label>
-              <Input type="date" id="date" name="date"
-                value={formData.date} onChange={handleInputChange} 
-                min={new Date().toISOString().split('T')[0]}
-                required />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="eventType">Type d'événement *</Label>
-              <Select id="eventType" name="eventType"
-                value={formData.eventType} onChange={handleInputChange} required>
-                <option value="">Sélectionnez un type</option>
-                <option value="conference">Conférence</option>
-                <option value="meeting">Réunion</option>
-                <option value="event">Événement</option>
-                <option value="other">Autre</option>
-              </Select>
-            </FormGroup>
-            <FormGroup className="full-width">
-              <Label htmlFor="comments">Commentaires (optionnel)</Label>
-              <TextArea id="comments" name="comments"
-                value={formData.comments} onChange={handleInputChange}
-                placeholder="Ajoutez des détails supplémentaires..." />
-            </FormGroup>
-          </FormGrid>
+  const images = space.images?.length ? space.images.map(img => img.url) : [];
 
-          <FormActions>
-            <BackLink
-              onClick={(e) => {
-                e.preventDefault();
-                setShowForm(false);
-              }}
-            >
-              ← Retour aux détails
-            </BackLink>
-            <CenteredButtonWrapper>
-              <Button type="submit">ENVOYER LA DEMANDE</Button>
-            </CenteredButtonWrapper>
-          </FormActions>
-        </form>
-      </FormContainer>
-    ) : (
-      // === STEP 1: CAROUSEL + DETAILS ===
-      <>
-        <CarouselContainer>
-          <LeftArrow onClick={prevSlide}><FaChevronLeft /></LeftArrow>
-          <CarouselWrapper>
-            <CarouselInner
-              animate={{ x: `-${currentIndex * 100}%` }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-            >
-              {images.map((img, idx) => (
-                <Slide key={idx} style={{ backgroundImage: `url(${img})` }} />
-              ))}
-            </CarouselInner>
-          </CarouselWrapper>
-          <RightArrow onClick={nextSlide}><FaChevronRight /></RightArrow>
-        </CarouselContainer>
+  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
-        <DetailsTable>
-          <tbody>
-            <TableRow>
-              <TableCell>Capacité</TableCell>
-              <TableCell>200 personnes</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Équipements</TableCell>
-              <TableCell>Audio, vidéo, scène</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Prix</TableCell>
-              <TableCell>1350 $ (+taxes)</TableCell>
-            </TableRow>
-          </tbody>
-        </DetailsTable>
+  return (
+    <ModalOverlay onClick={onClose}>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
+        <CloseButton
+          onClick={() => {
+            resetForm();
+            onClose();
+          }}
+        >
+          &times;
+        </CloseButton>        <ModalHeader>
+          <ModalTitle>{space.title}</ModalTitle>
+        </ModalHeader>
 
-        <ContactSection>
-          <Button onClick={() => setShowForm(true)}>
-            DEMANDE DE RÉSERVATION
-          </Button>
-        </ContactSection>
-      </>
-    )}
-  </ModalContent>
-</ModalOverlay>
+        {showSuccessMessage ? (
+          // === SUCCESS MESSAGE ===
+          <SuccessMessage>
+            <SuccessTitle>Envoyé avec succès!</SuccessTitle>
+            <SuccessText>
+              Nous avons bien reçu votre demande de réservation.<br />
+              Nous vous recontacterons bientôt avec la confirmation.
+            </SuccessText>
+          </SuccessMessage>
+        ) : showForm ? (
+          // === STEP 2: FORM PAGE ===
+          <FormContainer>
+            <FormTitle>Formulaire de Réservation</FormTitle>
+            <form onSubmit={handleSubmit}>
+              <FormGrid>
+                <FormGroup>
+                  <Label htmlFor="firstName">Prénom *</Label>
+                  <Input type="text" id="firstName" name="firstName"
+                    value={formData.firstName} onChange={handleInputChange} required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="lastName">Nom de famille *</Label>
+                  <Input type="text" id="lastName" name="lastName"
+                    value={formData.lastName} onChange={handleInputChange} required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="email">Email *</Label>
+                  <Input type="email" id="email" name="email"
+                    value={formData.email} onChange={handleInputChange} required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="phone">Téléphone *</Label>
+                  <Input type="tel" id="phone" name="phone"
+                    value={formData.phone} onChange={handleInputChange} required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="date">Date de réservation *</Label>
+                  <Input type="date" id="date" name="date"
+                    value={formData.date} onChange={handleInputChange}
+                    min={new Date().toISOString().split('T')[0]}
+                    required />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="eventType">Type d'événement *</Label>
+                  <Select id="eventType" name="eventType"
+                    value={formData.eventType} onChange={handleInputChange} required>
+                    <option value="">Sélectionnez un type</option>
+                    <option value="conference">Conférence</option>
+                    <option value="meeting">Réunion</option>
+                    <option value="event">Événement</option>
+                    <option value="other">Autre</option>
+                  </Select>
+                </FormGroup>
+                <FormGroup className="full-width">
+                  <Label htmlFor="comments">Commentaires (optionnel)</Label>
+                  <TextArea id="comments" name="comments"
+                    value={formData.comments} onChange={handleInputChange}
+                    placeholder="Ajoutez des détails supplémentaires..." />
+                </FormGroup>
+              </FormGrid>
 
-    );
+              <FormActions>
+                <BackLink
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowForm(false);
+                  }}
+                >
+                  ← Retour aux détails
+                </BackLink>
+                <CenteredButtonWrapper>
+                  <Button type="submit">ENVOYER LA DEMANDE</Button>
+                </CenteredButtonWrapper>
+              </FormActions>
+            </form>
+          </FormContainer>
+        ) : (
+          // === STEP 1: CAROUSEL + DETAILS ===
+          <>
+            <CarouselContainer>
+              {images.length > 1 && <LeftArrow onClick={prevSlide}><FaChevronLeft /></LeftArrow>}
+              <CarouselWrapper>
+                <CarouselInner
+                  animate={{ x: `-${currentIndex * 100}%` }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  {images.map((img, idx) => (
+                    <Slide key={idx} style={{ backgroundImage: `url(${img})` }} />
+                  ))}
+                </CarouselInner>
+              </CarouselWrapper>
+              {images.length > 1 && <RightArrow onClick={nextSlide}><FaChevronRight /></RightArrow>}
+            </CarouselContainer>
+
+            {space.details?.length > 0 && (
+              <DetailsTable>
+                <tbody>
+                  {space.details.map((detail, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell>{detail.label}</TableCell>
+                      <TableCell>{detail.value}</TableCell>
+                    </TableRow>
+                  ))}
+                </tbody>
+              </DetailsTable>
+            )}
+
+            <ContactSection>
+              <Button onClick={() => setShowForm(true)}>
+                DEMANDE DE RÉSERVATION
+              </Button>
+            </ContactSection>
+          </>
+        )}
+      </ModalContent>
+    </ModalOverlay>
+
+  );
 };
 
 export default LocationModal;

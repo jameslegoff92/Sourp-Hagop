@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { Button } from "../components/ui/Button";
 
 const StyledDiv = styled.div`
-  text-align: center;
+  text-align: left;
   padding: 10px 0 150px;
   position: relative;
 `;
@@ -136,88 +136,76 @@ const FeatureItem = styled.div`
   }
 `;
 
-const ContactButton = styled.button`
-  background: var(--primary-color);
-  color: white;
-  border: 1px solid var(--primary-color);
-  padding: 14px 24px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-
-  &:hover {
-    background: transparent;
-    color: var(--primary-color);
-  }
-`;
-
 const TextContainer = styled.div`
   width: 100%;
   margin: 0 auto;
 `;
 
 const SpaceItem = ({ space, onOpen }) => (
-  <SpaceCard>
-    <ImageWrapper
-      className="imageWrapper"
-      style={{ backgroundImage: `url('${space.imageUrl}')` }}
-    >
-      <SpaceTitle as="h4" type="h4">{space.title}</SpaceTitle>
-    </ImageWrapper>
+    <SpaceCard>
+        <ImageWrapper
+            className="imageWrapper"
+            style={{ backgroundImage: `url('${space.imageUrl}')` }}
+        >
+            <SpaceTitle as="h4" type="h4">{space.title}</SpaceTitle>
+        </ImageWrapper>
 
-    <ContentContainer className="contentContainer">
-      <div>
-        <SpaceDescription>{space.description}</SpaceDescription>
-      </div>
-      <Button onClick={() => onOpen(space)}>SAVOIR PLUS</Button>
-    </ContentContainer>
-  </SpaceCard>
+        <ContentContainer className="contentContainer">
+            <div>
+                <SpaceDescription>{space.description}</SpaceDescription>
+            </div>
+            <Button onClick={() => onOpen(space)}>SAVOIR PLUS</Button>
+        </ContentContainer>
+    </SpaceCard>
 );
 
-export default async function RentalSpacesPage({ data }) {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedSpace, setSelectedSpace] = useState(null);
+export default function RentalSpacesPage({ data }) {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedSpace, setSelectedSpace] = useState(null);
 
-  const openModal = (space) => {
-    setSelectedSpace(space);
-    setShowModal(true);
-  };
+    const openModal = (space) => {
+        setSelectedSpace(space);
+        setShowModal(true);
+    };
 
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedSpace(null);
-  };
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedSpace(null);
+    };
 
-  return (
-    <>
-      <Header 
-        imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"} 
-        headerText={data?.headerText || "LOCATION D'ESPACES"} 
-        headerTextTop="70%" 
-      />
-      <StyledDiv>
-        <MotionDiv>
-          <Typography as="h1" type="h1" color="primary">
-            Nos espaces à votre disposition
-          </Typography>
-          <TextContainer>
-            <Typography as="p" type="h6" color="dark">
-              Découvrez nos espaces de qualité disponibles à la location. 
-              Que ce soit pour des événements culturels, sportifs ou éducatifs, 
-              nous avons l'espace qu'il vous faut.
-            </Typography>
-          </TextContainer>
-          <SpacesGrid>
-            {data?.spaces?.map((space, idx) => (
-              <SpaceItem key={idx} space={space} onOpen={() => {}} />
-            ))}
-          </SpacesGrid>
-        </MotionDiv>
-      </StyledDiv>
-      <BackgroundLogo src="../images/logo-big.svg" />
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <Header
+                imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"}
+                headerText={data?.headerText || "LOCATION D'ESPACES"}
+                headerTextTop="70%"
+            />
+            <StyledDiv>
+                <MotionDiv>
+                    <Typography as="h1" type="h1" color="primary" style={{ textAlign: "center" }}>
+                        Nos espaces à votre disposition
+                    </Typography>
+                    <TextContainer>
+                        <Typography as="p" type="h6" color="dark" style={{ textAlign: "center" }}>
+                            {data?.introText}
+                        </Typography>
+                    </TextContainer>
+                    <SpacesGrid>
+                        {data?.spaces?.map((space, idx) => (
+                            <SpaceItem key={idx} space={space} onOpen={openModal} />
+                        ))}
+                    </SpacesGrid>
+
+                    <LocationModal
+                        isOpen={showModal}
+                        onClose={closeModal}
+                        space={selectedSpace}
+                    />
+
+                </MotionDiv>
+            </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" />
+            <Footer />
+        </>
+    );
 }
