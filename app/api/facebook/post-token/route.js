@@ -1,6 +1,6 @@
 const axios = require("axios");
-import connectToDatabase from "@/js/mongoose/connection.js";
-import Admin from "@/js/schemas/admin.js";
+import connectToDatabase from "../../../js/mongoose/connection.js";
+import Admin from "../../../js/schemas/admin.js";
 
 export async function POST(request) {
   let body; // Initialize a variable to store the request body
