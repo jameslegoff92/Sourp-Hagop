@@ -1,7 +1,6 @@
 //dotenv is used to load the .env.local env variables from the nextjs environment into our nodejs environment
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
-import logger from "../js/logger/logger.js";
 
 /**
  * Function to fetch event data from Google's Calendar API
@@ -29,19 +28,19 @@ export const fetchGoogleCalendarData = async (primary, startDate, endDate, acces
   };
 
   try {
-    logger.info("Sending request to Google Calendar API.");
+    console.info("Sending request to Google Calendar API.");
     const res = await fetch(url, { headers, cache: "no-store", next: { revalidate: 0 } });
-    logger.info("Response from Google Calendar API received.");
+    console.info("Response from Google Calendar API received.");
     if (!res.ok) {
-      logger.error({ status: res.status }, "Google Calendar API non-OK response");
+      console.error({ status: res.status }, "Google Calendar API non-OK response");
       return [];
     }
     const data = await res.json();
-    logger.debug(data, "Parsed data from Google Calendar API.");
+    console.debug(data, "Parsed data from Google Calendar API.");
     const items = Array.isArray(data?.items) ? data.items : [];
     return items;
   } catch (error) {
-    logger.error(error, "Error from Google Calendar API events request: ");
+    console.error(error, "Error from Google Calendar API events request: ");
     return [];
   }
 };

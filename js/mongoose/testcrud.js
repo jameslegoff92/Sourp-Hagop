@@ -1,5 +1,4 @@
 import Admin from  "../schemas/admin.js";
-import logger from "../logger/logger.js";
 import connectToDatabase from "./connection.js";
 
 (async () => {
@@ -15,6 +14,6 @@ import connectToDatabase from "./connection.js";
     const instagramTokenExpiry = admin.getInstagramTokenExpiry();
     const updateInstagramTokenExpiry = await admin.updateInstagramTokenExpiry(5);
   } catch (error) {
-    logger.error( error , "Error occurred while finding admin ");
+    console.error( error , "Error occurred while finding admin ");
   }
 })();

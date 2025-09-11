@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import logger from "../logger/logger.js";
 
 // Define the schema
 const adminSchema = new mongoose.Schema(
@@ -17,14 +16,14 @@ const adminSchema = new mongoose.Schema(
 //Instance methods
 adminSchema.methods.getInstagramAccessToken =  function () {
   //this refers to the document instance
-  logger.debug(
+  console.debug(
     `Getting Instagram access token for ${this.username}. Token: ${this.instagramAccessToken}`
   );
   return this.instagramAccessToken;
 };
 
 adminSchema.methods.updateInstagramAccessToken = async function (newToken) {
-  logger.debug(
+  console.debug(
     `Updating Instagram access token for ${this.username}. Token: ${newToken}`
   );
   this.instagramAccessToken = newToken;
@@ -34,14 +33,14 @@ adminSchema.methods.updateInstagramAccessToken = async function (newToken) {
 
 adminSchema.methods.getGoogleAccessToken = function () {
   //this refers to the document instance
-  logger.debug(
+  console.debug(
     `Getting Google access token for ${this.username}. Token: ${this.googleAccessToken}`
   );
   return this.googleAccessToken;
 };
 
 adminSchema.methods.updateGoogleAccessToken = async function (newToken) {
-  logger.debug(
+  console.debug(
     `Updating Google access token for ${this.username}. Token: ${newToken}`
   );
   this.googleAccessToken = newToken;
@@ -51,14 +50,14 @@ adminSchema.methods.updateGoogleAccessToken = async function (newToken) {
 
 adminSchema.methods.getGoogleRefreshToken = function () {
   //this refers to the document instance
-  logger.debug(
+  console.debug(
     `Getting Google Refresh token for ${this.username}. Token: ${this.googleRefreshToken}`
   );
   return this.googleRefreshToken;
 };
 
 adminSchema.methods.updateGoogleRefreshToken = async function (newToken) {
-  logger.debug(
+  console.debug(
     `Updating Google Refresh token for ${this.username}. Token: ${newToken}`
   );
   this.googleRefreshToken = newToken;
@@ -68,14 +67,14 @@ adminSchema.methods.updateGoogleRefreshToken = async function (newToken) {
 
 adminSchema.methods.getGoogleTokenExpiry = function () {
   //this refers to the document instance
-  logger.debug(
+  console.debug(
     `Getting Google token expiry for ${this.username}. Token: ${this.googleTokenExpiry}`
   );
   return this.googleTokenExpiry;
 }
 
 adminSchema.methods.updateGoogleTokenExpiry = async function (newExpiry) {
-  logger.debug(
+  console.debug(
     `Updating Google token expiry for ${this.username}. Token: ${newExpiry}`
   );
   this.googleTokenExpiry = newExpiry;
@@ -85,14 +84,14 @@ adminSchema.methods.updateGoogleTokenExpiry = async function (newExpiry) {
 
 adminSchema.methods.getInstagramTokenExpiry = function () { 
   //this refers to the document instance
-  logger.debug(
+  console.debug(
     `Getting Instagram token expiry for ${this.username}. Token: ${this.instagramTokenExpirty}`
   );
   return this.instagramTokenExpirty;
 }
 
 adminSchema.methods.updateInstagramTokenExpiry = async function (newExpiry) { 
-  logger.debug(
+  console.debug(
     `Updating Instagram token expiry for ${this.username}. Token: ${newExpiry}`
   );
   this.instagramTokenExpirty = newExpiry;
@@ -103,18 +102,18 @@ adminSchema.methods.updateInstagramTokenExpiry = async function (newExpiry) {
 //Static methods
 adminSchema.statics.getAdmin = async function () {
   const admin = "admin";
-  logger.debug(`Finding user by username: ${admin}`);
+  console.debug(`Finding user by username: ${admin}`);
   const superUser = this.findOne({ username: admin });
   return superUser;
 };
 
 //Post hooks
 adminSchema.post("findOne", function (docs) {
-  logger.debug(`Document retrieved from findOne query: ${docs}`);
+  console.debug(`Document retrieved from findOne query: ${docs}`);
 });
 
 adminSchema.post("save", function (doc) { 
-  logger.debug(`Document saved: ${doc}`);
+  console.debug(`Document saved: ${doc}`);
 });
 
 // Create the model
