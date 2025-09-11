@@ -1,5 +1,5 @@
-import { signIn } from "@/auth";
-import { Button } from "@/components/ui/button";
+import { signIn } from "../../auth";
+import { Button } from "../../components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import css from "./Login.module.css";
 

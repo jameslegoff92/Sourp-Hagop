@@ -1,8 +1,8 @@
 // app/api/calendar/route.js
 import { NextResponse } from "next/server";
-import connectToDatabase from "@/js/mongoose/connection.js";
-import Admin from "@/js/schemas/admin.js";
-import { fetchGoogleCalendarData } from "@/libs/fetchData.js";
+import connectToDatabase from "../../../js/mongoose/connection.js";
+import Admin from "../../../js/schemas/admin.js";
+import { fetchGoogleCalendarData } from "../../../libs/fetchData.js";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

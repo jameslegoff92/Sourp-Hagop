@@ -1,8 +1,8 @@
-import ReactCalendar from "@/components/display/ReactCalendar";
-import { fetchGoogleCalendarData } from "@/libs/fetchData.js";
-import connectToDatabase from "@/js/mongoose/connection.js";
-import Admin from "@/js/schemas/admin.js";
-import { getFirstNeighboringDay, getLastNeighboringDay } from "@/js/date.js";
+import ReactCalendar from "../../components/display/ReactCalendar";
+import { fetchGoogleCalendarData } from "../../libs/fetchData.js";
+import connectToDatabase from "../../js/mongoose/connection.js";
+import Admin from "../../js/schemas/admin.js";
+import { getFirstNeighboringDay, getLastNeighboringDay } from "../../js/date.js";
 import { DateTime } from "luxon";
 
 /**
