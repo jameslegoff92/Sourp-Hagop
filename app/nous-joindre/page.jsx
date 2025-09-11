@@ -269,7 +269,7 @@ export default function Contact() {
 
   // Create FormData for Web3Forms
   const formDataToSend = new FormData();
-  formDataToSend.append('access_key', process.env.NEXT_PUBLIC_W3F_CONTACT_KEY);
+  formDataToSend.append('access_key', process.env.W3F_CONTACT_KEY);
   formDataToSend.append('subject', `Contact: ${formData.subject}`);
   formDataToSend.append('from_name', `${formData.firstName} ${formData.lastName}`);
   formDataToSend.append('email', formData.email);
