@@ -4,15 +4,16 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import Image from 'next/image';
 import css from "./topNav.module.css";
-import Container from "@/components/layout/Container";
+import Container from "../layout/Container";
 import { motion } from "framer-motion";
 
 const navItems = [
-  { title: "", url: "https://eash50.wixsite.com/site", logo: "/images/header/50e-logo-secmenu.svg", },
-  { title: "Carrières", url: "/" },
+/*   { title: "", url: "https://eash50.wixsite.com/site", logo: "/images/header/50e-logo-secmenu.svg", },
+ */  { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/calendrier" },
-  { title: "Locations", url: "/contact" },
+  { title: "Locations", url: "/locations" },
   { title: "La Fondation", url: "https://fondationsh.com/" },
+  { title: "Nous joindre", url: "/nous-joindre" },
 ];
 
 const NavItem = ({ title, url, logo }) => (

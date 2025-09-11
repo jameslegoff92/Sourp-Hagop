@@ -1,10 +1,10 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
-import CustomButton from "@/components/inputs/Button";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
+import CustomButton from "../../components/inputs/Button";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -101,7 +101,6 @@ const textBlocksData = [
 export default function Admissions() {
   return (
     <>
-      <BackgroundLogo src="../images/logo-big.svg"/>
       <Header animate={false} imageSrc="../images/header/admissions-header.jpg" headerText="ADMISSIONS" headerTextTop="70%" />
 
       <StyledDiv>
@@ -114,7 +113,7 @@ export default function Admissions() {
         ))}
       </TextBlockContainer>
       </StyledDiv>
-      
+      <BackgroundLogo src="../images/logo-big.svg"/>
       <Footer />
     </>
   );

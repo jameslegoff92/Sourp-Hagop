@@ -1,10 +1,10 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Menu from "@/components/ui/Menu";
-import Typography from "@/components/display/Typography";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Menu from "../../components/ui/Menu";
+import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -31,7 +31,6 @@ export default function Soutien() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg"/>
             <Header animate = {false} videoSrc="../videos/video-agora.mp4" headerText="AGORA ANNA & MANOUK DJOUKHADJIAN" headerTextTop="70%" />
 
             <StyledDiv>
@@ -64,6 +63,7 @@ export default function Soutien() {
                 </MotionDiv>
                 <Menu />
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg"/>
             <Footer />
         </>
     );

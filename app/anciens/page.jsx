@@ -1,11 +1,11 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
 import styled from "@emotion/styled";
-import Typography from "@/components/display/Typography";
+import Typography from "../../components/display/Typography";
 import { motion } from "framer-motion";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -84,7 +84,6 @@ export default function Historique() {
 
     return (
         <>
-            <BackgroundLogo src="../images/anciens/anciens-logo.jpg" />
             <Header imageSrc="../images/header/anciens-header.jpg" headerText="ANCIENS ET ANCIENNES" headerTextTop="70%" />
             <StyledDiv>
                 <MotionDiv>
@@ -194,6 +193,7 @@ export default function Historique() {
                     </SocialMediaContainer>
                 </MotionDiv>
             </StyledDiv>
+            <BackgroundLogo src="../images/anciens/anciens-logo.jpg" />
             <Footer />
         </>
     );

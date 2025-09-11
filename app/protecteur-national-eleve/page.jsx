@@ -1,10 +1,10 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
-import CustomButton from "@/components/inputs/Button";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
+import CustomButton from "../../components/inputs/Button";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -37,7 +37,6 @@ const StyledParagraph = styled(Typography)`
 export default function ConseilAdministration() {
   return (
     <>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
       <Header
         animate={false}
         imageSrc="../images/header/pne-header.jpg"
@@ -226,6 +225,7 @@ export default function ConseilAdministration() {
         </Typography>
         </MotionDiv>
       </StyledDiv>
+      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
       <Footer />
     </>
   );

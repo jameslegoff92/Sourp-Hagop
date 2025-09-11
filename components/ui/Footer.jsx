@@ -89,8 +89,8 @@ const Footer = () => (
             </div>
         </div>
         <div className={css.bottomText}>
-                <p>L’École arménienne Sourp Hagop donne l’enseignement en français.</p>
-                <p>Elle conduit ses élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p>
+                <p>L'École arménienne Soup Hagop dispense un enseignement en langue française,</p>
+                <p>conduisant les élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p>
         </div>
 
     </footer>

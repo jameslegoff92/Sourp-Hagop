@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import Typography from "@/components/display/Typography";
+import Typography from "../../components/display/Typography";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Data Structure for the Weeks

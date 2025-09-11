@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import BackgroundLogo from "@/components/ui/BackgroundLogo";
-import Typography from "@/components/display/Typography";
+import Header from "../../components/ui/Header";
+import Footer from "../../components/ui/Footer";
+import BackgroundLogo from "../../components/ui/BackgroundLogo";
+import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -94,7 +94,6 @@ const ImageItemComponent = ({ src, alt, name, title }) => (
 export default function ConseilAdministration() {
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Header
                 animate={false}
                 imageSrc="../images/header/conseil-administration-header.jpg"
@@ -154,6 +153,7 @@ export default function ConseilAdministration() {
                     />
                 </ImageItemsContainer>
             </StyledDiv>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
         </>
     );
