@@ -19,6 +19,7 @@ const Title = styled(motion.p)`
   line-height: 150%; /* 27px */
   letter-spacing: 0.0094rem;
   text-transform: uppercase;
+  text-decoration: none;
  
 `;
 
