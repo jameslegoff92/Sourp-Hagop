@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import ReactCalendar from "../../components/display/ReactCalendar";
 import { fetchGoogleCalendarData } from "../../libs/fetchData.js";
 import connectToDatabase from "../../js/mongoose/connection.js";
