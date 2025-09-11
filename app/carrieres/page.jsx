@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { createClient } from "@sanity/client";
 import { getCareerPage } from "../../lib/sanity-queries";
-import CareerModal from "../../components/modal/CareerModal";
+import CareerModal from "../../components/modal/careerModal";
 
 const StyledDiv = styled.div`
   text-align: center;
