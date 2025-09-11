@@ -239,7 +239,10 @@ const MapOverlay = styled.div`
   pointer-events: none;
 `
 
-export default function Contact({ data }) {
+export default function Contact() {
+
+  const data = null;
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '', 
@@ -353,10 +356,8 @@ export default function Contact({ data }) {
             
             <MapContainer>
                 <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5589.880160757173!2d-73.69843852366428!3d45.53141132895166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9187f7d660177%3A0xf0c6d13f40348c40!2sSourp%20Hagop%20Armenian%20School!5e0!3m2!1sen!2sca!4v1757545560903!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5589.880160757173!2d-73.69843852366428!3d45.53141132895166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9187f7d660177%3A0xf0c6d13f40348c40!2sSourp%20Hagop%20Armenian%20School!5e0!3m2!1sen!2sca!4v1757545560903!5m2!1sen!2sca" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                 style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
                 title="Notre localisation"
                 />
                 <MapOverlay>Cliquez pour ouvrir dans Google Maps</MapOverlay>

@@ -238,7 +238,9 @@ const SpaceItem = ({ space, index }) => {
   );
 };
 
-export default function RentalSpacesPage({ data }) {
+export default function RentalSpacesPage() {
+
+  const data = null;
   const spaces = [
     {
       id: 1,
