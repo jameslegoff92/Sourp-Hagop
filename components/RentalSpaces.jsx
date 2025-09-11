@@ -190,7 +190,7 @@ export default function RentalSpacesPage({ data }) {
                             {data?.introText}
                         </Typography>
                     </TextContainer>
-                    <SpacesGrid>
+                    <SpacesGrid style={{ textAlign: "center" }}>
                         {data?.spaces?.map((space, idx) => (
                             <SpaceItem key={idx} space={space} onOpen={openModal} />
                         ))}
