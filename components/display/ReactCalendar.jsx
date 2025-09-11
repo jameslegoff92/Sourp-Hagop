@@ -180,6 +180,7 @@ export default function ReactCalendar({ data }) {
     <div className="react-calendar-wrapper">
       <Calendar
         showNeighboringMonth
+        locale="fr-FR"
         tileContent={tileContent}
         onActiveStartDateChange={({ activeStartDate }) =>
           activeStartDate && setActiveStartDate(activeStartDate)

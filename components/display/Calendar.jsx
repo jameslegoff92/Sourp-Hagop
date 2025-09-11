@@ -141,20 +141,60 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-//Day Component
-const Day = ({ day, month, title, isActive }) => (
-  <DayWrapper className={`${isActive ? "relative" : ""}`}>
-    <span className="text-md uppercase mb-1">{month}</span>
-    <span className="text-4xl font-bold mb-1">{day}</span>
-    <EventTitle href="/calendrier" className="text-center">
-      {title}
-    </EventTitle>
+// French month names (full names)
+const FRENCH_MONTHS = {
+  'jan': 'janvier',
+  'feb': 'février', 
+  'mar': 'mars',
+  'apr': 'avril',
+  'may': 'mai',
+  'jun': 'juin',
+  'jul': 'juillet',
+  'aug': 'août',
+  'sep': 'septembre',
+  'oct': 'octobre',
+  'nov': 'novembre',
+  'dec': 'décembre'
+};
 
-    {isActive == 2 && (
-      <div className="absolute top-[-16px]  w-2 h-2 bg-white rounded-full" />
-    )}
-  </DayWrapper>
-);
+// Helper function to convert month to French
+const getFrenchMonth = (englishMonth) => {
+  const monthKey = englishMonth?.toLowerCase().slice(0, 3);
+  return FRENCH_MONTHS[monthKey] || englishMonth;
+};
+
+// Helper function to check if a date is today
+const isToday = (day, month, year) => {
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toLowerCase();
+  const currentYear = today.getFullYear();
+  
+  return (
+    day === currentDay && 
+    month?.toLowerCase().slice(0, 3) === currentMonth.slice(0, 3) &&
+    year === currentYear
+  );
+};
+
+//Day Component
+const Day = ({ day, month, year, title, isActive }) => {
+  const isTodayDate = isToday(day, month, year);
+  
+  return (
+    <DayWrapper className={`${isActive ? "relative" : ""}`}>
+      <span className="text-md uppercase mb-1">{getFrenchMonth(month)}</span>
+      <span className="text-4xl font-bold mb-1">{day}</span>
+      <EventTitle href="/calendrier" className="text-center">
+        {title}
+      </EventTitle>
+
+      {isTodayDate && (
+        <div className="absolute top-[-16px] w-2 h-2 bg-white rounded-full" />
+      )}
+    </DayWrapper>
+  );
+};
 
 //Mini Calendar Component
 const MiniCalendar = () => {
@@ -300,6 +340,7 @@ const MiniCalendar = () => {
                   <Day
                     day={date.day}
                     month={date.month}
+                    year={date.year}
                     title={date.title}
                     isActive={index}
                   />
