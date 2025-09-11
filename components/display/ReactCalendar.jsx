@@ -13,13 +13,54 @@ export default function ReactCalendar({ data }) {
   const [loading, setLoading] = useState(false);
 
   const ErrorBlock = () => (
-    <main style={{minHeight:"60vh",display:"grid",placeItems:"center",padding:"2rem"}}>
-      <div style={{maxWidth:560,width:"100%",textAlign:"center"}}>
-        <h1 style={{fontSize:"1.75rem",fontWeight:700,marginBottom:"0.5rem"}}>Something went wrong</h1>
-        <p style={{color:"#555",marginBottom:"1.25rem"}}>We couldn’t load the calendar right now.</p>
-        <div style={{display:"flex",gap:"0.75rem",justifyContent:"center"}}>
-          <button onClick={() => window.location.reload()} style={{padding:"0.6rem 1rem",borderRadius:8,border:"1px solid #ddd",background:"#fff",cursor:"pointer"}}>Try again</button>
-          <button onClick={() => window.history.back()} style={{padding:"0.6rem 1rem",borderRadius:8,border:"1px solid #ddd",background:"#fff",cursor:"pointer"}}>Go back</button>
+    <main
+      style={{
+        minHeight: "60vh",
+        display: "grid",
+        placeItems: "center",
+        padding: "2rem",
+      }}
+    >
+      <div style={{ maxWidth: 560, width: "100%", textAlign: "center" }}>
+        <h1
+          style={{
+            fontSize: "1.75rem",
+            fontWeight: 700,
+            marginBottom: "0.5rem",
+          }}
+        >
+          Something went wrong
+        </h1>
+        <p style={{ color: "#555", marginBottom: "1.25rem" }}>
+          We couldn't load the calendar right now.
+        </p>
+        <div
+          style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}
+        >
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: "0.6rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ddd",
+              background: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            Try again
+          </button>
+          <button
+            onClick={() => window.history.back()}
+            style={{
+              padding: "0.6rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ddd",
+              background: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            Go back
+          </button>
         </div>
       </div>
     </main>
@@ -35,10 +76,17 @@ export default function ReactCalendar({ data }) {
   const fetchMonth = useCallback(async (d) => {
     setLoading(true);
     setFailed(false);
-    const start = new Date(Date.UTC(d.getFullYear(), d.getMonth(), 1, 0, 0, 0)).toISOString();
-    const end = new Date(Date.UTC(d.getFullYear(), d.getMonth() + 1, 1, 0, 0, 0)).toISOString();
+    const start = new Date(
+      Date.UTC(d.getFullYear(), d.getMonth(), 1, 0, 0, 0)
+    ).toISOString();
+    const end = new Date(
+      Date.UTC(d.getFullYear(), d.getMonth() + 1, 1, 0, 0, 0)
+    ).toISOString();
     try {
-      const res = await fetch(`/api/calendar?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`, { cache: "no-store" });
+      const res = await fetch(
+        `/api/calendar?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`,
+        { cache: "no-store" }
+      );
       if (!res.ok) throw new Error("bad");
       const json = await res.json();
       const items = Array.isArray(json?.items) ? json.items : [];
@@ -58,7 +106,9 @@ export default function ReactCalendar({ data }) {
   const tileContent = ({ date, view }) => {
     if (view !== "month") return null;
     if (failed) return <ErrorBlock />;
-    const dateString = ymd(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dateString = ymd(
+      new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    );
     const list = Array.isArray(events) ? events : [];
     const dayEvents = list.filter((event) => {
       const s = event?.start;
@@ -71,13 +121,55 @@ export default function ReactCalendar({ data }) {
       <div className="tile-events">
         {dayEvents.length > 0 && (
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {dayEvents.map((event) => (
-              <li key={event.id} style={{ fontSize: "0.75em" }}>
-                <Link href={{ pathname: `/calendrier/evenement/${event.id}` }} query={{ summary: event.summary }}>
-                  {event.summary}
-                </Link>
-              </li>
-            ))}
+            {dayEvents.map((event) => {
+              // Extract and format times only if they exist
+              let timeDisplay = "";
+              if (event.start?.dateTime && event.end?.dateTime) {
+                const startTime = new Date(
+                  event.start.dateTime
+                ).toLocaleTimeString("fr-CA", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                });
+
+                const endTime = new Date(event.end.dateTime).toLocaleTimeString(
+                  "fr-CA",
+                  {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  }
+                );
+
+                timeDisplay = `${startTime} - ${endTime}`;
+              }
+
+              return (
+                <li
+                  key={event.id}
+                  style={{ fontSize: "0.75em", marginBottom: "4px" }}
+                >
+                  <div>
+                    <Link
+                      href={{
+                        pathname: `/calendrier/evenement/${event.id}`,
+                        query: { 
+                          eventData: encodeURIComponent(JSON.stringify(event))
+                        }
+                      }}
+                    >
+                      {event.summary}
+                    </Link>
+                  </div>
+                  {timeDisplay && (
+                    <div style={{ color: "#666", fontSize: "0.9em" }}>
+                      {timeDisplay}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
@@ -89,10 +181,13 @@ export default function ReactCalendar({ data }) {
       <Calendar
         showNeighboringMonth
         tileContent={tileContent}
-        onActiveStartDateChange={({ activeStartDate }) => activeStartDate && setActiveStartDate(activeStartDate)}
-        onViewChange={({ activeStartDate }) => activeStartDate && setActiveStartDate(activeStartDate)}
+        onActiveStartDateChange={({ activeStartDate }) =>
+          activeStartDate && setActiveStartDate(activeStartDate)
+        }
+        onViewChange={({ activeStartDate }) =>
+          activeStartDate && setActiveStartDate(activeStartDate)
+        }
       />
-      {loading && <div style={{padding:"0.5rem",fontSize:"0.9rem"}}>Loading…</div>}
     </div>
   );
 }
