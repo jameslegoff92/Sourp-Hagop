@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import connectToDatabase from "@/js/mongoose/connection.js";
-import Admin from "@/js/schemas/admin.js";
-import { getNewAccessToken } from "@/js/google/googleapi.js";
+import connectToDatabase from "../../../js/mongoose/connection.js";
+import Admin from "../../../js/schemas/admin.js";
+import { getNewAccessToken } from "../../../js/google/googleapi.js";
 
 
 

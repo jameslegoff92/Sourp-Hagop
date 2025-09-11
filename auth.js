@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import logger from './js/logger/logger.js';
 import connectToDatabase from "./js/mongoose/connection";
 import Admin from './js/schemas/admin.js';
 
@@ -34,7 +33,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account}) {
-      logger.debug(`Inside the OAuth callback. The value of  is ${user}, and the value of access_token: ${account.access_token}, refreshToken: ${account.refresh_token}, expiration time: ${account.expires_in} `);
       if (account) {
         await connectToDatabase();
         const user = await Admin.getAdmin();

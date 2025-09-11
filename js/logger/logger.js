@@ -2,7 +2,7 @@ import pino from 'pino';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const logger = pino({
+const console = pino({
   level: isProduction ? 'info' : 'trace', // Show all logs in development, starting at trace
   transport: isProduction
     ? undefined // No pretty printing in production
@@ -18,4 +18,4 @@ const logger = pino({
       },
 });
 
-export default logger;
+export default console;

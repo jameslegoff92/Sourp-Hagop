@@ -1,15 +1,14 @@
 const axios = require("axios");
 import connectToDatabase from "@/js/mongoose/connection.js";
 import Admin from "@/js/schemas/admin.js";
-import logger from "@/js/logger/logger.js";
 
 export async function POST(request) {
   let body; // Initialize a variable to store the request body
   try {
     body = await request.json(); // Extract accessToken from request body
-    logger.debug(body, "Request body received"); // Log the request body to ensure it's received
+    console.debug(body, "Request body received"); // Log the request body to ensure it's received
   } catch (error) {
-    logger.error("Error parsing request body:", error.message); // Log an error if the request body cannot be parsed
+    console.error("Error parsing request body:", error.message); // Log an error if the request body cannot be parsed
     return new Response(
       JSON.stringify({ error: "Error parsing request body" }),
       { status: 400, headers: { "Content-Type": "application/json" } }
@@ -24,7 +23,7 @@ export async function POST(request) {
 
   // Check if accessToken is provided
   if (!shortLivedToken) {
-    logger.warn("No access token provided"); // Log a warning if the access token is not provided
+    console.warn("No access token provided"); // Log a warning if the access token is not provided
     return new Response(
       JSON.stringify({ success: false, message: "No access token provided" }),
       { status: 400, headers: { "Content-Type": "application/json" } }
@@ -32,7 +31,7 @@ export async function POST(request) {
   }
 
   // Log the access token to ensure it's received
-  logger.debug({ shortLivedToken }, "Access token received");
+  console.debug({ shortLivedToken }, "Access token received");
 
   try {
     const response = await axios.get(
@@ -47,20 +46,20 @@ export async function POST(request) {
       }
     );
 
-    logger.debug(response.data, "Exchanged token received");
+    console.debug(response.data, "Exchanged token received");
     const { access_token, expires_in } = response.data;
-    logger.debug({ access_token }, "Long-lived token and expiration received");
+    console.debug({ access_token }, "Long-lived token and expiration received");
 
     // Connect to the database
     try {
-      logger.debug("Persisting token and expiry in database");
+      console.debug("Persisting token and expiry in database");
       await connectToDatabase();
       const admin = await Admin.findOne({ username: "admin" });
       await admin.updateInstagramAccessToken(access_token);
       await admin.updateInstagramTokenExpiry(expires_in);
 
     } catch (error) {
-      logger.error(error.message, "Failed to update token in database");
+      console.error(error.message, "Failed to update token in database");
       return new Response(
         JSON.stringify({ error: "Failed to update token in database" }),
         { status: 500, headers: { "Content-Type": "application/json" } }
@@ -68,7 +67,7 @@ export async function POST(request) {
     }
 
   } catch (error) {
-    logger.error(error.message, "Failed to exchange token.");
+    console.error(error.message, "Failed to exchange token.");
     return new Response(JSON.stringify({ error: "Failed to exchange token" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
