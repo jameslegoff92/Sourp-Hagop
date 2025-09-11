@@ -1,22 +1,26 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Header from "../../components/ui/Header";
 import Footer from "../../components/ui/Footer";
 import BackgroundLogo from "../../components/ui/BackgroundLogo";
 import Typography from "../../components/display/Typography";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 const StyledDiv = styled.div`
-  text-align: center;
+  text-align: left;
   padding: 10px 0 150px;
   position: relative;
 `;
 
 const TextContainer = styled.div`
   width: 100%;
-  margin: 0 auto;
-  text-align: center;
+  text-align: left;
+
+  @media (max-width: 1110px) {
+    text-align: left;
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -25,242 +29,387 @@ const MotionDiv = styled(motion.div)`
   flex-direction: column;
   margin: 50px auto 0;
   width: 70%;
+`;
 
-  @media (max-width: 768px) {
-    width: 90%;
+const ContentContainer = styled.div`
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-4);
+  height: auto;
+
+  @media (max-width: 1110px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
   }
 `;
 
-const CompetenceContainer = styled.div`
-  margin: 40px 0;
+const OrderContainer = styled.div`
+  @media (max-width: 1110px) {
+    order: 1;
+  }
 `;
 
-const CompetenceItem = styled(motion.div)`
-  background-color: rgba(0, 125, 195, 0.04);
-  border-left: 4px solid var(--primary-color);
-  padding: 24px;
-  margin: 20px 0;
-  border-radius: 0 8px 8px 0;
+const Image = styled(motion.img)`
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+
+  @media (max-width: 1110px) {
+    width: 100%;
+    align-items: stretch;
+  }
 `;
 
-const ScheduleContainer = styled.div`
+const TextBlock = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  padding: 100px;
   background-color: var(--secondary-color);
-  padding: 30px;
-  border-radius: 8px;
-  margin: 30px 0;
+  align-items: flex-start;
+  flex: 1;
+  overflow: hidden;
+
+  @media (max-width: 1200px) {
+    align-items: left;
+    padding: 50px 30px 50px 45px;
+  }
+    
+  @media (max-width: 768px) {
+    align-items: left;
+    padding: 50px 20px 50px 35px;
+  }
 `;
 
-const SpecializedCoursesContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin: 20px 0;
+// Special pricing components
+const PricingContainer = styled(motion.div)`
+  background: linear-gradient(135deg, var(--primary-color) 0%, #004d7a 100%);
+  color: white;
+  padding: 60px;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  
+  @media (max-width: 1200px) {
+    padding: 40px 30px 40px 45px;
+  }
+    
+  @media (max-width: 768px) {
+    padding: 40px 20px 40px 35px;
+  }
 `;
 
-const CourseCard = styled(motion.div)`
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  border-top: 3px solid var(--primary-color);
-`;
-
-const EvaluationContainer = styled.div`
-  background-color: #f8f9fa;
-  padding: 25px;
-  border-radius: 8px;
-  margin: 30px 0;
-`;
-
-const GradeScale = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+const PriceItem = styled.div`
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
   gap: 15px;
-  margin: 20px 0;
 `;
 
-const GradeItem = styled.div`
-  background: white;
-  padding: 15px;
-  border-radius: 6px;
-  border-left: 4px solid ${props => {
-    switch(props.grade) {
-      case 'A': return '#28a745';
-      case 'B': return '#17a2b8'; 
-      case 'C': return '#ffc107';
-      case 'D': return '#dc3545';
-      default: return '#6c757d';
-    }
-  }};
+const PriceCircle = styled.div`
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
 `;
 
-export default function Prescolaire() {
-    const competences = [
-        {
-            title: "Compétence 1: Se développer sur le plan sensoriel et moteur",
-            description: "L'élève se déplace et manipule des objets de façon sécuritaire. L'élève apprend à utiliser les outils et le matériel à sa disposition (coloriage, découpage, pré-écriture). L'élève reconnaît des façons d'assurer son bien-être. L'élève adapte ses actions à son environnement physique."
-        },
-        {
-            title: "Compétence 2 : Développer sa personnalité",
-            description: "L'élève exprime ses goûts, ses intérêts, ses idées, ses sentiments et ses émotions de façon pertinente. L'élève manifeste de l'autonomie et de l'assurance à travers la vie quotidienne de la classe. L'élève se fait reconnaître comme personne et en ce qui le distingue des autres. L'élève est capable de gérer ses émotions. L'élève demande de l'aide au besoin."
-        },
-        {
-            title: "Compétence 3 : Entrer en relation avec les autres",
-            description: "L'élève manifeste des gestes d'ouverture aux autres. L'élève participe à la vie de groupe. L'élève écoute les autres. L'élève respecte les règles de vie du groupe."
-        },
-        {
-            title: "Compétence 4 : Communiquer oralement",
-            description: "L'élève écoute les autres à la causerie. L'élève respecte le sujet de discussion. L'élève exprime ses idées de manière structurée en utilisant un vocabulaire approprié."
-        },
-        {
-            title: "Compétence 5 : Se familiariser avec son environnement",
-            description: "L'élève manifeste de l'intérêt, de la curiosité pour différents domaines d'apprentissage : les arts, l'univers social, la mathématique, la science et la technologie. L'élève se questionne sur ce qui l'entoure. L'élève partage ses découvertes. L'élève fait preuve de créativité."
-        },
-        {
-            title: "Compétence 6 : Mener à terme des projets et des activités",
-            description: "L'élève réalise des projets personnels ou de groupe à sa mesure. L'élève réutilise ses connaissances antérieures pour planifier son projet. L'élève présente son projet. L'élève fait part des connaissances qu'il a acquises. L'élève partage son matériel et ses jeux."
-        }
-    ];
+// Process steps component
+const ProcessContainer = styled(motion.div)`
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  
+  @media (max-width: 1200px) {
+    padding: 40px 30px 40px 45px;
+  }
+    
+  @media (max-width: 768px) {
+    padding: 40px 20px 40px 35px;
+  }
+`;
 
-    const specializedCourses = [
-        { name: "Arts plastiques", duration: "120 minutes par semaine" },
-        { name: "Éducation physique", duration: "180 minutes par semaine" },
-        { name: "Arménien", duration: "360 minutes par semaine" }
-    ];
+const StepsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+`;
 
-    const gradeScale = [
-        { grade: "A", description: "l'élève se développe très bien" },
-        { grade: "B", description: "l'élève se développe adéquatement" },
-        { grade: "C", description: "l'élève se développe avec certaines difficultés" },
-        { grade: "D", description: "l'élève éprouve des difficultés importantes" }
-    ];
+const StepItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+`;
+
+const StepNumber = styled.div`
+  background: var(--primary-color);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  flex-shrink: 0;
+`;
+
+// Information highlight box
+const InfoHighlight = styled(motion.div)`
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border-left: 4px solid #ffc107;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  
+  @media (max-width: 1200px) {
+    padding: 40px 30px 40px 45px;
+  }
+    
+  @media (max-width: 768px) {
+    padding: 40px 20px 40px 35px;
+  }
+`;
+
+export default function ServiceParascolaire() {
+    const controls1 = useAnimation();
+    const controls2 = useAnimation();
+    const controls3 = useAnimation();
+    const controls4 = useAnimation();
+    const controls5 = useAnimation();
+
+    const containerRef1 = useRef(null);
+    const containerRef2 = useRef(null);
+    const containerRef3 = useRef(null);
+    const containerRef4 = useRef(null);
+    const containerRef5 = useRef(null);
+
+    useEffect(() => {
+        const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    switch (entry.target) {
+                        case containerRef1.current:
+                            controls1.start({ x: 0, opacity: 1 });
+                            break;
+                        case containerRef2.current:
+                            controls2.start({ x: 0, opacity: 1 });
+                            break;
+                        case containerRef3.current:
+                            controls3.start({ x: 0, opacity: 1 });
+                            break;
+                        case containerRef4.current:
+                            controls4.start({ x: 0, opacity: 1 });
+                            break;
+                        case containerRef5.current:
+                            controls5.start({ x: 0, opacity: 1 });
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        };
+
+        const observerOptions = {
+            threshold: 0.5,
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        if (containerRef1.current) observer.observe(containerRef1.current);
+        if (containerRef2.current) observer.observe(containerRef2.current);
+        if (containerRef3.current) observer.observe(containerRef3.current);
+        if (containerRef4.current) observer.observe(containerRef4.current);
+        if (containerRef5.current) observer.observe(containerRef5.current);
+
+        return () => {
+            if (containerRef1.current) observer.unobserve(containerRef1.current);
+            if (containerRef2.current) observer.unobserve(containerRef2.current);
+            if (containerRef3.current) observer.unobserve(containerRef3.current);
+            if (containerRef4.current) observer.unobserve(containerRef4.current);
+            if (containerRef5.current) observer.unobserve(containerRef5.current);
+        };
+    }, [controls1, controls2, controls3, controls4, controls5]);
 
     return (
         <>
-            <Header 
-                animate={false} 
-                imageSrc="../images/header/prescolaire-header.jpg" 
-                headerText="PROGRAMME ÉDUCATIF AU PRÉSCOLAIRE" 
-                headerTextTop="70%" 
+            <Header
+                animate={false}
+                imageSrc="../images/header/parascolaire-header.jpg"
+                headerText="SERVICE PARASCOLAIRE"
+                headerTextTop="70%"
             />
 
             <StyledDiv>
+                {/* Introduction Section */}
                 <MotionDiv>
-                    <TextContainer>
-                        <Typography
-                            as="p"
-                            type="h6"
-                            color="dark"
-                            initial={{ opacity: 0, y: 100 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                            viewport={{ once: true }}
+                    <ContentContainer ref={containerRef1}>
+                        <Image src="../images/parent-role.jpg" alt="Service parascolaire" />
+                        <TextBlock
+                            initial={{ x: "100%", opacity: 0 }}
+                            animate={controls1}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
                         >
-                            L'enseignant du préscolaire planifie des activités et des projets visant à développer chez ses élèves les six compétences définies dans le programme de formation de l'École québécoise. Les activités prennent la forme de causeries, de chants, de comptines, de bricolage, de peinture, d'activités d'éveil à la lecture et aux mathématiques. Ces activités pédagogiques sont présentées aux élèves soit en ateliers libres ou obligatoires selon la planification de l'enseignante. Des ateliers de lecture sont aussi prévus chaque semaine en collaboration avec nos personnes-ressources.
-                        </Typography>
-                    </TextContainer>
+                            <Typography as="h3" type="h3" color="primary">
+                                Service Enrichi
+                            </Typography>
+                            <TextContainer>
+                                <Typography as="p" type="h6" color="dark">
+                                    L'école arménienne Sourp Hagop offre un service de garde enrichi d'activités parascolaires pour les élèves du primaire. Conformément aux normes et aux valeurs de l'école, ce service propose une variété d'activités pour les jeunes du primaire entre 16h20 et 18h00 tous les jours d'école.
+                                </Typography>
+                            </TextContainer>
+                        </TextBlock>
+                    </ContentContainer>
+                </MotionDiv>
 
-                    <ScheduleContainer>
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-                            Cours spécialisés
-                        </Typography>
-                        <Typography as="p" type="h6" color="dark" style={{ marginBottom: "20px" }}>
-                            En plus des activités pédagogiques, des cours spécialisés sont aussi intégrés à l'horaire à des périodes fixes :
-                        </Typography>
-                        <SpecializedCoursesContainer>
-                            {specializedCourses.map((course, index) => (
-                                <CourseCard
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <Typography as="h4" type="h5" color="primary" style={{ marginBottom: "10px" }}>
-                                        {course.name}
-                                    </Typography>
-                                    <Typography as="p" type="p" color="dark">
-                                        {course.duration}
-                                    </Typography>
-                                </CourseCard>
-                            ))}
-                        </SpecializedCoursesContainer>
-                    </ScheduleContainer>
-
-                    <CompetenceContainer>
-                        <Typography
-                            as="h2"
-                            type="h2"
-                            color="primary"
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
-                            style={{ marginBottom: "30px", textAlign: "center" }}
-                        >
-                            Les Six Compétences
-                        </Typography>
-                        
-                        {competences.map((competence, index) => (
-                            <CompetenceItem
-                                key={index}
-                                initial={{ opacity: 0, x: -50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                viewport={{ once: true }}
+                {/* Pricing Section */}
+                <MotionDiv>
+                    <ContentContainer ref={containerRef2}>
+                        <OrderContainer>
+                            <PricingContainer
+                                initial={{ x: "-100%", opacity: 0 }}
+                                animate={controls2}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
                             >
-                                <Typography as="h3" type="h4" color="primary" style={{ marginBottom: "15px" }}>
-                                    {competence.title}
+                                <Typography as="h3" type="h3" style={{ color: "white", marginBottom: "20px" }}>
+                                    Tarifs et Inscription
                                 </Typography>
-                                <Typography as="p" type="p" color="dark">
-                                    {competence.description}
+                                <TextContainer>
+                                    <Typography as="p" type="h6" style={{ color: "white", marginBottom: "20px" }}>
+                                        L'inscription peut se faire sur une base quotidienne, hebdomadaire ou mensuelle via le portail Parents.
+                                    </Typography>
+                                    <PriceItem>
+                                        <PriceCircle>8$</PriceCircle>
+                                        <Typography as="p" type="p" style={{ color: "white" }}>
+                                            Hebdomadaire/Mensuel par jour
+                                        </Typography>
+                                    </PriceItem>
+                                    <PriceItem>
+                                        <PriceCircle>10$</PriceCircle>
+                                        <Typography as="p" type="p" style={{ color: "white" }}>
+                                            Quotidien par jour
+                                        </Typography>
+                                    </PriceItem>
+                                    <Typography as="p" type="caption" style={{ color: "#cce7ff", marginTop: "15px", fontStyle: "italic" }}>
+                                        Date limite: 11h00 le matin même. Aucun remboursement en cas d'absence.
+                                    </Typography>
+                                </TextContainer>
+                            </PricingContainer>
+                        </OrderContainer>
+                        <Image src="../images/parent-formation.jpg" alt="Inscription service parascolaire" />
+                    </ContentContainer>
+                </MotionDiv>
+
+                {/* Student Process Section */}
+                <MotionDiv>
+                    <ContentContainer ref={containerRef3}>
+                        <Image src="../images/parent-reunion.jpg" alt="Activités élèves" />
+                        <ProcessContainer
+                            initial={{ x: "100%", opacity: 0 }}
+                            animate={controls3}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
+                        >
+                            <Typography as="h3" type="h3" color="primary">
+                                Procédure Élèves
+                            </Typography>
+                            <StepsList>
+                                <StepItem>
+                                    <StepNumber>1</StepNumber>
+                                    <div>
+                                        <Typography as="p" type="body" color="dark">
+                                            <strong>16h10:</strong> Accompagnement au local 114 pour la prise de présence
+                                        </Typography>
+                                    </div>
+                                </StepItem>
+                                <StepItem>
+                                    <StepNumber>2</StepNumber>
+                                    <div>
+                                        <Typography as="p" type="body" color="dark">
+                                            Activités variées: sports, arts plastiques, jeux coopératifs, activités culturelles et lecture animée
+                                        </Typography>
+                                    </div>
+                                </StepItem>
+                                <StepItem>
+                                    <StepNumber>3</StepNumber>
+                                    <div>
+                                        <Typography as="p" type="body" color="dark">
+                                            Période de devoirs en autonomie
+                                        </Typography>
+                                    </div>
+                                </StepItem>
+                            </StepsList>
+                        </ProcessContainer>
+                    </ContentContainer>
+                </MotionDiv>
+
+                {/* Parent Process Section */}
+                <MotionDiv>
+                    <ContentContainer ref={containerRef4}>
+                        <OrderContainer>
+                            <TextBlock
+                                initial={{ x: "-100%", opacity: 0 }}
+                                animate={controls4}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
+                            >
+                                <Typography as="h3" type="h3" color="primary">
+                                    Procédure Parents
                                 </Typography>
-                            </CompetenceItem>
-                        ))}
-                    </CompetenceContainer>
-
-                    <EvaluationContainer>
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-                            Évaluation
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginBottom: "20px" }}>
-                            L'enseignant titulaire du groupe est responsable de l'évaluation de chacun de ses élèves, et recueille ainsi des données (observations, travaux, réalisations, etc.) qui lui permettent de porter un jugement sur les progrès accomplis par l'enfant au cours d'une étape et ce, à l'aide de grilles d'évaluation. L'enseignant s'appuie également sur les observations faites par ses collègues spécialistes dans le cadre des cours d'éducation physique, d'arts plastiques et d'arménien avant de déterminer le niveau de développement de chacune des compétences évaluées.
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginBottom: "20px" }}>
-                            L'évaluation est établie et communiquée au bulletin à l'aide d'une cote selon la légende suivante :
-                        </Typography>
-                        <GradeScale>
-                            {gradeScale.map((grade, index) => (
-                                <GradeItem key={index} grade={grade.grade}>
-                                    <Typography as="span" type="h5" color="primary" style={{ marginRight: "10px" }}>
-                                        {grade.grade} :
+                                <TextContainer>
+                                    <Typography as="p" type="h6" color="dark">
+                                        Les parents devront se présenter à la porte d'entrée des autobus scolaires et se présenter au local 114 pour récupérer leur enfant. Une signature sera exigée du parent lors de la récupération.
                                     </Typography>
-                                    <Typography as="span" type="p" color="dark">
-                                        {grade.description}
-                                    </Typography>
-                                </GradeItem>
-                            ))}
-                        </GradeScale>
-                    </EvaluationContainer>
+                                </TextContainer>
+                            </TextBlock>
+                        </OrderContainer>
+                        <Image src="../images/parent-role.jpg" alt="Récupération des enfants" />
+                    </ContentContainer>
+                </MotionDiv>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        style={{ textAlign: "center", marginTop: "50px" }}
-                    >
-                        <Typography as="h3" type="h3" color="primary">
-                            Horaire type d'une journée en préscolaire
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginTop: "20px" }}>
-                            Contactez-nous pour obtenir plus d'informations sur l'horaire détaillé.
-                        </Typography>
-                    </motion.div>
+                {/* Important Information Section */}
+                <MotionDiv>
+                    <ContentContainer ref={containerRef5}>
+                        <Image src="../images/parent-formation.jpg" alt="Informations importantes" />
+                        <InfoHighlight
+                            initial={{ x: "100%", opacity: 0 }}
+                            animate={controls5}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
+                        >
+                            <Typography as="h3" type="h3" style={{ color: "#856404", marginBottom: "20px" }}>
+                                Informations Importantes
+                            </Typography>
+                            <TextContainer>
+                                <Typography as="p" type="h6" style={{ color: "#856404", marginBottom: "20px" }}>
+                                    En cas d'absence, envoyez un courriel avant 11h00 à serviceparascolaire@ecolesourphagop.com avec le nom, la classe et la date d'absence.
+                                </Typography>
+                                <Typography as="p" type="p" style={{ color: "#856404", marginBottom: "10px" }}>
+                                    <strong>Contact:</strong>
+                                </Typography>
+                                <Typography as="p" type="p" style={{ color: "#856404" }}>
+                                    514 332-1373 poste 249
+                                </Typography>
+                            </TextContainer>
+                        </InfoHighlight>
+                    </ContentContainer>
                 </MotionDiv>
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+
+            <BackgroundLogo src="../images/logo-big.svg" />
             <Footer />
         </>
     );
