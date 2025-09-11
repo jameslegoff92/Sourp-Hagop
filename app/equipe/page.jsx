@@ -6,6 +6,7 @@ import BackgroundLogo from "../../components/ui/BackgroundLogo";
 import Typography from "../../components/display/Typography";
 import Accordion from "../../components/ui/Accordion";
 import CustomButton from "../../components/inputs/Button"
+import Link from "next/link";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -32,7 +33,7 @@ export default function Equipe() {
 
     return (
         <>
-            <Header animate = {false} imageSrc="../images/header/equipe-header.jpg" headerText="NOTRE ÉQUIPE" headerTextTop="70%" />
+            <Header animate={false} imageSrc="../images/header/equipe-header.jpg" headerText="NOTRE ÉQUIPE" headerTextTop="70%" />
 
             <StyledDiv>
                 <MotionDiv>
@@ -65,18 +66,20 @@ export default function Equipe() {
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
-                <CustomButton
-                    initial={{ opacity: 0, y: 0 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    viewport={{ once: true }}
-                    style={{ marginTop: "50px" }}
-                    onClick={() => navigate('/carrieres')}
-                >
-                    Appliquer Maintenant
-                </CustomButton>
+
+                <Link href="/carrieres">
+                    <CustomButton
+                        initial={{ opacity: 0, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                        viewport={{ once: true }}
+                        style={{ marginTop: "50px" }}
+                    >
+                        Appliquer Maintenant
+                    </CustomButton>
+                </Link>
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
             <Footer />
         </>
     );

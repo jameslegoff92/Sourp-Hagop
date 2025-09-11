@@ -131,7 +131,7 @@ export default function ConseilAdministration() {
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
-
+                {/*
                 <ImageItemsContainer>
                     <ImageItemComponent
                         src="../images/staff/_default.jpg"
@@ -152,6 +152,7 @@ export default function ConseilAdministration() {
                         title="Description"
                     />
                 </ImageItemsContainer>
+                */}
             </StyledDiv>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />

@@ -12,7 +12,7 @@ const primaireWeeks = [
     id: 1,
     circles: [
       { description: "Lentilles au blé concassé avec salade", image: "../images/menu/lentilles-ble-concasse.jpg" },
-      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/lentilles-ble-concasqse.jpg" },
+      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/placeholder.svg" },
       { description: "Penne sauce tomate avec salade verte", image: "../images/menu/penne-sauce-tomate.jpg" },
       { description: "Souvlaki au poulet avec tzatziki, riz et légumes", image: "../images/menu/souvlaki-poulet.jpg" },
       { description: "Soupe aux lentilles avec pain au fromage", image: "../images/menu/soupe-lentilles-pain.jpg" },
@@ -22,10 +22,10 @@ const primaireWeeks = [
     id: 2,
     circles: [
       { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
-      { description: "Spaghetti bolognaise avec légumes", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Spaghetti bolognaise avec légumes", image: "../images/menu/placeholder.svg" },
       { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
       { description: "Macaroni sauce à la viande avec salade", image: "../images/menu/Untitled-1.png" },
-      { description: "Hamburger avec salade de choux", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Hamburger avec salade de choux", image: "../images/menu/placeholder.svg" },
     ],
   },
   {
@@ -42,8 +42,8 @@ const primaireWeeks = [
     id: 4,
     circles: [
       { description: "Poulet et riz mexicain avec légumes", image: "../images/menu/poulet-riz-mexicain.jpg" },
-      { description: "Macaroni sauce rosée avec salade", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
-      { description: "Pâté chinois avec salade", image: "../images/menu/primaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Macaroni sauce rosée avec salade", image: "../images/menu/placeholder.svg" },
+      { description: "Pâté chinois avec salade", image: "../images/menu/placeholder.svg" },
       { description: "Macédoine carotte et pois verts avec riz", image: "../images/menu/macedonie-riz.jpg" },
       { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
     ],
@@ -55,20 +55,20 @@ const weeks = [
     id: 1,
     circles: [
       { description: "Lentilles au blé concassé avec salade", image: "../images/menu/lentilles-ble-concasse.jpg" },
-      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/placeholder.svg" },
       { description: "Penne sauce tomate avec salade verte", image: "../images/menu/penne-sauce-tomate.jpg" },
       { description: "Souvlaki au poulet avec tzatziki, riz et légumes", image: "../images/menu/souvlaki-poulet.jpg" },
-      { description: "Sous-marin avec salade de choux", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Sous-marin avec salade de choux", image: "../images/menu/placeholder.svg" },
     ],
   },
   {
     id: 2,
     circles: [
       { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
-      { description: "Sandwich au jambon et fromage avec soupe", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Sandwich au jambon et fromage avec soupe", image: "../images/menu/placeholder.svg" },
       { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
       { description: "Manicotti avec salade", image: "../images/menu/manicotti.jpg" },
-      { description: "Hamburger avec salade de choux", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Hamburger avec salade de choux", image: "../images/menu/placeholder.svg" },
     ],
   },
   {
@@ -86,7 +86,7 @@ const weeks = [
     circles: [
       { description: "Fajita et riz mexicain avec légumes", image: "../images/menu/fajita-riz.jpg" },
       { description: "Tortellini sauce rosée avec salade", image: "../images/menu/tortellini-sauce-rose.jpg" },
-      { description: "Pâté chinois avec salade", image: "../images/menu/secondaire/semaine1/lentilles-ble-concasse.jpg" },
+      { description: "Pâté chinois avec salade", image: "../images/menu/placeholder.svg" },
       { description: "Crevette et légumes sauce teriyaki avec riz et salade", image: "../images/menu/crevettes-sauce-teriyaki.jpg" },
       { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
     ],

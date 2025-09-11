@@ -161,7 +161,7 @@ export default function ProjetEducatif() {
                     <RectangleItem src="../images/icon/school.svg" text="Créer et maintenir des liens de collaboration avec des parents pour la réussite de leurs enfants, dans un esprit de respect mutuel." index={6} />
                     <RectangleItem src="../images/icon/confetti.svg" text="Célébrer nos succès" index={7} />
                 </ItemsContainer>
-
+{/*
                 <Typography
                     as="h1"
                     type="h1"
@@ -174,6 +174,7 @@ export default function ProjetEducatif() {
                 >
                     Orientations Générales
                 </Typography>
+*/}
             </StyledDiv>
             <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
             <Footer />
