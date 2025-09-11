@@ -1,12 +1,17 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Header from "../../components/ui/Header";
 import Footer from "../../components/ui/Footer";
 import BackgroundLogo from "../../components/ui/BackgroundLogo";
 import Typography from "../../components/display/Typography";
+import LocationModal from "../../components/modal/LocationModal";
 import styled from "@emotion/styled";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
+import { Button } from "../../components/ui/Button";
+import { getRentalSpacesPage } from "../../lib/sanity-queries";
+
+
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -42,26 +47,19 @@ const SpaceCard = styled.div`
   width: 100%;
   height: 500px;
   overflow: hidden;
-  border: 1px solid #e8f4fd;
   background: white;
   cursor: pointer;
   transition: all 0.3s ease;
 
-  &:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary-color);
-    box-shadow: 0 8px 25px rgba(0, 125, 195, 0.15);
-  }
-
   &:hover .imageWrapper {
-    transform: translateY(-70%); /* slide up the image+title */
+    transform: translateY(-70%);
   }
 
   &:hover .contentContainer {
-    transform: translateY(0); /* bring in content */
+    transform: translateY(0);
     opacity: 1;
   }
-`
+`;
 
 const ImageWrapper = styled.div`
   position: absolute;
@@ -83,16 +81,17 @@ const ImageWrapper = styled.div`
     inset: 0;
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
   }
-`
+`;
 
 const SpaceTitle = styled(Typography)`
   position: relative;
   z-index: 3;
   color: white;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
-`
+  letter-spacing: 0.05rem;
+`;
 
 const ContentContainer = styled.div`
   position: absolute;
@@ -100,22 +99,24 @@ const ContentContainer = styled.div`
   left: 0;
   width: 100%;
   height: 70%;
-  background: white;
+  background: var(--secondary-color);
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transform: translateY(100%); /* hidden initially */
+  transform: translateY(100%);
   opacity: 0;
   transition: transform 0.5s ease, opacity 0.4s ease;
   z-index: 1;
-`
+`;
 
 const SpaceDescription = styled.p`
-  color: #4b5563;
+  color: black;
   line-height: 1.6;
   margin: 0 0 20px 0;
-  font-size: 0.95rem;
+  font-family: var(--secondary-ff);
+  font-size: 1rem;
+  font-weight: 300;
   flex-grow: 1;
 `;
 
@@ -129,7 +130,7 @@ const FeatureItem = styled.div`
   margin-bottom: 8px;
   font-size: 0.9rem;
   color: #6b7280;
-  
+
   &::before {
     content: '✓';
     color: var(--primary-color);
@@ -148,7 +149,7 @@ const ContactButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
-  
+
   &:hover {
     background: transparent;
     color: var(--primary-color);
@@ -160,180 +161,86 @@ const TextContainer = styled.div`
   margin: 0 auto;
 `;
 
-const SpaceItem = ({ space, index }) => {
-  const imageControls = useAnimation();
-  const contentControls = useAnimation();
-  const isOpen = useRef(false);
+const SpaceItem = ({ space, onOpen }) => (
+  <SpaceCard>
+    <ImageWrapper
+      className="imageWrapper"
+      style={{ backgroundImage: `url('${space.imageUrl}')` }}
+    >
+      <SpaceTitle as="h4" type="h4">{space.title}</SpaceTitle>
+    </ImageWrapper>
 
-  const handleHoverStart = async () => {
-    await imageControls.start({
-      height: "25%",
-      transition: { duration: 0.3 },
-    });
-    await contentControls.start({
-      scale: 1.2,
-      opacity: 1,
-      transition: { duration: 0.5 },
-    });
+    <ContentContainer className="contentContainer">
+      <div>
+        <SpaceDescription>{space.description}</SpaceDescription>
+      </div>
+      <Button onClick={() => onOpen(space)}>SAVOIR PLUS</Button>
+    </ContentContainer>
+  </SpaceCard>
+);
+
+export default async function RentalSpacesPage() {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedSpace, setSelectedSpace] = useState(null);
+  const data = await getRentalSpacesPage();
+
+  const openModal = (space) => {
+    setSelectedSpace(space);
+    setShowModal(true);
   };
 
-  const handleHoverEnd = async () => {
-    await imageControls.start({
-      height: "100%",
-      transition: { duration: 0.3 },
-    });
-    await contentControls.start({
-      scale: 1,
-      opacity: 0,
-      transition: { duration: 0.2 },
-    });
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedSpace(null);
   };
 
-  const handleTap = async () => {
-    if (isOpen.current) {
-      await imageControls.start({
-        height: "100%",
-        transition: { duration: 0.3 },
-      });
-      await contentControls.start({
-        scale: 1,
-        opacity: 0,
-        transition: { duration: 0.2 },
-      });
-    } else {
-      await imageControls.start({
-        height: "25%",
-        transition: { duration: 0.3 },
-      });
-      await contentControls.start({
-        scale: 1.2,
-        opacity: 1,
-        transition: { duration: 0.5 },
-      });
-    }
-    isOpen.current = !isOpen.current;
-  };
-
-  return (
-    <SpaceCard>
-      <ImageWrapper
-        className="imageWrapper"
-        style={{ backgroundImage: `url('${space.imageUrl}')` }}
-      >
-        <SpaceTitle>{space.title}</SpaceTitle>
-      </ImageWrapper>
-
-      <ContentContainer className="contentContainer">
-        <div>
-          <SpaceDescription>{space.description}</SpaceDescription>
-          <SpaceFeatures>
-            {space.features.map((feature, idx) => (
-              <FeatureItem key={idx}>{feature}</FeatureItem>
-            ))}
-          </SpaceFeatures>
-        </div>
-        <ContactButton>Demander un devis</ContactButton>
-      </ContentContainer>
-    </SpaceCard>
-  );
-};
-
-export default function RentalSpacesPage() {
-
-  const data = null;
   const spaces = [
     {
       id: 1,
       title: "Amphithéâtre",
       imageUrl: "../images/amphitheater.jpg",
-      description: "Un amphithéâtre moderne équipé pour vos événements, conférences et spectacles. Capacité de 200 personnes avec système audiovisuel professionnel.",
-      features: [
-        "Capacité de 200 personnes",
-        "Système son et projection",
-        "Éclairage professionnel",
-        "Climatisation",
-        "Accès handicapés"
-      ]
+      description: "Un amphithéâtre moderne équipé pour vos événements, conférences et spectacles. Capacité de 200 personnes.",
     },
     {
       id: 2,
       title: "Gymnase",
       imageUrl: "../images/gymnasium.jpg",
-      description: "Espace sportif polyvalent idéal pour événements sportifs, tournois et activités physiques. Sol spécialisé et équipements inclus.",
-      features: [
-        "Surface de 800 m²",
-        "Vestiaires inclus",
-        "Équipements sportifs",
-        "Gradins pour spectateurs",
-        "Parking disponible"
-      ]
+      description: "Espace sportif polyvalent idéal pour événements sportifs, tournois et activités physiques.",
     },
     {
       id: 3,
       title: "Salles de classe",
       imageUrl: "../images/classrooms.jpg",
-      description: "Locaux modulaires parfaits pour formations, séminaires et réunions. Différentes tailles disponibles selon vos besoins.",
-      features: [
-        "Capacité 20-40 personnes",
-        "Tableau interactif",
-        "WiFi haut débit",
-        "Mobilier modulable",
-        "Service traiteur possible"
-      ]
+      description: "Locaux modulaires parfaits pour formations, séminaires et réunions.",
     }
   ];
 
   return (
     <>
-      <Header
-        imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"}
-        headerText={data?.headerText || "LOCATION D'ESPACES"}
-        headerTextTop="70%"
+      <Header 
+        imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"} 
+        headerText={data?.headerText || "LOCATION D'ESPACES"} 
+        headerTextTop="70%" 
       />
-
       <StyledDiv>
         <MotionDiv>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <Typography
-              as="h1"
-              type="h1"
-              color="primary"
-              initial={{ opacity: 0, y: -25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
-              transition={{ duration: 0.9, ease: "easeInOut" }}
-            >
-              {data?.introTitle || "Nos espaces à votre disposition"}
+          <Typography as="h1" type="h1" color="primary">
+            Nos espaces à votre disposition
+          </Typography>
+          <TextContainer>
+            <Typography as="p" type="h6" color="dark">
+              Découvrez nos espaces de qualité disponibles à la location. 
+              Que ce soit pour des événements culturels, sportifs ou éducatifs, 
+              nous avons l'espace qu'il vous faut.
             </Typography>
-            
-            <TextContainer>
-              <Typography
-                as="p"
-                type="h6"
-                color="dark"
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                viewport={{ once: true }}
-              >
-                {data?.introText || "Découvrez nos espaces de qualité disponibles à la location. Que ce soit pour des événements culturels, sportifs ou éducatifs, nous avons l'espace qu'il vous faut."}
-              </Typography>
-            </TextContainer>
-          </motion.div>
-
+          </TextContainer>
           <SpacesGrid>
-            {spaces.map((space, index) => (
-              <SpaceItem key={space.id} space={space} index={index} />
+            {data?.spaces?.map((space, idx) => (
+              <SpaceItem key={idx} space={space} onOpen={() => {}} />
             ))}
           </SpacesGrid>
         </MotionDiv>
       </StyledDiv>
-      
       <BackgroundLogo src="../images/logo-big.svg" />
       <Footer />
     </>

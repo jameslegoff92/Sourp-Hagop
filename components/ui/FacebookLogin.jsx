@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaFacebook } from "react-icons/fa";
-import { Button } from "../../components/ui/button";
+import { Button } from "./Button";
 import css from "./FacebookLogin.module.css";
 
 export default function FacebookLoginLogout() {

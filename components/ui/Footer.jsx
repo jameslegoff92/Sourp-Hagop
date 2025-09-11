@@ -55,20 +55,20 @@ const Footer = () => (
         </div>
         <div className={css.blueOverlay}>
             <nav className={css.verticalWordsContainerLeft}>
-                <AnimatedMenuLink href="#">PORTAIL</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">CARRIÈRES</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">CALENDRIER</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">LA FONDATION</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">
+                <AnimatedMenuLink href="https://ecolesourphagop.coba.ca/pednet/login.coba">PORTAIL</AnimatedMenuLink>
+                <AnimatedMenuLink href="/carrieres">CARRIÈRES</AnimatedMenuLink>
+                <AnimatedMenuLink href="/calendrier">CALENDRIER</AnimatedMenuLink>
+                <AnimatedMenuLink href="https://www.fondationsh.com">LA FONDATION</AnimatedMenuLink>
+                <AnimatedMenuLink href="/nciens">
                     <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>
                 </AnimatedMenuLink>
             </nav>
             <div className={css.verticalLine}></div>
             <nav className={css.verticalWordsContainerRight}>
-                <AnimatedMenuLink href="#">ADMISSIONS</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">NOS LOCATIONS</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">NOUS JOINDRE</AnimatedMenuLink>
-                <AnimatedMenuLink href="#">
+                <AnimatedMenuLink href="/admissions">ADMISSIONS</AnimatedMenuLink>
+                <AnimatedMenuLink href="/locations">NOS LOCATIONS</AnimatedMenuLink>
+                <AnimatedMenuLink href="/nous-joindre">NOUS JOINDRE</AnimatedMenuLink>
+                <AnimatedMenuLink href="/protecteur-national-eleve">
                     <span className={css.longTextWrap}>PROTECTEUR NATIONAL DE L'ÉLÈVE</span>
                 </AnimatedMenuLink>
             </nav>
