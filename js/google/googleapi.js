@@ -13,9 +13,9 @@ import axios from 'axios';
  */
 export async function getNewAccessToken(token) {
   const refreshToken = token;
-  console.debug(`Value of process.env.AUTH_GOOGLE_ID: ${process.env.AUTH_GOOGLE_ID}`)
+  //console.debug(`Value of process.env.AUTH_GOOGLE_ID: ${process.env.AUTH_GOOGLE_ID}`)
   const clientId = process.env.AUTH_GOOGLE_ID;
-  console.debug(`Value of process.env.AUTH_GOOGLE_ID: ${process.env.AUTH_GOOGLE_SECRET}`)
+  //console.debug(`Value of process.env.AUTH_GOOGLE_ID: ${process.env.AUTH_GOOGLE_SECRET}`)
   const clientSecret = process.env.AUTH_GOOGLE_SECRET;
   const tokenEndpoint = 'https://oauth2.googleapis.com/token';
 
@@ -26,18 +26,18 @@ export async function getNewAccessToken(token) {
   params.append('grant_type', 'refresh_token');
 
   try {
-    console.debug(`Sending new access token request to google server`)
+    //console.debug(`Sending new access token request to google server`)
     const response = await axios.post(tokenEndpoint, params.toString(), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
-    console.debug(response.data.access, `Google response: `);
+    //console.debug(response.data.access, `Google response: `);
     const newAccessToken = response.data.access_token;
-    console.debug(`New access token: ${newAccessToken}`);
+    //console.debug(`New access token: ${newAccessToken}`);
     return newAccessToken
   } catch (error) {
-    console.error('Error refreshing token:', error.response ? error.response.data : error.message);
+    //console.error('Error refreshing token:', error.response ? error.response.data : error.message);
     return null;
   }
 }

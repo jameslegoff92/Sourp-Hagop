@@ -16,7 +16,7 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
   };
 
   const handleMouseLeave = (e) => {
-    console.log("event fired");
+    //console.log("event fired");
     setIsHovered(false);
   };
 

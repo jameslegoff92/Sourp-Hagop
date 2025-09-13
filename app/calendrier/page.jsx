@@ -12,18 +12,31 @@ import { DateTime } from "luxon";
  * @returns {JSX.Element} - Returns the React-Calendar component.
  */
 export default async function Calendar() {
-  //Check that the db connection is good.
+  // Check that the db connection is good.
   await connectToDatabase();
   const user = await Admin.getAdmin();
+  
+  // Get both access token and refresh token using your existing methods
   const googleAccessToken = await user.getGoogleAccessToken();
+  const googleRefreshToken = await user.getGoogleRefreshToken();
+  
   const today = DateTime.local();
   const startDate = getFirstNeighboringDay(today.year, today.month).toISO();
   const endDate = getLastNeighboringDay(today.year, today.month).toISO();
+  
+  // Create the callback function to update the database using your existing method
+  const updateTokenCallback = async (newAccessToken) => {
+    await user.updateGoogleAccessToken(newAccessToken);
+  };
+  
+  // Call with automatic token refresh
   const calendarData = await fetchGoogleCalendarData(
     "primary",
     startDate,
     endDate,
-    googleAccessToken
+    googleAccessToken,
+    googleRefreshToken,     // Add refresh token
+    updateTokenCallback     // Add update callback
   );
 
   return (

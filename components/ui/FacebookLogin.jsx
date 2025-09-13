@@ -44,24 +44,24 @@ export default function FacebookLoginLogout() {
             body: JSON.stringify({ accessToken, expiresIn }), // Just send the token for simplicity
           })
             .then((response) => {
-              console.log("Fetch response status:", response.status); // Log the status to check if it's 200 or an error
+              //console.log("Fetch response status:", response.status); // Log the status to check if it's 200 or an error
               if (!response.ok) {
                 throw new Error("Network response was not ok");
               }
               return response.json();
             })
             .then((data) => {
-              console.log("Server response:", data); // Log the data returned by the API route
+              //console.log("Server response:", data); // Log the data returned by the API route
               // Ensure router is ready
             })
             .catch((error) => {
-              console.error("Fetch error:", error); // Catch and log any errors
+              //console.error("Fetch error:", error); // Catch and log any errors
             });
             
             setIsLoggedIn(true);
             router.push("/");
         } else {
-          console.log("User cancelled login or did not fully authorize.");
+          //console.log("User cancelled login or did not fully authorize.");
         }
       },
       { scope: "public_profile, email, pages_show_list, business_management, instagram_basic, instagram_manage_insights, pages_read_engagement, pages_read_user_content" }
@@ -71,7 +71,7 @@ export default function FacebookLoginLogout() {
   // Handle user logout
   const handleLogout = () => {
     FB.logout(function (response) {
-      console.log("Logged out successfully:", response);
+      //console.log("Logged out successfully:", response);
       setIsLoggedIn(false);
     });
   };
