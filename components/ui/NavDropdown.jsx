@@ -31,8 +31,8 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
         <div className={css.wrapper} onMouseLeave={handleMouseLeave}   >
           <ul className={css.dropdown}  >
             {items.map((item, index) => (
-              <li className={css.listItem}>
-                <Link className={css.link} key={index} href={item.link}>
+              <li className={css.listItem} key={index}>
+                <Link className={css.link} href={item.link}>
                   {item.text}
                 </Link>
               </li>

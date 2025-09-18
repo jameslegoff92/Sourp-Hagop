@@ -130,9 +130,12 @@ const CSSMobileNavItems = styled(motion.ul)`
 
 const CSSMobileNavItem = styled(Link)`
   color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
 
   &:hover {
     color: var(--white);
+    text-decoration: none;
+
   }
 `;
 
@@ -295,7 +298,7 @@ const Nav = ({ type = "primary", animate = true }) => {
         >
           <Link href="/" style={{ display: "flex", gap: "4px" }}>
             <img
-              src="/images/logo-blackWhite.jpg"
+              src="/images/logo.jpg"
               alt="logo"
               width={89}
               height={90}
