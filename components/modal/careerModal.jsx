@@ -177,7 +177,7 @@ export default function CareerApplyModal({ open, onClose, job }) {
     setError("");
 
     const fd = new FormData(e.currentTarget);
-    fd.append("access_key", process.env.NEXT_PUBLIC_W3F_KEY);
+    fd.append("access_key", process.env.NEXT_PUBLIC_W3F_CAREER_KEY);
     fd.append("subject", `Candidature: ${job?.title || "Poste"}`);
 
     try {

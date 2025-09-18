@@ -43,17 +43,14 @@ const CardsGrid = styled.div`
 const JobCard = styled(motion.div)`
   background: white;
   border: 1px solid #e8f4fd;
+      box-shadow: 0 2px 30px rgba(0, 125, 195, 0.15);
+
   overflow: visible;
   position: relative;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   min-height: 520px;
-  &:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary-color);
-    box-shadow: 0 8px 25px rgba(0, 125, 195, 0.15);
-  }
 `;
 
 const CardImage = styled.div`

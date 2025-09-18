@@ -57,7 +57,20 @@ export default function Soutien() {
                             transition={{ duration: 1 }}
                             viewport={{ once: true }}
                         >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero. Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor lobortis. Pellentesque eu est a nulla placerat dignissim. Morbi a enim in magna semper bibendum. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi.
+Bien plus qu’un lieu où l’on sert un repas chaud et nutritif, l’Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir. 
+</Typography>
+<br/>
+                        <Typography
+                            as="p"
+                            type="h6"
+                            color="dark"
+                            initial={{ opacity: 0, y: 100 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1 }}
+                            viewport={{ once: true }}
+                            style = {{}}
+                        >
+Découvrez le menu de la semaine à l’Agora!
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
