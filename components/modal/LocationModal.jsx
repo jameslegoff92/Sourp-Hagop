@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 const ModalOverlay = styled.div`
   position: fixed;

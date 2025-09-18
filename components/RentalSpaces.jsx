@@ -8,7 +8,7 @@ import Typography from "../components/display/Typography";
 import LocationModal from "../components/modal/LocationModal";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import { Button } from "../components/ui/Button";
+import { Button } from "./ui/button";
 
 const StyledDiv = styled.div`
   text-align: left;
