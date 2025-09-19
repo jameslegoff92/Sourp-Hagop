@@ -204,7 +204,7 @@ export default function RentalSpacesPage({ data }) {
 
                 </MotionDiv>
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg" />
+            {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
             <Footer />
         </>
     );

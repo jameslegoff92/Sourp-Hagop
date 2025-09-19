@@ -478,7 +478,7 @@ export default function Contact() {
           </ContactContainer>
         </MotionDiv>
       </StyledDiv>
-      <BackgroundLogo src="../images/logo-big.svg" />
+      {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
       <Footer />
     </>
   )

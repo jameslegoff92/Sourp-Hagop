@@ -341,7 +341,7 @@ export default function CareerPage() {
         onClose={() => setSelectedJob(null)}
         job={selectedJob}
       />
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
+      {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} /> */}
       <Footer />
     </>
   );

@@ -31,22 +31,22 @@ export default function Soutien() {
 
     return (
         <>
-            <Header animate = {false} videoSrc="../videos/video-agora.mp4" headerText="AGORA ANNA & MANOUK DJOUKHADJIAN" headerTextTop="70%" />
+            <Header animate={false} videoSrc="../videos/video-agora.mp4" headerText="AGORA ANNA & MANOUK DJOUKHADJIAN" headerTextTop="70%" />
 
             <StyledDiv>
                 <MotionDiv>
 
-                        <Typography
-                            as="h1"
-                            type="h1"
-                            color="primary"
-                            initial={{ opacity: 0, y: -25 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
-                            transition={{ duration: 0.9, ease: "easeInOut" }}
-                        >
-                            Agora Anna et Manouk Djoukhadjian
-                        </Typography>
+                    <Typography
+                        as="h1"
+                        type="h1"
+                        color="primary"
+                        initial={{ opacity: 0, y: -25 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
+                        transition={{ duration: 0.9, ease: "easeInOut" }}
+                    >
+                        Agora Anna et Manouk Djoukhadjian
+                    </Typography>
                     <TextContainer>
                         <Typography
                             as="p"
@@ -57,9 +57,9 @@ export default function Soutien() {
                             transition={{ duration: 1 }}
                             viewport={{ once: true }}
                         >
-Bien plus qu’un lieu où l’on sert un repas chaud et nutritif, l’Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir. 
-</Typography>
-<br/>
+                            Bien plus qu’un lieu où l’on sert un repas chaud et nutritif, l’Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir.
+                        </Typography>
+                        <br />
                         <Typography
                             as="p"
                             type="h6"
@@ -68,15 +68,15 @@ Bien plus qu’un lieu où l’on sert un repas chaud et nutritif, l’Agora est
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                             viewport={{ once: true }}
-                            style = {{}}
+                            style={{}}
                         >
-Découvrez le menu de la semaine à l’Agora!
+                            Découvrez le menu de la semaine à l’Agora!
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
                 <Menu />
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg"/>
+            {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
             <Footer />
         </>
     );

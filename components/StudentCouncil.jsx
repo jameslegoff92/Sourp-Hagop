@@ -107,7 +107,7 @@ export default function StudentCouncil({ data }) {
                     </ImageGrid>
                 </MotionDiv>
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg" />
+            {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
             <Footer />
         </>
     )

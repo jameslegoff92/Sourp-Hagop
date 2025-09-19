@@ -1,73 +1,73 @@
-import {defineType, defineField, defineArrayMember} from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export default defineType({
-  name: 'teamPage',
-  title: 'Team Page',
-  type: 'document',
+  name: "teamPage",
+  title: "L'équipe",
+  type: "document",
   fields: [
+    {
+      name: "headerImage",
+      title: "Image d’en-tête",
+      type: "image",
+      options: { hotspot: true }
+    },
+    {
+      name: "headerText",
+      title: "Texte de l’en-tête",
+      type: "string",
+      initialValue: "CONSEIL D'ÉTUDIANTS"
+    },
     defineField({
-      name: 'title',
-      title: 'Titre interne',
-      type: 'string',
-      validation: (r) => r.required()
+      name: "introText",
+      title: "Introduction Text",
+      type: "text",
     }),
     defineField({
-      name: 'backgroundLogo',
-      title: 'Background Logo',
-      type: 'image',
-      options: {hotspot: true}
-    }),
-    defineField({
-      name: 'header',
-      title: 'En-tête',
-      type: 'object',
-      fields: [
-        defineField({name: 'animate', title: 'Animer', type: 'boolean', initialValue: false}),
-        defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
-        defineField({name: 'text', title: 'Texte', type: 'string'}),
-        defineField({name: 'textTop', title: 'Position du texte (ex: 70%)', type: 'string'})
-      ]
-    }),
-    defineField({
-      name: 'intro',
-      title: 'Introduction',
-      type: 'array',
-      of: [defineArrayMember({type: 'block'})]
-    }),
-    defineField({
-      name: 'accordion',
-      title: 'Sections Accordion',
-      type: 'array',
+      name: "categories",
+      title: "Categories",
+      type: "array",
       of: [
-        defineArrayMember({
-          type: 'object',
-          name: 'accordionSection',
+        {
+          type: "object",
+          name: "staffCategory",
+          title: "Staff Category",
           fields: [
-            defineField({name: 'title', title: 'Titre', type: 'string'}),
             defineField({
-              name: 'content',
-              title: 'Contenu',
-              type: 'array',
-              of: [defineArrayMember({type: 'block'})]
-            })
+              name: "title",
+              title: "Category Title",
+              type: "string",
+            }),
+            defineField({
+              name: "staff",
+              title: "Staff Members",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  name: "staffMember",
+                  title: "Staff Member",
+                  fields: [
+                    defineField({ name: "name", title: "Name", type: "string" }),
+                    defineField({ name: "title", title: "Job Title", type: "string" }),
+                    defineField({
+                      name: "image",
+                      title: "Image",
+                      type: "image",
+                      options: { hotspot: true },
+                    }),
+                  ],
+                  preview: {
+                    select: { title: "name", subtitle: "title", media: "image" },
+                  },
+                },
+              ],
+            }),
           ],
           preview: {
-            select: {title: 'title'}
-          }
-        })
-      ]
+            select: { title: "title" },
+          },
+        },
+      ],
     }),
-    defineField({
-      name: 'cta',
-      title: 'Bouton CTA',
-      type: 'object',
-      fields: [
-        defineField({name: 'label', title: 'Libellé', type: 'string', initialValue: 'Appliquer Maintenant'}),
-        defineField({name: 'href', title: 'Lien', type: 'url'})
-      ]
-    })
   ],
-  preview: {
-    select: {title: 'title', media: 'header.image'}
-  }
-})
+});

@@ -124,10 +124,7 @@ export default function ConseilAdministration() {
                             transition={{ duration: 1 }}
                             viewport={{ once: true }}
                         >
-                            Le Conseil d'Administration de l'École arménienne Sourp Hagop, composé de parents, anciens élèves et professionnels engagés,
-                            veille au bon fonctionnement de l'école. Il établit les orientations générales, planifie et approuve le budget,
-                            supervise les rénovations majeures, modernise le matériel pédagogique, et s'assure du respect des normes ministérielles.
-                            Le Conseil s'occupe également des relations avec la communauté et veille à répondre aux besoins de l'école et de sa clientèle.
+Composé de parents, d'anciens élèves et de professionnels engagés, le conseil d’administration de l’École arménienne Sourp Hagop veille au bon fonctionnement de l’ensemble des activités de l’École pour mener à bien sa mission et mettre en œuvre sa vision. Le conseil établit notamment les orientations générales, planifie et approuve le budget, supervise les rénovations majeures, veille à la modernisation du matériel pédagogique, et s'assure du respect des normes ministérielles. Le conseil s'occupe également des relations avec la communauté et veille à répondre aux besoins de l'École et de sa clientèle.
                         </Typography>
                     </TextContainer>
                 </MotionDiv>
@@ -154,7 +151,7 @@ export default function ConseilAdministration() {
                 </ImageItemsContainer>
                 */}
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/> */}
             <Footer />
         </>
     );

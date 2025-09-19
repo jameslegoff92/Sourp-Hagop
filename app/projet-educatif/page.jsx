@@ -176,7 +176,7 @@ export default function ProjetEducatif() {
                 </Typography>
 */}
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/> */}
             <Footer />
         </>
     );

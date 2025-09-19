@@ -113,7 +113,7 @@ export default function Admissions() {
         ))}
       </TextBlockContainer>
       </StyledDiv>
-      <BackgroundLogo src="../images/logo-big.svg"/>
+      {/* <BackgroundLogo src="../images/logo-big.svg"/> */}
       <Footer />
     </>
   );

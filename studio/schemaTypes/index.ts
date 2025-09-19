@@ -1,6 +1,7 @@
 import homePage from './homePage'
 import historyPage from './historyPage'
 //import teamMember, teamCategory, teamPage from './teamPage'
+import teamPage from './teamPage'
 import careerPage from './careerPage'
 import uniformPage from './uniformPage'
 import studentCouncilPage from './studentCouncilPage'
@@ -19,4 +20,5 @@ export const schemaTypes = [
   aiglePage, 
   tripsPage, 
   rentalSpacesPage, 
+  teamPage
 ]

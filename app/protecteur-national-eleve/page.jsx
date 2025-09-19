@@ -225,7 +225,7 @@ export default function ConseilAdministration() {
         </Typography>
         </MotionDiv>
       </StyledDiv>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
+      {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} /> */}
       <Footer />
     </>
   );
