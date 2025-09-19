@@ -151,7 +151,7 @@ export default function EventApp() {
       
       setEventData(transformedData)
     } catch (err) {
-      console.error('Error parsing event data:', err)
+      //console.error('Error parsing event data:', err)
       setError(true)
     } finally {
       setLoading(false)

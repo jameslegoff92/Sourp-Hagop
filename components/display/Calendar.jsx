@@ -237,11 +237,11 @@ const MiniCalendar = () => {
   })
   
   useEffect(() => {
-    console.log("The calendar component useEffect is running: ")
+    //console.log("The calendar component useEffect is running: ")
     const fetchGoogleData = async (authToken) => {
       const timeMin = encodeURIComponent(toISO8601(dateArrays[0][0]));
       const timeMax = encodeURIComponent(toISO8601(dateArrays[2][4]));
-      console.log("timeMin & timeMax: ", timeMin, timeMax);
+      //console.log("timeMin & timeMax: ", timeMin, timeMax);
       const url = `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMax=${timeMax}&timeMin=${timeMin}`;
       const headers = {
         Authorization: `Bearer ${authToken}`,
@@ -261,7 +261,7 @@ const MiniCalendar = () => {
 
         // Parse the JSON data
         const data = await response.json();
-        console.log("Data: ", data.items);
+        //console.log("Data: ", data.items);
 
         // Map through the events to create a new array with desired fields
         const events = data.items
@@ -281,7 +281,7 @@ const MiniCalendar = () => {
         return setGoogleEvents(events);
       } catch (error) {
         // Handle errors
-        console.error("Failed to fetch events:", error.message);
+        //console.error("Failed to fetch events:", error.message);
         return []; // Return an empty array or handle as needed
       }
     };
@@ -305,9 +305,9 @@ const MiniCalendar = () => {
       return prevState.map((week) => {
         return week.map((date) => {
           for (let i = 0; i < googleEvents.length; i++) {
-            console.log("google events: ,", getDay(googleEvents[i].start));
+            //console.log("google events: ,", getDay(googleEvents[i].start));
             if (date.day == getDay(googleEvents[i].start)) {
-              console.log("Matched");
+              //console.log("Matched");
               return {
                 ...date,
                 title: googleEvents[i].title,

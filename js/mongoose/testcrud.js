@@ -14,6 +14,6 @@ import connectToDatabase from "./connection.js";
     const instagramTokenExpiry = admin.getInstagramTokenExpiry();
     const updateInstagramTokenExpiry = await admin.updateInstagramTokenExpiry(5);
   } catch (error) {
-    console.error( error , "Error occurred while finding admin ");
+    //console.error( error , "Error occurred while finding admin ");
   }
 })();

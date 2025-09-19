@@ -60,7 +60,7 @@ function Intro() {
         const data = await getHomePage();
         setHomePageData(data);
       } catch (error) {
-        console.error('Error fetching home page data:', error);
+        //console.error('Error fetching home page data:', error);
       }
     }
 

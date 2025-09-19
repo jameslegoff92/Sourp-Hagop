@@ -24,25 +24,25 @@ if (typeof window === 'undefined') {
     });
   } catch (error) {
     // Fallback if pino fails to load
-    console.warn('Pino failed to load, using console fallback:', error.message);
+    //console.warn('Pino failed to load, using console fallback:', error.message);
     logger = {
-      trace: (...args) => console.log('[TRACE]', ...args),
-      debug: (...args) => console.log('[DEBUG]', ...args),
-      info: (...args) => console.log('[INFO]', ...args),
-      warn: (...args) => console.warn('[WARN]', ...args),
-      error: (...args) => console.error('[ERROR]', ...args),
-      fatal: (...args) => console.error('[FATAL]', ...args),
+      trace: (...args) => //console.log('[TRACE]', ...args),
+      debug: (...args) => //console.log('[DEBUG]', ...args),
+      info: (...args) => //console.log('[INFO]', ...args),
+      warn: (...args) => //console.warn('[WARN]', ...args),
+      error: (...args) => //console.error('[ERROR]', ...args),
+      fatal: (...args) => //console.error('[FATAL]', ...args),
     };
   }
 } else {
   // Client-side: Use console with Pino-like interface
   logger = {
-    trace: (...args) => console.log('[TRACE]', ...args),
-    debug: (...args) => console.log('[DEBUG]', ...args),
-    info: (...args) => console.log('[INFO]', ...args),
-    warn: (...args) => console.warn('[WARN]', ...args),
-    error: (...args) => console.error('[ERROR]', ...args),
-    fatal: (...args) => console.error('[FATAL]', ...args),
+    trace: (...args) => //console.log('[TRACE]', ...args),
+    debug: (...args) => //console.log('[DEBUG]', ...args),
+    info: (...args) => //console.log('[INFO]', ...args),
+    warn: (...args) => //console.warn('[WARN]', ...args),
+    error: (...args) => //console.error('[ERROR]', ...args),
+    fatal: (...args) => //console.error('[FATAL]', ...args),
   };
 }
 

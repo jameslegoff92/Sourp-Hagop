@@ -139,8 +139,8 @@ export default function Historique({ historyData }) {
   useEffect(() => {
     const updateLayout = () => {
       if (ref.current) {
-        console.log("Value of ref.current: ", ref.current);
-        console.log("Value of ref.current.offsetTop: ", ref.current.offsetTop);
+        //console.log("Value of ref.current: ", ref.current);
+        //console.log("Value of ref.current.offsetTop: ", ref.current.offsetTop);
         setElementTop(745);
       }
     };
