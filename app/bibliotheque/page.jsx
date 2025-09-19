@@ -99,7 +99,7 @@ export default function Soutien() {
                     </ImageGrid>
                 </MotionDiv>
             </StyledDiv>
-            <BackgroundLogo src="../images/logo-big.svg"/>
+            {/* <BackgroundLogo src="../images/logo-big.svg"/> */}
             <Footer />
         </>
     );

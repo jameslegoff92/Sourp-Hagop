@@ -1,6 +1,6 @@
 export default {
   name: "tuitionFees",
-  title: "Frais de scolarité",
+  title: "Droits de scolarité et autres frais",
   type: "document",
   fields: [
     {

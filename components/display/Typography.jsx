@@ -86,15 +86,16 @@ const colorMapping = {
   seondaryDark: "var(--secondary-darkcolor)",
   dark: "var(--black)",
   light: "var(--white)",
-  gray: "var(--light-gray)",
+  lightGray: "var(--light-gray)",
+  gray: "var(--gray)",
 };
 
 
-// Create a styled motion component
 const createStyledMotionComponent = (component) => styled(motion[component])`
   ${({ type }) => headingStyles[type]};
   color: ${({ color }) => colorMapping[color] || 'var(--black)'};
   font-family: ${({ fontFamily }) => fontFamilyMapping[fontFamily] || 'var(--primary-ff)'};
+  ${({ weight }) => weight && `font-weight: ${weight};`}
 `;
 
 const Typography = ({ as = 'div', ...props }) => {

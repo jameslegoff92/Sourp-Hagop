@@ -210,7 +210,7 @@ export default function Historique({ historyData }) {
           <p>{/* Your content here */}</p>
         </div>
       </div>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+      {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/> */}
       <Footer />
     </>
   );

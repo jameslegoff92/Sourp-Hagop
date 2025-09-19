@@ -1,6 +1,6 @@
 export default {
   name: 'historyPage',
-  title: 'History Page',
+  title: 'Historique',
   type: 'document',
   fields: [
     // Page Header

@@ -1,6 +1,6 @@
 export default {
   name: "studentCouncilPage",
-  title: "Student Council Page",
+  title: "Conseil étudiant",
   type: "document",
   fields: [
     {
@@ -13,7 +13,7 @@ export default {
       name: "headerText",
       title: "Texte de l’en-tête",
       type: "string",
-      initialValue: "ANCIENS ET ANCIENNES"
+      initialValue: "CONSEIL D'ÉTUDIANTS"
     },
     {
       name: "introTitle",

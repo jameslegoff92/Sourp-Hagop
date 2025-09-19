@@ -1,6 +1,6 @@
 export default {
   name: "aiglePage",
-  title: "Aigles Page",
+  title: "Équipe des Aigles",
   type: "document",
   fields: [
     {

@@ -1,6 +1,6 @@
 export default {
   name: "tripsPage",
-  title: "Trips Page",
+  title: "Sorties scolaires et voyages",
   type: "document",
   fields: [
     {

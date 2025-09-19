@@ -1,6 +1,6 @@
 export default {
   name: "rentalSpacesPage",
-  title: "Rental Spaces Page",
+  title: "Locations",
   type: "document",
   fields: [
     {

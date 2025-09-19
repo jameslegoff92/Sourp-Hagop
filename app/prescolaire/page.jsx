@@ -409,7 +409,7 @@ export default function ServiceParascolaire() {
                 </MotionDiv>
             </StyledDiv>
 
-            <BackgroundLogo src="../images/logo-big.svg" />
+            {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
             <Footer />
         </>
     );

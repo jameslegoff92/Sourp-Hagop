@@ -39,7 +39,7 @@ export default function Soutien() {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/>
+            {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/> */}
             <Header animate = {false} imageSrc="../images/header/soutien-header.jpg" headerText="SOUTIEN AUX ÉLÈVES" headerTextTop="70%" />
 
             <StyledDiv>

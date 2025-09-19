@@ -1,6 +1,6 @@
 export default {
   name: "uniformPage",
-  title: "Uniform Page",
+  title: "Uniforme scolaire",
   type: "document",
   fields: [
     {

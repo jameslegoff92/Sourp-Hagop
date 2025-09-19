@@ -102,7 +102,7 @@ export default function Uniforme({ data }) {
           </ContactContainer>
         )}
       </StyledDiv>
-      <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} />
+      {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} /> */}
       <Footer />
     </>
   )
