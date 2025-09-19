@@ -228,7 +228,7 @@ export default function CareerPage() {
     <>
       <Header
         animate={false}
-        imageSrc={data?.headerImage?.asset?.url || "../images/header/careers-header.jpg"}
+        imageSrc={data?.headerImage?.asset?.url}
         headerText={data?.headerText || "REJOIGNEZ NOTRE ÉQUIPE"}
         headerTextTop="70%"
       />
