@@ -58,6 +58,8 @@ const navList = [
       { text: "Soutien aux élèves", link: "/soutien" },
       { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
       { text: "Bibliothèque", link: "/bibliotheque" },
+      { text: "Mer Aykin: un jardin littéraire", link: "/jardin-litteraire" },
+      { text: "Créalab", link: "/crealab" },
       { text: "Service de garde", link: "/service-de-garde" },
       { text: "Transport", link: "/transport" },
       { text: "Uniforme scolaire", link: "/uniforme-scolaire" },

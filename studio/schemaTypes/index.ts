@@ -9,6 +9,8 @@ import aiglePage from './aiglePage'
 import tripsPage from './tripsPage'
 import rentalSpacesPage from './rentalSpacesPage'
 import libraryPage from './libraryPage'
+import jardinLitteraire from './jardinLitterairePage'
+import crealabPage from './crealabPage'
 
 export const schemaTypes = [
   homePage, 
@@ -20,5 +22,7 @@ export const schemaTypes = [
   aiglePage, 
   tripsPage, 
   rentalSpacesPage, 
-  teamPage
+  teamPage,
+  jardinLitteraire,
+  crealabPage
 ]

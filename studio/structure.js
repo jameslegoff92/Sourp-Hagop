@@ -53,6 +53,9 @@ export default (S) =>
                         .items([
                             S.documentTypeListItem('libraryPage').title("Bibliothèque"),
                             S.documentTypeListItem('uniformPage').title("Uniforme scolaire"),
+                            S.documentTypeListItem('jardinLitterairePage').title("Mer Aykin: Un jardin littéraire"),
+                            S.documentTypeListItem('crealabPage').title("Créalab"),
+
                         ])
                 ),
 

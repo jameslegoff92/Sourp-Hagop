@@ -55,7 +55,7 @@ const HeaderVideo = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center bottom;
+  object-position: ${props => props.videoPosition || 'center bottom'};
   z-index: -1;
 `;
 
@@ -96,8 +96,7 @@ const HeaderText = styled.div`
   }
 `;
 
-const Header = ({ videoSrc, imageSrc, headerText, headerTextTop, headerTextRight, mobileTop, mobileRight, animate = false }) => {
-  return (
+const Header = ({ videoSrc, imageSrc, headerText, headerTextTop, headerTextRight, mobileTop, mobileRight, videoPosition, animate = false }) => {  return (
     <>
       <TopNav />
       <Container>
@@ -106,7 +105,14 @@ const Header = ({ videoSrc, imageSrc, headerText, headerTextTop, headerTextRight
       <HeaderImageContainer>
         {/* Conditionally render video or image */}
         {videoSrc ? (
-          <HeaderVideo src={videoSrc} autoPlay loop muted playsInline />
+          <HeaderVideo 
+            src={videoSrc} 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            videoPosition={videoPosition}
+          />
         ) : (
           <HeaderImage src={imageSrc} />
         )}
