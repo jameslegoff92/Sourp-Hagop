@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { createClient } from "@sanity/client";
 import { getCareerPage } from "../../lib/sanity-queries";
 import CareerModal from "../../components/modal/careerModal";
+import { PortableText } from '@portabletext/react';
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -31,7 +32,7 @@ const MotionDiv = styled(motion.div)`
 
 const CardsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   gap: 24px;
   margin: 40px 0;
   @media (max-width: 768px) {
@@ -43,25 +44,31 @@ const CardsGrid = styled.div`
 const JobCard = styled(motion.div)`
   background: white;
   border: 1px solid #e8f4fd;
-      box-shadow: 0 2px 30px rgba(0, 125, 195, 0.15);
-
+  box-shadow: 0 2px 30px rgba(0, 125, 195, 0.15);
   overflow: visible;
   position: relative;
   transition: all 0.3s ease;
   display: flex;
-  flex-direction: column;
-  min-height: 520px;
+  flex-direction: row;
+  min-height: 320px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    min-height: 520px;
+  }
 `;
 
 const CardImage = styled.div`
-  width: 100%;
-  height: 180px;
+  width: 40%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
   background-color: #f8fbff;
+  flex-shrink: 0;
   @media (max-width: 768px) {
+  background-size: auto;
+    width: 100%;
     height: 160px;
   }
 `;
@@ -94,6 +101,12 @@ const CircularBadge = styled.div`
     top: -16px;
     right: -16px;
   }
+`;
+
+const ClickableImage = styled.div`
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
 `;
 
 const BadgeNumber = styled.div`
@@ -188,7 +201,6 @@ const TextContainer = styled.div`
   margin: 0 auto;
 `;
 
-
 function blocksToPlainText(blocks) {
   if (!Array.isArray(blocks)) return "";
   return blocks
@@ -234,7 +246,6 @@ export default function CareerPage() {
                 as="p"
                 type="h6"
                 color="dark"
-
               >
                 {blocksToPlainText(data?.introText)}
               </Typography>
@@ -243,40 +254,34 @@ export default function CareerPage() {
 
           <CardsGrid>
             {loading ? (
-              // Show 3 placeholder cards while loading
               Array.from({ length: 3 }).map((_, i) => (
                 <JobCard key={`placeholder-${i}`} />
               ))
             ) : jobs.length === 0 ? (
-              // If no jobs in Sanity, show friendly message
-
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <TextContainer>
-              <Typography
-                as="p"
-                type="h3"
-                style={{ color: "var(--primary-color)" }}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
               >
-                Aucune offre disponible pour l’instant
-
-              </Typography>
-              <Typography
-                as="p"
-                type="h6"
-                color="dark"
-              >
-                Restez à l’affût de nos prochaines opportunités !
-              </Typography>
-            </TextContainer>
-          </motion.div>
-
+                <TextContainer>
+                  <Typography
+                    as="p"
+                    type="h3"
+                    style={{ color: "var(--primary-color)" }}
+                  >
+                    Aucune offre disponible pour l'instant
+                  </Typography>
+                  <Typography
+                    as="p"
+                    type="h6"
+                    color="dark"
+                  >
+                    Restez à l'affût de nos prochaines opportunités !
+                  </Typography>
+                </TextContainer>
+              </motion.div>
             ) : (
-              // Otherwise render jobs
               jobs.map((job, index) => (
                 <JobCard
                   key={job._key || job._id || `job-${index}`}
@@ -289,28 +294,28 @@ export default function CareerPage() {
                     style={{
                       backgroundImage: job.image?.asset?.url
                         ? `url('${job.image.asset.url}')`
-                        : "none",
+                        : "url('../images/logo-big.svg')",
+                      backgroundSize: job.image?.asset?.url ? 'cover' : '35%',
+                      opacity: job.image?.asset?.url ? 1 : 0.3,
+                      backgroundRepeat: job.image?.asset?.url ? 'no-repeat' : 'no-repeat',
                     }}
                   >
-                    <CircularBadge className={job.postsAvailable === 0 ? "unavailable" : ""}>
-                      <BadgeNumber>
-                        {typeof job.postsAvailable === "number" ? job.postsAvailable : 0}
-                      </BadgeNumber>
-                      {job.postsAvailable === 1 ? "POSTE" : "POSTES"}
-                      <br />
-                      disponible{job.postsAvailable > 1 ? "s" : ""}
-                    </CircularBadge>
+                    <ClickableImage
+                      onClick={() => job.image?.asset?.url && window.open(job.image.asset.url, '_blank')}
+                    />
                   </CardImage>
 
                   <CardContent>
                     <JobTitle>{job.title}</JobTitle>
                     <JobLocation>{job.level}</JobLocation>
 
-                    <JobDescription>
-                      {typeof job.description === "string"
-                        ? job.description
-                        : blocksToPlainText(job.description)}
-                    </JobDescription>
+<JobDescription>
+  {Array.isArray(job.description) ? (
+    <PortableText value={job.description} />
+  ) : (
+    job.description || ""
+  )}
+</JobDescription>
 
                     <JobDetails>
                       {job.type && <JobTag>{job.type}</JobTag>}
@@ -330,6 +335,15 @@ export default function CareerPage() {
                       </PillButton>
                     </CardFooter>
                   </CardContent>
+                  
+                  <CircularBadge className={job.postsAvailable === 0 ? "unavailable" : ""}>
+                    <BadgeNumber>
+                      {typeof job.postsAvailable === "number" ? job.postsAvailable : 0}
+                    </BadgeNumber>
+                    {job.postsAvailable === 1 ? "POSTE" : "POSTES"}
+                    <br />
+                    disponible{job.postsAvailable > 1 ? "s" : ""}
+                  </CircularBadge>
                 </JobCard>
               ))
             )}
@@ -341,7 +355,6 @@ export default function CareerPage() {
         onClose={() => setSelectedJob(null)}
         job={selectedJob}
       />
-      {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }} /> */}
       <Footer />
     </>
   );

@@ -27,7 +27,7 @@ export default (S) =>
                         .title("L'école")
                         .items([
                             S.documentTypeListItem('historyPage').title('Historique'),
-                            S.documentTypeListItem('teamPage').title('Équipe'),
+                            S.documentTypeListItem('teamPage').title("L'équipe"),
                         ])
                 ),
 
