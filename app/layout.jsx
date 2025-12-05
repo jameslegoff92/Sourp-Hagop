@@ -6,6 +6,7 @@ import "./globals.css";
 
 //Third Party Imports
 import { SessionProvider } from "next-auth/react";
+import PageLoader from "../components/ui/PageLoader";
 
 //Local Imports
 /* import FacebookSDK from "@/components/ui/FacebookSDK";
@@ -27,7 +28,11 @@ export default function RootLayout({ children }) {
       </head>
       <body className={{ fontFamily: "Roboto, sans-serif" }}>
         {/* <FacebookSDK /> */}
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <PageLoader>
+            {children}
+          </PageLoader>
+        </SessionProvider>      
       </body>
     </html>
   );

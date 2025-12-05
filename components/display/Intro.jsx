@@ -99,7 +99,7 @@ function Intro() {
               as="p"
               type="h5"
               color="dark"
-              initial={{ opacity: 0, y: 400 }}
+              initial={{ opacity: 0, y: 200 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.7, ease: "easeInOut" }}
               viewport={{ once: true }}
