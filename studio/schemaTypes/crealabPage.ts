@@ -13,7 +13,7 @@ export default {
     },
     {
       name: "headerText",
-      title: "Texte de l’en-tête",
+      title: "Texte de l’entête",
       type: "string",
       initialValue: "CRÉALAB"
     },

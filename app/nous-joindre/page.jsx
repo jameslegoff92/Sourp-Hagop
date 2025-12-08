@@ -409,7 +409,7 @@ export default function Contact() {
 
                 <FormRow>
                 <FieldWrapper>
-                    <Label>Email *</Label>
+                    <Label>Courriel *</Label>
                     <Input
                     type="email"
                     name="email"

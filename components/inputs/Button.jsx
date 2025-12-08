@@ -41,9 +41,23 @@ const StyledButton = styled(Button)`
 `;
 
 const CustomButton = ({...props}) => {
+  const {
+    whileInView,
+    whileHover,
+    whileTap,
+    whileFocus,
+    whileDrag,
+    initial,
+    animate,
+    exit,
+    variants,
+    transition,
+    viewport,
+    ...buttonProps
+  } = props;
   return (
     <>
-      <StyledButton {...props} >
+      <StyledButton {...buttonProps} >
         {props.children}
       </StyledButton>
     </>

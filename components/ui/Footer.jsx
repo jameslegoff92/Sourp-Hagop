@@ -4,17 +4,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import css from './Footer.module.css';
 
-export const AnimatedMenuLink = ({ href, children }) => (
+export const AnimatedMenuLink = ({ href, children, external }) => (
     <motion.a 
         href={href}
         className={css.verticalWord}
+        target={external ? "_blank" : "_self"}
+        rel={external ? "noopener noreferrer" : undefined}
         whileHover={{ 
             scale: 1.1,
         }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
     >
         <span className={css.hoverUnderline}>{children}</span>
-
     </motion.a>
 );
 
@@ -30,7 +31,7 @@ const Footer = () => (
                 <p className={`${css.logoText}`}> École arménienne Sourp Hagop </p>
                 <p className={`${css.logoText} ${css.logoTextAddress}`}> 3400 Rue Nadon</p>
                 <p className={`${css.logoText} ${css.logoTextAddress}`}>Montréal, Québec</p>
-                <p className={`${css.logoText} ${css.logoTextAddress}`}>Canada, H4J 1P7</p>
+                <p className={`${css.logoText} ${css.logoTextAddress}`}>Canada, H4J 1P5</p>
                 <p className={css.phoneEmailContainer} style={{ marginTop: '20px' }}>
                     <span className={css.letterTandC}>T</span>
                     <span className={css.phoneEmailText}>514 332-1373</span>
@@ -58,7 +59,7 @@ const Footer = () => (
                 <AnimatedMenuLink href="https://ecolesourphagop.coba.ca/pednet/login.coba">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="/carrieres">CARRIÈRES</AnimatedMenuLink>
                 <AnimatedMenuLink href="/calendrier">CALENDRIER</AnimatedMenuLink>
-                <AnimatedMenuLink href="https://www.fondationsh.com">LA FONDATION</AnimatedMenuLink>
+                <AnimatedMenuLink href="https://www.fondationsh.com" external>LA FONDATION</AnimatedMenuLink>
                 <AnimatedMenuLink href="/nciens">
                     <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>
                 </AnimatedMenuLink>

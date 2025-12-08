@@ -7,13 +7,13 @@ export default defineType({
   fields: [
     defineField({
       name: 'headerImage',
-      title: 'Image d’en-tête',
+      title: 'Image d’entête',
       type: 'image',
       options: {hotspot: true}
     }),
     defineField({
       name: 'headerText',
-      title: 'Texte d’en-tête',
+      title: 'Texte d’entête',
       type: 'string'
     }),
     defineField({

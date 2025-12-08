@@ -11,11 +11,17 @@ import rentalSpacesPage from './rentalSpacesPage'
 import libraryPage from './libraryPage'
 import jardinLitteraire from './jardinLitterairePage'
 import crealabPage from './crealabPage'
+import projetPrimairePage from './projetPrimairePage'
+import projetPrescolairePage from './projetPrescolairePage'
+import pourquoi from './pourquoiPage'
+import testSchema from './testSchema'
 
 export const schemaTypes = [
   homePage, 
   historyPage, 
-  careerPage, 
+  careerPage,
+  projetPrimairePage,
+  projetPrescolairePage,
   libraryPage,
   uniformPage, 
   studentCouncilPage, 
@@ -24,5 +30,7 @@ export const schemaTypes = [
   rentalSpacesPage, 
   teamPage,
   jardinLitteraire,
-  crealabPage
+  crealabPage,
+  pourquoi,
+  testSchema
 ]

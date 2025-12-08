@@ -16,7 +16,6 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
   };
 
   const handleMouseLeave = (e) => {
-    //console.log("event fired");
     setIsHovered(false);
   };
 
@@ -25,16 +24,27 @@ export default function NavDropdown({ title = "add title", items = [], type }) {
 
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={css.container}>
-      <NavItem  color={navColor} hover={hoverColor} title={title} main={true} isHovered={isHovered}/>
+      <NavItem color={navColor} hover={hoverColor} title={title} main={true} isHovered={isHovered}/>
 
       {isHovered && (
-        <div className={css.wrapper} onMouseLeave={handleMouseLeave}   >
-          <ul className={css.dropdown}  >
+        <div className={css.wrapper} onMouseLeave={handleMouseLeave}>
+          <ul className={css.dropdown}>
             {items.map((item, index) => (
               <li className={css.listItem} key={index}>
-                <Link className={css.link} href={item.link}>
-                  {item.text}
-                </Link>
+                {item.external ? (
+                  <a 
+                    className={css.link} 
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.text}
+                  </a>
+                ) : (
+                  <Link className={css.link} href={item.link}>
+                    {item.text}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

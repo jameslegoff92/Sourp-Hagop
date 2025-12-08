@@ -25,7 +25,7 @@ const ArmenianShieldLoader = ({ onComplete }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="relative w-60 h- sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center translate-x-8 sm:translate-x-11">
+          <div className="relative w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center translate-x-8 sm:translate-x-11">
             <motion.div
               className="w-60 h-60 sm:w-64 sm:h-64 md:w-80 md:h-80"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -39,47 +39,47 @@ const ArmenianShieldLoader = ({ onComplete }) => {
                 ease: "easeInOut"
               }}
             >
-                <LogoSHsvg className="w-full h-full" />
+              <LogoSHsvg className="w-full h-full" />
             </motion.div>
 
-            {/* Pulsating glow effect around the shield - Mobile */}
+            {/* Pulsating glow effect - Mobile */}
             <motion.div
-                className="absolute inset-0 bg-blue-400 rounded-full blur-lg opacity-20 sm:hidden"
-                style={{ 
-                    left: '-70px',
-                    top: '-50px',
-                    width: 'calc(100% + 80px)',
-                    height: 'calc(100% + 80px)'
-                }}
-                animate={{ 
-                    scale: [0.8, 1.2, 0.8],
-                    opacity: [0.1, 0.3, 0.1]
-                }}
-                transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: 2
-                }}
+              className="absolute inset-0 bg-blue-400 rounded-full blur-lg opacity-20 sm:hidden"
+              style={{ 
+                left: '-70px',
+                top: '-50px',
+                width: 'calc(100% + 80px)',
+                height: 'calc(100% + 80px)'
+              }}
+              animate={{ 
+                scale: [0.8, 1.2, 0.8],
+                opacity: [0.1, 0.3, 0.1]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                delay: 2
+              }}
             />
 
-            {/* Pulsating glow effect around the shield - Desktop */}
+            {/* Pulsating glow effect - Desktop */}
             <motion.div
-                className="absolute inset-0 bg-blue-400 rounded-full blur-xl opacity-20 hidden sm:block"
-                style={{ 
-                    left: '-90px',
-                    top: '-60px',
-                    width: 'calc(100% + 100px)',
-                    height: 'calc(100% + 100px)'
-                }}
-                animate={{ 
-                    scale: [0.8, 1.2, 0.8],
-                    opacity: [0.1, 0.3, 0.1]
-                }}
-                transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: 2.5
-                }}
+              className="absolute inset-0 bg-blue-400 rounded-full blur-xl opacity-20 hidden sm:block"
+              style={{ 
+                left: '-90px',
+                top: '-60px',
+                width: 'calc(100% + 100px)',
+                height: 'calc(100% + 100px)'
+              }}
+              animate={{ 
+                scale: [0.8, 1.2, 0.8],
+                opacity: [0.1, 0.3, 0.1]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                delay: 2.5
+              }}
             />
           </div>
         </motion.div>
@@ -89,17 +89,38 @@ const ArmenianShieldLoader = ({ onComplete }) => {
 };
 
 const ArmenianPageLoader = ({ children }) => {
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    // Check if this is the first visit in this session
+    const hasLoaded = sessionStorage.getItem('siteLoaded');
+    
+    if (!hasLoaded) {
+      setShowLoader(true);
+    } else {
+      setIsReady(true);
+    }
+  }, []);
+
+  const handleLoaderComplete = () => {
+    sessionStorage.setItem('siteLoaded', 'true');
+    setShowLoader(false);
+    setIsReady(true);
+  };
+
+  // Initial render before useEffect runs
+  if (!showLoader && !isReady) {
+    return null;
+  }
 
   return (
     <>
       {showLoader && (
-        <ArmenianShieldLoader 
-          onComplete={() => setShowLoader(false)}
-        />
+        <ArmenianShieldLoader onComplete={handleLoaderComplete} />
       )}
       
-      {!showLoader && (
+      {isReady && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

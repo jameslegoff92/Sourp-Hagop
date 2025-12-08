@@ -5,13 +5,13 @@ export default {
   fields: [
     {
       name: "headerImage",
-      title: "Image d'en-tête",
+      title: "Image d'entête",
       type: "image",
       options: { hotspot: true },
     },
     {
       name: "headerText",
-      title: "Texte d'en-tête",
+      title: "Texte d'entête",
       type: "string",
     },
     {

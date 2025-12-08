@@ -45,13 +45,17 @@ const navList = [
     title: "Vie Étudiante",
     items: [
       /* { text: "Vie Communautaire", link: "/vie-communautaire" }, */
-      { text: "Activités parascolaires", link: "/activites-parascolaires" },
+      {
+        text: "Activités parascolaires",
+        link: "https://sites.google.com/ecolesourphagop.com/parascolaire/home?utm_source=brevo&utm_campaign=EASHebdo%205%20septembre%202025&utm_medium=email",
+        external: true
+      }, 
       { text: "Conseil étudiant", link: "/conseil-etudiant" },
       { text: "Équipe des Aigles", link: "/aigles" },
       { text: "Sorties scolaires et voyages", link: "/sorties-scolaires-voyages" },
     ],
   },
- 
+
   {
     title: "Services à l'élève",
     items: [
@@ -79,7 +83,7 @@ const navItems = [
   { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/about" },
   { title: "Anciens et Anciennes", url: "/contact" },
-  { title: "La Fondation", url: "https://fondationsh.com/" },
+  { title: "La Fondation", url: "https://fondationsh.com/", external: true },
 ];
 
 //Mobile Navigation Styling
@@ -123,6 +127,16 @@ const CSSNavDropdown = styled.div`
   padding: 1rem 0 0;
 `;
 
+const CSSMobileNavItemExternal = styled.a`
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--white);
+    text-decoration: none;
+  }
+`;
+
 const CSSMobileNavItems = styled(motion.ul)`
   display: flex;
   flex-direction: column;
@@ -157,7 +171,7 @@ const CSSChevronContainer = styled(motion.div)``;
 
 //Component Framer Motion Variants
 const dropdownVariants = {
-  hidden: { 
+  hidden: {
     pointerEvents: "none",
     opacity: 0,
     height: 0,
@@ -204,7 +218,8 @@ const MobileNav = ({ open }) => {
         <MobileNavContainer>
           <SecondaryNavigation>
             {navItems.map((item, index) => (
-              <SecondaryLink key={index} href={item.url}>
+              <SecondaryLink key={index} href={item.url} target={item.external ? "_blank" : "_self"}
+                rel={item.external ? "noopener noreferrer" : undefined}>
                 {item.title}
               </SecondaryLink>
             ))}
@@ -320,7 +335,7 @@ const Nav = ({ type = "primary", animate = true }) => {
               <p
                 className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}
               >
-                ÉCOLE PRIMAIRE V. ET A. SAFARIAN
+                ÉCOLE PRIMAIRE V. ET A. SARAFIAN
               </p>
               <p
                 className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}

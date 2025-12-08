@@ -5,13 +5,13 @@ export default {
   fields: [
     {
       name: "headerImage",
-      title: "Image d’en-tête",
+      title: "Image d’entête",
       type: "image",
       options: { hotspot: true }
     },
     {
       name: "headerText",
-      title: "Texte de l’en-tête",
+      title: "Texte de l’entête",
       type: "string",
       initialValue: "CONSEIL D'ÉTUDIANTS"
     },

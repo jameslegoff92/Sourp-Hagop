@@ -19,6 +19,8 @@ export default (S) =>
                 (listItem) => listItem.getId() === 'homePage'
             ),
 
+            S.documentTypeListItem('testDocument').title('TEST'),
+
             // Group: L'école
             S.listItem()
                 .title("L'école")
@@ -28,6 +30,19 @@ export default (S) =>
                         .items([
                             S.documentTypeListItem('historyPage').title('Historique'),
                             S.documentTypeListItem('teamPage').title("L'équipe"),
+                        ])
+                ),
+
+            // Group: Pédagogie
+            S.listItem()
+                .title("Pédagogie")
+                .child(
+                    S.list()
+                        .title("Pédagogie")
+                        .items([
+                            S.documentTypeListItem('prescolaire').title('Programme éducatif au préscolaire'),
+                            S.documentTypeListItem('primaire').title('Programme éducatif au primaire'),
+                            //S.documentTypeListItem('secondaire').title('Programme éducatif au secondaire'),
                         ])
                 ),
 
@@ -66,6 +81,7 @@ export default (S) =>
                     S.list()
                         .title("Admissions")
                         .items([
+                            S.documentTypeListItem('pourquoi').title('Pourquoi Sourp Hagop')
                             /*  S.documentTypeListItem('tuitionFees').title("Droits de scolarité et autres frais"), */
                         ])
                 ),

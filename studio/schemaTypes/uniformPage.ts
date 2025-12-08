@@ -5,7 +5,7 @@ export default {
   fields: [
     {
       name: "headerImage",
-      title: "Image d’en-tête",
+      title: "Image d’entête",
       type: "image",
       options: { hotspot: true }
     },

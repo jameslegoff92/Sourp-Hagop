@@ -17,7 +17,9 @@ const AccordionItemContainer = styled.div`
   }
 `;
 
-const AccordionHeader = styled(motion.div)`
+const AccordionHeader = styled(motion.div, {
+  shouldForwardProp: (prop) => prop !== 'isOpen'
+})`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +46,9 @@ const Title = styled.span`
   font-size: 1.2rem;
 `;
 
-const Icon = styled(motion.span)`
+const Icon = styled(motion.span, {
+  shouldForwardProp: (prop) => prop !== 'isOpen'
+})`
   font-size: 1.5rem;
   line-height: 1;
   color: ${({ isOpen }) => (isOpen ? "var(--primary-color)" : "#000")};

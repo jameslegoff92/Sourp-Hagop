@@ -71,8 +71,7 @@ export default function Team({ teamData }) {
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >
-              Envie de contribuer à une mission éducative et de faire partie
-              d’une équipe passionnée ? Rejoignez-nous dès maintenant !
+              Venez faire une différence avec nous dès maintenant
             </Typography>
           </TextContainer>
         </MotionDiv>
@@ -85,7 +84,7 @@ export default function Team({ teamData }) {
             viewport={{ once: true }}
             style={{ marginTop: "50px" }}
           >
-            Appliquer Maintenant
+            Postuler maintenant
           </CustomButton>
         </Link>
       </StyledDiv>
