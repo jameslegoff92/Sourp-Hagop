@@ -13,15 +13,23 @@ import jardinLitteraire from './jardinLitterairePage'
 import crealabPage from './crealabPage'
 import projetPrimairePage from './projetPrimairePage'
 import projetPrescolairePage from './projetPrescolairePage'
-import pourquoi from './pourquoiPage'
+import pourquoiPage from './pourquoiPage'
 import testSchema from './testSchema'
+import admissionsPage from './admissionsPage'
+import tuitionFeesPage from './tuitionFeesPage'
+import projetSecondairePage from './projetSecondairePage'
+import administrationPage from "./administrationPage"
+import projetEducatifPage from "./projetEducatifPage"
 
 export const schemaTypes = [
   homePage, 
-  historyPage, 
+  historyPage,
+  administrationPage,
+  projetEducatifPage,
   careerPage,
   projetPrimairePage,
   projetPrescolairePage,
+  projetSecondairePage,
   libraryPage,
   uniformPage, 
   studentCouncilPage, 
@@ -31,6 +39,8 @@ export const schemaTypes = [
   teamPage,
   jardinLitteraire,
   crealabPage,
-  pourquoi,
+  pourquoiPage,
+  admissionsPage,
+  tuitionFeesPage,
   testSchema
 ]

@@ -45,13 +45,19 @@ const CyclesContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin: 25px 0;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin: 25px auto;
+  }
 `;
 
 const CycleCard = styled(motion.div, {
   shouldForwardProp: (prop) => prop !== 'bgImage'
 })`
   position: relative;
-  height: 300px;
+  height: 500px;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
@@ -72,7 +78,7 @@ const CycleCard = styled(motion.div, {
   }
   
   &:hover .cycle-content {
-    justify-content: flex-start;
+    justify-content: center;
     padding-top: 40px;
   }
   
@@ -85,6 +91,10 @@ const CycleCard = styled(motion.div, {
     transform: translateY(0);
     max-height: 200px;
   }
+
+  @media (max-width: 1300px) {
+    height: 300px;
+  }
 `;
 
 const CycleContent = styled.div`
@@ -96,7 +106,7 @@ const CycleContent = styled.div`
   align-items: center;
   padding: 25px;
   text-align: center;
-  transition: all 5s ease;
+  transition: all 0.5s ease;
 `;
 
 const CycleName = styled.div`
@@ -104,7 +114,7 @@ const CycleName = styled.div`
   font-weight: 600;
   margin: 0;
   transform: translateY(0);
-  transition: transform 4s ease;
+  transition: transform 0.5s ease;
 `;
 
 const CycleDetails = styled.div`
@@ -156,6 +166,10 @@ const LanguageGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   margin: 25px 0;
+
+    @media (max-width: 1300px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const LanguageCard = styled(motion.div, {

@@ -34,7 +34,7 @@ const StyledParagraph = styled(Typography)`
   margin-bottom: -20px;
 `;
 
-export default function ConseilAdministration() {
+export default function ProtecteurNational() {
   return (
     <>
       <Header

@@ -1,7 +1,7 @@
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
-  name: 'pourquoi',
+  name: 'pourquoiPage',
   title: 'Pourquoi Sourp Hagop',
   type: 'document',
   groups: [
