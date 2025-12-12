@@ -34,7 +34,7 @@
     "luxon": "^3.7.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.2",
-    "next": "^15.5.2",
+    "next": "^15.5.7",
     "next-auth": "^5.0.0-beta.20",
     "next-sanity": "^9.4.2",
     "path-to-regexp": "^6.3.0",
