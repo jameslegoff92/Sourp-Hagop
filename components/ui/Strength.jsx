@@ -26,6 +26,8 @@ const GridItemWrapper = styled(motion.div, {
   shouldForwardProp: (prop) => prop !== 'index' && prop !== 'imageUrl'
 })`
   background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.8)), url('${(props) => props.imageUrl}');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -50,7 +52,7 @@ const GridItem = ({ item, index }) => {
 
   const handleHoverStart = async () => {
     parentControls.start({
-      backgroundSize: "120% 120%",
+      backgroundSize: "cover",
       transition: { duration: 0.5, ease: "easeIn" },
     });
     childControls1.start({
@@ -66,7 +68,7 @@ const GridItem = ({ item, index }) => {
 
   const handleHoverEnd = async () => {
     parentControls.start({
-      backgroundSize: "100% 100%",
+      backgroundSize: "cover",
       transition: { duration: 0.5, ease: "easeOut" },
     });
     childControls1.start({
@@ -85,7 +87,7 @@ const GridItem = ({ item, index }) => {
     e.preventDefault();
     if (!isOpen.current) {
       parentControls.start({
-        backgroundSize: "120% 120%",
+        backgroundSize: "cover",
         transition: { duration: 0.5, ease: "easeIn" },
       });
       childControls1.start({
@@ -99,7 +101,7 @@ const GridItem = ({ item, index }) => {
       });
     } else {
       parentControls.start({
-        backgroundSize: "100% 100%",
+        backgroundSize: "cover",
         transition: { duration: 0.5, ease: "easeOut" },
       });
       childControls1.start({
@@ -125,7 +127,7 @@ const GridItem = ({ item, index }) => {
       onTap={handleTap}
       index={index}
       imageUrl={item.imageUrl}
-      initial={{ backgroundSize: "100% 100%", position: "relative" }}
+      initial={{ backgroundSize: "cover", position: "relative" }}
     >
       <GridItemText
         animate={childControls1}
@@ -135,7 +137,6 @@ const GridItem = ({ item, index }) => {
         as="h4"
         style={{ width: "350px" }}
         initial={{
-          bottom: "5px",
           top: "auto",
           position: "absolute",
           transform: "translateX(-50%)",

@@ -31,7 +31,9 @@ export default (S) =>
                             S.documentTypeListItem('historyPage').title('Historique'),
                             S.documentTypeListItem('teamPage').title("L'équipe"),
                             S.documentTypeListItem("administrationPage").title("Conseil d’administration"),
-                            S.documentTypeListItem("projetEducatifPage").title("Projet éducatif")
+                            S.documentTypeListItem("projetEducatifPage").title("Projet éducatif"),
+                            S.documentTypeListItem("comiteParentsPage").title("Comité de parents"),
+                            S.documentTypeListItem('anciensPage').title('Anciens et Anciennes'),
 
                         ])
                 ),
@@ -69,11 +71,13 @@ export default (S) =>
                     S.list()
                         .title("Services à l'élève")
                         .items([
+                            S.documentTypeListItem('soutienPage').title('Soutien aux élèves'),
                             S.documentTypeListItem('libraryPage').title("Bibliothèque"),
-                            S.documentTypeListItem('uniformPage').title("Uniforme scolaire"),
                             S.documentTypeListItem('jardinLitterairePage').title("Mer Aykin: Un jardin littéraire"),
                             S.documentTypeListItem('crealabPage').title("Créalab"),
-
+                            S.documentTypeListItem('serviceDeGardePage').title('Service de garde'),
+                            S.documentTypeListItem('transportPage').title('Transport'),
+                            S.documentTypeListItem('uniformPage').title("Uniforme scolaire"),
                         ])
                 ),
 

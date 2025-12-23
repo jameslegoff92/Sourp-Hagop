@@ -58,20 +58,20 @@ const Footer = () => (
             <nav className={css.verticalWordsContainerLeft}>
                 <AnimatedMenuLink href="https://ecolesourphagop.coba.ca/pednet/login.coba">PORTAIL</AnimatedMenuLink>
                 <AnimatedMenuLink href="/carrieres">CARRIÈRES</AnimatedMenuLink>
+                <AnimatedMenuLink href="/admissions">ADMISSIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="/calendrier">CALENDRIER</AnimatedMenuLink>
-                <AnimatedMenuLink href="https://www.fondationsh.com" external>LA FONDATION</AnimatedMenuLink>
-                <AnimatedMenuLink href="/nciens">
-                    <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>
+                <AnimatedMenuLink href="/protecteur-national-eleve">
+                    <span className={css.longTextWrap}>PROTECTEUR NATIONAL DE L'ÉLÈVE</span>
                 </AnimatedMenuLink>
             </nav>
             <div className={css.verticalLine}></div>
             <nav className={css.verticalWordsContainerRight}>
-                <AnimatedMenuLink href="/admissions">ADMISSIONS</AnimatedMenuLink>
+                <AnimatedMenuLink href="https://www.fondationsh.com" external>LA FONDATION</AnimatedMenuLink>
+                <AnimatedMenuLink href="/anciens">
+                    <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>
+                </AnimatedMenuLink>
                 <AnimatedMenuLink href="/locations">NOS LOCATIONS</AnimatedMenuLink>
                 <AnimatedMenuLink href="/nous-joindre">NOUS JOINDRE</AnimatedMenuLink>
-                <AnimatedMenuLink href="/protecteur-national-eleve">
-                    <span className={css.longTextWrap}>PROTECTEUR NATIONAL DE L'ÉLÈVE</span>
-                </AnimatedMenuLink>
             </nav>
             <div className={css.socialMediaContainer}>
                 <a href="https://www.facebook.com/ecolearmeniennesourphagop" className={css.facebookLink} target="_blank" rel="noopener noreferrer">
@@ -90,7 +90,7 @@ const Footer = () => (
             </div>
         </div>
         <div className={css.bottomText}>
-                <p>L'École arménienne Soup Hagop dispense un enseignement en langue française,</p>
+                <p>L'École arménienne Sourp Hagop dispense un enseignement en langue française,</p>
                 <p>conduisant les élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p>
         </div>
 

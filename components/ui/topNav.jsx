@@ -9,7 +9,8 @@ import { motion } from "framer-motion";
 
 const navItems = [
 /*   { title: "", url: "https://eash50.wixsite.com/site", logo: "/images/header/50e-logo-secmenu.svg", },
- */  { title: "Carrières", url: "/carrieres" },
+ */  
+  { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/calendrier" },
   { title: "Location d'espaces", url: "/locations" },
   { title: "La Fondation", url: "https://fondationsh.com/", external: true },

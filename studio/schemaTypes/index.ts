@@ -20,12 +20,19 @@ import tuitionFeesPage from './tuitionFeesPage'
 import projetSecondairePage from './projetSecondairePage'
 import administrationPage from "./administrationPage"
 import projetEducatifPage from "./projetEducatifPage"
+import comiteParentsPage from "./comiteParentsPage"
+import anciensPage from "./anciensPage"
+import soutienPage from "./soutienPage"
+import serviceDeGardePage from './serviceDeGardePage'
+import transportPage from './transportPage'
 
 export const schemaTypes = [
   homePage, 
   historyPage,
   administrationPage,
   projetEducatifPage,
+  comiteParentsPage,
+  anciensPage,
   careerPage,
   projetPrimairePage,
   projetPrescolairePage,
@@ -34,11 +41,14 @@ export const schemaTypes = [
   uniformPage, 
   studentCouncilPage, 
   aiglePage, 
-  tripsPage, 
+  tripsPage,
+  soutienPage,
   rentalSpacesPage, 
   teamPage,
   jardinLitteraire,
   crealabPage,
+  serviceDeGardePage,
+  transportPage,
   pourquoiPage,
   admissionsPage,
   tuitionFeesPage,

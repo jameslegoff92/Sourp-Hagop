@@ -20,7 +20,9 @@ const AccordionItemContainer = styled.div`
 `;
 
 // Styled component for the accordion header with a horizontal line
-const AccordionHeader = styled(motion.div)`
+const AccordionHeader = styled(motion.div, {
+  shouldForwardProp: (prop) => prop !== 'isOpen'
+})`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,7 +62,9 @@ const Title = styled.span`
   text-align: left;
 `;
 
-const Icon = styled(motion.span)`
+const Icon = styled(motion.span, {
+  shouldForwardProp: (prop) => prop !== 'isOpen'
+})`
   font-size: 1.5rem;
   line-height: 1;
   transform-origin: 2px 10px 10px 0;
@@ -75,7 +79,7 @@ const Icon = styled(motion.span)`
 const AccordionContent = styled(motion.div)`
   overflow: hidden;
   padding: 0 1rem;
-background-color: rgba(0, 125, 195, 0.04);
+  background-color: rgba(0, 125, 195, 0.04);
   border-top: 1px solid #ddd;
 `;
 
