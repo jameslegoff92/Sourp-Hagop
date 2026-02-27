@@ -96,7 +96,7 @@ const MobileNavContainer = styled.div`
   left: 0;
   padding: 6rem 1.5rem;
   text-align: left;
-  z-index: 2;
+  z-index: 5;
 
   @media (min-width: 1112px) {
     display: none;
@@ -373,11 +373,12 @@ const Nav = ({ type = "primary", animate = true }) => {
           <motion.span
             className={`${css.hamburgerLine} ${type === "secondary" ? css.hamburgerLineSecondary : ""}`}
             variants={line1Variants}
+            style={{ backgroundColor: menuOpen ? "white" : undefined }}
           ></motion.span>
           <motion.span
             className={`${css.hamburgerLine} ${type === "secondary" ? css.hamburgerLineSecondary : ""}`}
             variants={line2Variants}
-            style={{ transformOrigin: "center" }}
+            style={{ transformOrigin: "center", backgroundColor: menuOpen ? "white" : undefined }}
           ></motion.span>
         </motion.div>
       </nav>

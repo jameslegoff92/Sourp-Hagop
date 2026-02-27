@@ -69,5 +69,17 @@ export default defineType({
         },
       ],
     }),
+    defineField({
+      name: "messageText",
+      title: "Message Text",
+      type: "array",
+      of: [{ type: "block" }],
+    }),
+    defineField({
+      name: "joinUsText",
+      title: "Rejoignez-nous Text",
+      type: "array",
+      of: [{ type: "block" }],
+    }),
   ],
 });

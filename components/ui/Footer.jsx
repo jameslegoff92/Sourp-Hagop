@@ -70,7 +70,7 @@ const Footer = () => (
                 <AnimatedMenuLink href="/anciens">
                     <span className={css.longTextWrap}>ANCIENS ET ANCIENNES</span>
                 </AnimatedMenuLink>
-                <AnimatedMenuLink href="/locations">NOS LOCATIONS</AnimatedMenuLink>
+                <AnimatedMenuLink href="/locations">LOCATION D'ESPACES</AnimatedMenuLink>
                 <AnimatedMenuLink href="/nous-joindre">NOUS JOINDRE</AnimatedMenuLink>
             </nav>
             <div className={css.socialMediaContainer}>

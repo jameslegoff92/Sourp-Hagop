@@ -3,94 +3,153 @@
 import { useEffect, useRef } from "react";
 import Header from "./ui/Header";
 import Footer from "./ui/Footer";
-import BackgroundLogo from "./ui/BackgroundLogo";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
 
 const StyledDiv = styled.div`
-  text-align: left;
-  padding: 10px 0 150px;
+  text-align: center;
+  padding: 60px 0 150px;
   position: relative;
 `;
 
-const TextContainer = styled.div`
-  width: 100%;
-  text-align: left;
+const SectionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto;
 
-  @media (max-width: 1110px) {
-    text-align: left;
+  @media (max-width: 768px) {
+    gap: 2.5rem;
+    width: 95%;
   }
 `;
 
-const MotionDiv = styled(motion.div)`
-  display: flex;
-  gap: var(--spacing-4);
-  flex-direction: column;
-  margin: 50px auto 0;
-  width: 70%;
-`;
-
-const ContentContainer = styled.div`
+const SectionCard = styled(motion.div)`
   display: flex;
   align-items: stretch;
-  gap: var(--spacing-4);
-  height: auto;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 125, 195, 0.08);
+  transition: all 0.4s ease;
 
-  @media (max-width: 1110px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: left;
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 125, 195, 0.15);
+  }
+
+  &:hover .section-image {
+    transform: scale(1.05);
+  }
+
+  &:hover .section-text::before {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column !important;
   }
 `;
 
-const OrderContainer = styled.div`
-  @media (max-width: 1110px) {
-    order: 1;
+const ImageWrapper = styled.div`
+  width: 45%;
+  min-height: 350px;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    min-height: 250px;
   }
 `;
 
 const Image = styled(motion.img)`
-  width: 50%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-
-  @media (max-width: 1110px) {
-    width: 100%;
-    align-items: stretch;
-  }
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
 `;
 
 const TextBlock = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  padding: 100px;
-  background-color: var(--secondary-color);
-  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem;
   flex: 1;
-  overflow: hidden;
+  position: relative;
+  text-align: left;
 
-  @media (max-width: 1200px) {
-    align-items: left;
-    padding: 50px 30px 50px 45px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary-color), var(--tertiary-color));
+    border-radius: 4px;
+    left: ${(props) => (props.position === "right" ? "0" : "auto")};
+    right: ${(props) => (props.position === "left" ? "0" : "auto")};
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    @media (max-width: 900px) {
+      left: 0;
+      right: auto;
+    }
   }
-    
+
+  @media (max-width: 900px) {
+    padding: 2rem;
+  }
+
   @media (max-width: 768px) {
-    align-items: left;
-    padding: 50px 20px 50px 35px;
+    padding: 1.75rem;
   }
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+`;
+
+const SectionContent = styled.p`
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.8;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+`;
+
+const PageIntro = styled(motion.div)`
+  max-width: 800px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
 `;
 
 export default function ComiteParents({ data }) {
   const sectionRefs = useRef([]);
   
-  // Initialize controls based on sections length
   const sectionsCount = data?.sections?.length || 0;
   const sectionControls = useRef(
     Array.from({ length: sectionsCount }, () => useAnimation())
   );
 
-  // Update controls when sections change
   useEffect(() => {
     if (!data?.sections) return;
     
@@ -110,17 +169,13 @@ export default function ComiteParents({ data }) {
         if (entry.isIntersecting) {
           const index = sectionRefs.current.indexOf(entry.target);
           if (index !== -1 && sectionControls.current[index]) {
-            sectionControls.current[index].start({ x: 0, opacity: 1 });
+            sectionControls.current[index].start({ opacity: 1, y: 0 });
           }
         }
       });
     };
 
-    const observerOptions = {
-      threshold: 0.5,
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const observer = new IntersectionObserver(observerCallback, { threshold: 0.2 });
 
     sectionRefs.current.forEach((ref) => {
       if (ref) observer.observe(ref);
@@ -135,6 +190,7 @@ export default function ComiteParents({ data }) {
 
   const headerImageUrl = data?.headerImageUrl;
   const headerText = data?.headerText;
+  const introText = data?.introText;
   const sections = Array.isArray(data?.sections) ? data.sections : [];
 
   return (
@@ -147,63 +203,52 @@ export default function ComiteParents({ data }) {
       />
 
       <StyledDiv>
-        {sections.map((section, index) => (
-          <MotionDiv key={index}>
-            <ContentContainer
-              ref={(el) => (sectionRefs.current[index] = el)}
-            >
-              {section.imagePosition === "left" ? (
-                <>
-                  {section.imageUrl ? (
-                    <Image
-                      src={section.imageUrl}
-                      alt={section.title || ""}
+        {introText && (
+          <PageIntro
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Typography as="p" type="h6" color="dark" style={{ textAlign: "center" }}>
+              {introText}
+            </Typography>
+          </PageIntro>
+        )}
+
+        <SectionsContainer>
+          {sections.map((section, index) => {
+            const isImageLeft = section.imagePosition === "left";
+            
+            return (
+              <SectionCard
+                key={index}
+                ref={(el) => (sectionRefs.current[index] = el)}
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionControls.current[index]}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                style={{ flexDirection: isImageLeft ? "row" : "row-reverse" }}
+              >
+                {section.imageUrl && (
+                  <ImageWrapper>
+                    <Image 
+                      className="section-image" 
+                      src={section.imageUrl} 
+                      alt={section.title || ""} 
                     />
-                  ) : null}
-                  <TextBlock
-                    initial={{ x: "100%", opacity: 0 }}
-                    animate={sectionControls.current[index]}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                  >
-                    <Typography as="h3" type="h3" color="primary">
-                      {section.title}
-                    </Typography>
-                    <TextContainer>
-                      <Typography as="p" type="h6" color="dark">
-                        {section.content}
-                      </Typography>
-                    </TextContainer>
-                  </TextBlock>
-                </>
-              ) : (
-                <>
-                  <OrderContainer>
-                    <TextBlock
-                      initial={{ x: "-100%", opacity: 0 }}
-                      animate={sectionControls.current[index]}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                    >
-                      <Typography as="h3" type="h3" color="primary">
-                        {section.title}
-                      </Typography>
-                      <TextContainer>
-                        <Typography as="p" type="h6" color="dark">
-                          {section.content}
-                        </Typography>
-                      </TextContainer>
-                    </TextBlock>
-                  </OrderContainer>
-                  {section.imageUrl ? (
-                    <Image
-                      src={section.imageUrl}
-                      alt={section.title || ""}
-                    />
-                  ) : null}
-                </>
-              )}
-            </ContentContainer>
-          </MotionDiv>
-        ))}
+                  </ImageWrapper>
+                )}
+                <TextBlock 
+                  className="section-text" 
+                  position={isImageLeft ? "right" : "left"}
+                >
+                  <SectionTitle>{section.title}</SectionTitle>
+                  <SectionContent>{section.content}</SectionContent>
+                </TextBlock>
+              </SectionCard>
+            );
+          })}
+        </SectionsContainer>
       </StyledDiv>
 
       <Footer />

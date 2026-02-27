@@ -25,6 +25,7 @@ import anciensPage from "./anciensPage"
 import soutienPage from "./soutienPage"
 import serviceDeGardePage from './serviceDeGardePage'
 import transportPage from './transportPage'
+import protecteurNationalPage from './protecteurNationalPage'
 
 export const schemaTypes = [
   homePage, 
@@ -33,6 +34,7 @@ export const schemaTypes = [
   projetEducatifPage,
   comiteParentsPage,
   anciensPage,
+  protecteurNationalPage,
   careerPage,
   projetPrimairePage,
   projetPrescolairePage,

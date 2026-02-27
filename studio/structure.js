@@ -34,6 +34,7 @@ export default (S) =>
                             S.documentTypeListItem("projetEducatifPage").title("Projet éducatif"),
                             S.documentTypeListItem("comiteParentsPage").title("Comité de parents"),
                             S.documentTypeListItem('anciensPage').title('Anciens et Anciennes'),
+                            S.documentTypeListItem('protecteurNationalPage').title("Protecteur national de l'élève"),
 
                         ])
                 ),

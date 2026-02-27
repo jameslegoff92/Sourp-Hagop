@@ -8,6 +8,7 @@ import CustomButton from "../components/inputs/Button";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { PortableText } from "@portabletext/react";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -64,6 +65,17 @@ export default function Team({ teamData }) {
           <TextContainer>
             <Typography
               as="p"
+              type="h5"
+              color="seondaryDark"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+            >
+              <PortableText value={teamData.messageText} />
+            </Typography>
+            <Typography
+              as="p"
               type="h4"
               color="seondaryDark"
               initial={{ opacity: 0, y: 50 }}
@@ -71,7 +83,7 @@ export default function Team({ teamData }) {
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >
-              Venez faire une différence avec nous dès maintenant
+              <PortableText value={teamData.joinUsText} />
             </Typography>
           </TextContainer>
         </MotionDiv>
@@ -84,7 +96,7 @@ export default function Team({ teamData }) {
             viewport={{ once: true }}
             style={{ marginTop: "50px" }}
           >
-            Postuler maintenant
+            Découvrez nos offres
           </CustomButton>
         </Link>
       </StyledDiv>
