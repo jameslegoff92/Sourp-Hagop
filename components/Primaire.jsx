@@ -2,7 +2,6 @@
 
 import Header from "../components/ui/Header";
 import Footer from "../components/ui/Footer";
-//import BackgroundLogo from "../../components/ui/BackgroundLogo";
 import Typography from "../components/display/Typography";
 import { PortableText } from "@portabletext/react";
 import styled from "@emotion/styled";
@@ -32,6 +31,38 @@ const MotionDiv = styled(motion.div)`
   }
 `;
 
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 1.5rem;
+`;
+
+const SectionSubtitle = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
+const TitleWrapper = styled(motion.div)`
+  margin-top: 1.5rem;
+`;
+
 const SectionContainer = styled(motion.div)`
   background-color: rgba(0, 125, 195, 0.04);
   border-left: 4px solid var(--primary-color);
@@ -54,38 +85,38 @@ const CyclesContainer = styled.div`
 `;
 
 const CycleCard = styled(motion.div, {
-  shouldForwardProp: (prop) => prop !== 'bgImage'
+  shouldForwardProp: (prop) => prop !== "bgImage",
 })`
   position: relative;
   height: 500px;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  background-image: ${props => props.bgImage ? `url(${props.bgImage})` : 'none'};
+  background-image: ${(props) => (props.bgImage ? `url(${props.bgImage})` : "none")};
   background-size: cover;
   background-position: center;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     transition: background 0.3s ease;
   }
-  
+
   &:hover::before {
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
   }
-  
+
   &:hover .cycle-content {
     justify-content: center;
     padding-top: 40px;
   }
-  
+
   &:hover .cycle-name {
     transform: translateY(-20px);
   }
-  
+
   &:hover .cycle-details {
     opacity: 1;
     transform: translateY(0);
@@ -122,7 +153,7 @@ const CycleDetails = styled.div`
   transform: translateY(20px);
   transition: all 0.4s ease;
   margin-top: 15px;
-    max-height: 0;
+  max-height: 0;
   overflow: hidden;
 `;
 
@@ -140,7 +171,6 @@ const SubjectGrid = styled.div`
   justify-content: center;
   margin: 20px auto;
 `;
-
 
 const SubjectItem = styled(motion.div)`
   background: white;
@@ -167,25 +197,30 @@ const LanguageGrid = styled.div`
   gap: 20px;
   margin: 25px 0;
 
-    @media (max-width: 1300px) {
+  @media (max-width: 1300px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const LanguageCard = styled(motion.div, {
-    shouldForwardProp: (prop) => prop !== 'language'
+  shouldForwardProp: (prop) => prop !== "language",
 })`
   background: white;
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-top: 3px solid ${props => {
-        switch (props.language) {
-            case 'french': return '#007bff';
-            case 'english': return '#28a745';
-            case 'armenian': return '#dc3545';
-            default: return '#6c757d';
-        }
+  border-top: 3px solid
+    ${(props) => {
+      switch (props.language) {
+        case "french":
+          return "#007bff";
+        case "english":
+          return "#28a745";
+        case "armenian":
+          return "#dc3545";
+        default:
+          return "#6c757d";
+      }
     }};
 `;
 
@@ -206,214 +241,371 @@ const TableNote = styled.div`
 `;
 
 export default function Primaire({ data }) {
+  return (
+    <>
+      <Header
+        animate={false}
+        imageSrc={data?.headerImageUrl || "../images/header/primaire-header.jpg"}
+        headerText={data?.headerText || "PROGRAMME ÉDUCATIF AU PRIMAIRE"}
+        headerTextTop="70%"
+      />
 
-    return (
-        <>
-            <Header
-                animate={false}
-                imageSrc={data?.headerImageUrl || "../images/header/primaire-header.jpg"}
-                headerText={data?.headerText || "PROGRAMME ÉDUCATIF AU PRIMAIRE"}
-                headerTextTop="70%"
-            />
+      <StyledDiv>
+        <MotionDiv>
+          {/* Introduction */}
+          <SectionHeader>
+            <SectionSubtitle
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Éducation primaire
+            </SectionSubtitle>
+            <TitleWrapper
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <Typography as="h1" type="h1" color="primary">
+                {data?.pageTitle || "Programme primaire"}
+              </Typography>
+            </TitleWrapper>
+          </SectionHeader>
 
-            <StyledDiv>
-                <MotionDiv>
-                    <TextContainer>
-                        <Typography
-                            as="p"
-                            type="h6"
-                            color="dark"
-                            initial={{ opacity: 0, y: 100 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                            viewport={{ once: true }}
-                        >
-                            {data?.introText}
-                        </Typography>
-                    </TextContainer>
+          <TextContainer>
+            <Typography
+              as="p"
+              type="h6"
+              color="dark"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              {data?.introText}
+            </Typography>
+          </TextContainer>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h2" type="h2" color="primary" style={{ textAlign: "center", marginBottom: "20px" }}>
-                            Les Trois Cycles du Primaire
-                        </Typography>
-<CyclesContainer>
-{data?.cycles?.map((cycle, index) => (
-    <CycleCard
-        key={index}
-        bgImage={cycle.imageUrl}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.2 }}
-        viewport={{ once: true }}
-    >
-        <CycleContent className="cycle-content">
-            
-            <CycleName className="cycle-name">
-                <Typography as="h3" type="h4" color="light">
-                    {cycle.name}
+          {/* Cycles Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionHeader>
+              <SectionSubtitle
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Structure du programme
+              </SectionSubtitle>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h2" type="h2" color="primary">
+                  Les Trois Cycles du Primaire
                 </Typography>
-            </CycleName>
+              </TitleWrapper>
+            </SectionHeader>
 
-            <CycleDetails className="cycle-details">
-                <Typography as="p" type="p" color="light" style={{ marginBottom: "10px" }}>
-                    {cycle.grades}
+            <CyclesContainer>
+              {data?.cycles?.map((cycle, index) => (
+                <CycleCard
+                  key={index}
+                  bgImage={cycle.imageUrl}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <CycleContent className="cycle-content">
+                    <CycleName className="cycle-name">
+                      <Typography as="h3" type="h4" color="light">
+                        {cycle.name}
+                      </Typography>
+                    </CycleName>
+
+                    <CycleDetails className="cycle-details">
+                      <Typography as="p" type="p" color="light" style={{ marginBottom: "10px" }}>
+                        {cycle.grades}
+                      </Typography>
+
+                      <Typography as="p" type="p" color="light" style={{ opacity: 0.9 }}>
+                        {cycle.description}
+                      </Typography>
+                    </CycleDetails>
+                  </CycleContent>
+                </CycleCard>
+              ))}
+            </CyclesContainer>
+          </motion.div>
+
+          {/* Languages Section */}
+          <LanguageContainer>
+            <SectionHeader>
+              <SectionSubtitle
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Nos langues
+              </SectionSubtitle>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  Apprentissage des Langues
                 </Typography>
+              </TitleWrapper>
+            </SectionHeader>
 
-                <Typography as="p" type="p" color="light" style={{ opacity: 0.9 }}>
-                    {cycle.description}
+            <LanguageGrid>
+              {data?.languages?.map((lang, index) => (
+                <LanguageCard
+                  key={index}
+                  language={lang.type}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Typography as="h4" type="h5" color="primary" style={{ marginBottom: "15px" }}>
+                    {lang.language}
+                  </Typography>
+                  <Typography as="p" type="p" color="dark">
+                    {lang.description}
+                  </Typography>
+                </LanguageCard>
+              ))}
+            </LanguageGrid>
+          </LanguageContainer>
+
+          {/* Enrichment Section */}
+          <div>
+            <SectionHeader>
+              <SectionSubtitle
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Programme enrichi
+              </SectionSubtitle>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.enrichmentTitle}
                 </Typography>
-            </CycleDetails>
+              </TitleWrapper>
+            </SectionHeader>
 
-        </CycleContent>
-    </CycleCard>
-))}
-</CyclesContainer>
+            <SectionContainer
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <PortableText
+                value={data?.enrichmentContent}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
+                        {children}
+                      </Typography>
+                    ),
+                  },
+                }}
+              />
+            </SectionContainer>
+          </div>
 
-                    </motion.div>
+          {/* Subject Areas Section */}
+          <SubjectAreasContainer>
+            <SectionHeader>
+              <SectionSubtitle
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Domaines d'apprentissage
+              </SectionSubtitle>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.subjectAreasTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
 
-                    <LanguageContainer>
-                        <Typography as="h3" type="h3" color="primary" style={{ textAlign: "center", marginBottom: "20px" }}>
-                            Apprentissage des Langues
-                        </Typography>
-                        <LanguageGrid>
-                            {data?.languages?.map((lang, index) => (
-                                <LanguageCard
-                                    key={index}
-                                    language={lang.type}
-                                    initial={{ opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <Typography as="h4" type="h5" color="primary" style={{ marginBottom: "15px" }}>
-                                        {lang.language}
-                                    </Typography>
-                                    <Typography as="p" type="p" color="dark">
-                                        {lang.description}
-                                    </Typography>
-                                </LanguageCard>
-                            ))}
-                        </LanguageGrid>
-                    </LanguageContainer>
+            <Typography as="p" type="p" color="dark" style={{ marginBottom: "20px", textAlign: "center" }}>
+              {data?.subjectAreasText}
+            </Typography>
 
-                    <SectionContainer
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-                            {data?.enrichmentTitle}
-                        </Typography>
-                        <PortableText
-                            value={data?.enrichmentContent}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => (
-                                        <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
-                                            {children}
-                                        </Typography>
-                                    ),
-                                },
-                            }}
-                        />
-                    </SectionContainer>
+            <SubjectGrid>
+              {data?.subjectAreas?.map((subject, index) => (
+                <SubjectItem
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Typography as="p" type="p" color="dark">
+                    {subject}
+                  </Typography>
+                </SubjectItem>
+              ))}
+            </SubjectGrid>
+          </SubjectAreasContainer>
 
-                    <SubjectAreasContainer>
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-                            {data?.subjectAreasTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginBottom: "20px" }}>
-                            {data?.subjectAreasText}
-                        </Typography>
-                        <SubjectGrid>
-                            {data?.subjectAreas?.map((subject, index) => (
-                                <SubjectItem
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <Typography as="p" type="p" color="dark">
-                                        {subject}
-                                    </Typography>
-                                </SubjectItem>
-                            ))}
-                        </SubjectGrid>
-                    </SubjectAreasContainer>
+          {/* Arts Section */}
+          <div>
+            <SectionHeader>
+              <SectionSubtitle
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Arts et culture
+              </SectionSubtitle>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.artsTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
 
-                    <SectionContainer
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-                            {data?.artsTitle}
-                        </Typography>
-                        <PortableText
-                            value={data?.artsContent}
-                            components={{
-                                block: {
-                                    normal: ({ children }) => (
-                                        <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
-                                            {children}
-                                        </Typography>
-                                    ),
-                                },
-                            }}
-                        />
-                    </SectionContainer>
+            <SectionContainer
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <PortableText
+                value={data?.artsContent}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
+                        {children}
+                      </Typography>
+                    ),
+                  },
+                }}
+              />
+            </SectionContainer>
+          </div>
 
-                    <TableContainer>
-                        <div style={{ padding: "30px" }}>
-                            <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px", textAlign: "center" }}>
-                                {data?.maquetteTitle}
-                            </Typography>
-                            <PortableText
-                                value={data?.artsContent}
-                                components={{
-                                    block: {
-                                        normal: ({ children }) => (
-                                            <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
-                                                {children}
-                                            </Typography>
-                                        ),
-                                    },
-                                }}
-                            />
-                            <TableNote>
-                                <Typography as="p" type="p" color="dark">
-                                    📊 Tableau détaillé de la maquette de cours disponible sur demande
-                                </Typography>
-                            </TableNote>
-                        </div>
-                    </TableContainer>
+          {/* Maquette Section */}
+          <TableContainer>
+            <div style={{ padding: "30px" }}>
+              <SectionHeader>
+                <SectionSubtitle
+                  initial={{ opacity: 0, y: -10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  Grille-matières
+                </SectionSubtitle>
+                <TitleWrapper
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                >
+                  <Typography as="h3" type="h3" color="primary">
+                    {data?.maquetteTitle}
+                  </Typography>
+                </TitleWrapper>
+              </SectionHeader>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        style={{ textAlign: "center", marginTop: "50px" }}
-                    >
-                        <Typography as="h3" type="h3" color="primary">
-                            Horaire Type d'une Journée au Primaire
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginTop: "20px" }}>
-                            Contactez-nous pour obtenir plus d'informations sur l'horaire détaillé et la répartition des matières.
-                        </Typography>
-                    </motion.div>
-                </MotionDiv>
-            </StyledDiv>
-            {/* <BackgroundLogo src="../images/logo-big.svg" style={{ marginLeft: "200px" }}/> */}
-            <Footer />
-        </>
-    );
+              <PortableText
+                value={data?.artsContent}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px", textAlign: "center" }}>
+                        {children}
+                      </Typography>
+                    ),
+                  },
+                }}
+              />
+
+              <TableNote>
+                <Typography as="p" type="p" color="dark">
+                  📊 Tableau détaillé de la maquette de cours disponible sur demande
+                </Typography>
+              </TableNote>
+            </div>
+          </TableContainer>
+
+          {/* Schedule Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ textAlign: "center", marginTop: "50px" }}
+          >
+            <SectionHeader>
+              <SectionSubtitle
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Organisation
+              </SectionSubtitle>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  Horaire Type d'une Journée au Primaire
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
+            <Typography as="p" type="p" color="dark">
+              Contactez-nous pour obtenir plus d'informations sur l'horaire détaillé et la répartition des matières.
+            </Typography>
+          </motion.div>
+        </MotionDiv>
+      </StyledDiv>
+
+      <Footer />
+    </>
+  );
 }

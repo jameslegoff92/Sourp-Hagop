@@ -9,12 +9,7 @@ import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
 
-const StyledDiv = styled.div`
-  text-align: left;
-  padding: 10px 0 150px;
-  position: relative;
-`;
-
+// --- POPUP STYLES ---
 const PopupOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -26,331 +21,461 @@ const PopupOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(4px);
 `;
 
 const PopupContent = styled.div`
   background: white;
-  padding: 50px 30px 30px;
-  width: 80%;
-  max-width: 700px;
+  padding: 50px 40px 40px;
+  width: 90%;
+  max-width: 600px;
   position: relative;
-  border-radius: 8px;
+  border-radius: 20px;
   text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 20px;
+  right: 25px;
   background: transparent;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #333;
+  color: #999;
+  transition: color 0.2s ease;
+  &:hover { color: #333; }
 `;
 
 const StyledButton = styled(Button)`
-  background-color: ${({ className }) => className === "primary" ? "#006096" : "transparent"} !important;
-  border: 2px solid #006096;
-  color: ${({ className }) => className === "primary" ? "#fff" : "#006096"};
-  padding: 15px 25px;
-  border-radius: 50px;
-  font-size: 16px;
+  background-color: ${({ className }) => className.includes("primary") ? "#007dc3" : "transparent"} !important;
+  border: 2px solid #007dc3 !important;
+  color: ${({ className }) => className.includes("primary") ? "#fff" : "#007dc3"} !important;
+  padding: 12px 30px !important;
+  border-radius: 50px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition: all 0.3s ease !important;
   display: inline-block;
   flex: 1;
-  width: auto;
 
   span {
     display: inline-block;
     transition: transform 0.3s ease;
-    transform-origin: center;
-    will-change: transform;
   }
 
-  &:hover span {
-    transform: scale(1.08);
-  }
-
-  @media (max-width: 576px) {
-    font-size: 16px;
-    padding: 10px 20px;
-  }
-
-  @media (max-width: 320px) {
-    font-size: 14px;
-    padding: 8px 15px;
+  &:hover {
+    background-color: ${({ className }) => className.includes("primary") ? "#006096" : "rgba(0, 125, 195, 0.05)"} !important;
+    border-color: #006096 !important;
+    transform: translateY(-2px);
   }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin: 25px 20px 10px ;
-`;
-
-const TextContainer = styled.div`
-  width: 100%;
-  text-align: left;
-
-  @media (max-width: 1110px) {
-    text-align: left;
+  gap: 1rem;
+  margin-top: 2rem;
+  
+  @media (max-width: 500px) {
+    flex-direction: column;
   }
 `;
 
-const MotionDiv = styled(motion.div)`
-  display: flex;
-  gap: var(--spacing-4);
-  flex-direction: column;
-  margin: 50px auto 0;
-  width: 70%;
+const CustomButton = ({ children, variant, ...props }) => (
+  <StyledButton className={variant} {...props}>
+    <span>{children}</span>
+  </StyledButton>
+);
+
+// --- MAIN PAGE STYLES ---
+
+const StyledDiv = styled.div`
+  text-align: center;
+  padding: 4rem 0 8rem;
+  position: relative;
 `;
 
-const ContentContainer = styled.div`
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const SectionSubtitle = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
+const PageIntro = styled(motion.div)`
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  padding: 0 20px;
+`;
+
+const SectionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    gap: 2.5rem;
+    width: 95%;
+  }
+`;
+
+const SectionCard = styled(motion.div)`
   display: flex;
   align-items: stretch;
-  gap: var(--spacing-4);
-  height: auto;
-  margin: 20px 0;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 125, 195, 0.08);
+  transition: all 0.4s ease;
 
-  @media (max-width: 1110px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: left;
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 125, 195, 0.15);
+    box-shadow: 0 12px 30px rgba(0, 125, 195, 0.08);
+  }
+
+  &:hover .section-image {
+    transform: scale(1.05);
+  }
+
+  &:hover .section-text::before {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column !important;
   }
 `;
 
-const OrderContainer = styled.div`
-  @media (max-width: 1110px) {
-    order: 1;
+const ImageWrapper = styled.div`
+  width: 45%;
+  min-height: 350px;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    min-height: 250px;
   }
 `;
 
 const Image = styled(motion.img)`
-  width: 40%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-
-  @media (max-width: 1110px) {
-    width: 100%;
-    align-items: stretch;
-  }
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
 `;
 
 const TextBlock = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  padding: 100px;
-  background-color: var(--secondary-color);
-  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem;
   flex: 1;
-  overflow: hidden;
+  position: relative;
+  text-align: left;
 
-  @media (max-width: 1200px) {
-    align-items: left;
-    padding: 50px 30px 50px 45px;
-    
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary-color), var(--tertiary-color, #86c1e1));
+    border-radius: 4px;
+    left: ${(props) => (props.position === "right" ? "0" : "auto")};
+    right: ${(props) => (props.position === "left" ? "0" : "auto")};
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    @media (max-width: 900px) {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  @media (max-width: 900px) { padding: 2.5rem 2rem; }
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+
+  @media (max-width: 768px) { font-size: 1.4rem; }
+`;
+
+const SectionContent = styled.p`
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.8;
+  margin: 0;
+
   @media (max-width: 768px) {
-    align-items: left;
-    padding: 50px 20px 50px 35px;
+    font-size: 0.95rem;
+    line-height: 1.7;
   }
 `;
 
-const CustomButton = ({ children, variant, ...props }) => (
-    <StyledButton className={variant} {...props}>
-        <span>{children}</span>
-    </StyledButton>
-);
+const FooterTextContainer = styled(motion.div)`
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 20px;
+`;
+
+const FooterLink = styled.a`
+  font-family: var(--primary-ff), sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #007dc3;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+  padding-bottom: 4px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #007dc3;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+
+  &:hover {
+    color: #006096;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    background-color: #006096;
+  }
+`;
 
 export default function PourquoiSourpHagop({ data }) {
+  const [showPopup, setShowPopup] = useState(data?.popupEnabled);
 
-    const [showPopup, setShowPopup] = useState(data.popupEnabled);
+  const handleReserveClick = () => {
+    if (data?.popupButtonLink) window.open(data.popupButtonLink, "_blank");
+  };
 
-    const handleReserveClick = () => {
-        if (data.popupButtonLink)
-            window.open(data.popupButtonLink, "_blank");
+  const sectionsCount = data?.sections?.length || 0;
+  const sectionRefs = useRef([]);
+  const sectionControls = useRef(
+    Array.from({ length: sectionsCount }, () => useAnimation())
+  );
+
+  useEffect(() => {
+    if (!data?.sections) return;
+    
+    const newCount = data.sections.length;
+    const currentCount = sectionControls.current.length;
+    
+    if (newCount !== currentCount) {
+      sectionControls.current = Array.from({ length: newCount }, () => useAnimation());
+    }
+  }, [data?.sections?.length]);
+
+  useEffect(() => {
+    if (!data?.sections) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = sectionRefs.current.indexOf(entry.target);
+          if (index !== -1 && sectionControls.current[index]) {
+            sectionControls.current[index].start({ opacity: 1, y: 0 });
+          }
+        }
+      });
+    }, { threshold: 0.2 });
+
+    sectionRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      sectionRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
     };
+  }, [data]);
 
-    // 5 animation controllers + refs (works with your existing logic)
-    const controls = [
-        useAnimation(), useAnimation(),
-        useAnimation(), useAnimation(),
-        useAnimation()
-    ];
+  return (
+    <>
+      {/* POPUP */}
+      {showPopup && (
+        <PopupOverlay onClick={() => setShowPopup(false)}>
+          <PopupContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={() => setShowPopup(false)}>✕</CloseButton>
+            <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "1rem" }}>
+              {data?.popupTitle}
+            </Typography>
+            <Typography as="p" type="h6" color="dark">
+              {data?.popupText}<br /><br/>
+              <span style={{ fontWeight: "700", color: "#007dc3" }}>
+                {data?.popupDateStart}
+              </span>{" "}
+              {data?.popupDateEnd && "au"}{" "}
+              <span style={{ fontWeight: "700", color: "#007dc3" }}>
+                {data?.popupDateEnd}
+              </span>
+            </Typography>
+            <ButtonContainer>
+              <CustomButton variant="secondary" onClick={() => setShowPopup(false)}>
+                Non, merci
+              </CustomButton>
+              <CustomButton variant="primary" onClick={handleReserveClick}>
+                Réserver
+              </CustomButton>
+            </ButtonContainer>
+          </PopupContent>
+        </PopupOverlay>
+      )}
 
-    const refs = [
-        useRef(null), useRef(null),
-        useRef(null), useRef(null),
-        useRef(null)
-    ];
+      <div className={showPopup ? "disable-interaction" : ""}>
+        <Header
+          animate={false}
+          imageSrc={data?.headerImageUrl}
+          headerText={data?.headerText || "POURQUOI SOURP HAGOP"}
+          headerTextTop="70%"
+        />
 
-    // Intersection observer
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const index = refs.findIndex(r => r.current === entry.target);
-                    if (index !== -1) controls[index].start({ x: 0, opacity: 1 });
-                }
-            });
-        }, { threshold: 0.4 });
+        <StyledDiv>
+          {/* INTRO HEADER */}
+          <SectionHeader>
+            <SectionSubtitle
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              L'expérience Sourp Hagop
+            </SectionSubtitle>
+          </SectionHeader>
 
-        refs.forEach(ref => ref.current && observer.observe(ref.current));
+          {data?.introText && (
+            <PageIntro
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Typography as="p" type="h6" color="dark">
+                {data.introText}
+              </Typography>
+            </PageIntro>
+          )}
 
-        return () => refs.forEach(ref => ref.current && observer.unobserve(ref.current));
-    }, []);
+          {/* DYNAMIC SECTIONS */}
+          <SectionsContainer>
+            {data?.sections?.map((section, index) => {
+              const isImageLeft = section.imagePosition === "left";
+              
+              return (
+                <SectionCard
+                  key={index}
+                  ref={(el) => (sectionRefs.current[index] = el)}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sectionControls.current[index]}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  style={{ flexDirection: isImageLeft ? "row" : "row-reverse" }}
+                >
+                  {section.imageUrl && (
+                    <ImageWrapper>
+                      <Image 
+                        className="section-image" 
+                        src={section.imageUrl} 
+                        alt={section.title || ""} 
+                      />
+                    </ImageWrapper>
+                  )}
+                  
+                  <TextBlock 
+                    className="section-text" 
+                    position={isImageLeft ? "right" : "left"}
+                  >
+                    <SectionTitle>{section.title}</SectionTitle>
+                    <SectionContent>{section.description}</SectionContent>
+                  </TextBlock>
+                </SectionCard>
+              );
+            })}
+          </SectionsContainer>
 
-    return (
-        <>
-            {/* POPUP */}
-            {showPopup && (
-                <PopupOverlay onClick={() => setShowPopup(false)}>
-                    <PopupContent onClick={(e) => e.stopPropagation()}>
-                        <CloseButton onClick={() => setShowPopup(false)}>✕</CloseButton>
+          {/* CLEAN FOOTER TEXT */}
+          {(data?.footerText || data?.footerLink) && (
+            <FooterTextContainer
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Typography as="p" type="h5" color="dark" style={{ fontWeight: 400, maxWidth: "1150px", lineHeight: 1.6 }}>
+                {data.footerText}{" "}
+                {data.footerDateStart && (
+                  <span style={{ fontWeight: "700", color: "#007dc3" }}>{data.footerDateStart}</span>
+                )}
+                {" "}
+                {data.footerDateEnd && "au"}{" "}
+                {data.footerDateEnd && (
+                  <span style={{ fontWeight: "700", color: "#007dc3" }}>{data.footerDateEnd}</span>
+                )}
+              </Typography>
 
-                        <Typography as="h3" type="h3" color="primary">
-                            {data.popupTitle}
-                        </Typography>
+              {data.footerLink && (
+                <FooterLink href={data.footerLink} target="_blank" rel="noopener noreferrer">
+                  {data.footerLinkText || "En savoir plus"}
+                </FooterLink>
+              )}
+            </FooterTextContainer>
+          )}
 
-                        <Typography as="p" type="h6" color="dark" style={{ paddingTop: "10px" }}>
-                            {data.popupText}<br />
-                            <span style={{ fontWeight: "700", color: "var(--primary-color)" }}>
-                                {data.popupDateStart}
-                            </span>{" "}
-                            au{" "}
-                            <span style={{ fontWeight: "700", color: "var(--primary-color)" }}>
-                                {data.popupDateEnd}
-                            </span>
-                        </Typography>
+        </StyledDiv>
 
-                        <ButtonContainer>
-                            <CustomButton variant="secondary" onClick={() => setShowPopup(false)}>
-                                Non, merci
-                            </CustomButton>
-
-                            <CustomButton variant="primary" onClick={handleReserveClick}>
-                                Réserver
-                            </CustomButton>
-                        </ButtonContainer>
-                    </PopupContent>
-                </PopupOverlay>
-            )}
-
-            <div className={showPopup ? "disable-interaction" : ""}>
-                {/* HEADER */}
-                <Header
-                    animate={false}
-                    imageSrc={data.headerImageUrl}
-                    headerText={data.headerText}
-                    headerTextTop="70%"
-                />
-
-                <StyledDiv>
-
-                    {/* INTRO */}
-                    <MotionDiv>
-                        <Typography
-                            as="p"
-                            type="h6"
-                            color="dark"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                            viewport={{ once: true }}
-                            style={{ textAlign: "center", paddingBottom: "10px" }}
-                        >
-                            {data.introText}
-                        </Typography>
-                    </MotionDiv>
-
-                    {/* SECTIONS FROM SANITY */}
-                    {data.sections?.map((section, i) => (
-                        <MotionDiv key={i}>
-                            <ContentContainer ref={refs[i]}>
-
-                                {section.imagePosition === "left" && (
-                                    <Image
-                                        src={section.imageUrl}
-                                        alt={section.title}
-                                        initial={{ x: -40, opacity: 0 }}
-                                        animate={controls[i]}
-                                    />
-                                )}
-
-                                <TextBlock
-                                    initial={{ x: section.imagePosition === "left" ? 40 : -40, opacity: 0 }}
-                                    animate={controls[i]}
-                                >
-                                    <Typography as="h3" type="h3" color="primary">
-                                        {section.title}
-                                    </Typography>
-
-                                    <TextContainer>
-                                        <Typography as="p" type="h6" color="dark">
-                                            {section.description}
-                                        </Typography>
-                                    </TextContainer>
-                                </TextBlock>
-
-                                {section.imagePosition === "right" && (
-                                    <Image
-                                        src={section.imageUrl}
-                                        alt={section.title}
-                                        initial={{ x: 40, opacity: 0 }}
-                                        animate={controls[i]}
-                                    />
-                                )}
-
-                            </ContentContainer>
-                        </MotionDiv>
-                    ))}
-
-                    {/* FOOTER TEXT */}
-                    <MotionDiv>
-                        <Typography
-                            as="p"
-                            type="h6"
-                            color="dark"
-                            style={{ paddingTop: "10px", textAlign: "center", fontWeight: 400 }}
-                        >
-                            {data.footerText}
-                            {" "}
-                            <span style={{ fontWeight: "700", color: "var(--primary-color)" }}>
-                                {data.footerDateStart}
-                            </span>{" "}
-                            au{" "}
-                            <span style={{ fontWeight: "700", color: "var(--primary-color)" }}>
-                                {data.footerDateEnd}
-                            </span>
-                        </Typography>
-
-                        <Typography
-                            as="p"
-                            type="label"
-                            color="dark"
-                            style={{ textAlign: "center" }}
-                        >
-                            <a
-                                href={data.footerLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ fontWeight: "700", color: "var(--primary-color)" }}
-                            >
-                                {data.footerLinkText}
-                            </a>
-                        </Typography>
-                    </MotionDiv>
-
-                </StyledDiv>
-
-                <BackgroundLogo src="../images/logo-big.svg" />
-                <Footer />
-            </div>
-        </>
-    );
+        {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
+        <Footer />
+      </div>
+    </>
+  );
 }

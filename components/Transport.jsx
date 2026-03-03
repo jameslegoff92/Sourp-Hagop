@@ -55,6 +55,29 @@ const StyledSVG = styled.svg`
   }
 `;
 
+const SectionSubtitle = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
 const HoverText = styled.text`
   font-size: 12px;
   fill: white;
@@ -273,11 +296,19 @@ export default function Transport({ data }) {
 
     return (
         <>
-            <BackgroundLogo src="../images/logo-big.svg" />
+            {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
             <Header animate={false} imageSrc="../images/header/transport-header.jpg" headerText="Service de Transport" headerTextTop="3%" />
 
             <StyledDiv>
                 <MotionDiv>
+                  <SectionSubtitle
+                    initial={{ opacity: 0, y: -10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    Logistique
+                  </SectionSubtitle>
                     <TextContainer>
                         {memoizedMapTitle}
                     </TextContainer>

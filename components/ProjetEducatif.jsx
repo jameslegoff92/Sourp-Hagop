@@ -12,29 +12,60 @@ const StyledDiv = styled.div`
   position: relative;
 `
 
-const TextContainer = styled.div`
-  width: 100%;
-  margin: 0 auto;
-`
-
-const MotionDiv = styled(motion.div)`
-  display: flex;
-  gap: var(--spacing-4);
-  flex-direction: column;
-  margin: 50px auto 0;
-  width: 70%;
-`
-
-const VisionContainer = styled(motion.div)`
+const SectionContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   margin: 80px auto 0;
   width: 90%;
-  max-width: 1300px;
+  max-width: 1400px;
+  padding: 0 2rem;
 
   @media (max-width: 768px) {
     width: 95%;
+    padding: 0 1rem;
   }
+
+  &:first-of-type {
+    margin-top: 50px;
+  }
+`
+
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 2rem;
+`
+
+const Eyebrow = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`
+
+const TitleWrapper = styled(motion.div)`
+  margin-top: 1.5rem;
+`
+
+const TextContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 `
 
 const VisionGrid = styled.div`
@@ -143,12 +174,6 @@ const CardLabel = styled.div`
 `
 
 /* Nos Engagements Styles */
-const EngagementsContainer = styled.div`
-  margin: 80px auto 0;
-  width: 90%;
-  max-width: 1300px;
-`
-
 const EngagementsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -299,12 +324,6 @@ const EngagementItem = ({ src, title, text, size, index }) => (
 )
 
 /* Orientations Générales Styles */
-const OrientationsContainer = styled.div`
-  margin: 100px auto 0;
-  width: 90%;
-  max-width: 1200px;
-`
-
 const OrientationsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -426,7 +445,7 @@ const SloganBackground = styled.div`
 `
 
 const SloganContent = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -507,60 +526,77 @@ export default function ProjetEducatif({ data }) {
 
             <StyledDiv>
                 {/* Section Notre Mission */}
-                <MotionDiv>
-                    <Typography
-                        as="h1"
-                        type="h1"
-                        color="primary"
-                        initial={{ opacity: 0, y: -25 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
-                        transition={{ duration: 0.9, ease: "easeIn" }}
-                    >
-                        {missionTitle || "Notre Mission"}
-                    </Typography>
+                <SectionContainer>
+                    <SectionHeader>
+                        <Eyebrow
+                            initial={{ opacity: 0, y: -10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            Ce que nous faisons
+                        </Eyebrow>
+                        <TitleWrapper
+                            initial={{ opacity: 0, y: -20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.1 }}
+                        >
+                            <Typography as="h1" type="h1" color="primary">
+                                {missionTitle || "Notre Mission"}
+                            </Typography>
+                        </TitleWrapper>
+                    </SectionHeader>
 
                     <TextContainer>
                         <Typography
                             as="p"
                             type="h6"
                             color="dark"
-                            initial={{ opacity: 0, y: 100 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
                             viewport={{ once: true }}
                         >
                             {missionText || ""}
                         </Typography>
                     </TextContainer>
-                </MotionDiv>
+                </SectionContainer>
 
                 {/* Section Notre Vision */}
                 {visionItems.length > 0 && (
-                    <VisionContainer>
-                        <Typography
-                            as="h1"
-                            type="h1"
-                            color="primary"
-                            initial={{ opacity: 0, y: -25 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
-                            transition={{ duration: 0.9, ease: "easeIn" }}
-                            style={{ textAlign: "center" }}
-                        >
-                            {visionTitle || "Notre vision"}
-                        </Typography>
+                    <SectionContainer>
+                        <SectionHeader>
+                            <Eyebrow
+                                initial={{ opacity: 0, y: -10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                Où nous allons
+                            </Eyebrow>
+                            <TitleWrapper
+                                initial={{ opacity: 0, y: -20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, delay: 0.1 }}
+                            >
+                                <Typography as="h1" type="h1" color="primary">
+                                    {visionTitle || "Notre vision"}
+                                </Typography>
+                            </TitleWrapper>
+                        </SectionHeader>
 
                         {visionIntroText && (
                             <Typography
                                 as="p"
                                 type="h6"
                                 color="dark"
-                                initial={{ opacity: 0, y: 50 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
                                 viewport={{ once: true }}
-                                style={{ marginTop: "30px", textAlign: "center" }}
+                                style={{ textAlign: "center" }}
                             >
                                 {visionIntroText}
                             </Typography>
@@ -584,23 +620,32 @@ export default function ProjetEducatif({ data }) {
                                 </VisionCard>
                             ))}
                         </VisionGrid>
-                    </VisionContainer>
+                    </SectionContainer>
                 )}
 
                 {/* Section Nos Engagements */}
                 {engagementItems.length > 0 && (
-                    <EngagementsContainer>
-                        <Typography
-                            as="h1"
-                            type="h1"
-                            color="primary"
-                            initial={{ opacity: 0, y: -25 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ amount: "all", margin: "0px 0px -80px 0px", once: true }}
-                            transition={{ duration: 0.9, ease: "easeIn" }}
-                        >
-                            {engagementsTitle || "Nos engagements"}
-                        </Typography>
+                    <SectionContainer>
+                        <SectionHeader>
+                            <Eyebrow
+                                initial={{ opacity: 0, y: -10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                Nos promesses
+                            </Eyebrow>
+                            <TitleWrapper
+                                initial={{ opacity: 0, y: -20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, delay: 0.1 }}
+                            >
+                                <Typography as="h1" type="h1" color="primary">
+                                    {engagementsTitle || "Nos engagements"}
+                                </Typography>
+                            </TitleWrapper>
+                        </SectionHeader>
 
                         <EngagementsGrid>
                             {engagementItems.map((item, index) => (
@@ -614,103 +659,112 @@ export default function ProjetEducatif({ data }) {
                                 />
                             ))}
                         </EngagementsGrid>
-                    </EngagementsContainer>
+                    </SectionContainer>
                 )}
 
                 {/* Section Orientations Générales */}
                 {orientationItems.length > 0 && (
-                <OrientationsContainer>
-                    <Typography
-                    as="h1"
-                    type="h1"
-                    color="primary"
-                    initial={{ opacity: 0, y: -25 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ amount: "all", margin: "0px 0px -80px 0px", once: true }}
-                    transition={{ duration: 0.9, ease: "easeIn" }}
-                    >
-                    {orientationsTitle || "Orientations générales"}
-                    </Typography>
+                    <SectionContainer>
+                        <SectionHeader>
+                            <Eyebrow
+                                initial={{ opacity: 0, y: -10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                Notre direction
+                            </Eyebrow>
+                            <TitleWrapper
+                                initial={{ opacity: 0, y: -20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, delay: 0.1 }}
+                            >
+                                <Typography as="h1" type="h1" color="primary">
+                                    {orientationsTitle || "Orientations générales"}
+                                </Typography>
+                            </TitleWrapper>
+                        </SectionHeader>
 
-                    {orientationsIntroText && (
-                    <Typography
-                        as="p"
-                        type="h6"
-                        color="dark"
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        style={{ marginTop: "30px", textAlign: "center" }}
-                    >
-                        {orientationsIntroText}
-                    </Typography>
-                    )}
+                        {orientationsIntroText && (
+                            <Typography
+                                as="p"
+                                type="h6"
+                                color="dark"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                viewport={{ once: true }}
+                                style={{ textAlign: "center" }}
+                            >
+                                {orientationsIntroText}
+                            </Typography>
+                        )}
 
-                    <OrientationsGrid>
-                    {orientationItems.map((item, index) => (
-                        <OrientationCard
-                        key={index}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.15 }}
-                        >
-                        <OrientationNumber className="orientation-number">
-                            {index + 1}
-                        </OrientationNumber>
-                        <OrientationContent>
-                            <OrientationText>{item.text}</OrientationText>
-                        </OrientationContent>
-                        </OrientationCard>
-                    ))}
-                    </OrientationsGrid>
-                </OrientationsContainer>
+                        <OrientationsGrid>
+                            {orientationItems.map((item, index) => (
+                                <OrientationCard
+                                    key={index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: index * 0.15 }}
+                                >
+                                    <OrientationNumber className="orientation-number">
+                                        {index + 1}
+                                    </OrientationNumber>
+                                    <OrientationContent>
+                                        <OrientationText>{item.text}</OrientationText>
+                                    </OrientationContent>
+                                </OrientationCard>
+                            ))}
+                        </OrientationsGrid>
+                    </SectionContainer>
                 )}
 
                 {/* Section Notre Slogan */}
                 {(sloganLine1 || sloganLine2) && (
-                <SloganSection
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1 }}
-                >
-                    <SloganBackground />
-
-                    <SloganContent>
-                    <SloganTextWrapper>
-                        <SloganLabel
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <SloganSection
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                        {sloganLabel || "Notre slogan"}
-                        </SloganLabel>
-                        {sloganLine1 && (
-                        <SloganLine
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
-                        >
-                            {sloganLine1}
-                        </SloganLine>
-                        )}
-                        {sloganLine2 && (
-                        <SloganLine
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.5 }}
-                        >
-                            {sloganLine2}
-                        </SloganLine>
-                        )}
-                    </SloganTextWrapper>
-                    </SloganContent>
-                </SloganSection>
+                        transition={{ duration: 1 }}
+                    >
+                        <SloganBackground />
+
+                        <SloganContent>
+                            <SloganTextWrapper>
+                                <SloganLabel
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                >
+                                    {sloganLabel || "Notre slogan"}
+                                </SloganLabel>
+                                {sloganLine1 && (
+                                    <SloganLine
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.3 }}
+                                    >
+                                        {sloganLine1}
+                                    </SloganLine>
+                                )}
+                                {sloganLine2 && (
+                                    <SloganLine
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.5 }}
+                                    >
+                                        {sloganLine2}
+                                    </SloganLine>
+                                )}
+                            </SloganTextWrapper>
+                        </SloganContent>
+                    </SloganSection>
                 )}
             </StyledDiv>
 

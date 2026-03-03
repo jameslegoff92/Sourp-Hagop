@@ -9,8 +9,36 @@ import { motion } from "framer-motion";
 
 const StyledDiv = styled.div`
   text-align: center;
-  padding: 10px 0 150px;
+  padding: 4rem 0 8rem;
   position: relative;
+`;
+
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+`;
+
+const SectionSubtitle = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
 `;
 
 const TextBlockContainer = styled(motion.div)`
@@ -18,36 +46,35 @@ const TextBlockContainer = styled(motion.div)`
   justify-content: center;
   align-items: stretch;
   gap: var(--spacing-4);
-  margin: 50px auto;
+  margin: 0 auto;
   width: 80%;
+  max-width: 1200px;
 
   @media (max-width: 992px) {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: 2rem;
   }
 `;
 
 const TextBlockStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   padding: 50px;
   background-color: var(--secondary-color);
   flex: 1;
   text-align: center;
-  width: 400px;
-  min-height: 400px;
   position: relative;
+  border-radius: 12px; /* Slight rounding to soften the edges */
 
   @media (max-width: 992px) {
-    width: 80%;
+    width: 90%;
     padding: 40px 30px;
-    min-height: auto;
   }
 
   @media (max-width: 576px) {
-    width: 90%;
+    width: 95%;
     padding: 30px 20px;
   }
 `;
@@ -55,7 +82,7 @@ const TextBlockStyled = styled(motion.div)`
 const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  flex-grow: 1; /* This ensures the button is pushed to the bottom */
 `;
 
 const TitleWrapper = styled.div`
@@ -70,26 +97,10 @@ const TitleWrapper = styled.div`
   }
 `;
 
-const VerticalLine = styled.div`
-  width: 3px;
-  background-color: black;
-  height: 80%;
-  align-self: center;
-
-  @media (max-width: 992px) {
-    display: none;
-  }
-`;
-
 const ButtonWrapper = styled.div`
-  margin-top: auto;
-  padding-top: 30px;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
-
-  @media (max-width: 576px) {
-    margin-top: 30px;
-  }
 `;
 
 const StyledButton = styled(CustomButton)`
@@ -105,29 +116,26 @@ const ButtonLink = styled.a`
   text-decoration: none;
   display: block;
   width: 100%;
+  color: inherit;
 `;
 
 const TextBlock = ({ title, subtitle, text, buttonText, link }) => (
   <TextBlockStyled
     initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, ease: "easeIn" }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
   >
     <TextContent>
       <Typography as="h6" type="h6" color="dark">{subtitle}</Typography>
       <TitleWrapper>
-        <Typography as="h3" type="h3" color="primary" style={{ fontWeight: "400" }}>{title}</Typography>
+        <Typography as="h3" type="h3" color="primary" style={{ fontWeight: "600" }}>{title}</Typography>
       </TitleWrapper>
-      <Typography as="p" type="h6" color="dark">{text}</Typography>
+      <Typography as="p" type="h6" color="dark" style={{ lineHeight: 1.6 }}>{text}</Typography>
     </TextContent>
 
     <ButtonWrapper>
-      <StyledButton
-        initial={{ opacity: 0, y: 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        viewport={{ once: true }}
-      >
+      <StyledButton>
         <ButtonLink href={link} target="_blank" rel="noopener noreferrer">
           {buttonText || "Commencer"}
         </ButtonLink>
@@ -144,11 +152,32 @@ export default function Admissions({ data }) {
       <Header 
         animate={false} 
         imageSrc={data?.headerImageUrl} 
-        headerText={data?.headerText} 
+        headerText={data?.headerText || "ADMISSIONS"} 
         headerTextTop="70%" 
       />
 
       <StyledDiv>
+        <SectionHeader>
+          <SectionSubtitle
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Inscriptions
+          </SectionSubtitle>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <Typography as="h1" type="h1" color="primary" style={{ marginTop: "1.5rem" }}>
+              Processus d'admission
+            </Typography>
+          </motion.div>
+        </SectionHeader>
+
         <TextBlockContainer>
           {blocks.map((item, index) => (
             <div key={index} style={{ display: "contents" }}>
@@ -159,7 +188,6 @@ export default function Admissions({ data }) {
                 buttonText={item.buttonText}
                 link={item.link}
               />
-              {index < blocks.length - 1 && <VerticalLine />}
             </div>
           ))}
         </TextBlockContainer>

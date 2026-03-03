@@ -1,23 +1,26 @@
 "use client";
 
-//Third Party Imports
+// Third Party Imports
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 
-//Local Imports
+// Local Imports
 import Typography from "../display/Typography";
+import Container from "../layout/Container";
 import { getHomePage } from "../../lib/sanity-queries";
-import { urlFor } from "../../lib/sanity";
 
-//CSS For Section1
-const Section1 = styled.section`
+const Section = styled.section`
   text-align: center;
-  padding: 2.5rem 0 2.5rem;
+  padding: 4rem 0 5rem;
   position: relative;
-  
-  @media (min-width: 650px) {
-    height: 37.5rem;
+
+  @media (min-width: 768px) {
+    padding: 5rem 0 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 6rem 0 7rem;
   }
 `;
 
@@ -32,23 +35,54 @@ const StyledImage = styled.img`
   transform: translateX(-37%);
 `;
 
-const ContentWrapper = styled(motion.div)`
+const ContentWrapper = styled.div`
   display: flex;
-  gap: var(--spacing-4);
   flex-direction: column;
-  padding-top: var(--spacing-2);
-  margin: 0 auto 0;
-  width: 90%;
-  max-width: 1000px;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+`;
 
-  @media (min-width: 1024px) {
-    padding-top: var(--spacing-8);
+const Eyebrow = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
   }
 `;
 
-const TextContainer = styled.div`
-  width: 100%;
-  margin: 0 auto;
+const TitleWrapper = styled(motion.div)`
+  margin-bottom: 2rem;
+
+  @media (min-width: 768px) {
+    margin-bottom: 2.5rem;
+  }
+`;
+
+const TextContainer = styled(motion.div)`
+  max-width: 800px;
+`;
+
+const Accent = styled(motion.div)`
+  width: 50px;
+  height: 2px;
+  background: #007dc3;
+  margin-top: 3rem;
 `;
 
 function Intro() {
@@ -60,56 +94,61 @@ function Intro() {
         const data = await getHomePage();
         setHomePageData(data);
       } catch (error) {
-        //console.error('Error fetching home page data:', error);
+        // Handle error silently
       }
     }
-
     fetchHomePageData();
   }, []);
 
-  // Fallback content if Sanity data isn't available
   const title = homePageData?.introSection?.title;
   const content = homePageData?.introSection?.content;
 
   return (
-    <>
-      <Section1>
-        <StyledImage
-          src="/images/logo-big.svg"
-          alt="transparent logo image"
-        />
+    <Section>
+      <StyledImage src="/images/logo-big.svg" alt="" />
+
+      <Container>
         <ContentWrapper>
-          <Typography
-            as="h1"
-            type="h1"
-            color="primary"
-            initial={{ opacity: 0, y: -25 }}
+          <Eyebrow
+            initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{
-              amount: "all",
-              margin: "0px 0px -100px 0px",
-              once: true,
-            }}
-            transition={{ duration: 0.9, ease: "easeIn" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            {title}
-          </Typography>
-          <TextContainer>
-            <Typography
-              as="p"
-              type="h5"
-              color="dark"
-              initial={{ opacity: 0, y: 200 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.7, ease: "easeInOut" }}
-              viewport={{ once: true }}
-            >
+            Bienvenue
+          </Eyebrow>
+
+          <TitleWrapper
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <Typography as="h1" type="h1" color="primary">
+              {title}
+            </Typography>
+          </TitleWrapper>
+
+          <TextContainer
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+          >
+            <Typography as="p" type="h5" color="dark">
               {content}
             </Typography>
           </TextContainer>
+
+          <Accent
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          />
         </ContentWrapper>
-      </Section1>
-    </>
+      </Container>
+    </Section>
   );
 }
 

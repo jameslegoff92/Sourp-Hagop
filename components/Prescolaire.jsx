@@ -24,6 +24,38 @@ const MotionDiv = styled(motion.div)`
   }
 `;
 
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 1.5rem;
+`;
+
+const Eyebrow = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
+const TitleWrapper = styled(motion.div)`
+  margin-top: 1.5rem;
+`;
+
 const TextContainer = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -90,13 +122,13 @@ const CoursesGrid = styled.div`
 `;
 
 const CourseCard = styled(motion.div, {
-    shouldForwardProp: (prop) => prop !== 'accentColor'
+  shouldForwardProp: (prop) => prop !== "accentColor",
 })`
   background: white;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid ${props => props.accentColor || 'var(--primary-color)'};
+  border-left: 4px solid ${(props) => props.accentColor || "var(--primary-color)"};
   text-align: center;
 `;
 
@@ -109,8 +141,8 @@ const CourseIcon = styled.img`
 `;
 
 const CourseHours = styled.div`
-  background: ${props => props.bg || 'rgba(0, 125, 195, 0.1)'};
-  color: ${props => props.color || 'var(--primary-color)'};
+  background: ${(props) => props.bg || "rgba(0, 125, 195, 0.1)"};
+  color: ${(props) => props.color || "var(--primary-color)"};
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -159,15 +191,20 @@ const GradeBadge = styled.span`
   font-weight: 700;
   font-size: 1.1rem;
   color: white;
-  background: ${props => {
-        switch (props.grade) {
-            case 'A': return '#28a745';
-            case 'B': return '#007bff';
-            case 'C': return '#ffc107';
-            case 'D': return '#dc3545';
-            default: return 'var(--primary-color)';
-        }
-    }};
+  background: ${(props) => {
+    switch (props.grade) {
+      case "A":
+        return "#28a745";
+      case "B":
+        return "#007bff";
+      case "C":
+        return "#ffc107";
+      case "D":
+        return "#dc3545";
+      default:
+        return "var(--primary-color)";
+    }
+  }};
 `;
 
 const CompetenciesGrid = styled.div`
@@ -215,7 +252,7 @@ const CompetencyListItem = styled.li`
   line-height: 1.5;
 
   &::before {
-    content: '✓';
+    content: "✓";
     position: absolute;
     left: 0;
     color: var(--primary-color);
@@ -231,211 +268,348 @@ const TableNote = styled.div`
   border-left: 4px solid #ffc107;
 `;
 
-// Helper function to get background color from accent color
 const getBgColor = (color) => {
-    switch (color) {
-        case '#fd7e14': return 'rgba(253, 126, 20, 0.1)';
-        case '#28a745': return 'rgba(40, 167, 69, 0.1)';
-        case '#dc3545': return 'rgba(220, 53, 69, 0.1)';
-        case '#6f42c1': return 'rgba(111, 66, 193, 0.1)';
-        default: return 'rgba(0, 125, 195, 0.1)';
-    }
+  switch (color) {
+    case "#fd7e14":
+      return "rgba(253, 126, 20, 0.1)";
+    case "#28a745":
+      return "rgba(40, 167, 69, 0.1)";
+    case "#dc3545":
+      return "rgba(220, 53, 69, 0.1)";
+    case "#6f42c1":
+      return "rgba(111, 66, 193, 0.1)";
+    default:
+      return "rgba(0, 125, 195, 0.1)";
+  }
 };
 
 export default function Prescolaire({ data }) {
-    return (
-        <>
-            <Header
-                animate={false}
-                imageSrc={data?.headerImageUrl || "../images/header/prescolaire-header.jpg"}
-                headerText={data?.headerText}
-                headerTextTop="70%"
-            />
+  return (
+    <>
+      <Header
+        animate={false}
+        imageSrc={data?.headerImageUrl || "../images/header/prescolaire-header.jpg"}
+        headerText={data?.headerText}
+        headerTextTop="70%"
+      />
 
-            <StyledDiv>
-                <MotionDiv>
-                    {/* Introduction */}
-                    <TextContainer>
-                        <Typography
-                            as="p"
-                            type="h6"
-                            color="dark"
-                            initial={{ opacity: 0, y: 100 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                            viewport={{ once: true }}
-                        >
-                            {data?.introText}
-                        </Typography>
-                    </TextContainer>
+      <StyledDiv>
+        <MotionDiv>
+          {/* Introduction */}
+          <SectionHeader>
+            <Eyebrow
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Éducation préscolaire
+            </Eyebrow>
+            <TitleWrapper
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <Typography as="h1" type="h1" color="primary">
+                {data?.pageTitle || "Programme préscolaire"}
+              </Typography>
+            </TitleWrapper>
+          </SectionHeader>
 
-                    {/* Activities Section */}
-                    <ActivitiesContainer>
-                        <Typography as="h3" type="h3" color="primary" style={{ textAlign: "center", marginBottom: "15px" }}>
-                            {data?.activitiesTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "20px" }}>
-                            {data?.activitiesDescription}
-                        </Typography>
+          <TextContainer>
+            <Typography
+              as="p"
+              type="h6"
+              color="dark"
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+            >
+              {data?.introText}
+            </Typography>
+          </TextContainer>
 
-                        <ActivitiesGrid>
-                            {data?.activities?.map((activity, index) => (
-                                <ActivityItem
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <ActivityIcon src={activity.iconUrl} alt={activity.title} />
-                                    <Typography as="p" type="h6" color="dark">
-                                        {activity.title}
-                                    </Typography>
-                                </ActivityItem>
-                            ))}
-                        </ActivitiesGrid>
-                    </ActivitiesContainer>
+          {/* Activities Section */}
+          <ActivitiesContainer>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Apprentissage
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.activitiesTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
 
-                    {/* Specialized Courses */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h2" type="h2" color="primary" style={{ textAlign: "center", marginBottom: "30px" }}>
-                            {data?.coursesTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "20px" }}>
-                            {data?.coursesDescription}
-                        </Typography>
+            <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "20px" }}>
+              {data?.activitiesDescription}
+            </Typography>
 
-                        <CoursesGrid>
-                        {data?.specializedCourses?.map((course, index) => (
-                            <CourseCard
-                            key={index}
-                            accentColor={course.color}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.2 }}
-                            viewport={{ once: true }}
-                            >
-                            <CourseIcon src={course.iconUrl} alt={course.title} />
-                            <Typography as="h4" type="h5" color="primary" style={{ margin: "15px 0 5px" }}>
-                                {course.title}
-                            </Typography>
-                            <CourseHours bg={getBgColor(course.color)} color={course.color}>
-                                {course.hours}
-                            </CourseHours>
-                            </CourseCard>
-                        ))}
-                        </CoursesGrid>
-                    </motion.div>
+            <ActivitiesGrid>
+              {data?.activities?.map((activity, index) => (
+                <ActivityItem
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <ActivityIcon src={activity.iconUrl} alt={activity.title} />
+                  <Typography as="p" type="h6" color="dark">
+                    {activity.title}
+                  </Typography>
+                </ActivityItem>
+              ))}
+            </ActivitiesGrid>
+          </ActivitiesContainer>
 
-                    {/* Evaluation Section */}
-                    <EvaluationContainer
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "15px" }}>
-                            {data?.evaluationTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark">
-                            {data?.evaluationDescription}
-                        </Typography>
+          {/* Specialized Courses */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Nos programmes
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h2" type="h2" color="primary">
+                  {data?.coursesTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
 
-                        <GradeGrid>
-                            {data?.grades?.map((grade, index) => (
-                                <GradeItem key={index}>
-                                    <GradeBadge grade={grade.letter}>{grade.letter}</GradeBadge>
-                                    <Typography as="p" type="p" color="dark" style={{ fontSize: "0.95rem" }}>
-                                        {grade.description}
-                                    </Typography>
-                                </GradeItem>
-                            ))}
-                        </GradeGrid>
-                    </EvaluationContainer>
+            <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "20px" }}>
+              {data?.coursesDescription}
+            </Typography>
 
-                    {/* Competencies Section */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h2" type="h2" color="primary" style={{ textAlign: "center", marginBottom: "15px" }}>
-                            {data?.competenciesTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "30px" }}>
-                            {data?.competenciesSubtitle}
-                        </Typography>
+            <CoursesGrid>
+              {data?.specializedCourses?.map((course, index) => (
+                <CourseCard
+                  key={index}
+                  accentColor={course.color}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <CourseIcon src={course.iconUrl} alt={course.title} />
+                  <Typography as="h4" type="h5" color="primary" style={{ margin: "15px 0 5px" }}>
+                    {course.title}
+                  </Typography>
+                  <CourseHours bg={getBgColor(course.color)} color={course.color}>
+                    {course.hours}
+                  </CourseHours>
+                </CourseCard>
+              ))}
+            </CoursesGrid>
+          </motion.div>
 
-                        <CompetenciesGrid>
-                            {data?.competencies?.map((comp, index) => (
-                                <CompetencyCard
-                                    key={index}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <CompetencyNumber>{comp.number}</CompetencyNumber>
-                                    <Typography as="h4" type="h5" color="primary" style={{ marginBottom: "10px" }}>
-                                        {comp.title}
-                                    </Typography>
-                                    <CompetencyList>
-                                        {comp.items?.map((item, i) => (
-                                            <CompetencyListItem key={i}>{item}</CompetencyListItem>
-                                        ))}
-                                    </CompetencyList>
-                                </CompetencyCard>
-                            ))}
-                        </CompetenciesGrid>
-                    </motion.div>
+          {/* Evaluation Section */}
+          <div>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Suivi de l'élève
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.evaluationTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
 
-                    {/* Daily Schedule */}
-                    <SectionContainer
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-                            {data?.scheduleTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
-                            {data?.scheduleDescription}
-                        </Typography>
-                        {data?.scheduleNote && (
-                            <TableNote>
-                                <Typography as="p" type="p" color="dark">
-                                    {data.scheduleNote}
-                                </Typography>
-                            </TableNote>
-                        )}
-                    </SectionContainer>
+            <EvaluationContainer
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Typography as="p" type="p" color="dark">
+                {data?.evaluationDescription}
+              </Typography>
 
-                    {/* Contact CTA */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        style={{ textAlign: "center", marginTop: "30px" }}
-                    >
-                        <Typography as="h3" type="h3" color="primary">
-                            {data?.contactTitle}
-                        </Typography>
-                        <Typography as="p" type="p" color="dark" style={{ marginTop: "15px" }}>
-                            {data?.contactDescription}
-                        </Typography>
-                    </motion.div>
-                </MotionDiv>
-            </StyledDiv>
+              <GradeGrid>
+                {data?.grades?.map((grade, index) => (
+                  <GradeItem key={index}>
+                    <GradeBadge grade={grade.letter}>{grade.letter}</GradeBadge>
+                    <Typography as="p" type="p" color="dark" style={{ fontSize: "0.95rem" }}>
+                      {grade.description}
+                    </Typography>
+                  </GradeItem>
+                ))}
+              </GradeGrid>
+            </EvaluationContainer>
+          </div>
 
-            <Footer />
-        </>
-    );
+          {/* Competencies Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Développement
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h2" type="h2" color="primary">
+                  {data?.competenciesTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
+            <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "30px" }}>
+              {data?.competenciesSubtitle}
+            </Typography>
+
+            <CompetenciesGrid>
+              {data?.competencies?.map((comp, index) => (
+                <CompetencyCard
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <CompetencyNumber>{comp.number}</CompetencyNumber>
+                  <Typography as="h4" type="h5" color="primary" style={{ marginBottom: "10px" }}>
+                    {comp.title}
+                  </Typography>
+                  <CompetencyList>
+                    {comp.items?.map((item, i) => (
+                      <CompetencyListItem key={i}>{item}</CompetencyListItem>
+                    ))}
+                  </CompetencyList>
+                </CompetencyCard>
+              ))}
+            </CompetenciesGrid>
+          </motion.div>
+
+          {/* Daily Schedule */}
+          <div>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Organisation
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.scheduleTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
+            <SectionContainer
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
+                {data?.scheduleDescription}
+              </Typography>
+              {data?.scheduleNote && (
+                <TableNote>
+                  <Typography as="p" type="p" color="dark">
+                    {data.scheduleNote}
+                  </Typography>
+                </TableNote>
+              )}
+            </SectionContainer>
+          </div>
+
+          {/* Contact CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ textAlign: "center", marginTop: "30px" }}
+          >
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Nous joindre
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.contactTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
+            <Typography as="p" type="p" color="dark">
+              {data?.contactDescription}
+            </Typography>
+          </motion.div>
+        </MotionDiv>
+      </StyledDiv>
+
+      <Footer />
+    </>
+  );
 }

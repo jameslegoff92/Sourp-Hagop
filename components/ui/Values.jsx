@@ -1,263 +1,275 @@
 "use client";
 import { useRef } from "react";
 
-//Third Party Imports
+// Third Party Imports
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
 
-//Local Imports
+// Local Imports
 import Typography from "../display/Typography";
 import Container from "../layout/Container";
 
-//CSS For Values Section
 const ValuesContainer = styled.div`
-  background-color: var(--secondary-color);
-  padding: 40px 0 100px;
-  position relative;
-  text-align: center;
-  `;
-
-const CardContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  margin-top: var(--spacing-7);
-
-  @media (min-width: 1093px) {
-    flex-direction: row;
-  }
-`;
-const ValueWrapper = styled(motion.div)`
-  display: flex;
-  gap: var(--spacing-4);
-  flex-direction: column;
-  padding-top: var(--spacing-2);
-  margin: 0 auto 0;
-  width: 100%;
-  margin-bottom: var(--spacing-4);
-
-  @media (min-width: 48rem) {
-    flex-direction: row;
-  }
-
-  @media (min-width: 68.3125rem) {
-    width: calc(33.333% - var(--spacing-4));
-    margin-bottom: 0;
-  }
-`;
-
-const ImgContainer = styled.div`
-  display: none;
-
-  @media (min-width: 48rem) {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); 
-    display: block;
-    width: 100%;
-    height: 31.25rem;
-  }
-
-  @media (min-width: 68.3125rem) {
-    display: none;
-  }
-`;
-
-const Img = styled.img`
-  width: 100%;
-  object-fit: cover;
-  height: 100%;
-`;
-
-const ValueContainer = styled(motion.div,{
-  shouldForwardProp: (prop) => prop !== '_index'
-})`
+  background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0d2137 100%);
+  padding: 5rem 0 6rem;
+  position: relative;
   overflow: hidden;
-  height: 31.25rem;
-  order: ${(props) => (props._index == 1 ? 1 : 0)};
 
-    @media (min-width: 768px) { 
-    width: 600px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      ellipse at 30% 20%,
+      rgba(0, 125, 195, 0.15) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
   }
 `;
 
-const ValueSubContainer = styled(motion.div,{
-  shouldForwardProp: (prop) => prop !== '_index' && prop !== 'imageUrl'
-})`
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${(props) => props.imageUrl}');
-  background-size: cover; // Ensures the image covers the whole div
-  background-position: center; // Centers the image
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 0 40px;
+const HeaderContainer = styled.div`
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+`;
 
-  @media (min-width: 768px) and (max-width: 1093px) {
-    background: linear-gradient(rgba(0, 96, 150, 0.3), rgba(0, 96, 150, 0.3));
+const Eyebrow = styled.span`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #00a5e0;
+  margin-bottom: 1rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #00a5e0;
   }
+`;
 
+const SectionTitle = styled(Typography)`
+  color: #fff;
 
 `;
 
-const TextDiv = styled(motion.div,{
-  shouldForwardProp: (prop) => prop !== '_index' && prop !== 'backgroundColor'
-})`
-  background-color: ${(props) => props.backgroundColor || 'var(--tertiary-color)'};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 6rem 1rem;
-  height: 100%;
+const CardContainer = styled.div`
+  display: grid;
+  gap: 2rem;
 
   @media (min-width: 768px) {
-    padding: 6rem 4rem 0;
-    height: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
 `;
 
-const ValueText = styled(Typography,{
-  shouldForwardProp: (prop) => prop !== '_index' && prop !== 'textColor'
-})`
-  color: ${(props) => props.textColor || 'var(--black)'};
-  font-size: 0.9rem;
-  width: 75%;
-  margin: 0 auto;
+const Card = styled(motion.div)`
+  position: relative;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
 
   @media (min-width: 768px) {
-    font-size: 1rem;
-    width: 100%;
+    height: 550px;
   }
 `;
 
-//ValueItem Component
-const ValueItem = ({ value, _index }) => {
-  const parentControls = useAnimation();
-  const childControls1 = useAnimation();
-  const childControls2 = useAnimation();
-  const isOpen = useRef(false); // Internal flag to track the open/closed state
+const CardBackground = styled(motion.div, {
+  shouldForwardProp: (prop) => prop !== "imageUrl",
+})`
+  position: absolute;
+  inset: 0;
+  background: url("${(props) => props.imageUrl}");
+  background-size: cover;
+  background-position: center;
+`;
 
-  const handleHoverStart = async () => {
-    await parentControls.start({});
-    await childControls1.start({
-      height: "25%",
+const CardOverlay = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+`;
+
+const CardNumber = styled(motion.span)`
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-family: var(--secondary-ff), sans-serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  z-index: 2;
+`;
+
+const CardContent = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  z-index: 2;
+`;
+
+const CardLine = styled(motion.div)`
+  height: 3px;
+  background: #00a5e0;
+  margin-bottom: 1rem;
+`;
+
+const CardTitle = styled(motion.h3)`
+  font-family: var(--secondary-ff), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 1rem 0;
+
+  @media (min-width: 768px) {
+    font-size: 1.75rem;
+  }
+`;
+
+const CardText = styled(motion.p)`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  overflow: hidden;
+`;
+
+const ValueItem = ({ value, index }) => {
+  const bgControls = useAnimation();
+  const overlayControls = useAnimation();
+  const numberControls = useAnimation();
+  const lineControls = useAnimation();
+  const titleControls = useAnimation();
+  const textControls = useAnimation();
+  const iconControls = useAnimation();
+
+  const handleHoverStart = () => {
+    bgControls.start({ scale: 1.1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } });
+    overlayControls.start({
+      background: "linear-gradient(180deg, rgba(0, 60, 100, 0.3) 0%, rgba(0, 40, 80, 0.7) 40%, rgba(0, 20, 40, 0.98) 100%)",
+      transition: { duration: 0.4 },
+    });
+    numberControls.start({
+      color: "rgba(0, 165, 224, 0.2)",
+      y: -10,
+      transition: { duration: 0.4 },
+    });
+    lineControls.start({ width: 60, transition: { duration: 0.4 } });
+    titleControls.start({ y: -8, transition: { duration: 0.4 } });
+    textControls.start({ maxHeight: 200, opacity: 1, transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] } });
+    iconControls.start({
+      borderColor: "#00a5e0",
+      backgroundColor: "rgba(0, 165, 224, 0.2)",
+      rotate: 45,
       transition: { duration: 0.3 },
     });
-    await childControls2.start({
-      scale: 1.2,
-      opacity: 1,
-      transition: { duration: 0.5 },
+  };
+
+  const handleHoverEnd = () => {
+    bgControls.start({ scale: 1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } });
+    overlayControls.start({
+      background: "linear-gradient(180deg, transparent 0%, transparent 30%, rgba(0, 30, 60, 0.8) 70%, rgba(0, 20, 40, 0.95) 100%)",
+      transition: { duration: 0.4 },
     });
-  };
-
-  const getTextColor = (backgroundColor) => {
-    if (!backgroundColor) return 'var(--black)';
-    if (backgroundColor === '#006096' || backgroundColor.toLowerCase().includes('006096')) {
-      return '#fff';
-    }
-    return 'var(--black)';
-  };
-
-  const handleHoverEnd = async () => {
-    await parentControls.start({});
-    await childControls1.start({
-      height: "100%",
+    numberControls.start({
+      color: "rgba(255, 255, 255, 0.08)",
+      y: 0,
+      transition: { duration: 0.4 },
+    });
+    lineControls.start({ width: 40, transition: { duration: 0.4 } });
+    titleControls.start({ y: 0, transition: { duration: 0.4 } });
+    textControls.start({ maxHeight: 0, opacity: 0, transition: { duration: 0.3 } });
+    iconControls.start({
+      borderColor: "rgba(255, 255, 255, 0.2)",
+      backgroundColor: "transparent",
+      rotate: 0,
       transition: { duration: 0.3 },
     });
-    await childControls2.start({
-      scale: 1,
-      opacity: 0,
-      transition: { duration: 0.2 },
-    });
-  };
-
-  const handleTap = async () => {
-    if (isOpen.current) {
-      // If the element is in its initial state (scale: 1), expand it
-      await childControls1.start({
-        height: "100%",
-        transition: { duration: 0.3 },
-      });
-      await childControls2.start({
-        scale: 1,
-        opacity: 0,
-        transition: { duration: 0.2 },
-      });
-    } else {
-      // If the element is expanded, collapse it back to its original size
-      await childControls1.start({
-        height: "25%",
-        transition: { duration: 0.3, },
-      });
-      await childControls2.start({
-        scale: 1.2,
-        opacity: 1,
-        transition: { duration: 0.5 },
-      });
-    }
-
-    isOpen.current = !isOpen.current; // Toggle the flag
   };
 
   return (
-    <ValueWrapper>
-      <ValueContainer
-        animate={parentControls}
-        onHoverStart={handleHoverStart}
-        onHoverEnd={handleHoverEnd}
-        onTap={handleTap}
-        _index={_index}
+    <Card
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handleHoverEnd}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+    >
+      <CardBackground
+        imageUrl={value.imageUrl}
+        animate={bgControls}
+        initial={{ scale: 1 }}
+      />
+      <CardOverlay
+        animate={overlayControls}
+        initial={{
+          background: "linear-gradient(180deg, transparent 0%, transparent 30%, rgba(0, 30, 60, 0.8) 70%, rgba(0, 20, 40, 0.95) 100%)",
+        }}
+      />
+      <CardNumber
+        animate={numberControls}
+        initial={{ color: "rgba(255, 255, 255, 0.08)", y: 0 }}
       >
-        <ValueSubContainer
-          _index={_index}
-          imageUrl={value.imageUrl}
-          initial={{ height: "100%" }}
-          animate={childControls1}
+        {String(index + 1).padStart(2, "0")}
+      </CardNumber>
+      <CardContent>
+        <CardLine
+          animate={lineControls}
+          initial={{ width: 40 }}
+        />
+        <CardTitle
+          animate={titleControls}
+          initial={{ y: 0 }}
         >
-          <Typography as="h1" type="h4" color="light" fontFamily="secondary">
-            {value.title}
-          </Typography>
-        </ValueSubContainer>
-        <TextDiv _index={_index} backgroundColor={value.backgroundColor}>
-          <ValueText
-            _index={_index}
-            textColor={getTextColor(value.backgroundColor)}
-            as="p"
-            type="h6"
-            fontFamily="secondary"
-            initial={{ opacity: 0 }}
-            animate={childControls2}
-          >
-            {value.text}
-          </ValueText>
-        </TextDiv>
-      </ValueContainer>
-      <ImgContainer>
-        <Img src={value.imageUrl} alt={value.title} />
-      </ImgContainer>
-    </ValueWrapper>
+          {value.title}
+        </CardTitle>
+        <CardText
+          animate={textControls}
+          initial={{ maxHeight: 0, opacity: 0 }}
+        >
+          {value.text}
+        </CardText>
+      </CardContent>
+    </Card>
   );
 };
 
-//Values Component: Used to simply map() the ValueItem Component
 const Values = ({ sectionTitle = "Nos Valeurs", values = [] }) => {
   if (!values || values.length === 0) {
     return null;
   }
 
   return (
-    <>
-      <ValuesContainer>
-        <Container>
-          <Typography as="h1" type="h2" color="primary">
+    <ValuesContainer>
+      <Container>
+        <HeaderContainer>
+          <Eyebrow>Ce qui nous définit</Eyebrow>
+          <SectionTitle as="h2" type="h2">
             {sectionTitle}
-          </Typography>
-          <CardContainer>
-            {values.map((value, index) => (
-              <ValueItem key={value._id || index} value={value} _index={index} />
-            ))}
-          </CardContainer>
-        </Container>
-      </ValuesContainer>
-    </>
+          </SectionTitle>
+        </HeaderContainer>
+        <CardContainer>
+          {values.map((value, index) => (
+            <ValueItem key={value._id || index} value={value} index={index} />
+          ))}
+        </CardContainer>
+      </Container>
+    </ValuesContainer>
   );
 };
 

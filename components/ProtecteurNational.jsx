@@ -8,23 +8,61 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
 
-const StyledDiv = styled.div`
+const Section = styled.section`
   text-align: center;
-  padding: 60px 0 150px;
+  padding: 4rem 2rem 5rem;
   position: relative;
+
+  @media (min-width: 768px) {
+    padding: 5rem 3rem 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 6rem 4rem 8rem;
+  }
 `;
 
 const ContentContainer = styled.div`
-  width: 90%;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
-const MotionDiv = styled(motion.div)`
-  display: flex;
-  gap: var(--spacing-4);
-  flex-direction: column;
-  margin: 50px auto 0;
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const Eyebrow = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
+const TitleWrapper = styled(motion.div)`
+  margin-top: 1.5rem;
+`;
+
+const IntroText = styled(motion.div)`
+  text-align: center;
+  margin-bottom: 3rem;
 `;
 
 const InfoCard = styled(motion.div)`
@@ -137,7 +175,12 @@ const InfoContent = styled.div`
 `;
 
 const StepsSection = styled.div`
-  margin-top: 3rem;
+  margin-top: 4rem;
+`;
+
+const StepsHeader = styled.div`
+  text-align: left;
+  margin-bottom: 2rem;
 `;
 
 const StepsIntroText = styled.div`
@@ -374,43 +417,12 @@ const RegularParagraph = styled.div`
   }
 `;
 
-const ContactBox = styled.div`
-  background-color: var(--secondary-color);
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin: 2rem 0;
-`;
-
-const ContactItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  color: #333;
-
-  &::before {
-    content: "●";
-    color: var(--primary-color);
-  }
-
-  a, span {
-    color: var(--primary-color);
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-`;
-
 const ProcessImage = styled(motion.img)`
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   height: auto;
   border-radius: 16px;
-  margin: 2rem auto;
+  margin: 3rem auto;
   display: block;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -427,7 +439,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Footnote = styled.div`
-  margin-top: 3rem;
+  margin-top: 4rem;
   padding-top: 2rem;
   border-top: 1px solid #ddd;
   font-size: 0.9rem;
@@ -502,56 +514,64 @@ export default function ProtecteurNational({ data }) {
         headerTextTop="70%"
       />
 
-      <StyledDiv>
+      <Section>
         <ContentContainer>
-          <MotionDiv>
-            {/* Titre principal */}
-            <Typography
-              as="h1"
-              type="h1"
-              color="primary"
-              initial={{ opacity: 0, y: -25 }}
+          {/* Header */}
+          <SectionHeader>
+            <Eyebrow
+              initial={{ opacity: 0, y: -10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
+              transition={{ duration: 0.6 }}
             >
-              {mainTitle || "Processus de traitement des plaintes"}
-            </Typography>
+              Vos droits
+            </Eyebrow>
+            <TitleWrapper
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <Typography as="h1" type="h1" color="primary">
+                {mainTitle || "Processus de traitement des plaintes"}
+              </Typography>
+            </TitleWrapper>
+          </SectionHeader>
 
-            {/* Introduction */}
-            {introText && (
-              <Typography
-                as="p"
-                type="h5"
-                color="dark"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
+          {/* Introduction */}
+          {introText && (
+            <IntroText
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <Typography as="p" type="h5" color="dark">
                 {introText}
               </Typography>
-            )}
+            </IntroText>
+          )}
 
-            {/* Sections d'information */}
-            {infoSections.map((section, index) => (
-              <InfoCard
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <InfoTitle>{section.title}</InfoTitle>
-                <InfoContent>
-                  <PortableText value={section.content} components={portableTextComponents} />
-                </InfoContent>
-              </InfoCard>
-            ))}
+          {/* Sections d'information */}
+          {infoSections.map((section, index) => (
+            <InfoCard
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <InfoTitle>{section.title}</InfoTitle>
+              <InfoContent>
+                <PortableText value={section.content} components={portableTextComponents} />
+              </InfoContent>
+            </InfoCard>
+          ))}
 
-            {/* Section des étapes */}
-            {etapes.length > 0 && (
-              <StepsSection>
+          {/* Section des étapes */}
+          {etapes.length > 0 && (
+            <StepsSection>
+              <StepsHeader>
                 <Typography
                   as="h3"
                   type="h3"
@@ -560,139 +580,119 @@ export default function ProtecteurNational({ data }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  style={{ textAlign: "left", marginBottom: "1rem" }}
                 >
                   {stepsTitle || "Comment déposer une plainte ?"}
                 </Typography>
+              </StepsHeader>
 
-                {stepsIntro && (
-                  <StepsIntroText>
-                    <PortableText value={stepsIntro} components={portableTextComponents} />
-                  </StepsIntroText>
-                )}
+              {stepsIntro && (
+                <StepsIntroText>
+                  <PortableText value={stepsIntro} components={portableTextComponents} />
+                </StepsIntroText>
+              )}
 
-                {etapes.map((etape, index) => (
-                  <StepCard
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <StepHeader>
-                      <StepNumber>{etape.stepNumber}</StepNumber>
-                      <StepTitle>{etape.title}</StepTitle>
-                    </StepHeader>
-
-                    {etape.paragraphs?.map((para, pIndex) => (
-                      <HighlightedBox key={pIndex}>
-                        <PortableText value={para.text} components={portableTextComponents} />
-                      </HighlightedBox>
-                    ))}
-
-                    {etape.contactPerson?.name && (
-                      <HighlightedBox>
-                        La personne responsable du traitement des plaintes à l'École arménienne Sourp Hagop est{" "}
-                        <a href={`mailto:${etape.contactPerson.email}`}>
-                          {etape.contactPerson.name}
-                        </a>
-                        , {etape.contactPerson.role}. Elle dispose de 15 jours ouvrables pour répondre à la plainte soumise.
-                      </HighlightedBox>
-                    )}
-                  </StepCard>
-                ))}
-              </StepsSection>
-            )}
-
-            {/* Bouton formulaire */}
-            {formButton?.link && (
-              <ButtonContainer>
-                <CustomButton
-                  initial={{ opacity: 0, y: 20 }}
+              {etapes.map((etape, index) => (
+                <StepCard
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <a
-                    href={formButton.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: "none" }}
-                  >
-                    {formButton.text || "Formulaire de plainte"}
-                  </a>
-                </CustomButton>
-              </ButtonContainer>
-            )}
+                  <StepHeader>
+                    <StepNumber>{etape.stepNumber}</StepNumber>
+                    <StepTitle>{etape.title}</StepTitle>
+                  </StepHeader>
 
-            {/* Image du processus */}
-            {processImageUrl && (
-              <a href={processImageUrl} target="_blank" rel="noopener noreferrer">
-                <ProcessImage
-                  src={processImageUrl}
-                  alt="Processus de traitement des plaintes"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                />
-              </a>
-            )}
-
-            {/* Sections additionnelles */}
-            {additionalSections.map((section, index) => (
-              <InfoCard
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <InfoTitle>
-                  <PortableText value={section.title} components={portableTextComponents} />
-                </InfoTitle>
-                {section.paragraphs?.map((para, pIndex) =>
-                  para.isHighlighted ? (
+                  {etape.paragraphs?.map((para, pIndex) => (
                     <HighlightedBox key={pIndex}>
                       <PortableText value={para.text} components={portableTextComponents} />
                     </HighlightedBox>
-                  ) : (
-                    <RegularParagraph key={pIndex}>
-                      <PortableText value={para.text} components={portableTextComponents} />
-                    </RegularParagraph>
-                  )
-                )}
-              </InfoCard>
-            ))}
+                  ))}
 
-            {/* Contact info */}
-{/*             {contactInfo && (
-              <ContactBox>
-                <ContactItem>
-                  Formulaire de plainte web :{" "}
-                  <a href={`https://${contactInfo.formUrl}`} target="_blank" rel="noopener noreferrer">
-                    {contactInfo.formUrl}
-                  </a>
-                </ContactItem>
-                <ContactItem>
-                  Téléphone ou texto : <span>{contactInfo.phone}</span>
-                </ContactItem>
-                <ContactItem>
-                  Courriel :{" "}
-                  <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
-                </ContactItem>
-              </ContactBox>
-            )} */}
+                  {etape.contactPerson?.name && (
+                    <HighlightedBox>
+                      La personne responsable du traitement des plaintes à l'École arménienne Sourp Hagop est{" "}
+                      <a href={`mailto:${etape.contactPerson.email}`}>
+                        {etape.contactPerson.name}
+                      </a>
+                      , {etape.contactPerson.role}. Elle dispose de 15 jours ouvrables pour répondre à la plainte soumise.
+                    </HighlightedBox>
+                  )}
+                </StepCard>
+              ))}
+            </StepsSection>
+          )}
 
-            {/* Note de bas de page */}
-            {footnote && (
-              <Footnote>
-                <PortableText value={footnote} components={portableTextComponents} />
-              </Footnote>
-            )}
-          </MotionDiv>
+          {/* Bouton formulaire */}
+          {formButton?.link && (
+            <ButtonContainer>
+              <CustomButton
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <a
+                  href={formButton.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  {formButton.text || "Formulaire de plainte"}
+                </a>
+              </CustomButton>
+            </ButtonContainer>
+          )}
+
+          {/* Image du processus */}
+          {processImageUrl && (
+            <a href={processImageUrl} target="_blank" rel="noopener noreferrer">
+              <ProcessImage
+                src={processImageUrl}
+                alt="Processus de traitement des plaintes"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              />
+            </a>
+          )}
+
+          {/* Sections additionnelles */}
+          {additionalSections.map((section, index) => (
+            <InfoCard
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <InfoTitle>
+                <PortableText value={section.title} components={portableTextComponents} />
+              </InfoTitle>
+              {section.paragraphs?.map((para, pIndex) =>
+                para.isHighlighted ? (
+                  <HighlightedBox key={pIndex}>
+                    <PortableText value={para.text} components={portableTextComponents} />
+                  </HighlightedBox>
+                ) : (
+                  <RegularParagraph key={pIndex}>
+                    <PortableText value={para.text} components={portableTextComponents} />
+                  </RegularParagraph>
+                )
+              )}
+            </InfoCard>
+          ))}
+
+          {/* Note de bas de page */}
+          {footnote && (
+            <Footnote>
+              <PortableText value={footnote} components={portableTextComponents} />
+            </Footnote>
+          )}
         </ContentContainer>
-      </StyledDiv>
+      </Section>
 
       <Footer />
     </>

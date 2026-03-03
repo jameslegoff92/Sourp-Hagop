@@ -10,43 +10,91 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 
-const StyledDiv = styled.div`
-  text-align: left;
-  padding: 10px 0 150px;
+// --- STYLED COMPONENTS ---
+
+const Section = styled.section`
+  text-align: center;
+  padding: 4rem 2rem 5rem;
   position: relative;
+
+  @media (min-width: 768px) { padding: 5rem 3rem 6rem; }
+  @media (min-width: 1024px) { padding: 6rem 4rem 8rem; }
 `;
 
-const MotionDiv = styled(motion.div)`
+const ContentWrapper = styled(motion.div)`
   display: flex;
-  gap: var(--spacing-4);
   flex-direction: column;
-  margin: 50px auto 0;
-  width: 90%;
+  margin: 0 auto;
+  width: 100%;
   max-width: 1200px;
-  @media (max-width: 768px) {
-    width: 95%;
+`;
+
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+`;
+
+const SectionSubtitle = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
   }
+`;
+
+const TitleWrapper = styled(motion.div)`
+  margin-top: 1.5rem;
+`;
+
+const TextContainer = styled(motion.div)`
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  text-align: center;
 `;
 
 const SpacesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin: 40px 0;
+  gap: 2rem;
+  margin: 2rem 0;
+  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 1.5rem;
   }
 `;
 
-const SpaceCard = styled.div`
+const SpaceCard = styled(motion.div)`
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 450px;
   overflow: hidden;
   background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+
+  &:hover {
+    box-shadow: 0 15px 40px rgba(0, 125, 195, 0.15);
+    transform: translateY(-5px);
+  }
 
   &:hover .imageWrapper {
     transform: translateY(-70%);
@@ -69,25 +117,27 @@ const ImageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 2;
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6));
   }
 `;
 
 const SpaceTitle = styled(Typography)`
   position: relative;
   z-index: 3;
-  color: white;
+  color: white !important;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
   letter-spacing: 0.05rem;
+  padding: 0 20px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
 `;
 
 const ContentContainer = styled.div`
@@ -96,116 +146,129 @@ const ContentContainer = styled.div`
   left: 0;
   width: 100%;
   height: 70%;
-  background: var(--secondary-color);
-  padding: 30px;
+  background: var(--secondary-color, #f8fafc);
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transform: translateY(100%);
   opacity: 0;
-  transition: transform 0.5s ease, opacity 0.4s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
   z-index: 1;
 `;
 
 const SpaceDescription = styled.p`
-  color: black;
+  color: #444;
   line-height: 1.6;
-  margin: 0 0 20px 0;
-  font-family: var(--secondary-ff);
-  font-size: 1rem;
-  font-weight: 300;
+  margin: 0 0 1.5rem 0;
+  font-family: var(--secondary-ff), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
   flex-grow: 1;
+  text-align: left;
 `;
 
-const SpaceFeatures = styled.div`
-  margin-bottom: 20px;
-`;
+// --- COMPONENTS ---
 
-const FeatureItem = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-  color: #6b7280;
+const SpaceItem = ({ space, onOpen, index }) => (
+  <SpaceCard
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.1 }}
+    transition={{ duration: 0.6, delay: index * 0.1 }}
+    onClick={() => onOpen(space)}
+  >
+    <ImageWrapper
+      className="imageWrapper"
+      style={{ backgroundImage: `url('${space.imageUrl}')` }}
+    >
+      <SpaceTitle as="h4" type="h4">{space.title}</SpaceTitle>
+    </ImageWrapper>
 
-  &::before {
-    content: '✓';
-    color: var(--primary-color);
-    font-weight: bold;
-    margin-right: 8px;
-  }
-`;
-
-const TextContainer = styled.div`
-  width: 100%;
-  margin: 0 auto;
-`;
-
-const SpaceItem = ({ space, onOpen }) => (
-    <SpaceCard>
-        <ImageWrapper
-            className="imageWrapper"
-            style={{ backgroundImage: `url('${space.imageUrl}')` }}
-        >
-            <SpaceTitle as="h4" type="h4">{space.title}</SpaceTitle>
-        </ImageWrapper>
-
-        <ContentContainer className="contentContainer">
-            <div>
-                <SpaceDescription>{space.description}</SpaceDescription>
-            </div>
-            <Button onClick={() => onOpen(space)}>SAVOIR PLUS</Button>
-        </ContentContainer>
-    </SpaceCard>
+    <ContentContainer className="contentContainer">
+      <div>
+        <SpaceDescription>{space.description}</SpaceDescription>
+      </div>
+      <Button style={{ width: "100%" }}>SAVOIR PLUS</Button>
+    </ContentContainer>
+  </SpaceCard>
 );
 
 export default function RentalSpacesPage({ data }) {
-    const [showModal, setShowModal] = useState(false);
-    const [selectedSpace, setSelectedSpace] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedSpace, setSelectedSpace] = useState(null);
 
-    const openModal = (space) => {
-        setSelectedSpace(space);
-        setShowModal(true);
-    };
+  const openModal = (space) => {
+    setSelectedSpace(space);
+    setShowModal(true);
+  };
 
-    const closeModal = () => {
-        setShowModal(false);
-        setSelectedSpace(null);
-    };
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedSpace(null);
+  };
 
-    return (
-        <>
-            <Header
-                imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"}
-                headerText={data?.headerText || "LOCATION D'ESPACES"}
-                headerTextTop="70%"
-            />
-            <StyledDiv>
-                <MotionDiv>
-                    <Typography as="h1" type="h1" color="primary" style={{ textAlign: "center" }}>
-                        Nos espaces à votre disposition
-                    </Typography>
-                    <TextContainer>
-                        <Typography as="p" type="h6" color="dark" style={{ textAlign: "center" }}>
-                            {data?.introText}
-                        </Typography>
-                    </TextContainer>
-                    <SpacesGrid style={{ textAlign: "center" }}>
-                        {data?.spaces?.map((space, idx) => (
-                            <SpaceItem key={idx} space={space} onOpen={openModal} />
-                        ))}
-                    </SpacesGrid>
+  return (
+    <>
+      <Header
+        animate={false}
+        imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"}
+        headerText={data?.headerText || "LOCATION D'ESPACES"}
+        headerTextTop="70%"
+      />
+      
+      <Section>
+        <ContentWrapper>
+          
+          <SectionHeader>
+            <SectionSubtitle
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Nos installations
+            </SectionSubtitle>
+            
+            <TitleWrapper
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <Typography as="h1" type="h1" color="primary">
+                Nos espaces à votre disposition
+              </Typography>
+            </TitleWrapper>
+          </SectionHeader>
 
-                    <LocationModal
-                        isOpen={showModal}
-                        onClose={closeModal}
-                        space={selectedSpace}
-                    />
+          <TextContainer
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Typography as="p" type="h6" color="dark">
+              {data?.introText}
+            </Typography>
+          </TextContainer>
 
-                </MotionDiv>
-            </StyledDiv>
-            {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
-            <Footer />
-        </>
-    );
+          <SpacesGrid>
+            {data?.spaces?.map((space, idx) => (
+              <SpaceItem key={idx} index={idx} space={space} onOpen={openModal} />
+            ))}
+          </SpacesGrid>
+
+          <LocationModal
+            isOpen={showModal}
+            onClose={closeModal}
+            space={selectedSpace}
+          />
+
+        </ContentWrapper>
+      </Section>
+      
+      <Footer />
+    </>
+  );
 }

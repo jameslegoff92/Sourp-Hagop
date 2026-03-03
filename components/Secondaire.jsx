@@ -31,6 +31,38 @@ const MotionDiv = styled(motion.div)`
   }
 `;
 
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 1.5rem;
+`;
+
+const Eyebrow = styled(motion.span)`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
+const TitleWrapper = styled(motion.div)`
+  margin-top: 1.5rem;
+`;
+
 const CyclesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -45,39 +77,39 @@ const CyclesContainer = styled.div`
 `;
 
 const CycleCard = styled(motion.div, {
-  shouldForwardProp: (prop) => prop !== 'bgImage'
+  shouldForwardProp: (prop) => prop !== "bgImage",
 })`
   position: relative;
   height: 500px;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  background-image: ${props => props.bgImage ? `url(${props.bgImage})` : 'none'};
+  background-image: ${(props) => (props.bgImage ? `url(${props.bgImage})` : "none")};
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     transition: background 0.3s ease;
   }
-  
+
   &:hover::before {
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
   }
-  
+
   &:hover .cycle-content {
     justify-content: center;
     padding-top: 40px;
   }
-  
+
   &:hover .cycle-name {
     transform: translateY(-20px);
   }
-  
+
   &:hover .cycle-details {
     opacity: 1;
     transform: translateY(0);
@@ -147,22 +179,29 @@ const ProgramOptionsContainer = styled.div`
 `;
 
 const ProgramCard = styled(motion.div, {
-  shouldForwardProp: (prop) => prop !== 'program'
+  shouldForwardProp: (prop) => prop !== "program",
 })`
   background: white;
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid ${props => {
-    switch(props.program) {
-      case 'sciences': return '#28a745';
-      case 'humanities': return '#dc3545';
-      case 'arts': return '#fd7e14';
-      case 'math': return '#6f42c1';
-      case 'languages': return '#007bff';
-      default: return '#007bff';
-    }
-  }};
+  border-left: 4px solid
+    ${(props) => {
+      switch (props.program) {
+        case "sciences":
+          return "#28a745";
+        case "humanities":
+          return "#dc3545";
+        case "arts":
+          return "#fd7e14";
+        case "math":
+          return "#6f42c1";
+        case "languages":
+          return "#007bff";
+        default:
+          return "#007bff";
+      }
+    }};
 `;
 
 const ActivitiesContainer = styled.div`
@@ -220,15 +259,37 @@ const TableNote = styled.div`
 export default function Secondaire({ data }) {
   return (
     <>
-      <Header 
-        animate={false} 
-        imageSrc={data?.headerImageUrl} 
-        headerText={data?.headerText} 
-        headerTextTop="70%" 
+      <Header
+        animate={false}
+        imageSrc={data?.headerImageUrl}
+        headerText={data?.headerText}
+        headerTextTop="70%"
       />
 
       <StyledDiv>
         <MotionDiv>
+          {/* Introduction */}
+          <SectionHeader>
+            <Eyebrow
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Éducation secondaire
+            </Eyebrow>
+            <TitleWrapper
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <Typography as="h1" type="h1" color="primary">
+                {data?.pageTitle || "Programme secondaire"}
+              </Typography>
+            </TitleWrapper>
+          </SectionHeader>
+
           <TextContainer>
             <Typography
               as="p"
@@ -250,9 +311,27 @@ export default function Secondaire({ data }) {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Typography as="h2" type="h2" color="primary" style={{ textAlign: "center", marginBottom: "30px" }}>
-              {data?.cyclesTitle}
-            </Typography>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Structure du programme
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h2" type="h2" color="primary">
+                  {data?.cyclesTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
             <CyclesContainer>
               {data?.cycles?.map((cycle, index) => (
                 <CycleCard
@@ -290,38 +369,76 @@ export default function Secondaire({ data }) {
           </motion.div>
 
           {/* Pedagogy Section */}
-          <SectionContainer
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px" }}>
-              {data?.pedagogyTitle}
-            </Typography>
-            <PortableText
-              value={data?.pedagogyContent}
-              components={{
-                block: {
-                  normal: ({ children }) => (
-                    <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
-                      {children}
-                    </Typography>
-                  ),
-                },
-              }}
-            />
-          </SectionContainer>
+          <div>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Notre approche
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.pedagogyTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
+            <SectionContainer
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <PortableText
+                value={data?.pedagogyContent}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <Typography as="p" type="p" color="dark" style={{ marginBottom: "15px" }}>
+                        {children}
+                      </Typography>
+                    ),
+                  },
+                }}
+              />
+            </SectionContainer>
+          </div>
 
           {/* Enriched Curriculum Section */}
           <EnrichedCurriculumContainer>
-            <Typography as="h3" type="h3" color="primary" style={{ textAlign: "center", marginBottom: "25px" }}>
-              {data?.enrichedTitle}
-            </Typography>
-            <Typography as="p" type="p" color="dark" style={{ marginBottom: "25px" }}>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Cours enrichis
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.enrichedTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
+            <Typography as="p" type="p" color="dark" style={{ marginBottom: "25px", textAlign: "center" }}>
               {data?.enrichedIntro}
             </Typography>
-            
+
             <div style={{ display: "grid", gap: "20px" }}>
               {data?.enrichedCourses?.map((course, index) => (
                 <ProgramCard
@@ -353,12 +470,31 @@ export default function Secondaire({ data }) {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Typography as="h3" type="h3" color="primary" style={{ textAlign: "center", marginBottom: "25px" }}>
-              {data?.optionsTitle}
-            </Typography>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Parcours disponibles
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.optionsTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
             <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "25px" }}>
               {data?.optionsIntro}
             </Typography>
+
             <ProgramOptionsContainer>
               {data?.programOptions?.map((program, index) => (
                 <ProgramCard
@@ -385,12 +521,31 @@ export default function Secondaire({ data }) {
 
           {/* Activities Section */}
           <ActivitiesContainer>
-            <Typography as="h3" type="h3" color="primary" style={{ textAlign: "center", marginBottom: "20px" }}>
-              {data?.activitiesTitle}
-            </Typography>
+            <SectionHeader>
+              <Eyebrow
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                Vie scolaire
+              </Eyebrow>
+              <TitleWrapper
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <Typography as="h3" type="h3" color="primary">
+                  {data?.activitiesTitle}
+                </Typography>
+              </TitleWrapper>
+            </SectionHeader>
+
             <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginBottom: "25px" }}>
               {data?.activitiesIntro}
             </Typography>
+
             <ActivitiesGrid>
               {data?.activities?.map((activity, index) => (
                 <ActivityItem
@@ -406,6 +561,7 @@ export default function Secondaire({ data }) {
                 </ActivityItem>
               ))}
             </ActivitiesGrid>
+
             {data?.activitiesNote && (
               <Typography as="p" type="p" color="dark" style={{ textAlign: "center", marginTop: "20px", fontStyle: "italic" }}>
                 {data.activitiesNote}
@@ -416,12 +572,31 @@ export default function Secondaire({ data }) {
           {/* Maquette Section */}
           <TableContainer>
             <div style={{ padding: "30px" }}>
-              <Typography as="h3" type="h3" color="primary" style={{ marginBottom: "20px", textAlign: "center" }}>
-                {data?.maquetteTitle}
-              </Typography>
+              <SectionHeader>
+                <Eyebrow
+                  initial={{ opacity: 0, y: -10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  Grille-matières
+                </Eyebrow>
+                <TitleWrapper
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                >
+                  <Typography as="h3" type="h3" color="primary">
+                    {data?.maquetteTitle}
+                  </Typography>
+                </TitleWrapper>
+              </SectionHeader>
+
               <Typography as="p" type="p" color="dark" style={{ marginBottom: "20px" }}>
                 {data?.maquetteContent}
               </Typography>
+
               {data?.maquetteNote && (
                 <TableNote>
                   <Typography as="p" type="p" color="dark">

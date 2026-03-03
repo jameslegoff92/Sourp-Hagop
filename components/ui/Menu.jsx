@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
-import Typography from "../../components/display/Typography";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-// Data Structure for the Weeks
 const titles = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
 
+// --- DATA ---
 const primaireWeeks = [
   {
     id: 1,
@@ -44,7 +43,7 @@ const primaireWeeks = [
       { description: "Poulet et riz mexicain avec légumes", image: "../images/menu/poulet-riz-mexicain.jpg" },
       { description: "Macaroni sauce rosée avec salade", image: "../images/menu/placeholder.svg" },
       { description: "Pâté chinois avec salade", image: "../images/menu/placeholder.svg" },
-      { description: "Macédoine carotte et pois verts avec riz", image: "../images/menu/macedonie-riz.jpg" },
+      { description: "Macédoine carotte et pois verts avec riz", image: "../images/menu/macedoine-riz.jpg" },
       { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
     ],
   },
@@ -93,330 +92,271 @@ const weeks = [
   },
 ];
 
-// CSS for the Main Background Container
-const BackgroundContainer = styled.div`
-  background-color: var(--secondary-color);
-  padding: 40px 100px 0;
-  margin-top: 6%;
+// --- STYLED COMPONENTS ---
+
+const MenuContainer = styled.div`
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+`;
+
+const TopNavigation = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:
-  height: 100vh;
+  margin-bottom: 2.5rem;
+  gap: 1.5rem;
 `;
 
-// CSS for the Toggle Container
-const ToggleContainer = styled.div`
+const ToggleWrapper = styled.div`
   display: flex;
-  border: 2px solid #006096;
-  border-radius: 50px;
-  overflow: hidden;
-  width: 300px;
-  margin-bottom: 60px;
+  background: #f0f4f8;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
 `;
 
 const ToggleButton = styled.button`
-  flex: 1;
-  padding: 10px 0;
+  padding: 10px 24px;
   border: none;
-  outline: none;
-  background-color: ${({ active }) => (active ? "#006096" : "transparent")};
-  color: ${({ active }) => (active ? "#ffffff" : "#006096")};
-  font-weight: 500;
+  background: ${({ active }) => (active ? "#007dc3" : "transparent")};
+  color: ${({ active }) => (active ? "#ffffff" : "#666")};
+  font-family: inherit;
+  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-
 `;
 
-// CSS for the Week List Container
-const WeekListContainer = styled.div`
+const WeekControl = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 2rem;
 `;
 
-// CSS for Each Week Item
-const WeekItem = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  font-size: clamp(1rem, 4.3vw, 2rem);
-  color: var(--primary-color);
-  font-weight: 500;
-  color: black;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 0 10px;
-`;
-
-// CSS for the Chevron Buttons
-const ChevronButton = styled.button`
-  background: none;
-  border: none;
-  color: var(--secondary-darkcolor);
-  font-size: 1.5rem;
+const NavButton = styled.button`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 125, 195, 0.2);
+  background: #fff;
+  color: #007dc3;
   cursor: pointer;
-`;
-
-// CSS for Circles
-const CircleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const CircleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 10vw;
-
-
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-bottom: 35px;
-    flex-direction: column;
-  }
-`;
-
-const CircleItem = styled(motion.div)`
-  background-color: var(--secondary-darkcolor);
-  color: white;
-  width: 15vw;
-  height: 15vw;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
-  @media (max-width: 768px) {
-    width: 50vw;
-    height: 50vw;
+  &:hover {
+    background: #007dc3;
+    color: #fff;
   }
 `;
 
-const CircleImage = styled.img`
-  width: 80%;
-  height: 80%;
-  border-radius: 50%;
-  object-fit: cover;
+const WeekInfo = styled.div`
+  color: #007dc3;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-width: 180px;
+  text-align: center;
+`;
+
+const MenuGrid = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  width: 100%;
+
+  @media (max-width: 1100px) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 480px) { grid-template-columns: 1fr; }
+`;
+
+const CardBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image: url("${(props) => props.imageUrl}");
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+`;
+
+const Overlay = styled.div`
   position: absolute;
-  object-position: 55% 90%;
-`;
-
-const CircleDescription = styled(Typography)`
-  text-align: center;
-  margin-top: 10px;
-  width: 150%;
-
-  @media (max-width: 1525px) {
-    font-size: clamp(0.6rem, 0.9vw, 1rem);
-  }
-
-  @media (max-width: 768px) {
-    font-size: clamp(0.7rem, 2.5vw, 2rem);
-  }
-`;
-
-
-const DaysContainer = styled.div`
+  inset: 0;
+  /* Start transparent */
+  background: transparent;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 10px;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  transition: background 0.4s ease;
+`;
 
-    @media (max-width: 768px) {
-    display: none;
+const MenuCard = styled(motion.div)`
+  position: relative;
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: #eee;
+
+  /* Target child elements on hover */
+  &:hover .card-bg-layer {
+    transform: scale(1.1);
+  }
+
+  &:hover .card-overlay-layer {
+    /* Apply gradient only on hover */
+    background: linear-gradient(
+      to top,
+      rgba(0, 50, 80, 0.7) 40%,
+      transparent 100%
+    );
   }
 `;
 
-const DayItem = styled(Typography)`
-  width: 10vw;
-  text-align: center;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-
-
-  @media (max-width: 768px) {
-    width: 20vw;
-  }
-
-  @media (max-width: 480px) {
-    width: 30vw;
-  }
+const DayBadge = styled.div`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #007dc3;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 2;
 `;
 
-const DayItemMobile = styled(Typography)`
-  display: none;
-  
-  @media (max-width: 768px) {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-`;
-
-const CirclesAndDaysContainer = styled.div`
+const ContentContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-`;
-
-const FooterText = styled(Typography)`
-  margin-top: 60px;
   text-align: center;
-  margin-bottom: 25px;
-  font-weight: 500;
-  font-style: italic;
-
-  @media (max-width: 1525px) {
-    font-size: clamp(0.6rem, 0.9vw, 1rem);
-  }
-
-  @media (max-width: 768px) {
-    font-size: clamp(0.7rem, 2.5vw, 2rem);
-    width: 120%;
-  }
 `;
 
-const slideVariants = {
-  enter: (direction) => ({
-    x: direction > 0 ? 150 : -150,
-    opacity: 0,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction) => ({
-    x: direction > 0 ? -150 : 150,
-    opacity: 0,
-  }),
-};
+const CardDescription = styled(motion.p)`
+  color: white;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+`;
+
+const Divider = styled(motion.div)`
+  width: 30px;
+  height: 2px;
+  background: white;
+  margin: 0.75rem 0;
+`;
+
+const PaginationSection = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2.5rem;
+`;
+
+const Dot = styled.button`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: ${({ active }) => (active ? "#007dc3" : "#ddd")};
+  cursor: pointer;
+  transition: all 0.3s ease;
+`;
+
+const FooterNote = styled.div`
+  margin-top: 3rem;
+  padding: 1.25rem;
+  background: rgba(0, 125, 195, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid #007dc3;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #555;
+`;
 
 const Menu = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [menuType, setMenuType] = useState("secondary");
+  const [menuType, setMenuType] = useState("primaire");
 
-  const handleNext = () => {
-    setDirection(1);
-    setCurrentWeek((prev) => (prev === weeks.length - 1 ? 0 : prev + 1));
-  };
+  const currentWeeks = menuType === "primaire" ? primaireWeeks : weeks;
 
-  const handlePrev = () => {
-    setDirection(-1);
-    setCurrentWeek((prev) => (prev === 0 ? weeks.length - 1 : prev - 1));
-  };
-
-  const getCurrentWeeks = () => {
-    return menuType === "secondary" ? primaireWeeks : weeks;
-  };
+  const handleNext = () => setCurrentWeek((prev) => (prev === currentWeeks.length - 1 ? 0 : prev + 1));
+  const handlePrev = () => setCurrentWeek((prev) => (prev === 0 ? currentWeeks.length - 1 : prev - 1));
 
   return (
-    <BackgroundContainer>
-      {/* Toggle Button */}
-      <ToggleContainer>
-        <ToggleButton
-          active={menuType === "secondary"}
-          onClick={() => setMenuType("secondary")}
-        >
-          Primaire
-        </ToggleButton>
-        <ToggleButton
-          active={menuType === "elementary"}
-          onClick={() => setMenuType("elementary")}
-        >
-          Secondaire
-        </ToggleButton>
-      </ToggleContainer>
+    <MenuContainer>
+      <TopNavigation>
+        <ToggleWrapper>
+          <ToggleButton active={menuType === "primaire"} onClick={() => { setMenuType("primaire"); setCurrentWeek(0); }}>
+            Primaire
+          </ToggleButton>
+          <ToggleButton active={menuType === "secondaire"} onClick={() => { setMenuType("secondaire"); setCurrentWeek(0); }}>
+            Secondaire
+          </ToggleButton>
+        </ToggleWrapper>
 
-      <Typography as="h4" type="h4" color="seondaryDark">
-        Semaine
-      </Typography>
+        <WeekControl>
+          <NavButton onClick={handlePrev}><FaChevronLeft size={16} /></NavButton>
+          <WeekInfo>Semaine {currentWeeks[currentWeek].id}</WeekInfo>
+          <NavButton onClick={handleNext}><FaChevronRight size={16} /></NavButton>
+        </WeekControl>
+      </TopNavigation>
 
-      <WeekListContainer>
-        <ChevronButton onClick={handlePrev}>
-          <FaChevronLeft />
-        </ChevronButton>
-
-        <WeekItem
-          key={getCurrentWeeks()[currentWeek].id}
-          custom={direction}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.3 }}
-        >
-          {getCurrentWeeks()[currentWeek].id}
-        </WeekItem>
-
-        <ChevronButton onClick={handleNext}>
-          <FaChevronRight />
-        </ChevronButton>
-      </WeekListContainer>
-
-      {/* Static Days of the Week */}
-      <CirclesAndDaysContainer>
-        <DaysContainer>
-          {titles.map((day) => (
-            <DayItem key={day} as="p" type="h6">
-              {day}
-            </DayItem>
+      <AnimatePresence mode="wait">
+        <MenuGrid key={`${menuType}-${currentWeek}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          {currentWeeks[currentWeek].circles.map((item, index) => (
+            <MenuCard key={index} initial="initial" whileHover="hover">
+              <CardBackground className="card-bg-layer" imageUrl={item.image} />
+              <DayBadge>{titles[index]}</DayBadge>
+              
+              <Overlay className="card-overlay-layer">
+                <ContentContainer>
+                  {/* Removed "Menu du jour" span */}
+                  
+                  <Divider 
+                    variants={{
+                      initial: { width: 0, opacity: 0 },
+                      hover: { width: 40, opacity: 1 }
+                    }}
+                  />
+                  
+                  <CardDescription
+                    variants={{
+                      initial: { y: 20, opacity: 0 },
+                      hover: { y: 0, opacity: 1 }
+                    }}
+                  >
+                    {item.description}
+                  </CardDescription>
+                </ContentContainer>
+              </Overlay>
+            </MenuCard>
           ))}
-        </DaysContainer>
+        </MenuGrid>
+      </AnimatePresence>
 
-        {/* Circle Container */}
-        <CircleContainer key={currentWeek}>
-          {getCurrentWeeks()[currentWeek].circles.map((circle, index) => (
-            <CircleWrapper key={index}>
-              <DayItemMobile as="p" type="p">{titles[index]}</DayItemMobile>
-              <a href={circle.image} target="_blank" rel="noopener noreferrer">
-                <CircleItem
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.3 }}
-                >
-                  <CircleImage src={circle.image} alt={circle.description} />
-                </CircleItem>
-              </a>
-              <CircleDescription as="p" type="label">{circle.description}</CircleDescription>
-            </CircleWrapper>
-          ))}
-        </CircleContainer>
+      <PaginationSection>
+        {currentWeeks.map((_, index) => (
+          <Dot key={index} active={index === currentWeek} onClick={() => setCurrentWeek(index)} />
+        ))}
+      </PaginationSection>
 
-      </CirclesAndDaysContainer>
-
-      {/* Conditional Footer Text */}
-      <FooterText as="p" type="subtitle" color="seondaryDark">
-        {menuType === "secondary"
+      <FooterNote>
+        {menuType === "primaire"
           ? "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits."
-          : "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gateaux."
-        }
-      </FooterText>
-    </BackgroundContainer >
+          : "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau."}
+      </FooterNote>
+    </MenuContainer>
   );
 };
 

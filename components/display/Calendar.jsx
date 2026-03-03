@@ -2,380 +2,447 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-//Third Party Imports
+// Third Party Imports
 import { useSession } from "next-auth/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
 
-//Local Imports
+// Local Imports
 import Typography from "./Typography";
+import Container from "../layout/Container";
 
-//Utiliy Imports
+// Utility Imports
 import { generateDateArrays, toISO8601, getDay } from "../../js/date";
-
-//CSSinJS
-//Day Component CSS
-const EventTitle = styled(Link)`
-  display: -webkit-box;
-  height: 50px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.8rem;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-
-  &:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-  }
-`;
-
-const DayWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-`;
-
-//Mini Calendar Component CSS
-const CSSChevronLeft = styled(ChevronLeft)`
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-`;
-
-const CSSChevronRight = styled(ChevronRight)`
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-`;
 
 const Section = styled.section`
   background-color: var(--secondary-color);
-  color: #006096;
-  padding: 3rem 1.5rem;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 3rem;
-  margin: 0 auto;
-  max-width: 1300px;
-  width: 100%;
-  text-align: center;
-  padding: 0 1.5rem;
-`;
-
-const SubContainer = styled.div`
+  padding: 4rem 0 5rem;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
+
+  @media (min-width: 768px) {
+    padding: 5rem 0 6rem;
+  }
 `;
 
-const CSSCalendar = styled.div`
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+
+  @media (min-width: 768px) {
+    margin-bottom: 4rem;
+  }
+`;
+
+const SectionSubtitle = styled.span`
+  display: inline-block;
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #007dc3;
+  margin-bottom: 0.75rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #007dc3;
+  }
+`;
+
+const SectionTitle = styled(Typography)`
+  margin-top: 1.5rem;
+`;
+
+const CalendarWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
   gap: 1rem;
 
-  @media (min-width: 999px) {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0;
+  @media (min-width: 768px) {
+    gap: 1.5rem;
   }
 `;
 
-const DateWrapper = styled(motion.div)`
-  border-bottom: 1px solid white;
+const NavButton = styled.button`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(0, 96, 150, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #006096;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #006096;
+    color: #fff;
+    border-color: #006096;
+  }
+
+  @media (min-width: 768px) {
+    width: 48px;
+    height: 48px;
+  }
+`;
+
+const CalendarGrid = styled(motion.div)`
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+  }
+`;
+
+const DayCard = styled(motion.div)`
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem 0.75rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 0.8rem;
-  justify-content: center;
-  width: 100px;
+  text-align: center;
+  border: 1px solid rgba(0, 96, 150, 0.08);
+  position: relative;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 
-  :nth-of-type(3) {
-    margin-top: 50px;
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 96, 150, 0.12);
+    transform: translateY(-2px);
   }
 
-  @media (min-width: 999px) {
-    width: 150px;
-    border-bottom: none;
-    margin-top: 0;
-    margin-bottom: 0;
-
-    :nth-of-type(3) {
-      margin-top: 0;
-    }
+  @media (min-width: 768px) {
+    padding: 1.5rem 1rem 1.75rem;
   }
 `;
 
-const Icons = styled.div`
+const TodayIndicator = styled.div`
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 3px;
+  background: #007dc3;
+  border-radius: 0 0 3px 3px;
+`;
+
+const DayName = styled.span`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 96, 150, 0.5);
+  margin-bottom: 0.5rem;
+`;
+
+const DayNumber = styled.span`
+  font-family: var(--secondary-ff), sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #006096;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+`;
+
+const DayMonth = styled.span`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.75rem;
+  color: #007dc3;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+`;
+
+const Divider = styled.div`
+  width: 30px;
+  height: 1px;
+  background: rgba(0, 96, 150, 0.15);
+  margin-bottom: 1rem;
+`;
+
+const EventTitle = styled(Link)`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.8rem;
+  color: #333;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #007dc3;
+  }
+`;
+
+const NoEvent = styled.span`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.8rem;
+  color: #aaa;
+`;
+
+const DotsContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
+  gap: 8px;
+  margin-top: 2rem;
 `;
 
-const OpenCalendar = styled(Link)``;
+const Dot = styled.button`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: ${(props) => (props.active ? "#007dc3" : "rgba(0, 96, 150, 0.2)")};
+  cursor: pointer;
+  transition: background 0.2s ease;
 
-const ButtonWrapper = styled.div`
-  margin-top: 2rem;
-  position: none;
-  
-
-  @media (min-width: 600px) {
-    margin-top: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
+  &:hover {
+    background: ${(props) => (props.active ? "#007dc3" : "rgba(0, 96, 150, 0.4)")};
   }
 `;
 
-// French month names (full names)
+const FooterArea = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+`;
+
+const ViewAllLink = styled(Link)`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #006096;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #006096;
+    transition: transform 0.3s ease;
+    transform-origin: right;
+  }
+
+  &:hover::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+`;
+
+// French data
 const FRENCH_MONTHS = {
-  'jan': 'janvier',
-  'feb': 'février', 
-  'mar': 'mars',
-  'apr': 'avril',
-  'may': 'mai',
-  'jun': 'juin',
-  'jul': 'juillet',
-  'aug': 'août',
-  'sep': 'septembre',
-  'oct': 'octobre',
-  'nov': 'novembre',
-  'dec': 'décembre'
+  jan: "janvier",
+  feb: "février",
+  mar: "mars",
+  apr: "avril",
+  may: "mai",
+  jun: "juin",
+  jul: "juillet",
+  aug: "août",
+  sep: "septembre",
+  oct: "octobre",
+  nov: "novembre",
+  dec: "décembre",
 };
 
-// Helper function to convert month to French
+const FRENCH_DAYS = ["dim", "lun", "mar", "mer", "jeu", "ven", "sam"];
+
 const getFrenchMonth = (englishMonth) => {
   const monthKey = englishMonth?.toLowerCase().slice(0, 3);
   return FRENCH_MONTHS[monthKey] || englishMonth;
 };
 
-// Helper function to check if a date is today
+const getFrenchDay = (day, month, year) => {
+  const date = new Date(`${month} ${day}, ${year}`);
+  return FRENCH_DAYS[date.getDay()];
+};
+
 const isToday = (day, month, year) => {
   const today = new Date();
   const currentDay = today.getDate();
-  const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toLowerCase();
+  const currentMonth = today.toLocaleDateString("en-US", { month: "short" }).toLowerCase();
   const currentYear = today.getFullYear();
-  
+
   return (
-    day === currentDay && 
+    day === currentDay &&
     month?.toLowerCase().slice(0, 3) === currentMonth.slice(0, 3) &&
     year === currentYear
   );
 };
 
-//Day Component
-const Day = ({ day, month, year, title, isActive }) => {
-  const isTodayDate = isToday(day, month, year);
-  
-  return (
-    <DayWrapper className={`${isActive ? "relative" : ""}`}>
-      <span className="text-md uppercase mb-1">{getFrenchMonth(month)}</span>
-      <span className="text-4xl font-bold mb-1">{day}</span>
-      <EventTitle href="/calendrier" className="text-center">
-        {title}
-      </EventTitle>
-
-      {isTodayDate && (
-        <div className="absolute top-[-16px] w-2 h-2 bg-white rounded-full" />
-      )}
-    </DayWrapper>
-  );
+// Animation
+const gridVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05 },
+  },
+  exit: { opacity: 0 },
 };
 
-//Mini Calendar Component
+const cardVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
 const MiniCalendar = () => {
   const [dateArrays, setDateArrays] = useState([[]]);
   const [currentWeek, setCurrentWeek] = useState(0);
   const [authToken, setAuthToken] = useState("");
   const [googleEvents, setGoogleEvents] = useState([]);
 
-  //How to acquire the session object. This is an asynchronous operation.
   const { data, status } = useSession();
 
-  const handleChevronLeft = () => {
-    setCurrentWeek((prev) => {
-      if (prev === 0) return 2;
-      return prev - 1;
-    });
-  };
-
-  const handleChevronRight = () => {
-    setCurrentWeek((prev) => {
-      if (prev === 2) return 0;
-      return prev + 1;
-    });
-  };
+  const handlePrev = () => setCurrentWeek((prev) => (prev === 0 ? 2 : prev - 1));
+  const handleNext = () => setCurrentWeek((prev) => (prev === 2 ? 0 : prev + 1));
 
   useEffect(() => {
-    // Generate the date arrays
-    const dateArrays = generateDateArrays();
-    setDateArrays(dateArrays);
+    setDateArrays(generateDateArrays());
   }, []);
 
   useEffect(() => {
-    if (data) {
-      const token = data.accessToken;
-      setAuthToken(token);
-    }
+    if (data) setAuthToken(data.accessToken);
   }, [data]);
 
   useEffect(() => {
-  })
-  
-  useEffect(() => {
-    //console.log("The calendar component useEffect is running: ")
     const fetchGoogleData = async (authToken) => {
       const timeMin = encodeURIComponent(toISO8601(dateArrays[0][0]));
       const timeMax = encodeURIComponent(toISO8601(dateArrays[2][4]));
-      //console.log("timeMin & timeMax: ", timeMin, timeMax);
       const url = `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMax=${timeMax}&timeMin=${timeMin}`;
-      const headers = {
-        Authorization: `Bearer ${authToken}`,
-        Accept: "application/json",
-      };
 
       try {
-        // Make the fetch request
         const response = await fetch(url, {
-          headers,
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            Accept: "application/json",
+          },
         });
-
-        // Check if the response is not OK (status code outside 200-299)
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Parse the JSON data
+        if (!response.ok) throw new Error();
         const data = await response.json();
-        //console.log("Data: ", data.items);
 
-        // Map through the events to create a new array with desired fields
         const events = data.items
-          .map((event) => {
-            return {
-              title: event.description || "",
-              location: event.location || "",
-              start: event.start.dateTime || event.start.date,
-              end: event.end.dateTime || event.end.date,
-              details: event.summary || "",
-            }; //Sorts the new array by start date
-          })
-          .sort((a, b) => {
-            return new Date(a.start) - new Date(b.start);
-          });
+          .map((event) => ({
+            title: event.description || "",
+            start: event.start.dateTime || event.start.date,
+          }))
+          .sort((a, b) => new Date(a.start) - new Date(b.start));
 
-        return setGoogleEvents(events);
+        setGoogleEvents(events);
       } catch (error) {
-        // Handle errors
-        //console.error("Failed to fetch events:", error.message);
-        return []; // Return an empty array or handle as needed
+        return [];
       }
     };
 
-    if (
-      status === "unauthenticated" ||
-      status === undefined ||
-      status === "loading"
-    )
-      return;
-
-    if (!authToken) return;
-
-    if (authToken) {
+    if (status === "authenticated" && authToken) {
       fetchGoogleData(authToken);
     }
-  }, [authToken]);
+  }, [authToken, dateArrays, status]);
 
   useEffect(() => {
-    setDateArrays((prevState) => {
-      return prevState.map((week) => {
-        return week.map((date) => {
-          for (let i = 0; i < googleEvents.length; i++) {
-            //console.log("google events: ,", getDay(googleEvents[i].start));
-            if (date.day == getDay(googleEvents[i].start)) {
-              //console.log("Matched");
-              return {
-                ...date,
-                title: googleEvents[i].title,
-              };
-            }
-          }
-          return date;
-        });
-      });
-    });
+    setDateArrays((prev) =>
+      prev.map((week) =>
+        week.map((date) => {
+          const event = googleEvents.find((e) => date.day == getDay(e.start));
+          return event ? { ...date, title: event.title } : date;
+        })
+      )
+    );
   }, [googleEvents]);
 
   return (
     <Section>
       <Container>
-        <Typography as="h1" type="h2" style={{ color: '#006096' }}>
-          CALENDRIER
-        </Typography>
-        <SubContainer>
-          <CSSChevronLeft onClick={handleChevronLeft} />
-          <CSSCalendar>
-            {dateArrays.length > 0 ? (
-              dateArrays[currentWeek].map((date, index) => (
-                <DateWrapper
-                  key={`${currentWeek} - ${index}}`}
-                  initial={{ x: "-100vw" }} // Start off-screen to the left
-                  animate={{ x: 0 }} // Slide to the final position
-                  transition={{ duration: 0.5, ease: "easeInOut" }} // Stagger the animations
-                >
-                  <Day
-                    day={date.day}
-                    month={date.month}
-                    year={date.year}
-                    title={date.title}
-                    isActive={index}
-                  />
-                </DateWrapper>
-              ))
-            ) : (
-              <h1> loading </h1>
-            )}
-          </CSSCalendar>
-          <CSSChevronRight onClick={handleChevronRight} />
-        </SubContainer>
-        <div className="flex flex-col items-center relative">
-          <Icons>
-            <div
-              className={`w-3 h-3 ${currentWeek == 0 ? "" : "opacity-30"} rounded-full`}
-              style={{ backgroundColor: '#006096' }}>
-            </div>
-            <div
-              className={`w-3 h-3 ${currentWeek == 1 ? "" : "opacity-30"} rounded-full`}
-              style={{ backgroundColor: '#006096' }}>
-            </div>
-            <div
-              className={`w-3 h-3 ${currentWeek == 2 ? "" : "opacity-30"} rounded-full`}
-              style={{ backgroundColor: '#006096' }}>
-            </div>
-          </Icons>
-          <ButtonWrapper className="h-full flex items-center">
-            <OpenCalendar
-              href="/calendrier"
-              className="text-sm uppercase border-b border-[#006096] pb-1 hover:opacity-80 transition-opacity"
+        <SectionHeader>
+          <SectionSubtitle>Événements à venir</SectionSubtitle>
+          <SectionTitle as="h2" type="h2" color="primary">
+            CALENDRIER
+          </SectionTitle>
+        </SectionHeader>
+
+        <CalendarWrapper>
+          <NavButton onClick={handlePrev}>
+            <ChevronLeft size={20} />
+          </NavButton>
+
+          <AnimatePresence mode="wait">
+            <CalendarGrid
+              key={currentWeek}
+              variants={gridVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
-              Visualiser le calendrier
-            </OpenCalendar>
-          </ButtonWrapper>
-        </div>
+              {dateArrays[currentWeek]?.map((date, index) => {
+                const isTodayDate = isToday(date.day, date.month, date.year);
+                return (
+                  <DayCard key={`${currentWeek}-${index}`} variants={cardVariants}>
+                    {isTodayDate && <TodayIndicator />}
+                    <DayName>{getFrenchDay(date.day, date.month, date.year)}</DayName>
+                    <DayNumber>{date.day}</DayNumber>
+                    <DayMonth>{getFrenchMonth(date.month)}</DayMonth>
+                    <Divider />
+                    {date.title ? (
+                      <EventTitle href="/calendrier">{date.title}</EventTitle>
+                    ) : (
+                      <NoEvent>—</NoEvent>
+                    )}
+                  </DayCard>
+                );
+              })}
+            </CalendarGrid>
+          </AnimatePresence>
+
+          <NavButton onClick={handleNext}>
+            <ChevronRight size={20} />
+          </NavButton>
+        </CalendarWrapper>
+
+        <DotsContainer>
+          {[0, 1, 2].map((i) => (
+            <Dot key={i} active={currentWeek === i} onClick={() => setCurrentWeek(i)} />
+          ))}
+        </DotsContainer>
+
+        <FooterArea>
+          <ViewAllLink href="/calendrier">Voir le calendrier complet</ViewAllLink>
+        </FooterArea>
       </Container>
     </Section>
   );
