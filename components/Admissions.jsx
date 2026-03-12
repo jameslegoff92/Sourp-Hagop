@@ -122,7 +122,7 @@ const ButtonLink = styled.a`
 const TextBlock = ({ title, subtitle, text, buttonText, link }) => (
   <TextBlockStyled
     initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
+    animate={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6, ease: "easeOut" }}
   >
@@ -160,7 +160,7 @@ export default function Admissions({ data }) {
         <SectionHeader>
           <SectionSubtitle
             initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
@@ -168,7 +168,7 @@ export default function Admissions({ data }) {
           </SectionSubtitle>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >

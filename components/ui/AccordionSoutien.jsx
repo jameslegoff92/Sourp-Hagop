@@ -126,7 +126,7 @@ const Accordion = ({ data }) => {
       <AccordionContainer>
         {Object.entries(data).map(([title, content]) => (
           <AccordionItem key={title} title={title}>
-            <Typography as="subtitle" type="subtitle" color="dark">
+            <Typography as="p" type="subtitle" color="dark">
               {content}
             </Typography>
           </AccordionItem>

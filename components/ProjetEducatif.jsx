@@ -530,7 +530,7 @@ export default function ProjetEducatif({ data }) {
                     <SectionHeader>
                         <Eyebrow
                             initial={{ opacity: 0, y: -10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            animate={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
@@ -538,7 +538,7 @@ export default function ProjetEducatif({ data }) {
                         </Eyebrow>
                         <TitleWrapper
                             initial={{ opacity: 0, y: -20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            animate={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.1 }}
                         >
@@ -554,7 +554,7 @@ export default function ProjetEducatif({ data }) {
                             type="h6"
                             color="dark"
                             initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                             viewport={{ once: true }}
                         >
@@ -562,6 +562,51 @@ export default function ProjetEducatif({ data }) {
                         </Typography>
                     </TextContainer>
                 </SectionContainer>
+
+                                {/* Section Notre Slogan */}
+                {(sloganLine1 || sloganLine2) && (
+                    <SloganSection
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                    >
+                        <SloganBackground />
+
+                        <SloganContent>
+                            <SloganTextWrapper>
+                                <SloganLabel
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                >
+                                    {sloganLabel || "Notre slogan"}
+                                </SloganLabel>
+                                {sloganLine1 && (
+                                    <SloganLine
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.3 }}
+                                    >
+                                        {sloganLine1}
+                                    </SloganLine>
+                                )}
+                                {sloganLine2 && (
+                                    <SloganLine
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.5 }}
+                                    >
+                                        {sloganLine2}
+                                    </SloganLine>
+                                )}
+                            </SloganTextWrapper>
+                        </SloganContent>
+                    </SloganSection>
+                )}
 
                 {/* Section Notre Vision */}
                 {visionItems.length > 0 && (
@@ -720,51 +765,6 @@ export default function ProjetEducatif({ data }) {
                             ))}
                         </OrientationsGrid>
                     </SectionContainer>
-                )}
-
-                {/* Section Notre Slogan */}
-                {(sloganLine1 || sloganLine2) && (
-                    <SloganSection
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1 }}
-                    >
-                        <SloganBackground />
-
-                        <SloganContent>
-                            <SloganTextWrapper>
-                                <SloganLabel
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: 0.2 }}
-                                >
-                                    {sloganLabel || "Notre slogan"}
-                                </SloganLabel>
-                                {sloganLine1 && (
-                                    <SloganLine
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.6, delay: 0.3 }}
-                                    >
-                                        {sloganLine1}
-                                    </SloganLine>
-                                )}
-                                {sloganLine2 && (
-                                    <SloganLine
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.6, delay: 0.5 }}
-                                    >
-                                        {sloganLine2}
-                                    </SloganLine>
-                                )}
-                            </SloganTextWrapper>
-                        </SloganContent>
-                    </SloganSection>
                 )}
             </StyledDiv>
 

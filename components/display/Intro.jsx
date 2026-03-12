@@ -32,7 +32,8 @@ const StyledImage = styled.img`
   opacity: 0.07;
   z-index: -1;
   left: 50%;
-  transform: translateX(-37%);
+  top: 50%;
+  transform: translate(-37%, -50%);
 `;
 
 const ContentWrapper = styled.div`

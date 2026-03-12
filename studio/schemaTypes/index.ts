@@ -26,8 +26,11 @@ import soutienPage from "./soutienPage"
 import serviceDeGardePage from './serviceDeGardePage'
 import transportPage from './transportPage'
 import protecteurNationalPage from './protecteurNationalPage'
+import agoraPage from './agoraPage'
+import alertBanner from './alertBanner';
 
 export const schemaTypes = [
+  alertBanner,
   homePage, 
   historyPage,
   administrationPage,
@@ -45,6 +48,7 @@ export const schemaTypes = [
   aiglePage, 
   tripsPage,
   soutienPage,
+  agoraPage,
   rentalSpacesPage, 
   teamPage,
   jardinLitteraire,

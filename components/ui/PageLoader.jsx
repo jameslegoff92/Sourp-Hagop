@@ -25,7 +25,7 @@ const ArmenianShieldLoader = ({ onComplete }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="relative w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center translate-x-8 sm:translate-x-11">
+          <div className="relative w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center translate-x-8 sm:translate-x-11 overflow-visible">
             <motion.div
               className="w-60 h-60 sm:w-64 sm:h-64 md:w-80 md:h-80"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -42,27 +42,7 @@ const ArmenianShieldLoader = ({ onComplete }) => {
               <LogoSHsvg className="w-full h-full" />
             </motion.div>
 
-            {/* Pulsating glow effect - Mobile */}
-            <motion.div
-              className="absolute inset-0 bg-blue-400 rounded-full blur-lg opacity-20 sm:hidden"
-              style={{ 
-                left: '-70px',
-                top: '-50px',
-                width: 'calc(100% + 80px)',
-                height: 'calc(100% + 80px)'
-              }}
-              animate={{ 
-                scale: [0.8, 1.2, 0.8],
-                opacity: [0.1, 0.3, 0.1]
-              }}
-              transition={{ 
-                duration: 2,
-                repeat: Infinity,
-                delay: 2
-              }}
-            />
-
-            {/* Pulsating glow effect - Desktop */}
+            {/* Pulsating glow effect */}
             <motion.div
               className="absolute inset-0 bg-blue-400 rounded-full blur-xl opacity-20 hidden sm:block"
               style={{ 

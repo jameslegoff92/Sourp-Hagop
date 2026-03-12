@@ -256,7 +256,7 @@ export default function Primaire({ data }) {
           <SectionHeader>
             <SectionSubtitle
               initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
@@ -264,7 +264,7 @@ export default function Primaire({ data }) {
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
@@ -280,9 +280,10 @@ export default function Primaire({ data }) {
               type="h6"
               color="dark"
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
+              style={{textAlign: "center"}}
             >
               {data?.introText}
             </Typography>

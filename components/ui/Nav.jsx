@@ -1,25 +1,20 @@
 "use client";
 
-// React Component for the navigation menu
-import { useEffect, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { useEffect, useState, useRef } from "react";
+import { FaChevronDown, FaExternalLinkAlt } from "react-icons/fa";
 import Link from "next/link";
-
-// Libraries
-import { motion } from "framer-motion";
-
-// Components
+import { motion, AnimatePresence } from "framer-motion";
 import { PortalLink } from "./topNav";
 import NavDropdown from "./NavDropdown";
-
-// Styles
 import css from "./Nav.module.css";
 import styled from "@emotion/styled";
 
-// Data for the navigation menu
+/* ─────────────────────────────────────────────
+   DATA  (unchanged from original)
+───────────────────────────────────────────── */
 const navList = [
   {
-    title: "l'École",
+    title: "L'école",
     items: [
       { text: "Historique", link: "/historique" },
       { text: "L'équipe", link: "/equipe" },
@@ -27,10 +22,7 @@ const navList = [
       { text: "Projet éducatif", link: "/projet-educatif" },
       { text: "Comité de parents", link: "/comite-parents" },
       { text: "Anciens et anciennes", link: "/anciens" },
-      {
-        text: "Protecteur national de l'élève",
-        link: "/protecteur-national-eleve",
-      },
+      { text: "Protecteur national de l'élève", link: "/protecteur-national-eleve" },
     ],
   },
   {
@@ -44,18 +36,16 @@ const navList = [
   {
     title: "Vie Étudiante",
     items: [
-      /* { text: "Vie Communautaire", link: "/vie-communautaire" }, */
       {
         text: "Activités parascolaires",
         link: "https://sites.google.com/ecolesourphagop.com/parascolaire/home?utm_source=brevo&utm_campaign=EASHebdo%205%20septembre%202025&utm_medium=email",
-        external: true
-      }, 
+        external: true,
+      },
       { text: "Conseil étudiant", link: "/conseil-etudiant" },
       { text: "Équipe des Aigles", link: "/aigles" },
       { text: "Sorties scolaires et voyages", link: "/sorties-scolaires-voyages" },
     ],
   },
-
   {
     title: "Services à l'élève",
     items: [
@@ -82,219 +72,401 @@ const navList = [
 const navItems = [
   { title: "Carrières", url: "/carrieres" },
   { title: "Calendrier", url: "/about" },
-  { title: "Anciens et Anciennes", url: "/contact" },
-  { title: "La Fondation", url: "https://fondationsh.com/", external: true },
+  { title: "Location d'espaces", url: "/locations" },
+  { title: "Nous joindre", url: "/nous-joindre" },
+  //{ title: "La Fondation", url: "https://fondationsh.com/", external: true },
 ];
 
-//Mobile Navigation Styling
-const MobileNavContainer = styled.div`
-  background-color: var(--primary-color-transparent);
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 6rem 1.5rem;
-  text-align: left;
-  z-index: 5;
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────────── */
+const BORDER = "rgba(255,255,255,0.14)";
+const ACCENT = "rgba(255,255,255,0.07)";
+const ACCENT_HOVER = "rgba(255,255,255,0.13)";
+const TEXT_MUTED = "rgba(255,255,255,0.5)";
+
+/* ─────────────────────────────────────────────
+   STYLED COMPONENTS
+───────────────────────────────────────────── */
+const Backdrop = styled(motion.div)`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 49;
 
   @media (min-width: 1112px) {
     display: none;
   }
 `;
-const SecondaryNavigation = styled.div`
-  padding: 1rem 1rem 0;
-  display: flex;
-  row-gap: 1rem;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-`;
 
-const SecondaryLink = styled(Link)`
-  color: var(--white);
-  font-size: clamp(0.8rem, 2vw, 1.5rem);
-  font-weight: 600;
-`;
-
-const CSSUL = styled.ul``;
-
-const CSSNavDropdown = styled.div`
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  margin: 0 1rem;
-  padding: 1rem 0 0;
-`;
-
-const CSSMobileNavItemExternal = styled.a`
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--white);
-    text-decoration: none;
-  }
-`;
-
-const CSSMobileNavItems = styled(motion.ul)`
+const DrawerPanel = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(400px, 100vw);
+  background: var(--primary-color);
+  z-index: 50;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding-botton: 1rem;
-`;
+  overflow: hidden;
+  box-shadow: -6px 0 48px rgba(0, 0, 0, 0.4), inset 1px 0 0 ${BORDER};
 
-const CSSMobileNavItem = styled(Link)`
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--white);
-    text-decoration: none;
-
+  @media (min-width: 1112px) {
+    display: none;
   }
 `;
 
-const CSSMobileNavHeader = styled.li`
-  color: var(--white);
-  cursor: pointer;
-  font-size: clamp(1.4rem, 3vw, 2.5rem);
+const DrawerHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0;
-  position: relative;
-  z-index: 2;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid ${BORDER};
+  flex-shrink: 0;
 `;
 
-const CSSChevronContainer = styled(motion.div)``;
+const CloseBtn = styled(motion.button)`
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+`;
 
-//Component Framer Motion Variants
-const dropdownVariants = {
-  hidden: {
-    pointerEvents: "none",
-    opacity: 0,
-    height: 0,
-    transition: {
-      height: { duration: 0.3 },
-      opacity: { duration: 0.2, delay: 0.1 },
+const BtnLine = styled(motion.span)`
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--white);
+  border-radius: 2px;
+  transform-origin: center;
+`;
 
-    },
-  },
-  visible: {
-    pointerEvents: "auto",
-    opacity: 1,
-    height: "auto",
-    transition: {
-      height: { duration: 0.3 },
-      opacity: { duration: 0.2 },
-    },
-  },
+const ScrollBody = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1.25rem 0;
+  position: relative;
+
+  scrollbar-width: thin;
+  scrollbar-color: ${BORDER} transparent;
+  &::-webkit-scrollbar { width: 3px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: ${BORDER}; border-radius: 99px; }
+`;
+
+const PortalSection = styled.div`
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid ${BORDER};
+`;
+
+const SectionLabel = styled.p`
+  color: ${TEXT_MUTED};
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem 0.25rem;
+`;
+
+const AccordionItem = styled.div`
+  border-radius: 10px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+
+  &[data-open="true"] {
+    border-color: ${BORDER};
+    background: ${ACCENT};
+  }
+`;
+
+const AccordionTrigger = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+`;
+
+const ItemList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0 0.75rem 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+`;
+
+const NavLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+
+  &:active { background: ${ACCENT_HOVER}; color: var(--white); }
+`;
+
+const ExternalBadge = styled.span`
+  color: ${TEXT_MUTED};
+  display: inline-flex;
+  align-items: center;
+`;
+
+const DrawerFooter = styled.div`
+  padding: 1.1rem 1.25rem;
+  border-top: 1px solid ${BORDER};
+  flex-shrink: 0;
+`;
+
+const FooterGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+`;
+
+const FooterLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid ${BORDER};
+  background: ${ACCENT};
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active { background: ${ACCENT_HOVER}; color: var(--white); }
+`;
+
+/* ─────────────────────────────────────────────
+   ANIMATION VARIANTS
+───────────────────────────────────────────── */
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 };
 
-// Mobile navigation menu component
-const MobileNav = ({ open }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState({
-    École: false,
-    Pédagogie: false,
-    "Vie Étudiante": false,
-    "Services à l'élève": false,
-    Admissions: false,
-  });
+const drawerVariants = {
+  hidden: { x: "100%", transition: { type: "spring", stiffness: 320, damping: 32 } },
+  visible: { x: 0, transition: { type: "spring", stiffness: 320, damping: 32 } },
+};
 
-  const handleDropdownClick = (text) => {
-    const title = text;
-    setIsDropdownOpen((prevState) => {
-      return {
-        ...prevState,
-        [title]: !prevState[title],
-      };
-    });
-  };
+const panelVariants = {
+  hidden: { opacity: 0, height: 0, transition: { duration: 0.22 } },
+  visible: { opacity: 1, height: "auto", transition: { duration: 0.28 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -5 },
+  visible: (i) => ({ opacity: 1, x: 0, transition: { delay: i * 0.035 } }),
+};
+
+/* ─────────────────────────────────────────────
+   MOBILE NAV
+───────────────────────────────────────────── */
+const MobileNav = ({ open, onClose }) => {
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const closeBtnRef = useRef(null);
+
+  const toggle = (title) =>
+    setActiveDropdown((prev) => (prev === title ? null : title));
+
+  // Focus close button when drawer opens
+  useEffect(() => {
+    if (open) closeBtnRef.current?.focus();
+  }, [open]);
+
+  // Escape to close
+  useEffect(() => {
+    const handler = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [onClose]);
 
   return (
-    <>
+    <AnimatePresence>
       {open && (
-        <MobileNavContainer>
-          <SecondaryNavigation>
-            {navItems.map((item, index) => (
-              <SecondaryLink key={index} href={item.url} target={item.external ? "_blank" : "_self"}
-                rel={item.external ? "noopener noreferrer" : undefined}>
-                {item.title}
-              </SecondaryLink>
-            ))}
-          </SecondaryNavigation>
-          <PortalLink mobile={true} />
-          <CSSUL>
-            {navList.map((navItem, index) => (
-              <CSSNavDropdown key={index}>
-                <CSSMobileNavHeader
-                  onClick={() => handleDropdownClick(navItem.title)}
-                >
-                  {navItem.title}
-                  <CSSChevronContainer
-                    animate={{
-                      rotate: isDropdownOpen[navItem.title] ? 180 : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
+        <>
+          <Backdrop
+            key="backdrop"
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            onClick={onClose}
+          />
+
+          <DrawerPanel
+            key="drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de navigation"
+            variants={drawerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            {/* Header */}
+            <DrawerHeader>
+              <PortalLink mobile={true} />
+              <CloseBtn
+                ref={closeBtnRef}
+                onClick={onClose}
+                whileTap={{ scale: 0.88 }}
+                aria-label="Fermer le menu"
+              >
+                <BtnLine
+                  initial={{ rotate: 0, y: 0, scaleX: 1 }}
+                  animate={{ rotate: 45, y: 10, scaleX: [1, 0.45, 1] }}
+                  transition={{ duration: 0.38, times: [0, 0.45, 1], ease: "easeInOut" }}
+                />
+                <BtnLine
+                  initial={{ rotate: 0, y: 0, scaleX: 1 }}
+                  animate={{ rotate: -45, y: -7.5, scaleX: [1, 0.45, 1] }}
+                  transition={{ duration: 0.38, times: [0, 0.45, 1], ease: "easeInOut", delay: 0.04 }}
+                />
+              </CloseBtn>
+            </DrawerHeader>
+
+            {/* Scroll area */}
+            <ScrollBody>
+              {/* Logo watermark */}
+              <div style={{
+                position: "absolute",
+                top: "50%",
+                left: "60%",
+                transform: "translate(-50%, -50%)",
+                width: "65%",
+                opacity: 0.06,
+                pointerEvents: "none",
+                zIndex: 0,
+              }}>
+                <img src="/images/logo-blackWhite.jpg" alt="" aria-hidden="true" style={{ width: "100%", height: "auto", filter: "grayscale(1) brightness(2)" }} />
+              </div>
+
+              <div style={{ position: "relative", zIndex: 1 }}>
+              {navList.map((navItem, index) => {
+                const isOpen = activeDropdown === navItem.title;
+                return (
+                  <AccordionItem key={index} data-open={isOpen}>
+                    <AccordionTrigger
+                      onClick={() => toggle(navItem.title)}
+                      aria-expanded={isOpen}
+                    >
+                      <span>{navItem.title}</span>
+                      <motion.span
+                        animate={{ rotate: isOpen ? 45 : 0 }}
+                        transition={{ duration: 0.22 }}
+                        style={{ display: "flex", alignItems: "center", color: TEXT_MUTED, fontSize: "1.4rem", fontWeight: 300, lineHeight: 1 }}
+                      >
+                        +
+                      </motion.span>
+                    </AccordionTrigger>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="panel"
+                          variants={panelVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="hidden"
+                          style={{ overflow: "hidden" }}
+                        >
+                          <ItemList>
+                            {navItem.items.map((item, i) => (
+                              <motion.li
+                                key={i}
+                                custom={i}
+                                variants={itemVariants}
+                                initial="hidden"
+                                animate="visible"
+                              >
+                                <NavLink
+                                  href={item.link}
+                                  onClick={onClose}
+                                  target={item.external ? "_blank" : "_self"}
+                                  rel={item.external ? "noopener noreferrer" : undefined}
+                                >
+                                  <span>{item.text}</span>
+                                  {item.external && (
+                                    <ExternalBadge>
+                                      <FaExternalLinkAlt size={9} />
+                                    </ExternalBadge>
+                                  )}
+                                </NavLink>
+                              </motion.li>
+                            ))}
+                          </ItemList>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </AccordionItem>
+                );
+              })}
+              </div>
+            </ScrollBody>
+            <DrawerFooter>
+              <SectionLabel style={{ marginBottom: "0.6rem" }}>Accès rapide</SectionLabel>
+              <FooterGrid>
+                {navItems.map((item, index) => (
+                  <FooterLink
+                    key={index}
+                    href={item.url}
+                    onClick={onClose}
+                    target={item.external ? "_blank" : "_self"}
+                    rel={item.external ? "noopener noreferrer" : undefined}
                   >
-                    <FaChevronDown
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDropdownClick(navItem.title);
-                      }}
-                      style={{ fontSize: "1rem" }}
-                    />
-                  </CSSChevronContainer>
-                </CSSMobileNavHeader>
-                <CSSMobileNavItems
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate={isDropdownOpen[navItem.title] ? "visible" : "hidden"}
-                >
-                  {navItem.items.map((item, index) => (
-                    <li>
-                      <CSSMobileNavItem href={item.link} key={index}>
-                        {" "}
-                        {item.text}{" "}
-                      </CSSMobileNavItem>
-                    </li>
-                  ))}
-                </CSSMobileNavItems>
-              </CSSNavDropdown>
-            ))}
-          </CSSUL>
-        </MobileNavContainer>
+                    {item.title}
+                  </FooterLink>
+                ))}
+              </FooterGrid>
+            </DrawerFooter>
+          </DrawerPanel>
+        </>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
-// Navigation menu component
+/* ─────────────────────────────────────────────
+   MAIN NAV
+───────────────────────────────────────────── */
 const Nav = ({ type = "primary", animate = true }) => {
   const animationState = animate ? "visible" : { x: 0, opacity: 1 };
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const hamburgerVariants = {
-    closed: {
-      rotate: 0,
-    },
-    open: {
-      rotate: 0,
-    },
-  };
-
-  const line1Variants = {
-    closed: { rotate: 0, y: 0 },
-    open: { rotate: 45, y: 8 },
-  };
-
-  const line2Variants = {
-    closed: { rotate: 0, y: 0 },
-    open: { rotate: -45, y: -8 },
-  };
-
-  //useEffect()
   useEffect(() => {
     if (menuOpen) {
       document.body.classList.add("no-scroll");
@@ -305,46 +477,31 @@ const Nav = ({ type = "primary", animate = true }) => {
 
   return (
     <>
-      <nav
-        className={`${css.navContainer} ${type === "secondary" ? css.navContainerSecondary : ""}`}
-      >
+      <nav className={`${css.navContainer} ${type === "secondary" ? css.navContainerSecondary : ""}`}>
         <motion.div
           initial={animate ? "hidden" : false}
           animate={animationState}
           className={css.logoContainer}
         >
           <Link href="/" style={{ display: "flex", gap: "4px" }}>
-            <img
-              src="/images/logo.jpg"
-              alt="logo"
-              width={89}
-              height={90}
-              className={css.logo}
-            />
+            <img src="/images/logo.jpg" alt="logo" width={89} height={90} className={css.logo} />
             <div className={css.logoText}>
-              <p
-                className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}
-              >
+              <p className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}>
                 L'ÉCOLE ARMÉNIENNE
               </p>
-              <p
-                className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}
-              >
+              <p className={`${css.logoTextItem} ${css.logoTextLg} ${type === "secondary" ? css.logoAlt : ""}`}>
                 SOURP HAGOP
               </p>
-              <p
-                className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}
-              >
+              <p className={`${css.logoTextItem} ${css.logoTextSm} ${type === "secondary" ? css.logoAlt : ""}`}>
                 ÉCOLE PRIMAIRE V. ET A. SARAFIAN
               </p>
-              <p
-                className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}
-              >
+              <p className={`${css.logoTextItem} ${css.logoTextSmAlternate} ${type === "secondary" ? css.logoAlt : ""}`}>
                 ÉCOLE SECONDAIRE PASDERMAJIAN
               </p>
             </div>
           </Link>
         </motion.div>
+
         <motion.ul
           className={css.nav}
           initial={animate ? "hidden" : false}
@@ -357,32 +514,39 @@ const Nav = ({ type = "primary", animate = true }) => {
                 title={navItem.title}
                 items={navItem.items}
                 type={type}
+                align={index === navList.length - 1 ? "right" : "left"}
+                offset={index === navList.length - 1 ? 40 : 0}
               />
             </li>
           ))}
         </motion.ul>
 
-        {/* Mobile Navigation Button */}
         <motion.div
           className={css.hamburger}
           onClick={() => setMenuOpen(!menuOpen)}
-          animate={menuOpen ? "open" : "closed"}
-          variants={hamburgerVariants}
-          style={{ transformOrigin: "center" }}
+          whileTap={{ scale: 0.85 }}
+          style={{ cursor: "pointer" }}
         >
           <motion.span
             className={`${css.hamburgerLine} ${type === "secondary" ? css.hamburgerLineSecondary : ""}`}
-            variants={line1Variants}
-            style={{ backgroundColor: menuOpen ? "white" : undefined }}
-          ></motion.span>
+            animate={menuOpen
+              ? { rotate: 45, y: 8, scaleX: [1, 0.4, 1], transition: { duration: 0.35, times: [0, 0.45, 1], ease: "easeInOut" } }
+              : { rotate: 0, y: 0, scaleX: [1, 0.4, 1], transition: { duration: 0.35, times: [0, 0.45, 1], ease: "easeInOut" } }
+            }
+            style={{ backgroundColor: menuOpen ? "white" : undefined, transformOrigin: "center" }}
+          />
           <motion.span
             className={`${css.hamburgerLine} ${type === "secondary" ? css.hamburgerLineSecondary : ""}`}
-            variants={line2Variants}
-            style={{ transformOrigin: "center", backgroundColor: menuOpen ? "white" : undefined }}
-          ></motion.span>
+            animate={menuOpen
+              ? { rotate: -45, y: -8, scaleX: [1, 0.4, 1], transition: { duration: 0.35, times: [0, 0.45, 1], ease: "easeInOut", delay: 0.04 } }
+              : { rotate: 0, y: 0, scaleX: [1, 0.4, 1], transition: { duration: 0.35, times: [0, 0.45, 1], ease: "easeInOut", delay: 0.04 } }
+            }
+            style={{ backgroundColor: menuOpen ? "white" : undefined, transformOrigin: "center" }}
+          />
         </motion.div>
       </nav>
-      <MobileNav open={menuOpen} />
+
+      <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
 };

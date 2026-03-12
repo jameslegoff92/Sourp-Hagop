@@ -2,6 +2,12 @@ export default (S) =>
     S.list()
         .title('Content')
         .items([
+
+            // Alert Banner
+            S.documentTypeListItem('alertBanner').title('Bannière d\'alerte'),
+            
+            S.divider(),
+
             // Group: Top navigation
             S.listItem()
                 .title("Top navigation")
@@ -19,7 +25,7 @@ export default (S) =>
                 (listItem) => listItem.getId() === 'homePage'
             ),
 
-            S.documentTypeListItem('testDocument').title('TEST'),
+            //S.documentTypeListItem('testDocument').title('TEST'),
 
             // Group: L'école
             S.listItem()
@@ -74,6 +80,7 @@ export default (S) =>
                         .items([
                             S.documentTypeListItem('soutienPage').title('Soutien aux élèves'),
                             S.documentTypeListItem('libraryPage').title("Bibliothèque"),
+                            S.documentTypeListItem('agoraPage').title("Agora Anna et Manouk Djoukhadjian"),
                             S.documentTypeListItem('jardinLitterairePage').title("Mer Aykin: Un jardin littéraire"),
                             S.documentTypeListItem('crealabPage').title("Créalab"),
                             S.documentTypeListItem('serviceDeGardePage').title('Service de garde'),

@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Third Party Imports
 import styled from "@emotion/styled";
@@ -149,6 +149,9 @@ const CardText = styled(motion.p)`
 `;
 
 const ValueItem = ({ value, index }) => {
+
+  const [tapped, setTapped] = useState(false);
+
   const bgControls = useAnimation();
   const overlayControls = useAnimation();
   const numberControls = useAnimation();
@@ -156,6 +159,16 @@ const ValueItem = ({ value, index }) => {
   const titleControls = useAnimation();
   const textControls = useAnimation();
   const iconControls = useAnimation();
+
+  useEffect(() => {
+    if (!tapped) return;
+    const handler = () => {
+      setTapped(false);
+      handleHoverEnd();
+    };
+    document.addEventListener("touchstart", handler);
+    return () => document.removeEventListener("touchstart", handler);
+  }, [tapped]);
 
   const handleHoverStart = () => {
     bgControls.start({ scale: 1.1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } });
@@ -180,6 +193,7 @@ const ValueItem = ({ value, index }) => {
   };
 
   const handleHoverEnd = () => {
+    if (tapped) return;
     bgControls.start({ scale: 1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } });
     overlayControls.start({
       background: "linear-gradient(180deg, transparent 0%, transparent 30%, rgba(0, 30, 60, 0.8) 70%, rgba(0, 20, 40, 0.95) 100%)",
@@ -205,6 +219,13 @@ const ValueItem = ({ value, index }) => {
     <Card
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
+      onTap={(e) => {
+        e.stopPropagation();
+        if (!tapped) {
+          setTapped(true);
+          handleHoverStart();
+        }
+      }}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

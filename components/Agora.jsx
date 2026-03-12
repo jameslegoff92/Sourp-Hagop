@@ -2,8 +2,8 @@
 
 import Header from "./ui/Header";
 import Footer from "./ui/Footer";
+import Menu from "./ui/Menu";
 import Typography from "./display/Typography";
-import Accordion from "./ui/AccordionSoutien";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -63,36 +63,43 @@ const TitleWrapper = styled(motion.div)`
 
 const TextContainer = styled(motion.div)`
   width: 100%;
+  max-width: 1000px;
   margin: 0 auto 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 `;
 
-const AccordionWrapper = styled(motion.div)`
+const Divider = styled(motion.div)`
+  width: 50px;
+  height: 2px;
+  background: #007dc3;
+  margin: 3rem auto;
+`;
+
+const MenuWrapper = styled(motion.div)`
   width: 100%;
   margin-top: 2rem;
 `;
 
-export default function Soutien({ data }) {
-  const headerImageUrl = data?.headerImageUrl;
-  const headerText = data?.headerText;
-  const mainTitle = data?.mainTitle;
-  const introText = data?.introText;
-  const accordionItems = Array.isArray(data?.accordionItems) ? data.accordionItems : [];
-
-  // Convert array to object format for the Accordion component
-  const contentData = accordionItems.reduce((acc, item) => {
-    if (item?.title && item?.content) {
-      acc[item.title] = item.content;
-    }
-    return acc;
-  }, {});
+export default function Agora({ data }) {
+  const menuData = {
+    primaireWeeks: data?.primaireWeeks || [],
+    secondaireWeeks: data?.secondaireWeeks || [],
+    dessertNotes: {
+      primaire: data?.dessertNotePrimaire || "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
+      secondaire: data?.dessertNoteSecondaire || "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau.",
+    },
+  };
 
   return (
     <>
       <Header
         animate={false}
-        imageSrc={headerImageUrl || "../images/header/soutien-header.jpg"}
-        headerText={headerText || "SOUTIEN AUX ÉLÈVES"}
+        videoSrc={data?.headerVideoUrl || "../videos/video-agora.mp4"}
+        imageSrc={data?.headerImageUrl}
+        headerText={data?.headerText || "AGORA ANNA & MANOUK DJOUKHADJIAN"}
         headerTextTop="70%"
       />
 
@@ -105,7 +112,7 @@ export default function Soutien({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Accompagnement
+              Nutrition
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -114,7 +121,7 @@ export default function Soutien({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {mainTitle || "Nos Services"}
+                {data?.mainTitle || "Agora Anna et Manouk Djoukhadjian"}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -126,18 +133,28 @@ export default function Soutien({ data }) {
             viewport={{ once: true }}
           >
             <Typography as="p" type="h6" color="dark">
-              {introText || ""}
+              {data?.introText || "Bien plus qu'un lieu où l'on sert un repas chaud et nutritif, l'Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir."}
+            </Typography>
+            <Typography as="p" type="h6" color="dark">
+              {data?.menuCallToAction || "Découvrez le menu de la semaine à l'Agora!"}
             </Typography>
           </TextContainer>
 
-          <AccordionWrapper
+          <Divider
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          />
+
+          <MenuWrapper
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <Accordion data={contentData} />
-          </AccordionWrapper>
+            <Menu data={menuData} />
+          </MenuWrapper>
         </ContentContainer>
       </Section>
 

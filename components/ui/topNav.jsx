@@ -59,7 +59,12 @@ const NavItem = ({ title, url, logo, external }) => (
 );
 
 //Portal Link Component
-const StyledPortalLink = styled(Link)``;
+const StyledPortalLink = styled(Link)`
+  top: 2px;
+  &.${css.portalLinkMobile} {
+    top: 18px;
+  }
+`;
 
 export const PortalLink = ({ mobile }) => (
   <StyledPortalLink

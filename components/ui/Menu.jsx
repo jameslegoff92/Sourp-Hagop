@@ -1,98 +1,9 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 
 const titles = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
-
-// --- DATA ---
-const primaireWeeks = [
-  {
-    id: 1,
-    circles: [
-      { description: "Lentilles au blé concassé avec salade", image: "../images/menu/lentilles-ble-concasse.jpg" },
-      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/placeholder.svg" },
-      { description: "Penne sauce tomate avec salade verte", image: "../images/menu/penne-sauce-tomate.jpg" },
-      { description: "Souvlaki au poulet avec tzatziki, riz et légumes", image: "../images/menu/souvlaki-poulet.jpg" },
-      { description: "Soupe aux lentilles avec pain au fromage", image: "../images/menu/soupe-lentilles-pain.jpg" },
-    ],
-  },
-  {
-    id: 2,
-    circles: [
-      { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
-      { description: "Spaghetti bolognaise avec légumes", image: "../images/menu/placeholder.svg" },
-      { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
-      { description: "Macaroni sauce à la viande avec salade", image: "../images/menu/Untitled-1.png" },
-      { description: "Hamburger avec salade de choux", image: "../images/menu/placeholder.svg" },
-    ],
-  },
-  {
-    id: 3,
-    circles: [
-      { description: "Poulet pilaf au blé concassé avec salade", image: "../images/menu/poulet-ble-concasse.jpg" },
-      { description: "Haricots verts avec viande hachée et riz", image: "../images/menu/haricots-vert-viande.jpg" },
-      { description: "Penne sauce à la viande avec salade", image: "../images/menu/rotini-sauce-viande.jpg" },
-      { description: "Saumon avec sauce aux herbes avec riz et légumes", image: "../images/menu/saumon-sauce-herbes.jpg" },
-      { description: "Boulettes de viande et patate purée avec légumes", image: "../images/menu/boulettes-viande-patate.jpg" },
-    ],
-  },
-  {
-    id: 4,
-    circles: [
-      { description: "Poulet et riz mexicain avec légumes", image: "../images/menu/poulet-riz-mexicain.jpg" },
-      { description: "Macaroni sauce rosée avec salade", image: "../images/menu/placeholder.svg" },
-      { description: "Pâté chinois avec salade", image: "../images/menu/placeholder.svg" },
-      { description: "Macédoine carotte et pois verts avec riz", image: "../images/menu/macedoine-riz.jpg" },
-      { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
-    ],
-  },
-];
-
-const weeks = [
-  {
-    id: 1,
-    circles: [
-      { description: "Lentilles au blé concassé avec salade", image: "../images/menu/lentilles-ble-concasse.jpg" },
-      { description: "Filet de sole sauce poivron rouge, légumes variés et riz.", image: "../images/menu/placeholder.svg" },
-      { description: "Penne sauce tomate avec salade verte", image: "../images/menu/penne-sauce-tomate.jpg" },
-      { description: "Souvlaki au poulet avec tzatziki, riz et légumes", image: "../images/menu/souvlaki-poulet.jpg" },
-      { description: "Sous-marin avec salade de choux", image: "../images/menu/placeholder.svg" },
-    ],
-  },
-  {
-    id: 2,
-    circles: [
-      { description: "Pain de viande macaroni avec légumes", image: "../images/menu/painviande-macaroni.jpg" },
-      { description: "Sandwich au jambon et fromage avec soupe", image: "../images/menu/placeholder.svg" },
-      { description: "Haricots blanc au blé concassé", image: "../images/menu/haricots-riz.jpg" },
-      { description: "Manicotti avec salade", image: "../images/menu/manicotti.jpg" },
-      { description: "Hamburger avec salade de choux", image: "../images/menu/placeholder.svg" },
-    ],
-  },
-  {
-    id: 3,
-    circles: [
-      { description: "Poulet pilaf au blé concassé avec salade", image: "../images/menu/poulet-ble-concasse.jpg" },
-      { description: "Salade césar au poulet avec pain au fromage", image: "../images/menu/salade-cesar.jpg" },
-      { description: "Macaroni au fromage avec salade", image: "../images/menu/macaroni-fromage.jpg" },
-      { description: "Saumon avec sauce aux herbes avec riz et légumes", image: "../images/menu/saumon-sauce-herbes.jpg" },
-      { description: "Boulettes de viande et patate purée avec légumes", image: "../images/menu/boulettes-viande-patate.jpg" },
-    ],
-  },
-  {
-    id: 4,
-    circles: [
-      { description: "Fajita et riz mexicain avec légumes", image: "../images/menu/fajita-riz.jpg" },
-      { description: "Tortellini sauce rosée avec salade", image: "../images/menu/tortellini-sauce-rose.jpg" },
-      { description: "Pâté chinois avec salade", image: "../images/menu/placeholder.svg" },
-      { description: "Crevette et légumes sauce teriyaki avec riz et salade", image: "../images/menu/crevettes-sauce-teriyaki.jpg" },
-      { description: "Burger de poitrine de poulet avec salade", image: "../images/menu/burger-poulet.jpg" },
-    ],
-  },
-];
-
-// --- STYLED COMPONENTS ---
 
 const MenuContainer = styled.div`
   width: 100%;
@@ -170,9 +81,15 @@ const MenuGrid = styled(motion.div)`
   gap: 1rem;
   width: 100%;
 
-  @media (max-width: 1100px) { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 480px) { grid-template-columns: 1fr; }
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const CardBackground = styled.div`
@@ -187,7 +104,6 @@ const CardBackground = styled.div`
 const Overlay = styled.div`
   position: absolute;
   inset: 0;
-  /* Start transparent */
   background: transparent;
   display: flex;
   flex-direction: column;
@@ -203,14 +119,13 @@ const MenuCard = styled(motion.div)`
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   background: #eee;
+  cursor: pointer;
 
-  /* Target child elements on hover */
   &:hover .card-bg-layer {
     transform: scale(1.1);
   }
 
   &:hover .card-overlay-layer {
-    /* Apply gradient only on hover */
     background: linear-gradient(
       to top,
       rgba(0, 50, 80, 0.7) 40%,
@@ -233,7 +148,7 @@ const DayBadge = styled.div`
   z-index: 2;
 `;
 
-const ContentContainer = styled(motion.div)`
+const CardContentContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -249,7 +164,7 @@ const CardDescription = styled(motion.p)`
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 `;
 
-const Divider = styled(motion.div)`
+const CardDivider = styled(motion.div)`
   width: 30px;
   height: 2px;
   background: white;
@@ -284,61 +199,280 @@ const FooterNote = styled.div`
   color: #555;
 `;
 
-const Menu = () => {
+const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  font-family: var(--primary-ff), sans-serif;
+  color: #666;
+`;
+
+// Lightbox styles
+const LightboxOverlay = styled(motion.div)`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+`;
+
+const LightboxContent = styled(motion.div)`
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const LightboxWeekBadge = styled.div`
+  position: absolute;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+`;
+
+const LightboxImage = styled(motion.img)`
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 12px;
+`;
+
+const LightboxInfo = styled.div`
+  text-align: center;
+  margin-top: 1.5rem;
+`;
+
+const LightboxDay = styled.span`
+  display: inline-block;
+  background: #007dc3;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+`;
+
+const LightboxDescription = styled.p`
+  color: white;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin: 0;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const LightboxNavButton = styled.button`
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #007dc3;
+    border-color: #007dc3;
+  }
+
+  &.prev {
+    left: -0.5rem;
+
+    @media (max-width: 1024px) {
+      left: 0.5rem;
+    }
+  }
+
+  &.next {
+    right: -0.5rem;
+
+    @media (max-width: 1024px) {
+      right: 0.5rem;
+    }
+  }
+`;
+
+const LightboxDots = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-top: 1.5rem;
+`;
+
+const LightboxDot = styled.button`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: ${({ active }) => (active ? "#007dc3" : "rgba(255, 255, 255, 0.3)")};
+  cursor: pointer;
+  transition: all 0.3s ease;
+`;
+
+const Menu = ({ data }) => {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [menuType, setMenuType] = useState("primaire");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const currentWeeks = menuType === "primaire" ? primaireWeeks : weeks;
+  const primaireWeeks = data?.primaireWeeks || [];
+  const secondaireWeeks = data?.secondaireWeeks || [];
+  const dessertNotes = data?.dessertNotes || {
+    primaire: "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
+    secondaire: "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau.",
+  };
+
+  const currentWeeks = menuType === "primaire" ? primaireWeeks : secondaireWeeks;
+  const currentMeals = currentWeeks[currentWeek]?.meals || [];
 
   const handleNext = () => setCurrentWeek((prev) => (prev === currentWeeks.length - 1 ? 0 : prev + 1));
   const handlePrev = () => setCurrentWeek((prev) => (prev === 0 ? currentWeeks.length - 1 : prev - 1));
 
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  const nextImage = () => {
+    setLightboxIndex((prev) => (prev === currentMeals.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevImage = () => {
+    setLightboxIndex((prev) => (prev === 0 ? currentMeals.length - 1 : prev - 1));
+  };
+
+  // Keyboard navigation
+  const handleKeyDown = (e) => {
+    if (!lightboxOpen) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+  };
+
+  if (!currentWeeks.length) {
+    return (
+      <LoadingContainer>
+        Aucun menu disponible pour le moment.
+      </LoadingContainer>
+    );
+  }
+
   return (
-    <MenuContainer>
+    <MenuContainer onKeyDown={handleKeyDown} tabIndex={0}>
       <TopNavigation>
         <ToggleWrapper>
-          <ToggleButton active={menuType === "primaire"} onClick={() => { setMenuType("primaire"); setCurrentWeek(0); }}>
+          <ToggleButton
+            active={menuType === "primaire"}
+            onClick={() => {
+              setMenuType("primaire");
+              setCurrentWeek(0);
+            }}
+          >
             Primaire
           </ToggleButton>
-          <ToggleButton active={menuType === "secondaire"} onClick={() => { setMenuType("secondaire"); setCurrentWeek(0); }}>
+          <ToggleButton
+            active={menuType === "secondaire"}
+            onClick={() => {
+              setMenuType("secondaire");
+              setCurrentWeek(0);
+            }}
+          >
             Secondaire
           </ToggleButton>
         </ToggleWrapper>
 
         <WeekControl>
-          <NavButton onClick={handlePrev}><FaChevronLeft size={16} /></NavButton>
-          <WeekInfo>Semaine {currentWeeks[currentWeek].id}</WeekInfo>
-          <NavButton onClick={handleNext}><FaChevronRight size={16} /></NavButton>
+          <NavButton onClick={handlePrev}>
+            <FaChevronLeft size={16} />
+          </NavButton>
+          <WeekInfo>Semaine {currentWeeks[currentWeek]?.weekNumber || currentWeek + 1}</WeekInfo>
+          <NavButton onClick={handleNext}>
+            <FaChevronRight size={16} />
+          </NavButton>
         </WeekControl>
       </TopNavigation>
 
       <AnimatePresence mode="wait">
-        <MenuGrid key={`${menuType}-${currentWeek}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          {currentWeeks[currentWeek].circles.map((item, index) => (
-            <MenuCard key={index} initial="initial" whileHover="hover">
-              <CardBackground className="card-bg-layer" imageUrl={item.image} />
+        <MenuGrid
+          key={`${menuType}-${currentWeek}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {currentMeals.map((item, index) => (
+            <MenuCard
+              key={index}
+              initial="initial"
+              whileHover="hover"
+              onClick={() => openLightbox(index)}
+            >
+              <CardBackground
+                className="card-bg-layer"
+                imageUrl={item.imageUrl || "../images/menu/placeholder.svg"}
+              />
               <DayBadge>{titles[index]}</DayBadge>
-              
+
               <Overlay className="card-overlay-layer">
-                <ContentContainer>
-                  {/* Removed "Menu du jour" span */}
-                  
-                  <Divider 
+                <CardContentContainer>
+                  <CardDivider
                     variants={{
                       initial: { width: 0, opacity: 0 },
-                      hover: { width: 40, opacity: 1 }
+                      hover: { width: 40, opacity: 1 },
                     }}
                   />
-                  
                   <CardDescription
                     variants={{
                       initial: { y: 20, opacity: 0 },
-                      hover: { y: 0, opacity: 1 }
+                      hover: { y: 0, opacity: 1 },
                     }}
                   >
                     {item.description}
                   </CardDescription>
-                </ContentContainer>
+                </CardContentContainer>
               </Overlay>
             </MenuCard>
           ))}
@@ -347,15 +481,73 @@ const Menu = () => {
 
       <PaginationSection>
         {currentWeeks.map((_, index) => (
-          <Dot key={index} active={index === currentWeek} onClick={() => setCurrentWeek(index)} />
+          <Dot
+            key={index}
+            active={index === currentWeek}
+            onClick={() => setCurrentWeek(index)}
+          />
         ))}
       </PaginationSection>
 
-      <FooterNote>
-        {menuType === "primaire"
-          ? "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits."
-          : "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau."}
-      </FooterNote>
+      <FooterNote>{dessertNotes[menuType]}</FooterNote>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && currentMeals[lightboxIndex] && (
+          <LightboxOverlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+          >
+            <LightboxContent onClick={(e) => e.stopPropagation()}>
+
+                <LightboxWeekBadge>
+                Semaine {currentWeeks[currentWeek]?.weekNumber || currentWeek + 1}
+              </LightboxWeekBadge>
+
+              <CloseButton onClick={closeLightbox}>
+                <FaTimes />
+              </CloseButton>
+
+              <LightboxNavButton className="prev" onClick={prevImage}>
+                <FaChevronLeft size={18} />
+              </LightboxNavButton>
+
+              <LightboxImage
+                key={lightboxIndex}
+                src={currentMeals[lightboxIndex].imageUrl || "../images/menu/placeholder.svg"}
+                alt={currentMeals[lightboxIndex].description}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              <LightboxNavButton className="next" onClick={nextImage}>
+                <FaChevronRight size={18} />
+              </LightboxNavButton>
+
+              <LightboxInfo>
+                <LightboxDay>{titles[lightboxIndex]}</LightboxDay>
+                <LightboxDescription>
+                  {currentMeals[lightboxIndex].description}
+                </LightboxDescription>
+              </LightboxInfo>
+
+              <LightboxDots>
+                {currentMeals.map((_, index) => (
+                  <LightboxDot
+                    key={index}
+                    active={index === lightboxIndex}
+                    onClick={() => setLightboxIndex(index)}
+                  />
+                ))}
+              </LightboxDots>
+            </LightboxContent>
+          </LightboxOverlay>
+        )}
+      </AnimatePresence>
     </MenuContainer>
   );
 };

@@ -272,7 +272,7 @@ export default function Secondaire({ data }) {
           <SectionHeader>
             <Eyebrow
               initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
@@ -280,7 +280,7 @@ export default function Secondaire({ data }) {
             </Eyebrow>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
@@ -296,7 +296,7 @@ export default function Secondaire({ data }) {
               type="h6"
               color="dark"
               initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >

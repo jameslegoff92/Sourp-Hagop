@@ -13,13 +13,15 @@ const LogoSHsvg = ({ className = "" }) => {
     <animate 
       attributeName="y" 
       values="100%;0%" 
-      dur="3s" 
+      dur="3s"
+	  begin="0.8s" 
       fill="freeze"
     />
     <animate 
       attributeName="height" 
       values="0%;100%" 
-      dur="3s" 
+      dur="3s"
+	  begin="0.8s" 
       fill="freeze"
     />
   </rect>

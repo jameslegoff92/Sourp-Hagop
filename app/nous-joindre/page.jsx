@@ -318,7 +318,7 @@ export default function Contact() {
             type="h1"
             color="primary"
             initial={{ opacity: 0, y: -25 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
             transition={{ duration: 0.9, ease: "easeInOut" }}
           >
@@ -330,7 +330,7 @@ export default function Contact() {
               type="h6"
               color="dark"
               initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >
@@ -341,7 +341,7 @@ export default function Contact() {
           <ContactContainer>
             <ContactInfo
               initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
@@ -356,7 +356,7 @@ export default function Contact() {
             
             <MapContainer>
                 <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5589.880160757173!2d-73.69843852366428!3d45.53141132895166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9187f7d660177%3A0xf0c6d13f40348c40!2sSourp%20Hagop%20Armenian%20School!5e0!3m2!1sfr!2sca!4v1757545560903!5m2!1sfr!2sca&hl=fr" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5589.880160757173!2d-73.69843852366428!3d45.53141132895166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9187f7d660177%3A0xf0c6d13f40348c40!2sSourp%20Hagop%20Armenian%20School!5e0!3m2!1sfr!2sca!4v1757545560903!5m2!1sfr!2sca&hl=fr" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 style={{ border: 0 }}
                 title="Notre localisation"
                 />
