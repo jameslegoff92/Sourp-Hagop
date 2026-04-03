@@ -16,6 +16,7 @@ export default (S) =>
                         .title("Top navigation")
                         .items([
                             S.documentTypeListItem('careerPage').title('Carrières'),
+                            S.documentTypeListItem('calendarPage').title('Calendrier'),
                             S.documentTypeListItem('rentalSpacesPage').title('Locations'),
                         ])
                 ),

@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import Typography from "../components/display/Typography";
 import { motion } from "framer-motion";
 import BackgroundLogo from "../components/ui/BackgroundLogo";
+import ImageGrid from "../components/ui/ImageGrid";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -58,28 +59,6 @@ const TitleWrapper = styled(motion.div)`
   margin-top: 1.5rem;
 `;
 
-const ImageGrid = styled.div`
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.5rem;
-  margin: 3rem auto;
-  width: 100%;
-  aspect-ratio: 3 / 2;
-
-  @media (min-width: 768px) {
-    gap: 2rem;
-    margin: 4rem auto;
-  }
-`;
-
-const StyledImage = styled(motion.img)`
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-`;
-
 export default function Crealab({ data }) {
   return (
     <>
@@ -126,33 +105,8 @@ export default function Crealab({ data }) {
             </Typography>
           </TextContainer>
 
-          <ImageGrid>
-            {data?.images?.map((img, index) => {
-              const gridAreas = [
-                "1 / 1 / 2 / 2",
-                "1 / 2 / 3 / 3",
-                "1 / 3 / 2 / 4",
-                "2 / 1 / 3 / 2",
-                "2 / 3 / 3 / 4",
-              ];
-              return (
-                <StyledImage
-                  key={index}
-                  src={img.url}
-                  alt={`Créalab image ${index + 1}`}
-                  style={{ gridArea: gridAreas[index] }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.2,
-                    ease: "easeInOut",
-                  }}
-                  viewport={{ once: true, amount: 0.1 }}
-                />
-              );
-            })}
-          </ImageGrid>
+          <ImageGrid images={data?.images} layoutKey={data?.imageLayout} />
+
         </MotionDiv>
       </StyledDiv>
       <Footer />

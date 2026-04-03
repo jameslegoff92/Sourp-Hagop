@@ -4,12 +4,12 @@ import Footer from "../../components/ui/Footer";
 export default function CalendarLayout({ children }) {
   return (
     <>
-      <Header
+{/*       <Header
         animate={false}
         imageSrc="/images/header/team-header.svg"
         headerText="Calendrier"
         headerTextTop="60%"
-      />
+      /> */}
       {children}
       <Footer />
     </>

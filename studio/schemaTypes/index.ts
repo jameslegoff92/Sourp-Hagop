@@ -28,6 +28,7 @@ import transportPage from './transportPage'
 import protecteurNationalPage from './protecteurNationalPage'
 import agoraPage from './agoraPage'
 import alertBanner from './alertBanner';
+import calendarPage from './calendarPage'
 
 export const schemaTypes = [
   alertBanner,
@@ -39,6 +40,7 @@ export const schemaTypes = [
   anciensPage,
   protecteurNationalPage,
   careerPage,
+  calendarPage,
   projetPrimairePage,
   projetPrescolairePage,
   projetSecondairePage,

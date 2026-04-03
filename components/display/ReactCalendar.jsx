@@ -2,11 +2,12 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Calendar from "react-calendar";
+import Header from "../ui/Header";
 import Link from "next/link";
 import "react-calendar/dist/Calendar.css";
 import "./ReactCalendar.css";
 
-export default function ReactCalendar({ data }) {
+export default function ReactCalendar({ data, pageData }) {
   const [events, setEvents] = useState(Array.isArray(data) ? data : []);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
   const [failed, setFailed] = useState(false);
@@ -177,18 +178,26 @@ export default function ReactCalendar({ data }) {
   };
 
   return (
-    <div className="react-calendar-wrapper">
-      <Calendar
-        showNeighboringMonth
-        locale="fr-FR"
-        tileContent={tileContent}
-        onActiveStartDateChange={({ activeStartDate }) =>
-          activeStartDate && setActiveStartDate(activeStartDate)
-        }
-        onViewChange={({ activeStartDate }) =>
-          activeStartDate && setActiveStartDate(activeStartDate)
-        }
+    <>
+      <Header
+        animate={false}
+        imageSrc={pageData?.headerImageUrl || "../images/header/calendrier-header.jpg"}
+        headerText={pageData?.headerText || "CALENDRIER"}
+        headerTextTop="70%"
       />
-    </div>
+      <div className="react-calendar-wrapper">
+        <Calendar
+          showNeighboringMonth
+          locale="fr-FR"
+          tileContent={tileContent}
+          onActiveStartDateChange={({ activeStartDate }) =>
+            activeStartDate && setActiveStartDate(activeStartDate)
+          }
+          onViewChange={({ activeStartDate }) =>
+            activeStartDate && setActiveStartDate(activeStartDate)
+          }
+        />
+      </div>
+    </>
   );
 }

@@ -5,43 +5,47 @@ import connectToDatabase from "../../js/mongoose/connection.js";
 import Admin from "../../js/schemas/admin.js";
 import { getFirstNeighboringDay, getLastNeighboringDay } from "../../js/date.js";
 import { DateTime } from "luxon";
+import { getCalendarPage } from "../../lib/sanity-queries";
 
 /**
- * Server-side component to fetch calendar events from Google's API.
+ * Server-side component to fetch calendar events from Google's API
+ * and page content from Sanity CMS.
  *
  * @returns {JSX.Element} - Returns the React-Calendar component.
  */
 export default async function Calendar() {
-  // Check that the db connection is good.
+  // Connect to MongoDB and retrieve the admin user
   await connectToDatabase();
   const user = await Admin.getAdmin();
   
-  // Get both access token and refresh token using your existing methods
+  // Retrieve Google OAuth tokens from the database
   const googleAccessToken = await user.getGoogleAccessToken();
   const googleRefreshToken = await user.getGoogleRefreshToken();
   
+  // Compute the date range for the current month (including neighboring days)
   const today = DateTime.local();
   const startDate = getFirstNeighboringDay(today.year, today.month).toISO();
   const endDate = getLastNeighboringDay(today.year, today.month).toISO();
   
-  // Create the callback function to update the database using your existing method
+  // Callback to persist a refreshed access token back to the database
   const updateTokenCallback = async (newAccessToken) => {
     await user.updateGoogleAccessToken(newAccessToken);
   };
   
-  // Call with automatic token refresh
-  const calendarData = await fetchGoogleCalendarData(
-    "primary",
-    startDate,
-    endDate,
-    googleAccessToken,
-    googleRefreshToken,     // Add refresh token
-    updateTokenCallback     // Add update callback
-  );
+  // Fetch Google Calendar events and Sanity page data in parallel
+  const [calendarData, pageData] = await Promise.all([
+    fetchGoogleCalendarData(
+      "primary",
+      startDate,
+      endDate,
+      googleAccessToken,
+      googleRefreshToken,
+      updateTokenCallback
+    ),
+    getCalendarPage(),
+  ]);
 
   return (
-    <>
-      <ReactCalendar data={calendarData} />
-    </>
+    <ReactCalendar data={calendarData} pageData={pageData} />
   );
 }
