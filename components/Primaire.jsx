@@ -549,7 +549,7 @@ export default function Primaire({ data }) {
                 </TitleWrapper>
               </SectionHeader>
 
-              <PortableText
+{/*               <PortableText
                 value={data?.artsContent}
                 components={{
                   block: {
@@ -560,7 +560,7 @@ export default function Primaire({ data }) {
                     ),
                   },
                 }}
-              />
+              /> */}
 
               <TableNote>
                 <Typography as="p" type="p" color="dark">
