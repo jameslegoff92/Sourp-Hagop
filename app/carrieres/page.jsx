@@ -6,6 +6,7 @@ import Header from "../../components/ui/Header";
 import Footer from "../../components/ui/Footer";
 import Typography from "../../components/display/Typography";
 import CareerDetailModal from "../../components/modal/careerDetailModal";
+import { useLocale } from "../../components/display/LangContext";
 import { getCareerPage } from "../../lib/sanity-queries";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
@@ -279,6 +280,7 @@ function JobCard({ job, index, onSelect }) {
   const hasImage = !!job.image?.asset?.url;
   const typeTags = [job.type].filter(Boolean);
   const locationTags = job.location ? [job.location] : [];
+  const { locale } = useLocale();
 
   return (
     <CardWrapper>
@@ -295,7 +297,7 @@ function JobCard({ job, index, onSelect }) {
 
         <Content>
           <div>
-            <Title>{toSentenceCase(job.title)}</Title>
+            <Title>{toSentenceCase(job.title?.[locale] ?? job.title?.fr)}</Title>
             {job.level && <Level>{job.level}</Level>}
 
             {Array.isArray(job.shortDescription) && job.shortDescription.length > 0 && (
@@ -365,6 +367,9 @@ export default function CareerPage() {
     return () => { active = false; };
   }, []);
 
+  const { locale } = useLocale();
+
+  const headerText = data?.[locale]?.headerText ?? data?.fr?.headerText;
   const jobs = data?.jobs || [];
 
   return (
@@ -372,7 +377,7 @@ export default function CareerPage() {
       <Header
         animate={false}
         imageSrc={data?.headerImage?.asset?.url}
-        headerText={data?.headerText || "REJOIGNEZ NOTRE ÉQUIPE"}
+        headerText={headerText || "REJOIGNEZ NOTRE ÉQUIPE"}
         headerTextTop="70%"
       />
 

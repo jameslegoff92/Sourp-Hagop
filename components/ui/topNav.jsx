@@ -5,7 +5,9 @@ import styled from "@emotion/styled";
 import Image from 'next/image';
 import css from "./topNav.module.css";
 import Container from "../layout/Container";
+import LangSwitcher from "./LangSwitcher";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const navItems = [
 /*   { title: "", url: "https://eash50.wixsite.com/site", logo: "/images/header/50e-logo-secmenu.svg", },
@@ -77,6 +79,9 @@ export const PortalLink = ({ mobile }) => (
 );
 
 const TopNav = ({ animate = false }) => {
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] === "hy" ? "hy" : "fr";
+
   const content = (
     <nav className={css.navContainer}>
       <Container
@@ -104,6 +109,7 @@ const TopNav = ({ animate = false }) => {
           <img src="/images/lang.svg" alt="logo" />
         </div>
 */}
+{/* <LangSwitcher currentLocale={locale} /> */}
       </Container>
     </nav>
   );

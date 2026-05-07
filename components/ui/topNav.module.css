@@ -20,6 +20,50 @@
   gap: 4px;
 }
 
+.langToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  padding: 3px;
+  cursor: pointer;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.langSlider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: white;
+  border-radius: 999px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.langOption {
+  position: relative;
+  z-index: 1;
+  padding: 0 13px;
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: white;
+  transition: color 0.2s;
+  min-width: 36px;
+  text-align: center;
+  line-height: 26px;
+}
+
+.langOptionActive {
+  color: var(--primary-color);
+}
+
 .portal {
   border: 2px solid #fff;
   display: flex;

@@ -17,31 +17,28 @@ export default defineType({
   fields: [
     defineField({
       name: 'headerImage',
-      title: 'Image d’entête',
+      title: "Image d'entête",
       type: 'image',
       options: {hotspot: true}
     }),
     defineField({
       name: 'headerText',
-      title: 'Texte d’entête',
-      type: 'string'
+      title: "Texte d'entête",
+      type: 'localizedString'
     }),
     defineField({
       name: 'introText',
-      title: 'Texte d’introduction',
-      type: 'array',
-      of: [defineArrayMember({type: 'block'})]
+      title: "Texte d'introduction",
+      type: 'localizedBlock'
     }),
     defineField({
       name: 'applicationNote',
       title: 'Note de bas de page (modale)',
-      type: 'string',
-      description: 'Apparaît sous chaque offre d\'emploi. Ex: Nous remercions tous les candidats...',
-      initialValue: 'Nous remercions tous les candidats de leur intérêt, mais seules les personnes sélectionnées pour une entrevue seront contactées.'
+      type: 'localizedString'
     }),
     defineField({
       name: 'jobs',
-      title: 'Offres d’emploi',
+      title: "Offres d'emploi",
       type: 'array',
       of: [
         defineArrayMember({
@@ -49,7 +46,12 @@ export default defineType({
           name: 'job',
           title: 'Offre',
           fields: [
-            defineField({name: 'title', title: 'Titre du poste', type: 'string', validation: r => r.required()}),
+            defineField({
+              name: 'title',
+              title: 'Titre du poste',
+              type: 'localizedString',
+              validation: r => r.required()
+            }),
             defineField({
               name: 'level',
               title: 'Niveau',
@@ -58,7 +60,7 @@ export default defineType({
             }),
             defineField({
               name: 'type',
-              title: 'Type d’emploi',
+              title: "Type d'emploi",
               type: 'string',
               options: {list: ['Temps plein', 'Temps plein - Permanent', 'Temps plein - Temporaire', 'Temps partiel', 'Temps partiel - Permanent', 'Temps partiel - Temporaire', 'Contrat', 'Stage']}
             }),
@@ -68,17 +70,22 @@ export default defineType({
               type: 'string',
               options: {
                 list: [
-                  { title: 'École arménienne Sourp Hagop', value: 'École arménienne Sourp Hagop' },
-                  { title: 'En ligne', value: 'En ligne' },
-                  { title: 'Hybride', value: 'Hybride' },
+                  {title: 'École arménienne Sourp Hagop', value: 'École arménienne Sourp Hagop'},
+                  {title: 'En ligne', value: 'En ligne'},
+                  {title: 'Hybride', value: 'Hybride'},
                 ]
-              },
+              }
             }),
             defineField({
               name: 'deadline',
               title: 'Date limite pour postuler',
               type: 'date',
-              options: { dateFormat: 'YYYY-MM-DD' }
+              options: {dateFormat: 'YYYY-MM-DD'}
+            }),
+            defineField({
+              name: 'shortDescription',
+              title: 'Description courte',
+              type: 'localizedBlock'
             }),
             defineField({
               name: 'sections',
@@ -95,30 +102,28 @@ export default defineType({
                       type: 'string',
                       options: {
                         list: [
-                          {title: 'INTRODUCTION ', value: 'intro'},
+                          {title: 'INTRODUCTION', value: 'intro'},
                           {title: 'DESCRIPTION DU POSTE', value: 'description'},
                           {title: 'PROFIL CHERCHÉ', value: 'profil'},
                           {title: 'PRINCIPALES RESPONSABILITÉS', value: 'responsabilites'},
                           {title: 'CONDITIONS DE TRAVAIL ET AVANTAGES', value: 'conditions'},
                           {title: 'EXIGENCES', value: 'exigences'},
                           {title: 'Information additionnelle (titre personnalisé)', value: 'autre'},
-                        ],
+                        ]
                       },
-                      validation: (r) => r.required(),
+                      validation: r => r.required()
                     }),
                     defineField({
                       name: 'customTitle',
                       title: 'Titre personnalisé',
-                      type: 'string',
-                      description: 'Uniquement pour "Information additionnelle"',
-                      hidden: ({parent}) => parent?.sectionType !== 'autre',
+                      type: 'localizedString',
+                      hidden: ({parent}) => parent?.sectionType !== 'autre'
                     }),
                     defineField({
                       name: 'content',
                       title: 'Contenu',
-                      type: 'array',
-                      of: [defineArrayMember({type: 'block'})],
-                    })
+                      type: 'localizedBlock'
+                    }),
                   ],
                   preview: {
                     select: {
@@ -127,15 +132,14 @@ export default defineType({
                     },
                     prepare({sectionType, customTitle}) {
                       return {
-                        title:
-                          sectionType === 'autre'
-                            ? customTitle || 'Information additionnelle'
-                            : SECTION_LABELS[sectionType] || sectionType,
+                        title: sectionType === 'autre'
+                          ? customTitle?.fr || 'Information additionnelle'
+                          : SECTION_LABELS[sectionType] || sectionType
                       }
-                    },
-                  },
-                }),
-              ],
+                    }
+                  }
+                })
+              ]
             }),
             defineField({
               name: 'image',
@@ -155,6 +159,13 @@ export default defineType({
               title: 'title',
               subtitle: 'level',
               media: 'image'
+            },
+            prepare({title, subtitle, media}) {
+              return {
+                title: title?.fr || 'Sans titre',
+                subtitle,
+                media
+              }
             }
           }
         })
@@ -165,6 +176,12 @@ export default defineType({
     select: {
       title: 'headerText',
       media: 'headerImage'
+    },
+    prepare({title, media}) {
+      return {
+        title: title?.fr || 'Carrières',
+        media
+      }
     }
   }
 })
