@@ -5,8 +5,6 @@ export default (S) =>
 
             // Alert Banner
             S.documentTypeListItem('alertBanner').title('Bannière d\'alerte'),
-            
-            S.divider(),
 
             // Group: Top navigation
             S.listItem()
@@ -20,6 +18,17 @@ export default (S) =>
                             S.documentTypeListItem('rentalSpacesPage').title('Locations'),
                         ])
                 ),
+
+            // Navigation
+            S.listItem()
+                .title('Main Navigation')
+                .child(
+                    S.document()
+                        .schemaType('navigation')
+                        .documentId('navigation')
+                ),
+
+            S.divider(),
 
             // Home Page
             ...S.documentTypeListItems().filter(

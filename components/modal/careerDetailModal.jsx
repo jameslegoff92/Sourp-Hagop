@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import { useLocale } from "../../components/display/LangContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { PortableText } from "@portabletext/react";
 import CareerModal from "./careerModal";
@@ -16,7 +17,7 @@ const SECTION_TITLES = {
 }
 
 function toSentenceCase(str = "") {
-  if (!str) return "";
+  if (!str || typeof str !== "string") return str?.fr ?? "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
@@ -30,8 +31,11 @@ function formatDate(dateStr) {
   });
 }
 
-function getSectionTitle(section) {
-  if (section.sectionType === 'autre') return section.customTitle?.toUpperCase() || 'INFORMATION ADDITIONNELLE'
+function getSectionTitle(section, locale) {
+  if (section.sectionType === 'autre') {
+    const title = section.customTitle?.[locale] ?? section.customTitle?.fr ?? 'INFORMATION ADDITIONNELLE'
+    return title.toUpperCase()
+  }
   return SECTION_TITLES[section.sectionType] ?? null
 }
 
@@ -216,6 +220,8 @@ const ActionButton = styled.button`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function CareerDetailModal({ open, onClose, job, applicationNote }) {
+
+  const { locale } = useLocale(); 
   const [applyOpen, setApplyOpen] = useState(false);
 
   useEffect(() => {
@@ -276,19 +282,21 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
                   </p>
                 )}
                 {sections.map((section, i) => {
-                  const title = getSectionTitle(section)
-                  return (
+                const title = getSectionTitle(section, locale)
+                const content = section.content?.[locale] ?? section.content?.fr ?? []
+
+                return (
                     <Section key={section._key || i}>
-                      {title && <SectionTitle>{title}</SectionTitle>}
-                      {Array.isArray(section.content) && section.content.length > 0 && (
+                    {title && <SectionTitle>{title}</SectionTitle>}
+                    {Array.isArray(content) && content.length > 0 && (
                         <SectionBody>
-                          <PortableText value={section.content} />
+                        <PortableText value={content} />
                         </SectionBody>
-                      )}
+                    )}
                     </Section>
-                  )
+                )
                 })}
-                {applicationNote && <FootNote>{applicationNote}</FootNote>}
+                {applicationNote && <FootNote>{applicationNote?.[locale] ?? applicationNote?.fr}</FootNote>}
               </Body>
 
               <Footer>

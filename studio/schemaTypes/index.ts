@@ -1,4 +1,5 @@
 import { localizedString, localizedText, localizedBlock } from './localized'
+import navigation from './navigation'
 import homePage from './homePage'
 import historyPage from './historyPage'
 //import teamMember, teamCategory, teamPage from './teamPage'
@@ -35,6 +36,7 @@ export const schemaTypes = [
   localizedString,
   localizedText,
   localizedBlock,
+  navigation,
   alertBanner,
   homePage, 
   historyPage,
