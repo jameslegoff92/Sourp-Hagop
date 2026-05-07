@@ -4,41 +4,92 @@ import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
 
+function toSentenceCase(str = "") {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return null;
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString('fr-CA', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+}
+
+// ─── Shell ────────────────────────────────────────────────────────────────────
+
 const Backdrop = styled(motion.div)`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   display: grid;
   place-items: center;
-  z-index: 80;
+  z-index: 90;
+  padding: 20px;
 `;
 
 const Sheet = styled(motion.div)`
   width: min(820px, 92vw);
+  max-height: 90vh;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
+
   @media (max-width: 800px) {
     grid-template-columns: 1fr;
+    max-height: 95vh;
+    overflow-y: auto;
   }
 `;
 
+// ─── Left side ────────────────────────────────────────────────────────────────
+
 const Side = styled.div`
   background: linear-gradient(135deg, var(--primary-color), #004799);
-  color: #fff;
-  padding: 32px;
+  color: white;
+  padding: 36px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+  }
 `;
 
-const Title = styled.h3`
-  font-size: 1.8rem;
+const SideEyebrow = styled.span`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+`;
+
+const SideTitle = styled.h3`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
   margin: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 `;
 
 const Meta = styled.div`
@@ -48,32 +99,51 @@ const Meta = styled.div`
 `;
 
 const Pill = styled.span`
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #fff;
-  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 5px 12px;
   border-radius: 999px;
+  font-size: 0.8rem;
   font-weight: 600;
-  font-size: 0.85rem;
 `;
+
+// ─── Right side / form ────────────────────────────────────────────────────────
 
 const Body = styled.div`
-  padding: 32px;
+  padding: 36px 32px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 `;
 
-const Section = styled.h4`
-  margin: 0 0 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #374151;
+const SectionLabel = styled.h4`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin: 0 0 14px;
+  position: relative;
+  padding-bottom: 10px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: var(--primary-color);
+  }
 `;
 
 const Row = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 12px;
+
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
@@ -82,30 +152,39 @@ const Row = styled.div`
 const FieldWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 `;
 
 const Label = styled.label`
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #374151;
 `;
 
 const Helper = styled.span`
   font-size: 0.75rem;
-  color: #6b7280;
+  color: #9ca3af;
 `;
 
 const Field = styled.input`
   width: 100%;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 0.95rem;
+  padding: 11px 14px;
+  font-size: 0.92rem;
   outline: none;
-  transition: border-color 0.2s ease;
+  background: #fafafa;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
   &:focus {
     border-color: var(--primary-color);
+    background: white;
+  }
+
+  &:disabled {
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: not-allowed;
   }
 `;
 
@@ -113,50 +192,96 @@ const Textarea = styled.textarea`
   width: 100%;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 0.95rem;
-  min-height: 120px;
+  padding: 11px 14px;
+  font-size: 0.92rem;
+  min-height: 100px;
   resize: vertical;
   outline: none;
-  transition: border-color 0.2s ease;
+  background: #fafafa;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
   &:focus {
     border-color: var(--primary-color);
+    background: white;
   }
+`;
+
+const ErrorMsg = styled.div`
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 10px;
 `;
 
 const Actions = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: flex-end;
-  margin-top: 22px;
+  margin-top: 24px;
 `;
 
-const Button = styled.button`
+const ActionButton = styled.button`
   border-radius: 999px;
-  padding: 12px 22px;
-  margin-top: 12px;
+  padding: 12px 26px;
   font-weight: 700;
-  font-size: 0.95rem;
-  border: 1px solid transparent;
-  background: ${(p) =>
-    p.variant === "primary" ? "var(--primary-color)" : "#f3f4f6"};
-  color: ${(p) => (p.variant === "primary" ? "#fff" : "#111827")};
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 160px;
-  &:hover {
-    filter: brightness(0.98);
+  transition: all 0.25s ease;
+  border: 1px solid ${p => p.variant === "primary" ? "var(--primary-color)" : "#e5e7eb"};
+  background: ${p => p.variant === "primary" ? "var(--primary-color)" : "#f3f4f6"};
+  color: ${p => p.variant === "primary" ? "white" : "#374151"};
+
+  &:hover:not(:disabled) {
+    background: ${p => p.variant === "primary" ? "transparent" : "#e9ecef"};
+    color: ${p => p.variant === "primary" ? "var(--primary-color)" : "#111827"};
   }
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
 `;
 
+// ─── Success ──────────────────────────────────────────────────────────────────
+
 const SuccessBox = styled.div`
   text-align: center;
   padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 `;
+
+const SuccessIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--secondary-color);
+  display: grid;
+  place-items: center;
+  color: var(--primary-color);
+  font-size: 1.6rem;
+`;
+
+const SuccessTitle = styled.h3`
+  font-family: var(--primary-ff), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+`;
+
+const SuccessText = styled.p`
+  color: #6b7280;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+`;
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function CareerApplyModal({ open, onClose, job }) {
   const [submitting, setSubmitting] = useState(false);
@@ -169,7 +294,7 @@ export default function CareerApplyModal({ open, onClose, job }) {
       setError("");
       setSubmitting(false);
     }
-  }, [open, job?._id]); // Reset when modal opens or job changes
+  }, [open, job?._id]);
 
   async function submit(e) {
     e.preventDefault();
@@ -178,14 +303,10 @@ export default function CareerApplyModal({ open, onClose, job }) {
 
     const fd = new FormData(e.currentTarget);
     fd.append("access_key", process.env.NEXT_PUBLIC_W3F_CAREER_KEY);
-    fd.append("subject", `Candidature: ${job?.title || "Poste"}`);
+    fd.append("subject", `Candidature: ${toSentenceCase(job?.title || "Poste")}`);
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: fd,
-      });
-
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
       const data = await res.json();
       if (data.success) {
         setDone(true);
@@ -213,20 +334,23 @@ export default function CareerApplyModal({ open, onClose, job }) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            onClick={e => e.stopPropagation()}
           >
             <Side>
-              <Title>{job?.title || "Poste"}</Title>
+              <SideEyebrow>Postuler maintenant</SideEyebrow>
+              <SideTitle>{toSentenceCase(job?.title || "Poste")}</SideTitle>
               <Meta>
-                {job?.level ? <Pill>{job.level}</Pill> : null}
-                {job?.type ? <Pill>{job.type}</Pill> : null}
-                {job?.location ? <Pill>{job.location}</Pill> : null}
+                {job?.level    && <Pill>{job.level}</Pill>}
+                {job?.type     && <Pill>{job.type}</Pill>}
+                {job?.location && <Pill>{job.location}</Pill>}
               </Meta>
             </Side>
+
             <Body>
               {!done ? (
                 <form onSubmit={submit}>
-                  <Section>Vos informations</Section>
+                  <SectionLabel>Vos informations</SectionLabel>
                   <Row>
                     <FieldWrapper>
                       <Label>Nom complet</Label>
@@ -237,6 +361,7 @@ export default function CareerApplyModal({ open, onClose, job }) {
                       <Field type="email" name="email" required />
                     </FieldWrapper>
                   </Row>
+
                   <Row style={{ marginTop: 12 }}>
                     <FieldWrapper>
                       <Label>Téléphone</Label>
@@ -244,66 +369,46 @@ export default function CareerApplyModal({ open, onClose, job }) {
                     </FieldWrapper>
                     <FieldWrapper>
                       <Label>Poste visé</Label>
-                      <Field value={job?.title || ""} disabled />
+                      <Field value={toSentenceCase(job?.title || "")} disabled readOnly />
                     </FieldWrapper>
                   </Row>
 
-                  <Section style={{ marginTop: 24 }}>Votre candidature</Section>
+                  <SectionLabel style={{ marginTop: 24 }}>Votre candidature</SectionLabel>
                   <FieldWrapper>
                     <Label>Message</Label>
                     <Textarea name="message" />
                   </FieldWrapper>
+
                   <FieldWrapper style={{ marginTop: 12 }}>
                     <Label>Lien vers votre CV</Label>
-                    <Field
-                      name="cv_link"
-                      placeholder="Google Drive, Dropbox, etc."
-                      required
-                    />
-                    <Helper>Ajoutez un lien partageable</Helper>
-                  </FieldWrapper>
-                  <FieldWrapper style={{ marginTop: 12 }}>
-                    <Label>Lien vers votre lettre de motivation</Label>
-                    <Field
-                      name="cover_link"
-                      placeholder="Google Drive, Dropbox, etc."
-                    />
+                    <Field name="cv_link" placeholder="Google Drive, Dropbox, etc." required />
+                    <Helper>Ajoutez un lien partageable vers votre document</Helper>
                   </FieldWrapper>
 
-                  {error ? (
-                    <div
-                      style={{
-                        color: "#b91c1c",
-                        marginTop: 10,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {error}
-                    </div>
-                  ) : null}
+                  <FieldWrapper style={{ marginTop: 12 }}>
+                    <Label>Lien vers votre lettre de motivation</Label>
+                    <Field name="cover_link" placeholder="Google Drive, Dropbox, etc." />
+                  </FieldWrapper>
+
+                  {error && <ErrorMsg>{error}</ErrorMsg>}
+
                   <Actions>
-                    <Button type="button" onClick={onClose}>
-                      Fermer
-                    </Button>
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      disabled={submitting}
-                    >
+                    <ActionButton type="button" onClick={onClose}>Fermer</ActionButton>
+                    <ActionButton type="submit" variant="primary" disabled={submitting}>
                       {submitting ? "Envoi…" : "Postuler"}
-                    </Button>
+                    </ActionButton>
                   </Actions>
                 </form>
               ) : (
                 <SuccessBox>
-                  <h3>Candidature envoyée !</h3>
-                  <p>
-                    Merci pour votre intérêt. Nous vous contacterons si votre
-                    profil correspond.
-                  </p>
-                  <Button variant="primary" onClick={onClose}>
-                    OK
-                  </Button>
+                  <SuccessIcon>✓</SuccessIcon>
+                  <SuccessTitle>Candidature envoyée !</SuccessTitle>
+                  <SuccessText>
+                    Merci pour votre intérêt. Nous vous contacterons si votre profil correspond.
+                  </SuccessText>
+                  <ActionButton variant="primary" onClick={onClose}>
+                    Fermer
+                  </ActionButton>
                 </SuccessBox>
               )}
             </Body>
