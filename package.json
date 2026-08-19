@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rmdir /s /q .next",
-    "test": "jest"
+    "test": "jest",
+    "check:messages": "node scripts/check-messages.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
