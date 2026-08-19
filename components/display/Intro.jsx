@@ -6,9 +6,9 @@ import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 
 // Local Imports
-import Typography from "../display/Typography";
-import Container from "../layout/Container";
-import { getHomePage } from "../../lib/sanity-queries";
+import Typography from "@/components/display/Typography";
+import Container from "@/components/layout/Container";
+import { getHomePage } from "@/lib/sanity-queries";
 
 const Section = styled.section`
   text-align: center;

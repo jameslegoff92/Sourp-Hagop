@@ -5,8 +5,8 @@ import "@fontsource/roboto/700.css";
 import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
-import PageLoader from "../components/ui/PageLoader";
-import { LangProvider } from "../components/display/LangContext";
+import PageLoader from "@/components/ui/PageLoader";
+import { LangProvider } from "@/components/display/LangContext";
 
 export const metadata = {
   title: "École arménienne Sourp Hagop",

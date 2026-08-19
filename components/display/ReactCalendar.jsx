@@ -2,7 +2,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Calendar from "react-calendar";
-import Header from "../ui/Header";
+import Header from "@/components/ui/Header";
 import Link from "next/link";
 import "react-calendar/dist/Calendar.css";
 import "./ReactCalendar.css";

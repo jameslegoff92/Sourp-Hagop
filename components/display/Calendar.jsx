@@ -10,10 +10,10 @@ import styled from "@emotion/styled";
 
 // Local Imports
 import Typography from "./Typography";
-import Container from "../layout/Container";
+import Container from "@/components/layout/Container";
 
 // Utility Imports
-import { generateDateArrays, toISO8601, getDay } from "../../js/date";
+import { generateDateArrays, toISO8601, getDay } from "@/js/date";
 
 /* ─────────────────────────────────────────────
    LAYOUT

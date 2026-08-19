@@ -1,5 +1,5 @@
-import { getHistoryPage } from '../../lib/sanity-queries';
-import Historique from '../../components/Historique';
+import { getHistoryPage } from '@/lib/sanity-queries';
+import Historique from '@/components/Historique';
 
 export default async function HistoriquePage() {
   const historyData = await getHistoryPage();

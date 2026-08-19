@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { getNewAccessToken } from "../js/google/googleapi.js"; // Import your existing function
+import { getNewAccessToken } from "@/js/google/googleapi.js"; // Import your existing function
 
 dotenv.config({ path: ".env.local" });
 

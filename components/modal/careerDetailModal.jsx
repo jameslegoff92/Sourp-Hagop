@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useLocale } from "../../components/display/LangContext";
+import { useLocale } from "@/components/display/LangContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { PortableText } from "@portabletext/react";
 import CareerModal from "./careerModal";

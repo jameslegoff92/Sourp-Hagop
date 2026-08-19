@@ -6,8 +6,8 @@ import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
 
 // Local Imports
-import Typography from "../display/Typography";
-import Container from "../layout/Container";
+import Typography from "@/components/display/Typography";
+import Container from "@/components/layout/Container";
 
 const ValuesContainer = styled.div`
   background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0d2137 100%);

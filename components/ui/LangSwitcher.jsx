@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "../../components/display/LangContext";
+import { useLocale } from "@/components/display/LangContext";
 import css from "./topNav.module.css";
 
 export default function LangSwitcher() {

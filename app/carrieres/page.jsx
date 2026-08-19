@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { PortableText } from "@portabletext/react";
-import Header from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import Typography from "../../components/display/Typography";
-import CareerDetailModal from "../../components/modal/careerDetailModal";
-import { useLocale } from "../../components/display/LangContext";
-import { getCareerPage } from "../../lib/sanity-queries";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import Typography from "@/components/display/Typography";
+import CareerDetailModal from "@/components/modal/careerDetailModal";
+import { useLocale } from "@/components/display/LangContext";
+import { getCareerPage } from "@/lib/sanity-queries";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 

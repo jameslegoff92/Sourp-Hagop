@@ -1,6 +1,6 @@
 // app/comite-parents/page.js
-import ComiteParents from "../../components/ComiteParents"
-import { getComiteParentsPage } from "../../lib/sanity-queries"
+import ComiteParents from "@/components/ComiteParents"
+import { getComiteParentsPage } from "@/lib/sanity-queries"
 
 export default async function Page() {
   const data = await getComiteParentsPage()

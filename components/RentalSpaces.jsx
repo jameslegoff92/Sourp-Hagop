@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Header from "../components/ui/Header";
-import Footer from "../components/ui/Footer";
-import Typography from "../components/display/Typography";
-import LocationModal from "../components/modal/LocationModal";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import Typography from "@/components/display/Typography";
+import LocationModal from "@/components/modal/LocationModal";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 

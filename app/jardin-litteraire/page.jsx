@@ -1,5 +1,5 @@
-import { getJardinLitterairePage } from "../../lib/sanity-queries"
-import JardinLitteraire from "../../components/JardinLitteraire"
+import { getJardinLitterairePage } from "@/lib/sanity-queries"
+import JardinLitteraire from "@/components/JardinLitteraire"
 
 export default async function JardinLitterairePage() {
   const data = await getJardinLitterairePage()

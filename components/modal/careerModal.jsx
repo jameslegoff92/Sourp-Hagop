@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLocale } from "../../components/display/LangContext";
+import { useLocale } from "@/components/display/LangContext";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
 

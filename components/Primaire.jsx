@@ -1,8 +1,8 @@
 "use client";
 
-import Header from "../components/ui/Header";
-import Footer from "../components/ui/Footer";
-import Typography from "../components/display/Typography";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import Typography from "@/components/display/Typography";
 import { PortableText } from "@portabletext/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";

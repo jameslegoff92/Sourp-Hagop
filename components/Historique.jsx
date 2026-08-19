@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import Header from "../components/ui/Header";
-import Footer from "../components/ui/Footer";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
 import styled from "@emotion/styled";
-import Typography from "../components/display/Typography";
+import Typography from "@/components/display/Typography";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 

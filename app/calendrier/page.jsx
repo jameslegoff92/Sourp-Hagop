@@ -1,11 +1,11 @@
 export const dynamic = 'force-dynamic'
-import ReactCalendar from "../../components/display/ReactCalendar";
-import { fetchGoogleCalendarData } from "../../libs/fetchData.js";
-import connectToDatabase from "../../js/mongoose/connection.js";
-import Admin from "../../js/schemas/admin.js";
-import { getFirstNeighboringDay, getLastNeighboringDay } from "../../js/date.js";
+import ReactCalendar from "@/components/display/ReactCalendar";
+import { fetchGoogleCalendarData } from "@/libs/fetchData.js";
+import connectToDatabase from "@/js/mongoose/connection.js";
+import Admin from "@/js/schemas/admin.js";
+import { getFirstNeighboringDay, getLastNeighboringDay } from "@/js/date.js";
 import { DateTime } from "luxon";
-import { getCalendarPage } from "../../lib/sanity-queries";
+import { getCalendarPage } from "@/lib/sanity-queries";
 
 /**
  * Server-side component to fetch calendar events from Google's API

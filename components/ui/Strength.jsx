@@ -6,8 +6,8 @@ import { motion, useAnimation } from "framer-motion";
 import styled from "@emotion/styled";
 
 // Local Imports
-import Container from "../layout/Container";
-import Typography from "../display/Typography";
+import Container from "@/components/layout/Container";
+import Typography from "@/components/display/Typography";
 
 const SectionWrapper = styled.section`
   position: relative;

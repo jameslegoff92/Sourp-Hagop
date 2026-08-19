@@ -4,7 +4,7 @@
 import styled from "@emotion/styled";
 
 //Local Imports
-import Typography from "../display/Typography";
+import Typography from "@/components/display/Typography";
 
 //CSS For the following Section
 const StyledDiv = styled.div`

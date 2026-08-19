@@ -1,5 +1,5 @@
-import { getAiglePage } from "../../lib/sanity-queries"
-import Aigle from "../../components/Aigle"
+import { getAiglePage } from "@/lib/sanity-queries"
+import Aigle from "@/components/Aigle"
 
 export default async function AiglePage() {
   const data = await getAiglePage()

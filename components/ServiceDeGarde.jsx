@@ -5,7 +5,7 @@ import { motion, useAnimation } from "framer-motion";
 import styled from "@emotion/styled";
 import Header from "./ui/Header";
 import Footer from "./ui/Footer";
-import Typography from "../components/display/Typography";
+import Typography from "@/components/display/Typography";
 
 const StyledDiv = styled.div`
   text-align: center;
