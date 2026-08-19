@@ -89,6 +89,33 @@ Les deux points suivants sont aussi des problèmes préexistants sur `main`, mai
 
 ---
 
+## Incidents survenus pendant le mandat
+
+Contrairement aux points ci-dessus (dette déjà présente sur `main` avant ce travail), cette section documente un incident causé par le travail i18n lui-même — consigné par souci de transparence complète.
+
+### Écriture accidentelle dans le dataset `production` (phase 4, 19 août 2026)
+
+**Quoi** : Un document de test synthétique (`_id: "groq-fallback-test-doc"`, `_type: "groqFallbackTestDoc"` — sans rapport avec les types de contenu réels du site) destiné à valider un modèle de requête GROQ a été écrit dans le dataset **`production`** au lieu de `staging`, le dataset de test créé spécifiquement pour ces expérimentations.
+
+**Cause racine**, confirmée en lisant le code source de `@sanity/cli` (`getCliClientImpl`, dans `node_modules/@sanity/cli/lib/index.js`) plutôt que supposée :
+
+```js
+function getCliClientImpl(options = {}) {
+  const { projectId, dataset, ... } = options;
+  if (projectId && dataset)
+    return client.createClient({ projectId, dataset, ... });
+  // sinon : la fonction retombe sur studio/sanity.cli.ts
+}
+```
+
+`getCliClient()` n'utilise les options passées (`projectId`, `dataset`) que si **les deux sont fournies ensemble**. Un appel `getCliClient({ dataset: "staging" })` — fournissant uniquement `dataset`, sans `projectId` — ne satisfait donc pas cette condition, et la fonction retombe silencieusement sur la configuration de `studio/sanity.cli.ts`, qui pointait alors vers `production` (revertie intentionnellement à cette valeur un peu plus tôt dans la même phase, précisément pour protéger le Studio déployé en production). Aucun avertissement, aucune erreur — l'écriture a simplement eu lieu au mauvais endroit.
+
+**Ce qui empêche maintenant la récidive** : `scripts/sanity-write-guard.mjs`, désormais dans le dépôt. Sa fonction `assertSafeForWrite(client)` lit `client.config().dataset` — c'est-à-dire la valeur réellement résolue sur l'instance de client sur le point d'être utilisée, et non un fichier de configuration quelconque — et lève immédiatement une exception si cette valeur est `"production"`, avant d'effectuer une vérification de lecture en direct. Ce garde-fou est donc impossible à contourner par une mauvaise configuration : peu importe COMMENT le dataset a été résolu (variable d'environnement, fichier CLI, paramètre oublié), seule la valeur finale compte. `lib/sanity-locale-fallback.test.js` l'exerce à chaque exécution.
+
+**Suivi** : le document erroné dans `production` n'a pas été supprimé par un script ou par Claude — le porteur de projet le supprime lui-même manuellement via le tableau de bord Sanity (sanity.io/manage).
+
+---
+
 ## Portée et conséquence
 
 Aucun des points ci-dessus ne relève du mandat de la phase 0 i18n (normalisation des imports relatifs vers l'alias `@/`). Ils sont consignés ici uniquement à des fins de traçabilité.
