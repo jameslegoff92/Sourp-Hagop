@@ -67,3 +67,17 @@ Les éléments suivants sont des pistes techniques évoquées durant cette phase
 5. **Le phasage de la migration du schéma Sanity** (calendrier et ordre dans lequel les différents types de contenu seraient adaptés pour supporter deux langues) — **dépend d'une liste de priorité des pages que nous n'avons pas encore.** Sans cette liste, il est impossible de proposer un calendrier réaliste.
 
 Ces cinq points doivent être discutés et tranchés par le porteur de projet avant d'être engagés dans le code.
+
+---
+
+## 6. DÉCIDÉ : indexation bloquée (`noindex`) pour la locale non traduite, jusqu'à traduction réelle
+
+**Décision** : Au déploiement, la locale non par défaut (`hyw`, arménien occidental) restera marquée `noindex` pour les moteurs de recherche tant que son contenu n'est pas réellement traduit — page par page, pas globalement pour toute la locale d'un coup.
+
+**Pourquoi** : Les requêtes GROQ vers Sanity (voir `lib/sanity-queries.js`) reposent sur un repli (fallback) qui sert le contenu français quand aucune traduction arménienne n'existe pour une page ou un champ donné. Concrètement, cela signifie qu'aujourd'hui, `/hyw/n'importe-quelle-page` répond HTTP 200 en affichant du contenu français — pas une erreur, pas une redirection, un vrai 200 avec du texte français sous une URL censée être en arménien. Pour un moteur de recherche, c'est du contenu dupliqué (identique à la version française, à une adresse différente), ce qui peut nuire au référencement des deux versions.
+
+Le taux de remplissage du contenu en arménien est actuellement de **0 %** : aucune page n'a encore de traduction réelle dans Sanity. La traduction du contenu suit un calendrier séparé de ce chantier technique, porté par d'autres personnes — il ne serait pas raisonnable de faire dépendre l'indexation de la version arménienne de l'avancement de ce travail purement technique.
+
+**Mise en œuvre** : Cette décision sera implémentée en **phase 7**, en même temps que les balises hreflang (voir section 3, point ouvert sur `hy` vs `hyw`) et le plan de site (`sitemap.xml`) — les trois relèvent de la même préoccupation (comment les moteurs de recherche perçoivent les deux versions du site) et seront traités ensemble.
+
+**Ce qui N'EST PAS décidé ici** : Retirer le `noindex` — c'est-à-dire juger qu'une page arménienne est suffisamment traduite pour être indexée — est une **décision distincte et ultérieure**, qui appartient au porteur de projet, page par page, au fur et à mesure de l'avancement réel des traductions. Ce document ne préjuge pas de quand ni comment cette décision sera prise.
