@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 export const dynamic = 'force-dynamic'
 import ReactCalendar from "@/components/display/ReactCalendar";
 import { fetchGoogleCalendarData } from "@/libs/fetchData.js";
@@ -13,7 +14,9 @@ import { getCalendarPage } from "@/lib/sanity-queries";
  *
  * @returns {JSX.Element} - Returns the React-Calendar component.
  */
-export default async function Calendar() {
+export default async function Calendar({ params }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
   // Connect to MongoDB and retrieve the admin user
   await connectToDatabase();
   const user = await Admin.getAdmin();

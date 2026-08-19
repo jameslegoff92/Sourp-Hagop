@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import dynamic from "next/dynamic";
 
 // Above the fold — keep as regular imports (user sees these immediately)
@@ -17,7 +18,9 @@ const Footer = dynamic(() => import("@/components/ui/Footer"));
 
 import { getHomePage, getAlertBanner } from '@/lib/sanity-queries';
 
-export default async function Homepage() {
+export default async function Homepage({ params }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
   const [data, alertData] = await Promise.all([
     getHomePage(),
     getAlertBanner(),

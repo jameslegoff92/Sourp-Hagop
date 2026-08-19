@@ -1,7 +1,10 @@
+import { setRequestLocale } from "next-intl/server";
 import { getSecondairePage } from "@/lib/sanity-queries";
 import Secondaire from '@/components/Secondaire';
 
-export default async function SecondairePage() {
+export default async function SecondairePage({ params }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
   const data = await getSecondairePage();
   return <Secondaire data={data} />;
 }

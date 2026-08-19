@@ -1,8 +1,11 @@
+import { setRequestLocale } from "next-intl/server";
 // app/transport/page.js
 import Transport from "@/components/Transport"
 import { getTransportPage } from "@/lib/sanity-queries"
 
-export default async function Page() {
+export default async function Page({ params }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
   const data = await getTransportPage()
   return <Transport data={data} />
 }

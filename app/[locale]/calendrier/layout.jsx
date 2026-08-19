@@ -1,7 +1,11 @@
+import { setRequestLocale } from "next-intl/server";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 
-export default function CalendarLayout({ children }) {
+export default async function CalendarLayout({ children, params }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
 {/*       <Header
