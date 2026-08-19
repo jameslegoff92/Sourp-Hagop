@@ -51,11 +51,27 @@ Ce document recense des problèmes déjà présents sur `main`, confirmés indé
 
 ---
 
+## e. Erreur NextAuth `UntrustedHost` sur `/api/auth/session` en production locale
+
+**Quoi** : En lançant `npm run start` en local, chaque page affiche une erreur console — `[auth][error] UntrustedHost: Host must be trusted. URL was: https://localhost:3000/api/auth/session` côté serveur, et un 500 sur `/api/auth/session` côté navigateur. Cause probable : `NEXTAUTH_URL`/`AUTH_URL` dans `.env.local` pointe vers le domaine de production réel, qu'Auth.js compare strictement au host de la requête entrante en mode production — `localhost` ne correspond pas, d'où le rejet.
+
+**Où** : Console du navigateur sur toutes les pages (le `SessionProvider` englobe tout l'arbre depuis le layout racine) ; log serveur de `npm run start`.
+
+**Comment confirmé pré-existant** : Observé de façon identique dès la phase 2 (vérification production de `/`, `/calendrier`, `/carrieres`), **avant qu'aucun middleware n'existe** dans ce dépôt — le middleware n'a été ajouté (inerte) qu'en phase 2 également, et activé qu'en phase 3.
+
+**Point important pour éviter toute confusion future** : en phase 3, `app/admin/` a été déplacé sous `app/[locale]/` et retiré de la liste d'exclusion du middleware — la route `/admin/login` est donc désormais traitée par le middleware, même si son URL reste inchangée (toujours `/admin/login`, sans préfixe, grâce à `localePrefix: 'as-needed'`). **Cette anomalie NextAuth a été consignée AVANT ce changement d'exclusion du middleware.** Les deux ne sont pas liés — ne pas les confondre lors d'un futur débogage de l'authentification admin.
+
+**Test de connexion admin en production** :
+
+
+
+---
+
 ## Problèmes préexistants corrigés en passant
 
-Les deux points suivants sont aussi des problèmes préexistants sur `main`, mais — contrairement à a–d — ils ont été **corrigés en passant**, comme effet secondaire mécanique d'un travail dont ce n'était pas l'objectif principal. Consignés ici pour la même raison de traçabilité.
+Les deux points suivants sont aussi des problèmes préexistants sur `main`, mais — contrairement à a–e — ils ont été **corrigés en passant**, comme effet secondaire mécanique d'un travail dont ce n'était pas l'objectif principal. Consignés ici pour la même raison de traçabilité.
 
-### e. Casse de nom de fichier désynchronisée entre l'index git et le disque
+### f. Casse de nom de fichier désynchronisée entre l'index git et le disque
 
 **Quoi** : `components/ui/Button.jsx` était enregistré dans l'index git sous `button.jsx` (minuscule) alors que le fichier sur disque s'appelait déjà `Button.jsx`. Windows étant insensible à la casse, le build local ne révélait rien — mais un déploiement sur Vercel (Linux, sensible à la casse) aurait pu échouer avec une erreur de module introuvable. Deux imports (`components/ui/FacebookLogin.jsx` et `components/ui/Login.jsx`) référençaient d'ailleurs le fichier via `"./button"` (minuscule), un désaccord de casse pré-existant et invisible pour la même raison.
 
@@ -63,7 +79,7 @@ Les deux points suivants sont aussi des problèmes préexistants sur `main`, mai
 
 **Corrigé par** : commit `fix(i18n): correct filename case in git index` (phase 0), lors d'un audit de casse mené en prévision du déploiement — pas dans le cadre du mandat i18n lui-même.
 
-### f. `<html lang="en">` codé en dur sur un site francophone
+### g. `<html lang="en">` codé en dur sur un site francophone
 
 **Quoi** : `app/layout.jsx` déclarait `<html lang="en">` de façon statique, alors qu'il s'agit d'un site d'une école francophone (avec, désormais, une version en arménien occidental). C'est à la fois un bug d'accessibilité (les lecteurs d'écran annonçaient la mauvaise langue) et un signal SEO incorrect pour les moteurs de recherche.
 
