@@ -48,7 +48,7 @@ npm run deploy-graphql       # deploy GraphQL API
 
 ### Internationalization
 
-Despite `next-intl` being a dependency, locale is **not** route-based — there is no `middleware.js` or `[locale]` segment. Locale is a client-side React context: `components/display/LangContext.jsx` exposes `useLocale()`/`LangProvider` (default `"fr"`), toggled via `components/ui/LangSwitcher.jsx`. Sanity queries that need localized fields (e.g. `getNavigation(locale)`) take `locale` as a parameter and select the matching key from a localized object (see `studio/schemaTypes/localized.ts`).
+Locale is route-based via `next-intl`: routes live under `app/[locale]/`, `middleware.ts` resolves the locale per request (`fr` default-unprefixed, `hyw` prefixed — see `i18n/routing.ts`), and `components/ui/LangSwitcher.jsx` navigates between locales using `Link`/`usePathname` from `i18n/navigation.ts`. Server Components read the resolved locale from `params` and call `setRequestLocale(locale)`; client components use next-intl's own `useLocale()`. Sanity queries that need localized fields (e.g. `getCareerPage(locale)`) take `locale` as a parameter and resolve it in-query with a French fallback (see `lib/localizedFieldQuery.js`); the Sanity schema's localized types (`studio/schemaTypes/localized.ts`) use `fr`/`hyw` keys.
 
 ### Auth (admin-only)
 

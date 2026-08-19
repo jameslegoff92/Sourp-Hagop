@@ -9,7 +9,6 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import PageLoader from "@/components/ui/PageLoader";
-import { LangProvider } from "@/components/display/LangContext";
 import { routing } from "@/i18n/routing";
 
 export const metadata = {
@@ -40,11 +39,9 @@ export default async function RootLayout({ children, params }) {
       <body className={{ fontFamily: "Roboto, sans-serif" }}>
         <NextIntlClientProvider>
           <SessionProvider>
-            <LangProvider>
-              <PageLoader>
-                {children}
-              </PageLoader>
-            </LangProvider>
+            <PageLoader>
+              {children}
+            </PageLoader>
           </SessionProvider>
         </NextIntlClientProvider>
       </body>

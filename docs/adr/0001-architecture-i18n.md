@@ -10,7 +10,7 @@ Ce document explique les choix techniques faits pour ajouter le support de deux 
 
 ## 1. Décision : la langue affichée dépend de l'URL, pas d'un simple bouton
 
-**Aujourd'hui**, le changement de langue sur le site est géré par un petit composant React (`LangContext`) : un bouton change une variable en mémoire dans le navigateur, mais l'adresse (URL) de la page ne change pas. Cela veut dire :
+**Avant la phase 4**, le changement de langue sur le site était géré par un petit composant React de contexte : un bouton changeait une variable en mémoire dans le navigateur, mais l'adresse (URL) de la page ne changeait pas. Cela voulait dire :
 - Un moteur de recherche (Google, etc.) ne peut pas indexer séparément la version française et la version arménienne d'une page — il ne voit qu'une seule URL.
 - On ne peut pas partager un lien direct vers la version arménienne d'une page : le destinataire recevra toujours la langue par défaut.
 

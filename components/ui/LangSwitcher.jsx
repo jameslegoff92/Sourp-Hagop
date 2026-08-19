@@ -1,27 +1,31 @@
 "use client";
 
-import { useLocale } from "@/components/display/LangContext";
+import { useLocale } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import css from "./topNav.module.css";
 
 export default function LangSwitcher() {
-  const { locale, setLocale } = useLocale();
-  const isHy = locale === "hy";
+  const locale = useLocale();
+  const pathname = usePathname();
+  const isHyw = locale === "hyw";
+  const targetLocale = isHyw ? "fr" : "hyw";
 
   return (
-    <button
+    <Link
+      href={pathname}
+      locale={targetLocale}
       className={css.langToggle}
-      onClick={() => setLocale(isHy ? "fr" : "hy")}
       aria-label="Changer de langue"
     >
       <div className={css.langSlider} style={{
-        transform: isHy ? "translateX(100%)" : "translateX(0)"
+        transform: isHyw ? "translateX(100%)" : "translateX(0)"
       }} />
-      <span className={`${css.langOption} ${!isHy ? css.langOptionActive : ""}`}>
+      <span className={`${css.langOption} ${!isHyw ? css.langOptionActive : ""}`}>
         FR
       </span>
-      <span className={`${css.langOption} ${isHy ? css.langOptionActive : ""}`}>
+      <span className={`${css.langOption} ${isHyw ? css.langOptionActive : ""}`}>
         ՀԱՅ
       </span>
-    </button>
+    </Link>
   );
 }
