@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useLocale } from "@/components/display/LangContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { PortableText } from "@portabletext/react";
 import CareerModal from "./careerModal";
@@ -31,9 +30,9 @@ function formatDate(dateStr) {
   });
 }
 
-function getSectionTitle(section, locale) {
+function getSectionTitle(section) {
   if (section.sectionType === 'autre') {
-    const title = section.customTitle?.[locale] ?? section.customTitle?.fr ?? 'INFORMATION ADDITIONNELLE'
+    const title = section.customTitle ?? 'INFORMATION ADDITIONNELLE'
     return title.toUpperCase()
   }
   return SECTION_TITLES[section.sectionType] ?? null
@@ -221,7 +220,6 @@ const ActionButton = styled.button`
 
 export default function CareerDetailModal({ open, onClose, job, applicationNote }) {
 
-  const { locale } = useLocale(); 
   const [applyOpen, setApplyOpen] = useState(false);
 
   useEffect(() => {
@@ -282,8 +280,8 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
                   </p>
                 )}
                 {sections.map((section, i) => {
-                const title = getSectionTitle(section, locale)
-                const content = section.content?.[locale] ?? section.content?.fr ?? []
+                const title = getSectionTitle(section)
+                const content = section.content ?? []
 
                 return (
                     <Section key={section._key || i}>
@@ -296,7 +294,7 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
                     </Section>
                 )
                 })}
-                {applicationNote && <FootNote>{applicationNote?.[locale] ?? applicationNote?.fr}</FootNote>}
+                {applicationNote && <FootNote>{applicationNote}</FootNote>}
               </Body>
 
               <Footer>
