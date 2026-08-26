@@ -8,8 +8,8 @@ export default defineConfig({
   name: 'default',
   title: 'Sourp Hagop',
 
-  projectId: 'col2tg5g',
-  dataset: 'production',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'col2tg5g',
+  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [
     structureTool({
