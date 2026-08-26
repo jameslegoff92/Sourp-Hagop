@@ -12,12 +12,12 @@ export default {
     {
       name: "headerText",
       title: "Texte d'entête",
-      type: "string",
+      type: "localizedString",
     },
     {
       name: "introText",
       title: "Texte d'intro",
-      type: "text",
+      type: "localizedText",
     },
     {
       name: "spaces",
@@ -27,14 +27,14 @@ export default {
         {
           type: "object",
           fields: [
-            { name: "title", title: "Titre", type: "string" },
+            { name: "title", title: "Titre", type: "localizedString" },
             {
               name: "image",
               title: "Image de couverture",
               type: "image",
               options: { hotspot: true },
             },
-            { name: "description", title: "Description", type: "text" },
+            { name: "description", title: "Description", type: "localizedText" },
 
             // carousel images
             {
@@ -53,13 +53,25 @@ export default {
                 {
                   type: "object",
                   fields: [
-                    { name: "label", title: "Label", type: "string" },
-                    { name: "value", title: "Texte", type: "string" },
+                    { name: "label", title: "Label", type: "localizedString" },
+                    { name: "value", title: "Texte", type: "localizedString" },
                   ],
+                  preview: {
+                    select: { title: "label", subtitle: "value" },
+                    prepare({ title, subtitle }) {
+                      return { title: title?.fr || "Sans label", subtitle: subtitle?.fr }
+                    }
+                  }
                 },
               ],
             },
           ],
+          preview: {
+            select: { title: "title", media: "image" },
+            prepare({ title, media }) {
+              return { title: title?.fr || "Sans titre", media }
+            }
+          }
         },
       ],
     },

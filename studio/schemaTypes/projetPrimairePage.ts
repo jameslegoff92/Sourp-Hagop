@@ -14,13 +14,12 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: "Texte de l'entête",
-      type: 'string',
+      type: 'localizedString',
     }),
     defineField({
       name: 'introText',
       title: "Texte d'introduction",
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
     }),
     defineField({
       name: 'cycles',
@@ -30,9 +29,9 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            { name: 'name', title: 'Nom', type: 'string' },
-            { name: 'grades', title: 'Années', type: 'string' },
-            { name: 'description', title: 'Description', type: 'text' },
+            { name: 'name', title: 'Nom', type: 'localizedString' },
+            { name: 'grades', title: 'Années', type: 'localizedString' },
+            { name: 'description', title: 'Description', type: 'localizedText' },
             {
               name: 'image',
               title: 'Image de fond',
@@ -40,6 +39,12 @@ export default defineType({
               options: { hotspot: true }
             },
           ],
+          preview: {
+            select: { title: 'name', subtitle: 'grades', media: 'image' },
+            prepare({ title, subtitle, media }) {
+              return { title: title?.fr || 'Sans nom', subtitle: subtitle?.fr, media }
+            }
+          }
         },
       ],
     }),
@@ -51,7 +56,7 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            { name: 'language', title: 'Langue', type: 'string' },
+            { name: 'language', title: 'Langue', type: 'localizedString' },
             {
               name: 'type',
               title: 'Type (pour la couleur)',
@@ -64,71 +69,76 @@ export default defineType({
                 ],
               },
             },
-            { name: 'description', title: 'Description', type: 'text' },
+            { name: 'description', title: 'Description', type: 'localizedText' },
           ],
+          preview: {
+            select: { title: 'language', subtitle: 'description' },
+            prepare({ title, subtitle }) {
+              return { title: title?.fr || 'Sans langue', subtitle: subtitle?.fr }
+            }
+          }
         },
       ],
     }),
     defineField({
       name: 'enrichmentTitle',
       title: 'Enrichissement - Titre',
-      type: 'string',
+      type: 'localizedString',
     }),
     defineField({
       name: 'enrichmentContent',
       title: 'Enrichissement - Contenu',
-      type: 'array',
-      of: [{ type: 'block' }],
+      type: 'localizedBlock',
     }),
     defineField({
       name: 'subjectAreasTitle',
       title: "Domaines d'apprentissage - Titre",
-      type: 'string',
+      type: 'localizedString',
     }),
     defineField({
       name: 'subjectAreasText',
       title: "Description",
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
     }),
     defineField({
       name: 'subjectAreas',
       title: "Domaines d'apprentissage matière",
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{ type: 'localizedString' }],
     }),
     defineField({
       name: 'artsTitle',
       title: 'Arts - Titre',
-      type: 'string',
+      type: 'localizedString',
     }),
     defineField({
       name: 'artsContent',
       title: 'Arts - Contenu',
-      type: 'array',
-      of: [{ type: 'block' }],
+      type: 'localizedBlock',
     }),
     defineField({
       name: 'maquetteTitle',
       title: 'Maquette - Titre',
-      type: 'string',
+      type: 'localizedString',
     }),
     defineField({
       name: 'maquetteContent',
       title: 'Maquette - Contenu',
-      type: 'array',
-      of: [{ type: 'block' }],
+      type: 'localizedBlock',
     }),
     defineField({
       name: 'horaireTitre',
       title: 'Note de Contact',
-      type: 'text',
+      type: 'localizedText',
     }),
   ],
   preview: {
     select: {
       title: 'headerText',
       media: 'headerImage',
+    },
+    prepare({ title, media }) {
+      return { title: title?.fr || 'Programme Primaire', media };
     },
   },
 });

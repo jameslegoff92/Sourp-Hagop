@@ -14,32 +14,30 @@ export default {
     {
       name: 'headerText',
       title: 'Header Text',
-      type: 'string',
-      initialValue: 'ANCIENS ET ANCIENNES',
+      type: 'localizedString',
+      initialValue: { fr: 'ANCIENS ET ANCIENNES' },
     },
     {
       name: 'mainTitle',
       title: 'Main Title',
-      type: 'string',
-      initialValue: 'Que signifie être un ancien de Sourp Hagop ?',
+      type: 'localizedString',
+      initialValue: { fr: 'Que signifie être un ancien de Sourp Hagop ?' },
     },
     {
       name: 'mainContent',
       title: 'Main Content',
-      type: 'text',
-      rows: 5,
+      type: 'localizedText',
     },
     {
       name: 'missionTitle',
       title: 'Mission Title',
-      type: 'string',
-      initialValue: 'La mission des anciens élèves de Sourp Hagop',
+      type: 'localizedString',
+      initialValue: { fr: 'La mission des anciens élèves de Sourp Hagop' },
     },
     {
       name: 'missionContent',
       title: 'Mission Content',
-      type: 'text',
-      rows: 5,
+      type: 'localizedText',
     },
     {
       name: 'galleryImages',
@@ -58,20 +56,20 @@ export default {
     {
       name: 'callToActionTitle',
       title: 'Call to Action Title',
-      type: 'string',
-      initialValue: "Heureux de votre parcours ? Venez partager votre passion et expérience avec nos jeunes en quête d'avenir.",
+      type: 'localizedString',
+      initialValue: { fr: "Heureux de votre parcours ? Venez partager votre passion et expérience avec nos jeunes en quête d'avenir." },
     },
     {
       name: 'callToActionTextPart1',
       title: 'Call to Action Text - Part 1',
-      type: 'string',
-      initialValue: 'Restons connectés ! Partagez vos coordonnées via ce',
+      type: 'localizedString',
+      initialValue: { fr: 'Restons connectés ! Partagez vos coordonnées via ce' },
     },
     {
       name: 'formLinkText',
       title: 'Form Link Text',
-      type: 'string',
-      initialValue: 'FORMULAIRE',
+      type: 'localizedString',
+      initialValue: { fr: 'FORMULAIRE' },
     },
     {
       name: 'formLink',
@@ -81,8 +79,8 @@ export default {
     {
       name: 'callToActionTextPart2',
       title: 'Call to Action Text - Part 2',
-      type: 'string',
-      initialValue: 'et suivez-nous sur les réseaux sociaux pour ne rien manquer.',
+      type: 'localizedString',
+      initialValue: { fr: 'et suivez-nous sur les réseaux sociaux pour ne rien manquer.' },
     },
     {
       name: 'socialMedia',
@@ -111,6 +109,12 @@ export default {
     select: {
       title: 'headerText',
       media: 'headerImage',
+    },
+    prepare({ title, media }) {
+      return {
+        title: title?.fr || 'Anciens et Anciennes',
+        media,
+      };
     },
   },
 };

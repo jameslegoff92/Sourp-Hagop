@@ -14,20 +14,19 @@ export default {
     {
       name: 'headerText',
       title: 'Header Text',
-      type: 'string',
-      initialValue: 'SOUTIEN AUX ÉLÈVES',
+      type: 'localizedString',
+      initialValue: { fr: 'SOUTIEN AUX ÉLÈVES' },
     },
     {
       name: 'mainTitle',
       title: 'Main Title',
-      type: 'string',
-      initialValue: 'Nos Services',
+      type: 'localizedString',
+      initialValue: { fr: 'Nos Services' },
     },
     {
       name: 'introText',
       title: 'Introduction Text',
-      type: 'text',
-      rows: 5,
+      type: 'localizedText',
     },
     {
       name: 'accordionItems',
@@ -42,14 +41,13 @@ export default {
             {
               name: 'title',
               title: 'Service Title',
-              type: 'string',
+              type: 'localizedString',
               validation: Rule => Rule.required(),
             },
             {
               name: 'content',
               title: 'Service Description',
-              type: 'text',
-              rows: 5,
+              type: 'localizedText',
               validation: Rule => Rule.required(),
             },
           ],
@@ -60,8 +58,8 @@ export default {
             },
             prepare({ title, subtitle }) {
               return {
-                title: title,
-                subtitle: subtitle ? `${subtitle.substring(0, 60)}...` : '',
+                title: title?.fr || 'Sans titre',
+                subtitle: subtitle?.fr ? `${subtitle.fr.substring(0, 60)}...` : '',
               };
             },
           },
@@ -73,6 +71,9 @@ export default {
     select: {
       title: 'headerText',
       media: 'headerImage',
+    },
+    prepare({ title, media }) {
+      return { title: title?.fr || 'Soutien aux Élèves', media };
     },
   },
 };

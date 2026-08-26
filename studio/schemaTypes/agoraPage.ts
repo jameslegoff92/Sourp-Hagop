@@ -29,7 +29,7 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: 'Texte d\'en-tête',
-      type: 'string',
+      type: 'localizedString',
       group: 'header',
     }),
 
@@ -37,20 +37,19 @@ export default defineType({
     defineField({
       name: 'mainTitle',
       title: 'Titre principal',
-      type: 'string',
+      type: 'localizedString',
       group: 'content',
     }),
     defineField({
       name: 'introText',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
       group: 'content',
     }),
     defineField({
       name: 'menuCallToAction',
       title: 'Texte d\'appel à l\'action',
-      type: 'string',
+      type: 'localizedString',
       group: 'content',
     }),
 
@@ -58,8 +57,7 @@ export default defineType({
     defineField({
       name: 'dessertNotePrimaire',
       title: 'Note desserts (Primaire)',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'menuPrimaire',
     }),
     defineField({
@@ -107,7 +105,7 @@ export default defineType({
                     defineField({
                       name: 'description',
                       title: 'Description',
-                      type: 'string',
+                      type: 'localizedString',
                       validation: (Rule) => Rule.required(),
                     }),
                     defineField({
@@ -121,7 +119,7 @@ export default defineType({
                     select: { title: 'day', subtitle: 'description', media: 'image' },
                     prepare({ title, subtitle, media }) {
                       const days = { lundi: 'Lundi', mardi: 'Mardi', mercredi: 'Mercredi', jeudi: 'Jeudi', vendredi: 'Vendredi' };
-                      return { title: days[title] || title, subtitle, media };
+                      return { title: days[title] || title, subtitle: subtitle?.fr, media };
                     },
                   },
                 },
@@ -142,8 +140,7 @@ export default defineType({
     defineField({
       name: 'dessertNoteSecondaire',
       title: 'Note desserts (Secondaire)',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'menuSecondaire',
     }),
     defineField({
@@ -191,7 +188,7 @@ export default defineType({
                     defineField({
                       name: 'description',
                       title: 'Description',
-                      type: 'string',
+                      type: 'localizedString',
                       validation: (Rule) => Rule.required(),
                     }),
                     defineField({
@@ -205,7 +202,7 @@ export default defineType({
                     select: { title: 'day', subtitle: 'description', media: 'image' },
                     prepare({ title, subtitle, media }) {
                       const days = { lundi: 'Lundi', mardi: 'Mardi', mercredi: 'Mercredi', jeudi: 'Jeudi', vendredi: 'Vendredi' };
-                      return { title: days[title] || title, subtitle, media };
+                      return { title: days[title] || title, subtitle: subtitle?.fr, media };
                     },
                   },
                 },

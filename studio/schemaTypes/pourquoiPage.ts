@@ -23,7 +23,7 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: 'Titre de l\'en-tête',
-      type: 'string',
+      type: 'localizedString',
       group: 'header'
     }),
 
@@ -39,26 +39,25 @@ export default defineType({
     defineField({
       name: 'popupTitle',
       title: 'Titre du popup',
-      type: 'string',
+      type: 'localizedString',
       group: 'popup'
     }),
     defineField({
       name: 'popupText',
       title: 'Texte du popup',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'popup'
     }),
     defineField({
       name: 'popupDateStart',
       title: 'Date de début',
-      type: 'string',
+      type: 'localizedString',
       group: 'popup'
     }),
     defineField({
       name: 'popupDateEnd',
       title: 'Date de fin',
-      type: 'string',
+      type: 'localizedString',
       group: 'popup'
     }),
     defineField({
@@ -72,8 +71,7 @@ export default defineType({
     defineField({
       name: 'introText',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
       group: 'intro'
     }),
 
@@ -86,17 +84,17 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          { name: 'title', title: 'Titre', type: 'string' },
-          { name: 'description', title: 'Description', type: 'text', rows: 4 },
-          { 
-            name: 'image', 
-            title: 'Image', 
+          { name: 'title', title: 'Titre', type: 'localizedString' },
+          { name: 'description', title: 'Description', type: 'localizedText' },
+          {
+            name: 'image',
+            title: 'Image',
             type: 'image',
             options: { hotspot: true }
           },
-          { 
-            name: 'imagePosition', 
-            title: 'Position de l\'image', 
+          {
+            name: 'imagePosition',
+            title: 'Position de l\'image',
             type: 'string',
             options: {
               list: [
@@ -110,7 +108,7 @@ export default defineType({
         preview: {
           select: { title: 'title', media: 'image' },
           prepare({ title, media }) {
-            return { title, media }
+            return { title: title?.fr || 'Sans titre', media }
           }
         }
       }]
@@ -120,26 +118,25 @@ export default defineType({
     defineField({
       name: 'footerText',
       title: 'Texte de pied de page',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'footer'
     }),
     defineField({
       name: 'footerDateStart',
       title: 'Date de début (pied de page)',
-      type: 'string',
+      type: 'localizedString',
       group: 'footer'
     }),
     defineField({
       name: 'footerDateEnd',
       title: 'Date de fin (pied de page)',
-      type: 'string',
+      type: 'localizedString',
       group: 'footer'
     }),
     defineField({
       name: 'footerLinkText',
       title: 'Texte du lien',
-      type: 'string',
+      type: 'localizedString',
       group: 'footer'
     }),
     defineField({

@@ -14,8 +14,8 @@ export default {
     {
       name: 'headerText',
       title: 'Header Text',
-      type: 'string',
-      initialValue: 'SERVICE DE GARDE',
+      type: 'localizedString',
+      initialValue: { fr: 'SERVICE DE GARDE' },
     },
     {
       name: 'sections',
@@ -46,13 +46,12 @@ export default {
             {
               name: 'title',
               title: 'Section Title',
-              type: 'string',
+              type: 'localizedString',
             },
             {
               name: 'content',
               title: 'Section Content',
-              type: 'text',
-              rows: 5,
+              type: 'localizedText',
             },
             {
               name: 'image',
@@ -93,7 +92,7 @@ export default {
                     {
                       name: 'description',
                       title: 'Description',
-                      type: 'string',
+                      type: 'localizedString',
                     },
                   ],
                 },
@@ -102,8 +101,7 @@ export default {
             {
               name: 'pricingNote',
               title: 'Pricing Note',
-              type: 'text',
-              rows: 2,
+              type: 'localizedText',
               hidden: ({ parent }) => parent?.sectionType !== 'pricing',
             },
             // For student process section
@@ -124,8 +122,7 @@ export default {
                     {
                       name: 'stepContent',
                       title: 'Step Content',
-                      type: 'text',
-                      rows: 2,
+                      type: 'localizedText',
                     },
                   ],
                 },
@@ -159,7 +156,7 @@ export default {
             },
             prepare({ title, type, media }) {
               return {
-                title: title || 'Untitled Section',
+                title: title?.fr || 'Untitled Section',
                 subtitle: type,
                 media: media,
               };
@@ -173,6 +170,9 @@ export default {
     select: {
       title: 'headerText',
       media: 'headerImage',
+    },
+    prepare({ title, media }) {
+      return { title: title?.fr || 'Service de Garde', media };
     },
   },
 };

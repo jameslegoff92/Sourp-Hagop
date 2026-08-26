@@ -17,21 +17,21 @@ export default {
         {
           name: "headerText",
           title: "Texte de l'entête",
-          type: "string",
-          initialValue: "PROTECTEUR NATIONAL DE L'ÉLÈVE"
+          type: "localizedString",
+          initialValue: { fr: "PROTECTEUR NATIONAL DE L'ÉLÈVE" }
         }
       ]
     },
     {
       name: "mainTitle",
       title: "Titre principal",
-      type: "string",
-      initialValue: "Processus de traitement des plaintes"
+      type: "localizedString",
+      initialValue: { fr: "Processus de traitement des plaintes" }
     },
     {
       name: "introText",
       title: "Texte d'introduction",
-      type: "text"
+      type: "localizedText"
     },
     {
       name: "infoSections",
@@ -47,43 +47,19 @@ export default {
             {
               name: "title",
               title: "Titre",
-              type: "string"
+              type: "localizedString"
             },
             {
               name: "content",
               title: "Contenu",
-              type: "array",
-              of: [
-                {
-                  type: "block",
-                  styles: [{ title: "Normal", value: "normal" }],
-                  lists: [
-                    { title: "Bullet", value: "bullet" },
-                    { title: "Numbered", value: "number" }
-                  ],
-                  marks: {
-                    decorators: [
-                      { title: "Bold", value: "strong" },
-                      { title: "Italic", value: "em" },
-                      { title: "Superscript", value: "sup" }
-                    ],
-                    annotations: [
-                      {
-                        name: "link",
-                        type: "object",
-                        title: "Link",
-                        fields: [
-                          { name: "href", type: "url", title: "URL" }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ]
+              type: "localizedBlock"
             }
           ],
           preview: {
-            select: { title: "title" }
+            select: { title: "title" },
+            prepare({ title }) {
+              return { title: title?.fr || "Sans titre" }
+            }
           }
         }
       ]
@@ -91,40 +67,13 @@ export default {
     {
       name: "stepsTitle",
       title: "Titre de la section des étapes",
-      type: "string",
-      initialValue: "Comment déposer une plainte ?"
+      type: "localizedString",
+      initialValue: { fr: "Comment déposer une plainte ?" }
     },
     {
       name: "stepsIntro",
       title: "Introduction des étapes",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          lists: [
-            { title: "Bullet", value: "bullet" },
-            { title: "Numbered", value: "number" }
-          ],
-          marks: {
-            decorators: [
-              { title: "Bold", value: "strong" },
-              { title: "Italic", value: "em" },
-              { title: "Superscript", value: "sup" }
-            ],
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "Link",
-                fields: [
-                  { name: "href", type: "url", title: "URL" }
-                ]
-              }
-            ]
-          }
-        }
-      ]
+      type: "localizedBlock"
     },
     {
       name: "etapes",
@@ -144,7 +93,7 @@ export default {
             {
               name: "title",
               title: "Titre de l'étape",
-              type: "string"
+              type: "localizedString"
             },
             {
               name: "paragraphs",
@@ -157,34 +106,7 @@ export default {
                     {
                       name: "text",
                       title: "Texte",
-                      type: "array",
-                      of: [
-                        {
-                          type: "block",
-                          styles: [{ title: "Normal", value: "normal" }],
-                          lists: [
-                            { title: "Bullet", value: "bullet" },
-                            { title: "Numbered", value: "number" }
-                          ],
-                          marks: {
-                            decorators: [
-                              { title: "Bold", value: "strong" },
-                              { title: "Italic", value: "em" },
-                              { title: "Superscript", value: "sup" }
-                            ],
-                            annotations: [
-                              {
-                                name: "link",
-                                type: "object",
-                                title: "Link",
-                                fields: [
-                                  { name: "href", type: "url", title: "URL" }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      ]
+                      type: "localizedBlock"
                     }
                   ]
                 }
@@ -195,8 +117,8 @@ export default {
               title: "Personne de contact pour les plaintes",
               type: "object",
               fields: [
-                { name: "name", title: "Nom", type: "string" },
-                { name: "role", title: "Rôle", type: "string" },
+                { name: "name", title: "Nom", type: "localizedString" },
+                { name: "role", title: "Rôle", type: "localizedString" },
                 { name: "email", title: "Email", type: "string" }
               ]
             }
@@ -205,7 +127,7 @@ export default {
             select: { title: "title", stepNumber: "stepNumber" },
             prepare({ title, stepNumber }) {
               return {
-                title: `Étape ${stepNumber}: ${title}`
+                title: `Étape ${stepNumber}: ${title?.fr || ''}`
               }
             }
           }
@@ -220,8 +142,8 @@ export default {
         {
           name: "text",
           title: "Texte du bouton",
-          type: "string",
-          initialValue: "Formulaire de plainte"
+          type: "localizedString",
+          initialValue: { fr: "Formulaire de plainte" }
         },
         {
           name: "link",
@@ -251,30 +173,7 @@ export default {
             {
               name: "title",
               title: "Titre",
-              type: "array",
-              of: [
-                {
-                  type: "block",
-                  styles: [{ title: "Normal", value: "normal" }],
-                  lists: [],
-                  marks: {
-                    decorators: [
-                      { title: "Bold", value: "strong" },
-                      { title: "Superscript", value: "sup" }
-                    ],
-                    annotations: [
-                      {
-                        name: "link",
-                        type: "object",
-                        title: "Link",
-                        fields: [
-                          { name: "href", type: "url", title: "URL" }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ]
+              type: "localizedBlock"
             },
             {
               name: "paragraphs",
@@ -287,34 +186,7 @@ export default {
                     {
                       name: "text",
                       title: "Texte",
-                      type: "array",
-                      of: [
-                        {
-                          type: "block",
-                          styles: [{ title: "Normal", value: "normal" }],
-                          lists: [
-                            { title: "Bullet", value: "bullet" },
-                            { title: "Numbered", value: "number" }
-                          ],
-                          marks: {
-                            decorators: [
-                              { title: "Bold", value: "strong" },
-                              { title: "Italic", value: "em" },
-                              { title: "Superscript", value: "sup" }
-                            ],
-                            annotations: [
-                              {
-                                name: "link",
-                                type: "object",
-                                title: "Link",
-                                fields: [
-                                  { name: "href", type: "url", title: "URL" }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      ]
+                      type: "localizedBlock"
                     },
                     {
                       name: "isHighlighted",
@@ -330,7 +202,7 @@ export default {
           preview: {
             select: { title: "title" },
             prepare({ title }) {
-              const plainText = title?.[0]?.children?.[0]?.text || "Section"
+              const plainText = title?.fr?.[0]?.children?.[0]?.text || "Section"
               return { title: plainText }
             }
           }
@@ -365,37 +237,19 @@ export default {
     {
       name: "footnote",
       title: "Note de bas de page",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          lists: [],
-          marks: {
-            decorators: [
-              { title: "Bold", value: "strong" },
-              { title: "Italic", value: "em" },
-              { title: "Superscript", value: "sup" }
-            ],
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "Link",
-                fields: [
-                  { name: "href", type: "url", title: "URL" }
-                ]
-              }
-            ]
-          }
-        }
-      ]
+      type: "localizedBlock"
     }
   ],
   preview: {
     select: {
       title: "pageHeader.headerText",
       media: "pageHeader.headerImage"
+    },
+    prepare({ title, media }) {
+      return {
+        title: title?.fr || "Protecteur National de l'Élève",
+        media
+      }
     }
   }
 }

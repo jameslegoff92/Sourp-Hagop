@@ -14,13 +14,13 @@ export default defineType({
     {
       name: "headerText",
       title: "Texte de l’entête",
-      type: "string",
-      initialValue: "CONSEIL D'ÉTUDIANTS"
+      type: "localizedString",
+      initialValue: { fr: "CONSEIL D'ÉTUDIANTS" }
     },
     defineField({
       name: "introText",
       title: "Introduction Text",
-      type: "text",
+      type: "localizedText",
     }),
     defineField({
       name: "categories",
@@ -35,7 +35,7 @@ export default defineType({
             defineField({
               name: "title",
               title: "Category Title",
-              type: "string",
+              type: "localizedString",
             }),
             defineField({
               name: "staff",
@@ -47,8 +47,8 @@ export default defineType({
                   name: "staffMember",
                   title: "Staff Member",
                   fields: [
-                    defineField({ name: "name", title: "Name", type: "string" }),
-                    defineField({ name: "title", title: "Job Title", type: "string" }),
+                    defineField({ name: "name", title: "Name", type: "localizedString" }),
+                    defineField({ name: "title", title: "Job Title", type: "localizedString" }),
                     defineField({
                       name: "image",
                       title: "Image",
@@ -58,6 +58,9 @@ export default defineType({
                   ],
                   preview: {
                     select: { title: "name", subtitle: "title", media: "image" },
+                    prepare({ title, subtitle, media }) {
+                      return { title: title?.fr || "Sans nom", subtitle: subtitle?.fr, media }
+                    }
                   },
                 },
               ],
@@ -65,6 +68,9 @@ export default defineType({
           ],
           preview: {
             select: { title: "title" },
+            prepare({ title }) {
+              return { title: title?.fr || "Sans titre" }
+            }
           },
         },
       ],
@@ -72,14 +78,12 @@ export default defineType({
     defineField({
       name: "messageText",
       title: "Message Text",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "localizedBlock",
     }),
     defineField({
       name: "joinUsText",
       title: "Rejoignez-nous Text",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "localizedBlock",
     }),
   ],
 });

@@ -17,8 +17,8 @@ export default {
         {
           name: "headerText",
           title: "Texte de l’entête",
-          type: "string",
-          initialValue: "CONSEIL ADMINISTRATION"
+          type: "localizedString",
+          initialValue: { fr: "CONSEIL ADMINISTRATION" }
         }
       ]
     },
@@ -30,13 +30,13 @@ export default {
         {
           name: "title",
           title: "Titre",
-          type: "string",
-          initialValue: "Rôle et Responsabilités"
+          type: "localizedString",
+          initialValue: { fr: "Rôle et Responsabilités" }
         },
         {
           name: "content",
           title: "Texte",
-          type: "text"
+          type: "localizedText"
         }
       ]
     },
@@ -50,8 +50,8 @@ export default {
           name: "boardMember",
           title: "Membre",
           fields: [
-            { name: "name", title: "Prénom et Nom", type: "string" },
-            { name: "title", title: "Description", type: "string" },
+            { name: "name", title: "Prénom et Nom", type: "localizedString" },
+            { name: "title", title: "Description", type: "localizedString" },
             {
               name: "image",
               title: "Photo",
@@ -60,7 +60,14 @@ export default {
             },
           ],
           preview: {
-            select: { title: "name", subtitle: "title", media: "image" }
+            select: { title: "name", subtitle: "title", media: "image" },
+            prepare({ title, subtitle, media }) {
+              return {
+                title: title?.fr || "Sans nom",
+                subtitle: subtitle?.fr,
+                media
+              }
+            }
           }
         }
       ],
@@ -71,6 +78,12 @@ export default {
     select: {
       title: "pageHeader.headerText",
       media: "pageHeader.headerImage"
+    },
+    prepare({ title, media }) {
+      return {
+        title: title?.fr || "Conseil d’administration",
+        media
+      }
     }
   }
 }

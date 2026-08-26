@@ -7,8 +7,8 @@ export default {
     {
       name: 'pageTitle',
       title: 'Page Title',
-      type: 'string',
-      initialValue: 'Comité de Parents',
+      type: 'localizedString',
+      initialValue: { fr: 'Comité de Parents' },
     },
     {
       name: 'headerImage',
@@ -21,8 +21,8 @@ export default {
     {
       name: 'headerText',
       title: 'Header Text',
-      type: 'string',
-      initialValue: 'COMITÉ DE PARENTS',
+      type: 'localizedString',
+      initialValue: { fr: 'COMITÉ DE PARENTS' },
     },
     {
       name: 'sections',
@@ -37,14 +37,13 @@ export default {
             {
               name: 'title',
               title: 'Section Title',
-              type: 'string',
+              type: 'localizedString',
               validation: Rule => Rule.required(),
             },
             {
               name: 'content',
               title: 'Content',
-              type: 'text',
-              rows: 5,
+              type: 'localizedText',
               validation: Rule => Rule.required(),
             },
             {
@@ -78,7 +77,7 @@ export default {
             },
             prepare({ title, media, position }) {
               return {
-                title: title,
+                title: title?.fr || 'Sans titre',
                 subtitle: `Image position: ${position}`,
                 media: media,
               };
@@ -92,6 +91,12 @@ export default {
     select: {
       title: 'pageTitle',
       media: 'headerImage',
+    },
+    prepare({ title, media }) {
+      return {
+        title: title?.fr || 'Comité de Parents',
+        media,
+      };
     },
   },
 };

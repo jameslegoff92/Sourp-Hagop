@@ -98,11 +98,41 @@ Ce document recense des problèmes déjà présents sur `main`, confirmés indé
 
 ---
 
+## Autres dettes préexistantes constatées en phase 5A
+
+Les trois points suivants ont été mis au jour lors de l'audit complet des schémas Sanity mené en phase 5A (inventaire de localisation, ~30 types de documents). Comme pour a–g, ce sont des dettes déjà présentes sur `main`, indépendantes du mandat i18n, et **aucune n'a été corrigée**.
+
+### h. Aucun champ de texte alternatif (alt) pour les images, dans aucun schéma
+
+**Quoi** : Sur l'ensemble des ~30 types de documents du site, aucun champ `image` ne possède de sous-champ alt-text. C'est un problème d'accessibilité indépendant de l'i18n, et antérieur à ce mandat.
+
+**Comment confirmé** : Lecture exhaustive de tous les fichiers sous `studio/schemaTypes/` pendant l'inventaire de la phase 5A (étape 1) — aucune occurrence d'un champ alt sur un type `image`.
+
+### i. Aucun champ de métadonnées SEO par page (titre, description), dans aucun schéma
+
+**Quoi** : Aucun type de document ne possède de champs de méta-titre ou méta-description propres à la page.
+
+**Conséquence pour ce mandat** : les pages `/hyw/*` afficheront des titres et descriptions en français dans les résultats de recherche, faute de contrepartie arménienne. L'ajout de ces champs est hors du périmètre des phases actuelles et nécessite une décision du porteur de projet.
+
+**Comment confirmé** : Même audit exhaustif qu'au point h.
+
+### j. `libraryPage` est un schéma vide (« stub ») alors que `/bibliotheque` est une route publique active
+
+**Quoi** : `studio/schemaTypes/libraryPage.ts` ne définit qu'un seul champ, `test` (string), sans rapport avec le contenu réel de la page. Le contenu affiché sur `/bibliotheque` est donc actuellement codé en dur dans le composant, pas piloté par Sanity.
+
+**Conséquence pour ce mandat** : la phase 6 (réplication des requêtes GROQ localisées sur le reste des pages) ne trouvera rien à localiser via ce schéma — le contenu de `/bibliotheque` devra soit être construit dans Sanity au préalable, soit être localisé directement via `messages/*.json` comme du contenu statique. Décision à prendre par le porteur de projet.
+
+**Comment confirmé** : Lecture de `studio/schemaTypes/libraryPage.ts` (phase 5A, étape 1) et vérification que `/bibliotheque` est bien une route servie publiquement.
+
+---
+
 ## Problèmes préexistants corrigés en passant
 
-Les deux points suivants sont aussi des problèmes préexistants sur `main`, mais — contrairement à a–g — ils ont été **corrigés en passant**, comme effet secondaire mécanique d'un travail dont ce n'était pas l'objectif principal. Consignés ici pour la même raison de traçabilité.
+Les deux points suivants sont aussi des problèmes préexistants sur `main`, mais — contrairement à a–j — ils ont été **corrigés en passant**, comme effet secondaire mécanique d'un travail dont ce n'était pas l'objectif principal. Consignés ici pour la même raison de traçabilité.
 
-### h. Casse de nom de fichier désynchronisée entre l'index git et le disque
+**Note de numérotation** : ces deux points portaient à l'origine les lettres h et i, avant l'ajout des points h–j ci-dessus en phase 5A. Relettrés en k et l pour éviter toute collision ; aucun autre document du dépôt ne référence ces lettres.
+
+### k. Casse de nom de fichier désynchronisée entre l'index git et le disque
 
 **Quoi** : `components/ui/Button.jsx` était enregistré dans l'index git sous `button.jsx` (minuscule) alors que le fichier sur disque s'appelait déjà `Button.jsx`. Windows étant insensible à la casse, le build local ne révélait rien — mais un déploiement sur Vercel (Linux, sensible à la casse) aurait pu échouer avec une erreur de module introuvable. Deux imports (`components/ui/FacebookLogin.jsx` et `components/ui/Login.jsx`) référençaient d'ailleurs le fichier via `"./button"` (minuscule), un désaccord de casse pré-existant et invisible pour la même raison.
 
@@ -110,13 +140,23 @@ Les deux points suivants sont aussi des problèmes préexistants sur `main`, mai
 
 **Corrigé par** : commit `fix(i18n): correct filename case in git index` (phase 0), lors d'un audit de casse mené en prévision du déploiement — pas dans le cadre du mandat i18n lui-même.
 
-### i. `<html lang="en">` codé en dur sur un site francophone
+### l. `<html lang="en">` codé en dur sur un site francophone
 
 **Quoi** : `app/layout.jsx` déclarait `<html lang="en">` de façon statique, alors qu'il s'agit d'un site d'une école francophone (avec, désormais, une version en arménien occidental). C'est à la fois un bug d'accessibilité (les lecteurs d'écran annonçaient la mauvaise langue) et un signal SEO incorrect pour les moteurs de recherche.
 
 **Où** : `app/layout.jsx` (désormais `app/[locale]/layout.jsx`).
 
 **Corrigé par** : commit `refactor(i18n): move routes under [locale] segment` / `feat(i18n): set request locale on localized routes` (phase 3) — le déplacement du layout sous `[locale]` a naturellement remplacé la valeur codée en dur par `lang={locale}`, résolue dynamiquement (`fr` ou `hyw`) selon la route.
+
+---
+
+### m. Espaces superflus dans les valeurs de `tuitionFeesPage.fees[]`
+
+**Quoi** : Plusieurs valeurs de prix dans le dataset `staging` contiennent un espace en fin de chaîne — par exemple `"160 "`, `"6618 "`, `"281 "`, `"7496 "` (constaté lors de la vérification de données de la phase 5A, étape 1 — voir `tuitionFeesPage.fees[].prescolaire/.primaire/.secondaire`). Ces champs restent des chaînes simples, non localisées (ce sont des montants, pas du texte destiné au visiteur).
+
+**Décision** : ces espaces ne doivent **pas** être nettoyés par le script de migration de la phase 5A (étape 3), ni par aucun travail futur non explicitement demandé à cet effet — un script de migration qui « améliore » silencieusement le contenu en cours de route est précisément ce que ce mandat cherche à éviter. Les valeurs doivent rester identiques au bit près après migration.
+
+**Comment confirmé** : Requête GROQ en lecture seule sur `staging` (`tuitionFeesPage.fees[]{ category, prescolaire, primaire, secondaire }`), phase 5A étape 1.
 
 ---
 
@@ -144,6 +184,14 @@ function getCliClientImpl(options = {}) {
 **Ce qui empêche maintenant la récidive** : `scripts/sanity-write-guard.mjs`, désormais dans le dépôt. Sa fonction `assertSafeForWrite(client)` lit `client.config().dataset` — c'est-à-dire la valeur réellement résolue sur l'instance de client sur le point d'être utilisée, et non un fichier de configuration quelconque — et lève immédiatement une exception si cette valeur est `"production"`, avant d'effectuer une vérification de lecture en direct. Ce garde-fou est donc impossible à contourner par une mauvaise configuration : peu importe COMMENT le dataset a été résolu (variable d'environnement, fichier CLI, paramètre oublié), seule la valeur finale compte. `lib/sanity-locale-fallback.test.js` l'exerce à chaque exécution.
 
 **Suivi** : le document erroné dans `production` n'a pas été supprimé par un script ou par Claude — le porteur de projet le supprime lui-même manuellement via le tableau de bord Sanity (sanity.io/manage).
+
+### Le garde-fou ne couvre pas les invocations directes du CLI Sanity (constaté phase 5A)
+
+**Quoi** : `scripts/sanity-write-guard.mjs` protège tout script Node qui construit explicitement un client Sanity et appelle `assertSafeForWrite(client)` avant d'écrire — c'est le cas de `lib/sanity-locale-fallback.test.js` et ce sera le cas du script de migration de l'étape 3. Mais il ne couvre **pas** les commandes `sanity documents create/delete/get` invoquées directement au terminal : ces commandes passent par leur propre résolution de configuration (`sanity.cli.ts`, ou le flag `--dataset`), entièrement en dehors du code applicatif du dépôt. Rien n'empêche techniquement une commande `sanity documents create ... --dataset production` (ou sans `--dataset` du tout, retombant sur la config résolue) de s'exécuter.
+
+**Constaté concrètement** : lors de la preuve empirique du motif GROQ pour les tableaux (phase 5A), la session CLI authentifiée localement s'est révélée avoir un accès en écriture non seulement à `staging` mais aussi à `production` — sans qu'aucun jeton (`SANITY_API_WRITE_TOKEN`) n'ait été fourni. La seule barrière entre une commande CLI et une écriture en production est donc, à ce jour, l'exactitude du flag `--dataset` tapé par la personne qui exécute la commande.
+
+**Décision prise pour cette phase** : documenter cette lacune plutôt que construire une protection supplémentaire (par ex. un script wrapper autour du binaire `sanity` qui validerait le dataset avant de déléguer la commande), ce qui aurait dépassé le périmètre de l'étape 2 (modifications de schéma uniquement). **À traiter avant que la phase 5B ne touche à `production`** : soit un wrapper qui intercepte et valide toute invocation `sanity documents *`, soit, a minima, une règle d'usage explicite (ne jamais taper une commande `sanity documents` avec écriture sans relire le flag `--dataset` à voix haute avant d'exécuter).
 
 ---
 

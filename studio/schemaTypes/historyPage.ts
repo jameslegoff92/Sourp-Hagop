@@ -42,16 +42,16 @@ export default {
             {
               name: 'title',
               title: 'Event Title',
-              type: 'string',
+              type: 'localizedString',
               description: 'Title of the historical event',
-              validation: Rule => Rule.required().max(120)
+              validation: Rule => Rule.required()
             },
             {
               name: 'description',
               title: 'Event Description',
-              type: 'text',
+              type: 'localizedText',
               description: 'Detailed description of the event',
-              validation: Rule => Rule.required().min(50).max(500)
+              validation: Rule => Rule.required()
             },
             {
               name: 'image',
@@ -79,9 +79,10 @@ export default {
             },
             prepare(selection) {
               const {title, subtitle, media} = selection
+              const subtitleText = subtitle?.fr || ''
               return {
-                title: `${title} - ${subtitle}`,
-                subtitle: subtitle ? subtitle.substring(0, 50) + '...' : 'No title',
+                title: `${title} - ${subtitleText}`,
+                subtitle: subtitleText ? subtitleText.substring(0, 50) + '...' : 'No title',
                 media: media
               }
             }

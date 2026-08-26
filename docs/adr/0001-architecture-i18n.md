@@ -81,3 +81,18 @@ Le taux de remplissage du contenu en arménien est actuellement de **0 %** : auc
 **Mise en œuvre** : Cette décision sera implémentée en **phase 7**, en même temps que les balises hreflang (voir section 3, point ouvert sur `hy` vs `hyw`) et le plan de site (`sitemap.xml`) — les trois relèvent de la même préoccupation (comment les moteurs de recherche perçoivent les deux versions du site) et seront traités ensemble.
 
 **Ce qui N'EST PAS décidé ici** : Retirer le `noindex` — c'est-à-dire juger qu'une page arménienne est suffisamment traduite pour être indexée — est une **décision distincte et ultérieure**, qui appartient au porteur de projet, page par page, au fur et à mesure de l'avancement réel des traductions. Ce document ne préjuge pas de quand ni comment cette décision sera prise.
+
+---
+
+## 7. DÉCIDÉ (phase 5A) : un seul type `localizedBlock`, avec l'union de toutes les configurations de texte enrichi déjà utilisées
+
+**Contexte** : en migrant les ~30 types de documents Sanity vers les champs localisés (`localizedString`/`localizedText`/`localizedBlock`), six champs de texte enrichi (portable text) de `protecteurNationalPage` se sont révélés avoir des configurations d'édition différentes du type `localizedBlock` partagé — et différentes entre eux : certains autorisaient les listes à puces/numérotées, le gras, l'italique, l'exposant et les liens ; d'autres n'autorisaient pas les listes ; un troisième n'autorisait pas l'italique.
+
+**Décision retenue** : plutôt que de créer un type Sanity supplémentaire (ex. `localizedRichBlock`) pour préserver chaque configuration à l'identique, le type `localizedBlock` unique a été enrichi pour couvrir l'union de toutes les options déjà utilisées ailleurs dans le schéma : listes à puces et numérotées, gras/italique/exposant, et une annotation de lien (URL). Cette configuration s'applique désormais uniformément à **tous** les champs `localizedBlock` du site (y compris ceux de `teamPage`, `primaire` et `secondaire`, qui utilisaient auparavant un bloc simple sans ces options).
+
+**Pourquoi** :
+- Élargir les options disponibles sur un champ de texte enrichi n'invalide et ne modifie **aucun contenu déjà écrit** — un paragraphe existant sans lien ni exposant reste un paragraphe valide sous la configuration élargie. C'est un gain de capacité pur, jamais une perte. Vérifié empiriquement sur `staging` (requête GROQ avant/après sur les six champs concernés de `protecteurNationalPage`, résultat identique au bit près) plutôt que supposé.
+- Un seul type partagé garde une surface d'édition cohérente pour quiconque remplira les 201 champs de la phase 5A (phase 6 et au-delà) — pas besoin de se demander « quelle variante de bloc riche s'applique ici ».
+- Respecte le choix déjà arrêté de n'utiliser que trois types nommés (`localizedString`/`localizedText`/`localizedBlock`), sans en ajouter un quatrième pour une différence par ailleurs cosmétique.
+
+**Effet de bord à noter explicitement** : deux champs de `protecteurNationalPage` — `additionalSections[].title` et `footnote` — gagnent la possibilité d'utiliser des listes à puces/numérotées, alors que leur configuration d'origine les en privait délibérément. Ce n'est pas un accident ni une régression : c'est la conséquence assumée du choix d'un type unique plutôt que de types multiples. Rien n'oblige à utiliser cette capacité si elle ne convient pas éditorialement à ces champs.
