@@ -96,3 +96,26 @@ Le taux de remplissage du contenu en arménien est actuellement de **0 %** : auc
 - Respecte le choix déjà arrêté de n'utiliser que trois types nommés (`localizedString`/`localizedText`/`localizedBlock`), sans en ajouter un quatrième pour une différence par ailleurs cosmétique.
 
 **Effet de bord à noter explicitement** : deux champs de `protecteurNationalPage` — `additionalSections[].title` et `footnote` — gagnent la possibilité d'utiliser des listes à puces/numérotées, alors que leur configuration d'origine les en privait délibérément. Ce n'est pas un accident ni une régression : c'est la conséquence assumée du choix d'un type unique plutôt que de types multiples. Rien n'oblige à utiliser cette capacité si elle ne convient pas éditorialement à ces champs.
+
+---
+
+## 8. DÉCIDÉ (phase 5A, étape 4) : la phase 6 est un préalable obligatoire à la phase 5B — les trois éléments forment une seule livraison coordonnée
+
+**Constaté empiriquement** : après avoir appliqué la migration de contenu sur `staging` (étape 4), le chargement de pages qui utilisent encore les requêtes GROQ non localisées (`lib/sanity-queries.js`, telles qu'elles existent avant la phase 6) — `/`, `/comite-parents`, `/historique`, `/transport`, et vraisemblablement la plupart des autres pages de contenu — provoque un **plantage complet côté client** : page blanche, message générique « Application error », erreur React #31 (« object with keys {_type, fr} »). Ce n'est pas un artefact cosmétique comme `[object Object]` ou une chaîne vide — React refuse de rendre l'objet et interrompt tout l'arbre de composants. Seule `/carrieres`, dont la requête a déjà été mise à jour en phase 4, continue de fonctionner normalement.
+
+**Décision** : il n'existe **aucun ordre de déploiement en production** où l'un des trois éléments suivants peut être livré seul sans casser le site en direct :
+1. Le déploiement du schéma Studio (types `localizedString`/`localizedText`/`localizedBlock`) — sans données migrées, le Studio attend une forme que le contenu n'a pas encore.
+2. La migration des données de production (`scripts/migrate-localize-fields.mjs --apply` contre `production`) — sans requêtes mises à jour, chaque page dont la requête est encore « à plat » plante pour chaque visiteur, comme démontré ci-dessus sur `staging`.
+3. Les requêtes GROQ localisées (phase 6, `lib/sanity-queries.js`) — sans données migrées, ces requêtes chercheraient `champ.fr`/`champ[$locale]` sur un champ qui est encore une chaîne simple, ce qui échouerait tout autant (de façon symétrique et opposée au cas ci-dessus).
+
+**Conséquence concrète** : le déploiement du schéma Studio, la migration des données de `production`, et la mise à jour des requêtes de la phase 6 constituent **une seule livraison de production coordonnée**, à préparer et à exécuter ensemble — jamais l'une avant l'autre sur l'environnement de production. La phase 5B ne peut pas commencer tant que la phase 6 n'est pas prête à être déployée en même temps qu'elle.
+
+## 9. DÉCIDÉ (phase 5A, étape 4) : la migration de production exige un gel des modifications de contenu
+
+**Pourquoi** : le script de migration traite chaque brouillon (« draft ») comme un document à part entière — c'est le comportement correct, car un brouillon non migré qui serait publié après coup réintroduirait silencieusement des champs à l'ancien format (chaîne simple) dans du contenu par ailleurs déjà migré. Mais l'inverse pose un risque symétrique : un brouillon créé ou modifié par le personnel de l'école *pendant* l'exécution de la migration sur `production` pourrait ne pas être capturé par la requête `*[_type == $type]` si sa création survient après cette requête et avant la validation de la transaction — un tel brouillon resterait alors au format non localisé, invisible tant qu'il n'est pas publié, puis casserait le rendu au moment de sa publication.
+
+**Décision** : avant d'exécuter la migration sur `production` (phase 5B), deux conditions doivent être vérifiées, pas supposées :
+1. **Zéro brouillon en attente** sur le dataset `production`, confirmé par une requête directe (`count(*[_id in path("drafts.**")])`) immédiatement avant l'exécution.
+2. **Confirmation explicite du porteur de projet** que la personne responsable du contenu de l'école n'est pas en train d'utiliser le Studio au moment de l'exécution — pas une supposition, une confirmation active demandée avant de lancer le script.
+
+**Contexte ayant motivé cette décision** : durant la validation de l'étape 4 sur `staging`, un brouillon de `teamPage` a été observé absent puis de nouveau présent au moment de l'exécution de la migration, sans qu'aucune suppression n'apparaisse dans l'historique des transactions Sanity (`/data/history/.../transactions/`) — l'historique montre uniquement la création initiale du dataset (19 août 2026, sous le compte du porteur de projet) et l'écriture de la migration elle-même (sous l'identité du jeton API dédié). Rien n'indique qu'un tiers ait édité `staging` pendant cette session ; l'observation initiale est très probablement une incohérence de lecture transitoire côté Sanity plutôt qu'une véritable édition concurrente. Mais l'épisode illustre concrètement le risque : si un brouillon avait réellement été créé pendant l'exécution, il aurait pu échapper à la migration.

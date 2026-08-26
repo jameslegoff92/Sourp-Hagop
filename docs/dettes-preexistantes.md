@@ -193,6 +193,38 @@ function getCliClientImpl(options = {}) {
 
 **Décision prise pour cette phase** : documenter cette lacune plutôt que construire une protection supplémentaire (par ex. un script wrapper autour du binaire `sanity` qui validerait le dataset avant de déléguer la commande), ce qui aurait dépassé le périmètre de l'étape 2 (modifications de schéma uniquement). **À traiter avant que la phase 5B ne touche à `production`** : soit un wrapper qui intercepte et valide toute invocation `sanity documents *`, soit, a minima, une règle d'usage explicite (ne jamais taper une commande `sanity documents` avec écriture sans relire le flag `--dataset` à voix haute avant d'exécuter).
 
+### `SANITY_API_WRITE_TOKEN` est un jeton de PROJET, pas de dataset — `assertSafeForWrite()` est donc structurel, pas une simple précaution supplémentaire
+
+**Quoi** : Pour que `scripts/migrate-localize-fields.mjs` puisse réellement écrire sur `staging` (le client `@sanity/client`, construit explicitement avec `createClient({projectId, dataset, token})`, refusait toute écriture avec une erreur 403 tant qu'aucun jeton n'était fourni), le porteur de projet a ajouté `SANITY_API_WRITE_TOKEN` à `.env.local`, avec le rôle Sanity « Editor ». Ce jeton est scoping **projet**, pas **dataset** : rien dans le jeton lui-même n'empêche techniquement une écriture sur `production` — il autorise l'écriture sur n'importe quel dataset du projet `col2tg5g`, `staging` comme `production`.
+
+**Conséquence** : `assertSafeForWrite(client)` (`scripts/sanity-write-guard.mjs`) n'est donc pas une vérification de confort redondante avec les permissions du jeton — c'est la **seule** chose qui empêche ce script (ou tout futur script réutilisant ce même jeton) d'écrire accidentellement en production. Si ce garde-fou est un jour retiré, contourné, ou si un script l'omet, le jeton actuel ne fournira aucune protection de repli. Tout script futur qui écrit avec ce jeton doit appeler `assertSafeForWrite()` avant sa première mutation, sans exception.
+
+**Non vérifié à ce jour** : si un jeton scoping *dataset* (limité à `staging` uniquement) existe ou peut être créé dans Sanity pour réduire structurellement ce risque — à évaluer par le porteur de projet, hors du périmètre de ce mandat.
+
+### Clés `hy` orphelines et marqueurs `_type` manquants sur des champs déjà localisés (constaté phase 5A, étape 3)
+
+**Quoi** : Le dry-run du script de migration (`scripts/migrate-localize-fields.mjs`) a révélé que `careerPage.applicationNote`, sur `staging`, contient encore une clé `hy` orpheline avec une chaîne vide (`{fr: "...", hy: "", hyw: "..."}`) — un reliquat du renommage `hy` → `hyw` effectué au niveau du schéma en phase 4, jamais nettoyé dans les données déjà écrites à l'époque. Le même document a aussi un `applicationNote` sans marqueur `_type: "localizedString"`, alors que le champ `headerText` du même document en possède un. Ces deux anomalies sont inertes : aucune requête GROQ ni composant ne lit la clé `hy`, et l'absence de `_type` ne change rien au comportement de la requête de repli (`coalesce(select(...))`), qui ne s'appuie que sur les clés `fr`/`hyw`.
+
+**Décision** : ne pas nettoyer ces anomalies dans le cadre de la migration de l'étape 3/4. Ajouter une suppression de clé à une transformation qui touche déjà 605 instances de valeurs élargit le rayon d'impact de l'opération la plus risquée de ce mandat, sans aucun gain fonctionnel — la clé `hy` ne casse rien en restant en place. Un nettoyage de ces clés orphelines, si souhaité, doit faire l'objet d'un script séparé, explicitement autorisé par le porteur de projet avant exécution : il s'agit de supprimer des données du contenu de l'école, une décision qui lui appartient, pas à ce chantier technique.
+
+**Point important** : `staging` a été créé à partir d'une copie de `production` (voir phase 4). Cette même clé `hy` orpheline existe donc très probablement aussi dans `production`, sur le document `careerPage` réel qui y est déployé. Cela n'a pas été vérifié directement (aucune lecture sur `production` n'a été effectuée dans le cadre de ce mandat), mais c'est l'hypothèse la plus probable compte tenu de l'origine de `staging`.
+
+### n. Le lien « Calendrier » du menu mobile pointe vers une route qui n'existe pas (`/about`)
+
+**Quoi** : `components/ui/Nav.jsx` définit son propre tableau `navItems` (utilisé uniquement dans la grille de liens rapides du tiroir de navigation mobile, `MobileNav` → `FooterGrid`), où l'élément « Calendrier » pointe vers `/about`. `components/ui/topNav.jsx` définit un tableau `navItems` distinct (utilisé dans la barre de navigation du haut, en version bureau), où le même élément pointe correctement vers `/calendrier`. Les deux fichiers ont donc deux copies indépendantes et divergentes de la même liste de liens rapides.
+
+**Vérifié** : `Nav.jsx` est bien le menu réellement utilisé en production, pas un composant mort. `components/ui/Header.jsx` — importé et rendu par la quasi-totalité des pages de contenu du site (Admissions, Administration, Anciens, Agora, Historique, Uniform, Créalab, Comité de parents, Carrières, Locations, Team, ProtecteurNational, ProjetEducatif, ServiceDeGarde, Secondaire, Primaire, Prescolaire, Soutien, Transport, TuitionFees, etc.) — rend à la fois `<TopNav />` et `<Nav />`. La page d'accueil (`app/[locale]/page.jsx`) fait de même directement. Aucune route `app/[locale]/about/` n'existe (confirmé par inspection directe du dossier `app/[locale]/`), seule `app/[locale]/calendrier/` existe. **Le lien est donc réellement mort, en production, sur mobile uniquement** (la version bureau, via `topNav.jsx`, est correcte) — un visiteur mobile cliquant sur « Calendrier » dans le tiroir de menu atterrit sur une page 404.
+
+**Comment confirmé** : recherche de toutes les utilisations de `Nav`/`TopNav`/`Header` dans le dépôt, lecture des deux fichiers `navItems`, et vérification de l'arborescence réelle de `app/[locale]/`.
+
+### o. Deux types de documents orphelins existent dans `staging`, sans schéma enregistré : `AiglePage` et `pourquoi`
+
+**Quoi** : L'export de `staging` (phase 5A, étape 4) a révélé deux documents dont le `_type` ne correspond à aucun schéma enregistré dans `studio/schemaTypes/index.ts` : `AiglePage` (avec un A majuscule, à côté du type correctement enregistré `aiglePage`) et `pourquoi` (à côté du type correctement enregistré `pourquoiPage`). Ces deux documents ne sont lus par aucune requête GROQ de l'application et ne sont touchés par aucune étape de ce mandat (le script de migration ne connaît que les types réellement enregistrés).
+
+**Risque à signaler au porteur de projet** : si quelqu'un a un jour édité du contenu dans l'un de ces deux documents en croyant modifier la vraie page (`aiglePage` ou `pourquoiPage`), ce contenu n'a jamais été visible sur le site — ni avant, ni après ce mandat. Cela vaut la peine d'être vérifié auprès de la personne qui gère le contenu, au cas où du travail aurait été perdu de ce fait.
+
+**Décision** : ne pas supprimer ces documents. Une suppression est une décision qui appartient au porteur de projet, pas à ce chantier technique — d'autant plus si l'un d'eux contient du contenu que quelqu'un pensait avoir publié.
+
 ---
 
 ## Portée et conséquence
