@@ -67,11 +67,42 @@ Ce document recense des problèmes déjà présents sur `main`, confirmés indé
 
 ---
 
+## f. `app/[locale]/layout.jsx` transmet un objet à `className` au lieu d'une chaîne
+
+**Quoi** : La balise `<body>` s'écrit `className={{ fontFamily: "Roboto, sans-serif" }}` — un objet JavaScript là où `className` attend une chaîne de caractères. React convertit silencieusement cet objet en la chaîne littérale `"[object Object]"`, qui ne correspond à aucune classe CSS existante. Conséquence : **Roboto n'a jamais été appliqué, sur aucune page, dans aucune langue, depuis la création du site** — chaque visiteur reçoit la pile de polices système par défaut de Tailwind (`ui-sans-serif, system-ui, sans-serif, ...`).
+
+**Où** : `app/[locale]/layout.jsx` ligne 39 (à l'origine `app/layout.jsx`).
+
+**Origine, datée avec précision** :
+- `git blame` sur la ligne actuelle désigne le commit `6daa639` (James Le-Goff, **30 août 2024**) — mais ce commit s'est contenté de déplacer `{children}` sur sa propre ligne à l'intérieur de `<body>`, sans toucher au contenu de `className`.
+- En remontant l'historique complet (`git log --follow`, puis inspection des révisions successives du fichier), le bug a en réalité été introduit par le commit `7b79427` (« Added top-level navigation and hero video », James Le-Goff, **26 juin 2024**), qui a remplacé le `className={inter.className}` d'origine — une vraie chaîne, produite par `next/font`, héritée du gabarit initial de Create Next App — par `className={{ fontFamily: 'Roboto, sans-serif' }}`.
+- Les deux commits datent de plus de deux ans avant le début de la branche `i18n` (18 août 2026). Le déplacement du fichier vers `app/[locale]/layout.jsx` en phase 3 n'a modifié ni cette ligne ni son comportement.
+
+**Pourquoi c'est pertinent pour l'i18n** : c'est la cause directe d'une observation de la phase 4 (validation visuelle du rendu arménien) — le texte arménien de `/hyw/carrieres` se rendait via **Segoe UI**, la police système de Windows, et non via Roboto. Puisque la police réellement utilisée dépend entièrement de la pile système par défaut du système d'exploitation du visiteur, **la police affichée pour le contenu arménien varie selon la plateforme et n'a été vérifiée que sous Windows** — le rendu sous macOS, iOS, Android et Linux reste non testé, et la couverture des glyphes arméniens par la police système par défaut de ces plateformes n'est pas garantie.
+
+**Comment confirmé pré-existant** : `git blame` et `git log --follow` sur `app/[locale]/layout.jsx`, remontant à deux commits de 2024, largement antérieurs à toute branche i18n.
+
+---
+
+## g. À 375px de large, les offres d'emploi 2 à 4 s'effondrent visuellement sur la page carrières
+
+**Quoi** : Sur `/carrieres` (et `/hyw/carrieres`), à une largeur de viewport de 375px (mobile), seule la première carte d'offre d'emploi affiche son contenu complet. Les cartes 2, 3 et 4 s'effondrent à une hauteur visible de zéro, ne laissant flotter que leur badge positionné en absolu (« 1 POSTE dispo. »), avec de grands espaces vides entre eux.
+
+**Où** : `components/Career.jsx` — les composants stylés `Grid`/`CardWrapper`/`Card`/`Badge`, repris à l'identique depuis l'ancienne version de la page lors de la phase 4 (aucune modification de leur CSS).
+
+**Comment confirmé indépendant de l'arménien et de ce travail** : capture d'écran identique, bogue pour bogue, sur `/carrieres` (français) à la même largeur — ni spécifique à l'arménien, ni introduit par la refonte i18n.
+
+**Conséquence pratique** : les visiteurs mobiles — vraisemblablement la majorité du trafic candidat — ne peuvent ni voir ni cliquer sur 3 des 4 offres d'emploi actuellement publiées.
+
+**Note de correction** : ce constat était initialement formulé en supposant que la page restait rendue côté client et donc non indexable par les moteurs de recherche. Ce n'est plus le cas depuis la réécriture de `/carrieres` en composant serveur à l'étape 5 de cette même phase 4 — le référencement n'est donc plus en cause ici. Le problème réel et actuel est uniquement l'effondrement visuel à largeur mobile, qui rend les offres invisibles et inutilisables sur téléphone, indépendamment de toute question d'indexation.
+
+---
+
 ## Problèmes préexistants corrigés en passant
 
-Les deux points suivants sont aussi des problèmes préexistants sur `main`, mais — contrairement à a–e — ils ont été **corrigés en passant**, comme effet secondaire mécanique d'un travail dont ce n'était pas l'objectif principal. Consignés ici pour la même raison de traçabilité.
+Les deux points suivants sont aussi des problèmes préexistants sur `main`, mais — contrairement à a–g — ils ont été **corrigés en passant**, comme effet secondaire mécanique d'un travail dont ce n'était pas l'objectif principal. Consignés ici pour la même raison de traçabilité.
 
-### f. Casse de nom de fichier désynchronisée entre l'index git et le disque
+### h. Casse de nom de fichier désynchronisée entre l'index git et le disque
 
 **Quoi** : `components/ui/Button.jsx` était enregistré dans l'index git sous `button.jsx` (minuscule) alors que le fichier sur disque s'appelait déjà `Button.jsx`. Windows étant insensible à la casse, le build local ne révélait rien — mais un déploiement sur Vercel (Linux, sensible à la casse) aurait pu échouer avec une erreur de module introuvable. Deux imports (`components/ui/FacebookLogin.jsx` et `components/ui/Login.jsx`) référençaient d'ailleurs le fichier via `"./button"` (minuscule), un désaccord de casse pré-existant et invisible pour la même raison.
 
@@ -79,7 +110,7 @@ Les deux points suivants sont aussi des problèmes préexistants sur `main`, mai
 
 **Corrigé par** : commit `fix(i18n): correct filename case in git index` (phase 0), lors d'un audit de casse mené en prévision du déploiement — pas dans le cadre du mandat i18n lui-même.
 
-### g. `<html lang="en">` codé en dur sur un site francophone
+### i. `<html lang="en">` codé en dur sur un site francophone
 
 **Quoi** : `app/layout.jsx` déclarait `<html lang="en">` de façon statique, alors qu'il s'agit d'un site d'une école francophone (avec, désormais, une version en arménien occidental). C'est à la fois un bug d'accessibilité (les lecteurs d'écran annonçaient la mauvaise langue) et un signal SEO incorrect pour les moteurs de recherche.
 
