@@ -1,5 +1,5 @@
 // Migrates plain string/text/portable-text field VALUES into the localized
-// object shape ({ fr: <existing value> }, hyw key absent) that phase 5A's
+// object shape ({ fr: <existing value> }, hy key absent) that phase 5A's
 // schema conversion (studio/schemaTypes/*.ts) already expects. The schema
 // and the data are currently out of sync on purpose - see phase 5A step 2 -
 // and this script is what reconciles them.

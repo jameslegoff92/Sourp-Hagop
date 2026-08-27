@@ -8,8 +8,8 @@
 // (React error #31, full white-screen crash) when it tested only 5 of the
 // 33 routes by hand.
 //
-// Walks all 33 static locale routes in both fr (unprefixed) and hyw
-// (/hyw-prefixed) - 66 URLs - against an already-running server (this does
+// Walks all 33 static locale routes in both fr (unprefixed) and hy
+// (/hy-prefixed) - 66 URLs - against an already-running server (this does
 // NOT start the server itself; run `npm run build && npm run start` first,
 // pointed at whichever dataset SANITY_PUBLIC_DATASET/.env.local resolves to).
 //
@@ -86,7 +86,7 @@ if (ROUTES.length !== 33) {
 function urlFor(route, locale) {
   if (locale === "fr") return `${BASE_URL}${route}`;
   const suffix = route === "/" ? "" : route;
-  return `${BASE_URL}/hyw${suffix}`;
+  return `${BASE_URL}/hy${suffix}`;
 }
 
 async function checkOne(browser, route, locale) {
@@ -142,7 +142,7 @@ async function run() {
   const browser = await chromium.launch();
   const jobs = [];
   for (const route of ROUTES) {
-    for (const locale of ["fr", "hyw"]) {
+    for (const locale of ["fr", "hy"]) {
       jobs.push({ route, locale });
     }
   }

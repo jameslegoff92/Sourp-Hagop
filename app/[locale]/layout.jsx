@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
     description: SITE_DESCRIPTION,
     // TEMPORARY (removed in phase 7 when hreflang + the sitemap land):
     // the non-default locale has 0% real translation coverage today -
-    // every hyw page currently serves French content through the GROQ
+    // every hy page currently serves French content through the GROQ
     // fallback (see docs/adr/0001-architecture-i18n.md, section 6). A
     // real visitor sees a normal page; a search engine would just see
     // duplicate content under the wrong-language URL. Once hreflang and

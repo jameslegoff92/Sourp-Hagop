@@ -7,8 +7,8 @@ import css from "./topNav.module.css";
 export default function LangSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
-  const isHyw = locale === "hyw";
-  const targetLocale = isHyw ? "fr" : "hyw";
+  const isHy = locale === "hy";
+  const targetLocale = isHy ? "fr" : "hy";
 
   return (
     <Link
@@ -18,12 +18,12 @@ export default function LangSwitcher() {
       aria-label="Changer de langue"
     >
       <div className={css.langSlider} style={{
-        transform: isHyw ? "translateX(100%)" : "translateX(0)"
+        transform: isHy ? "translateX(100%)" : "translateX(0)"
       }} />
-      <span className={`${css.langOption} ${!isHyw ? css.langOptionActive : ""}`}>
+      <span className={`${css.langOption} ${!isHy ? css.langOptionActive : ""}`}>
         FR
       </span>
-      <span className={`${css.langOption} ${isHyw ? css.langOptionActive : ""}`}>
+      <span className={`${css.langOption} ${isHy ? css.langOptionActive : ""}`}>
         ՀԱՅ
       </span>
     </Link>

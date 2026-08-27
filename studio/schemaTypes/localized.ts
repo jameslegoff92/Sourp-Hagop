@@ -7,7 +7,7 @@ export const localizedString = defineType({
   options: { columns: 2 },
   fields: [
     defineField({ name: 'fr', title: 'Français 🇫🇷', type: 'string' }),
-    defineField({ name: 'hyw', title: 'Հայերէն 🇦🇲', type: 'string' }),
+    defineField({ name: 'hy', title: 'Հայերէն 🇦🇲', type: 'string' }),
   ],
   preview: {
     select: { title: 'fr' }
@@ -20,7 +20,7 @@ export const localizedText = defineType({
   type: 'object',
   fields: [
     defineField({ name: 'fr', title: 'Français 🇫🇷', type: 'text' }),
-    defineField({ name: 'hyw', title: 'Հայերէն 🇦🇲', type: 'text' }),
+    defineField({ name: 'hy', title: 'Հայերէն 🇦🇲', type: 'text' }),
   ],
   preview: {
     select: { title: 'fr' }
@@ -70,7 +70,7 @@ export const localizedBlock = defineType({
       of: [richBlockMember]
     }),
     defineField({
-      name: 'hyw',
+      name: 'hy',
       title: 'Հայերէն 🇦🇲',
       type: 'array',
       of: [richBlockMember]
