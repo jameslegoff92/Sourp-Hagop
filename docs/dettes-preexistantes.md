@@ -311,6 +311,55 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 ---
 
+### v. Les métadonnées d'offre d'emploi (niveau, type, lieu) resteront en français sur la page carrières arménienne — décision délibérée, même catégorie que (r)
+
+**Quoi** : `Career.jsx`, `careerModal.jsx` et `careerDetailModal.jsx` affichent `job.level`, `job.type` et `job.location` directement depuis Sanity (`{job.level}`, etc.). Ce ne sont pas des valeurs d'énumération fermée dans le schéma — ce sont des champs de texte libre : la chaîne stockée dans Sanity **est** le texte affiché, mot pour mot.
+
+**Pourquoi ce n'est pas extrait** : extraire ces valeurs vers `messages/*.json` obligerait à coder une table de traduction indexée sur le texte français exact stocké aujourd'hui dans Sanity. Si la personne responsable du contenu modifie ou ajoute une valeur dans le Studio, l'application afficherait silencieusement un texte non traduit ou une clé manquante, sans aucun signal au moment du build — réintroduisant exactement le problème que ce mandat cherche à éliminer (du contenu qui échappe au contrôle de Sanity). Voir aussi `docs/adr/0001-architecture-i18n.md`.
+
+**Conséquence explicite pour la livraison bilingue** : le niveau, le type et le lieu de chaque offre d'emploi s'afficheront **en français sur la page carrières, même en locale arménienne**, à la fin de la phase 6B. **Ceci est une décision, pas un oubli** — la même catégorie que le point (r) (`/confidentialite`, `/termes`) : un gabarit de contenu qui reste unilingue parce que le corriger correctement exige une décision et un travail hors du périmètre de cette phase.
+
+**Décision** : ne rien changer dans le cadre de ce mandat. Convertir ces champs Sanity vers le motif `localizedString` déjà utilisé ailleurs dans le schéma (ou introduire des codes stables avec étiquettes dans `messages/*.json`) est une décision de porteur de projet pour une phase future, pas un choix technique à trancher au passage d'une extraction de chaînes d'interface.
+
+---
+
+### w. Texte alternatif (`alt`) en anglais sur plusieurs images, sur un site par ailleurs francophone
+
+**Quoi** : plusieurs attributs `alt` d'image portent un texte descriptif anglais alors que tout le reste du site est en français :
+- `components/ui/Footer.jsx` (lignes 27, 46, 53) : « School Logo », « OSBL Logo », « Sourp Hagop School »
+- `components/ui/BackgroundVideo.jsx` (ligne 21) : « Background »
+- `components/ui/topNav.jsx` (ligne 104) : « chevron down »
+
+**Non concernés** : les `alt="Facebook"`, `alt="Instagram"`, `alt="LinkedIn"` (`Anciens.jsx`, `Footer.jsx`) sont des noms de marque/plateforme, invariables par nature — même catégorie que les entrées déjà présentes dans `scripts/hardcoded-strings-allowlist.json`. Les `alt="logo"` (`MainHeading.jsx`, `Nav.jsx`) ne sont pas non plus en cause : « logo » est un mot français à part entière (de « logotype »), identique dans les deux langues.
+
+**Comment confirmé** : recherche ciblée de tous les attributs `alt` littéraux dans `components/` et `app/` pendant la phase 6B (étape 2), en réponse à une demande explicite de les signaler individuellement.
+
+**Décision** : ces 5 chaînes seront extraites telles quelles vers `messages/*.json` dans le cadre de la phase 6B (comme tout autre texte d'interface), mais chacune sera explicitement signalée dans le livrable de traduction (étape 4) pour que la personne traduisant ne suppose pas que l'anglais est intentionnel. Corriger le texte source vers un vrai texte alternatif français reste une décision séparée pour le porteur de projet — ce chantier ne le fait pas silencieusement au passage.
+
+---
+
+### x. La locale `hyw` n'est reconnue par aucune des API `Intl` natives testées — bascule silencieuse vers l'anglais, pas vers l'arménien
+
+**Quoi** : en investiguant comment gérer `components/display/Calendar.jsx` (`FRENCH_MONTHS`/`FRENCH_DAYS`, des tables de correspondance codées en dur) et la syntaxe ICU des pluriels, il a été vérifié empiriquement (Node v22.19.0) que la balise de locale `hyw` utilisée par ce projet (`i18n/routing.ts`) n'est reconnue par aucune des API `Intl` testées :
+
+| Appel | `hyw` | `hy` (arménien oriental, standard) | `fr` |
+|---|---|---|---|
+| `Intl.DateTimeFormat(locale, {month:'long'}).format(...)` | **« August » (anglais)** | « օգոստոս » (arménien) | « août » |
+| `Intl.DateTimeFormat(locale, {weekday:'long'}).format(...)` | **« Tuesday » (anglais)** | « երեքշաբթի » (arménien) | « mardi » |
+| `Intl.PluralRules.supportedLocalesOf([locale])` | **`[]` (vide — non supporté)** | `['hy']` | `['fr']` |
+| `new Intl.PluralRules(locale).resolvedOptions().locale` | **`"en-US"`** | `"hy"` | `"fr"` |
+| `.select(0)` / `.select(1)` / `.select(2)` | other / one / other *(règles anglaises)* | one / one / other | one / one / other |
+
+**Conséquence** : `hyw` ne bascule pas vers une approximation arménienne raisonnable (comme `hy`, l'arménien oriental standard) — il bascule entièrement vers l'anglais, silencieusement, sans erreur. Tout code qui utiliserait `Intl.DateTimeFormat('hyw', ...)` ou `Intl.PluralRules('hyw')` en supposant un comportement arménien afficherait de l'anglais à une personne visitant la version arménienne du site.
+
+**Décision (phase 6B)** :
+- `Calendar.jsx` : les 19 libellés (12 mois + 7 jours) seront **extraits vers `messages/*.json`**, pas remplacés par `Intl.DateTimeFormat`, puisque la locale du site ne peut pas être déléguée à `Intl` pour cet usage.
+- Pluriels ICU en `hyw.json` : puisque `Intl.PluralRules('hyw')` résout silencieusement vers les règles anglaises (`one`/`other` avec `select(0) = "other"`, ce qui ne correspond pas à la règle arménienne réelle où 0 se comporte comme singulier — confirmée ci-dessus via `hy`), toute chaîne comptable dans `hyw.json` doit inclure une clause explicite `=0` en plus de `one`/`other` (ex. `{count, plural, =0 {...} one {...} other {...}}`), plutôt que de compter sur la résolution automatique des catégories par la locale — cette dernière ne peut pas être fiable pour `hyw` dans l'environnement d'exécution actuel.
+
+**Portée** : ce constat dépasse la phase 6B — toute utilisation future d'une API `Intl` native paramétrée par la locale `hyw` (formatage de date, de nombre, de liste, etc.) devrait être vérifiée empiriquement de la même façon avant d'être utilisée, plutôt que supposée fonctionnelle par analogie avec `hy` ou `fr`.
+
+---
+
 ## Portée et conséquence
 
 Aucun des points ci-dessus ne relève du mandat de la phase 0 i18n (normalisation des imports relatifs vers l'alias `@/`). Ils sont consignés ici uniquement à des fins de traçabilité.

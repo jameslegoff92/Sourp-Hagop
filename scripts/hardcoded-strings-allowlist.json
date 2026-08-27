@@ -44,6 +44,10 @@
     "reason": "Phone number, identical in both languages"
   },
   {
+    "text": "info@ecolesourphagop.com",
+    "reason": "Email address (Footer.jsx) - identical in both languages, same reasoning as the phone number"
+  },
+  {
     "text": "FR",
     "reason": "Language switcher label - shows the target language's own fixed abbreviation, does not vary by current locale, so it does not belong in a per-locale message catalog"
   },

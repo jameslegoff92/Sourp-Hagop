@@ -30,15 +30,15 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Lower this by hand as phase 6B batches land. 193 is today's true baseline:
-// components/ + app/ (98 files), minus confidentialite/termes (excluded
-// entirely, see EXCLUDED_FILES below), minus 14 allowlisted strings (15
-// occurrences: 13 brand/address/phone/switcher strings, plus the
-// comite-parents debug artifact "No data found - check console", which is
-// deliberately never extracted - see docs/dettes-preexistantes.md item (u)).
-// Not the same as phase 6A's 175, which only ever scanned components/ -
-// seeing "193" here is not a regression, it's a wider, correct scope.
-const MAX_ALLOWED = 193;
+// Lower this by hand as phase 6B batches land. 192 is today's true baseline
+// FOR THIS SCANNER'S SCOPE ONLY (JsxText + alt/aria-label/placeholder/title
+// attributes) - it does NOT cover string literals inside JS arrays/objects
+// (nav menus, lookup tables, etc.), which a separate one-time AST inventory
+// found to add ~70 more genuine UI labels (see docs/dettes-preexistantes.md
+// and the phase 6B step 2 report). Not the same as phase 6A's 175, which
+// only ever scanned components/ - seeing "192" here is not a regression,
+// it's a wider, correct scope for what this particular scanner can see.
+const MAX_ALLOWED = 192;
 
 const ALLOWLIST_PATH = path.join(__dirname, "hardcoded-strings-allowlist.json");
 const allowlistRaw = JSON.parse(readFileSync(ALLOWLIST_PATH, "utf8"));
