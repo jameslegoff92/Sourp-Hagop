@@ -5,7 +5,7 @@ import RentalSpaces from '@/components/RentalSpaces';
 export default async function RentalSpacesPage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const rentalSpacesData = await getRentalSpacesPage();
+  const rentalSpacesData = await getRentalSpacesPage(locale);
   
   return <RentalSpaces data={rentalSpacesData} />;
 }
