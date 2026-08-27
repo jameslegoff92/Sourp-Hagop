@@ -11,7 +11,8 @@
     "lint": "next lint",
     "clean": "rmdir /s /q .next",
     "test": "jest",
-    "check:messages": "node scripts/check-messages.mjs"
+    "check:messages": "node scripts/check-messages.mjs",
+    "smoke": "node scripts/smoke-routes.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
