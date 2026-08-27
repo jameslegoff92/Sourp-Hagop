@@ -22,8 +22,8 @@ export default async function Homepage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
   const [data, alertData] = await Promise.all([
-    getHomePage(),
-    getAlertBanner(),
+    getHomePage(locale),
+    getAlertBanner(locale),
   ]);
 
   const videoUrl = data?.heroVideo?.asset?.url;

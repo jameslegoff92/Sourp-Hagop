@@ -45,7 +45,7 @@ export default async function Calendar({ params }) {
       googleRefreshToken,
       updateTokenCallback
     ),
-    getCalendarPage(),
+    getCalendarPage(locale),
   ]);
 
   return (
