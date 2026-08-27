@@ -6,6 +6,7 @@ import Typography from "@/components/display/Typography";
 import { PortableText } from "@portabletext/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -241,12 +242,13 @@ const TableNote = styled.div`
 `;
 
 export default function Primaire({ data }) {
+  const t = useTranslations("Primaire");
   return (
     <>
       <Header
         animate={false}
         imageSrc={data?.headerImageUrl || "../images/header/primaire-header.jpg"}
-        headerText={data?.headerText || "PROGRAMME ÉDUCATIF AU PRIMAIRE"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -260,7 +262,7 @@ export default function Primaire({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Éducation primaire
+              {t("subtitle")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -269,7 +271,7 @@ export default function Primaire({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.pageTitle || "Programme primaire"}
+                {data?.pageTitle || t("defaultPageTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -303,7 +305,7 @@ export default function Primaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Structure du programme
+                {t("cyclesSubtitle")}
               </SectionSubtitle>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -312,7 +314,7 @@ export default function Primaire({ data }) {
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
                 <Typography as="h2" type="h2" color="primary">
-                  Les Trois Cycles du Primaire
+                  {t("cyclesTitle")}
                 </Typography>
               </TitleWrapper>
             </SectionHeader>
@@ -358,7 +360,7 @@ export default function Primaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Nos langues
+                {t("languagesSubtitle")}
               </SectionSubtitle>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -367,7 +369,7 @@ export default function Primaire({ data }) {
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
                 <Typography as="h3" type="h3" color="primary">
-                  Apprentissage des Langues
+                  {t("languagesTitle")}
                 </Typography>
               </TitleWrapper>
             </SectionHeader>
@@ -402,7 +404,7 @@ export default function Primaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Programme enrichi
+                {t("enrichmentSubtitle")}
               </SectionSubtitle>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -446,7 +448,7 @@ export default function Primaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Domaines d'apprentissage
+                {t("subjectAreasSubtitle")}
               </SectionSubtitle>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -490,7 +492,7 @@ export default function Primaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Arts et culture
+                {t("artsSubtitle")}
               </SectionSubtitle>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -535,7 +537,7 @@ export default function Primaire({ data }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                  Grille-matières
+                  {t("scheduleTableSubtitle")}
                 </SectionSubtitle>
                 <TitleWrapper
                   initial={{ opacity: 0, y: -20 }}
@@ -564,7 +566,7 @@ export default function Primaire({ data }) {
 
               <TableNote>
                 <Typography as="p" type="p" color="dark">
-                  📊 Tableau détaillé de la maquette de cours disponible sur demande
+                  {t("scheduleTableNote")}
                 </Typography>
               </TableNote>
             </div>
@@ -585,7 +587,7 @@ export default function Primaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Organisation
+                {t("scheduleSubtitle")}
               </SectionSubtitle>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -594,13 +596,13 @@ export default function Primaire({ data }) {
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
                 <Typography as="h3" type="h3" color="primary">
-                  Horaire Type d'une Journée au Primaire
+                  {t("scheduleTitle")}
                 </Typography>
               </TitleWrapper>
             </SectionHeader>
 
             <Typography as="p" type="p" color="dark">
-              Contactez-nous pour obtenir plus d'informations sur l'horaire détaillé et la répartition des matières.
+              {t("scheduleContactText")}
             </Typography>
           </motion.div>
         </MotionDiv>

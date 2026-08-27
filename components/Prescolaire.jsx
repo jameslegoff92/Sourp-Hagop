@@ -5,6 +5,7 @@ import Footer from "./ui/Footer";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -284,6 +285,7 @@ const getBgColor = (color) => {
 };
 
 export default function Prescolaire({ data }) {
+  const t = useTranslations("Prescolaire");
   return (
     <>
       <Header
@@ -303,7 +305,7 @@ export default function Prescolaire({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Éducation préscolaire
+              {t("subtitle")}
             </Eyebrow>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -312,7 +314,7 @@ export default function Prescolaire({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.pageTitle || "Programme préscolaire"}
+                {data?.pageTitle || t("defaultPageTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -340,7 +342,7 @@ export default function Prescolaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Apprentissage
+                {t("activitiesSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -390,7 +392,7 @@ export default function Prescolaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Nos programmes
+                {t("coursesSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -439,7 +441,7 @@ export default function Prescolaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Suivi de l'élève
+                {t("evaluationSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -490,7 +492,7 @@ export default function Prescolaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Développement
+                {t("developmentSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -540,7 +542,7 @@ export default function Prescolaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Organisation
+                {t("scheduleSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -588,7 +590,7 @@ export default function Prescolaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Nous joindre
+                {t("contactSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}

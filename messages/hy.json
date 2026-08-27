@@ -287,5 +287,43 @@
     "subtitle": "Espace d'apprentissage",
     "introText": "La bibliothèque de Sourp Hagop offre un espace calme et accueillant, où élèves et enseignants peuvent lire, étudier et explorer une variété de ressources imprimées et numériques.",
     "imageAlt": "bibliotheque image {index}"
+  },
+  "Primaire": {
+    "defaultHeaderText": "PROGRAMME ÉDUCATIF AU PRIMAIRE",
+    "subtitle": "Éducation primaire",
+    "defaultPageTitle": "Programme primaire",
+    "cyclesSubtitle": "Structure du programme",
+    "cyclesTitle": "Les Trois Cycles du Primaire",
+    "languagesSubtitle": "Nos langues",
+    "languagesTitle": "Apprentissage des Langues",
+    "enrichmentSubtitle": "Programme enrichi",
+    "subjectAreasSubtitle": "Domaines d'apprentissage",
+    "artsSubtitle": "Arts et culture",
+    "scheduleTableSubtitle": "Grille-matières",
+    "scheduleTableNote": "📊 Tableau détaillé de la maquette de cours disponible sur demande",
+    "scheduleSubtitle": "Organisation",
+    "scheduleTitle": "Horaire Type d'une Journée au Primaire",
+    "scheduleContactText": "Contactez-nous pour obtenir plus d'informations sur l'horaire détaillé et la répartition des matières."
+  },
+  "Secondaire": {
+    "subtitle": "Éducation secondaire",
+    "defaultPageTitle": "Programme secondaire",
+    "cyclesSubtitle": "Structure du programme",
+    "focusLabel": "Focus: {focus}",
+    "pedagogySubtitle": "Notre approche",
+    "enrichedSubtitle": "Cours enrichis",
+    "optionsSubtitle": "Parcours disponibles",
+    "activitiesSubtitle": "Vie scolaire",
+    "scheduleTableSubtitle": "Grille-matières"
+  },
+  "Prescolaire": {
+    "subtitle": "Éducation préscolaire",
+    "defaultPageTitle": "Programme préscolaire",
+    "activitiesSubtitle": "Apprentissage",
+    "coursesSubtitle": "Nos programmes",
+    "evaluationSubtitle": "Suivi de l'élève",
+    "developmentSubtitle": "Développement",
+    "scheduleSubtitle": "Organisation",
+    "contactSubtitle": "Nous joindre"
   }
 }
