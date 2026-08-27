@@ -328,7 +328,8 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 **Quoi** : plusieurs attributs `alt` d'image portent un texte descriptif anglais alors que tout le reste du site est en français :
 - `components/ui/Footer.jsx` (lignes 27, 46, 53) : « School Logo », « OSBL Logo », « Sourp Hagop School »
 - `components/ui/BackgroundVideo.jsx` (ligne 21) : « Background »
-- `components/ui/topNav.jsx` (ligne 104) : « chevron down »
+
+**Correction (phase 6B, étape 3)** : `components/ui/topNav.jsx` ligne 104 (« chevron down ») a été retiré de cette liste après relecture du fichier en préparant son extraction — cette ligne fait partie d'un bloc JSX entièrement commenté (`{/* ... */}`, lignes 103-107), jamais rendu. Le grep initial qui a produit cette liste ne distinguait pas le code actif du code commenté. Ce n'est donc pas un bug d'accessibilité actif, seulement du code mort — voir aussi le sort de `alt="50e logo"` dans ce même fichier, qui lui est un cas intermédiaire (code actif, jamais déclenché par les données actuelles) traité dans le cadre de l'extraction plutôt que documenté ici.
 
 **Non concernés** : les `alt="Facebook"`, `alt="Instagram"`, `alt="LinkedIn"` (`Anciens.jsx`, `Footer.jsx`) sont des noms de marque/plateforme, invariables par nature — même catégorie que les entrées déjà présentes dans `scripts/hardcoded-strings-allowlist.json`. Les `alt="logo"` (`MainHeading.jsx`, `Nav.jsx`) ne sont pas non plus en cause : « logo » est un mot français à part entière (de « logotype »), identique dans les deux langues.
 

@@ -27,5 +27,80 @@
       "x": "X"
     },
     "tagline": "<p1>L'École arménienne Sourp Hagop dispense un enseignement en langue française,</p1><p2>conduisant les élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p2>"
+  },
+  "Nav": {
+    "logoAlt": "logo",
+    "menuAriaLabel": "Menu de navigation",
+    "closeMenuAriaLabel": "Fermer le menu",
+    "quickAccessLabel": "Accès rapide",
+    "groups": {
+      "school": {
+        "title": "L'école",
+        "items": {
+          "historique": "Historique",
+          "equipe": "L'équipe",
+          "administration": "Conseil d'administration",
+          "projetEducatif": "Projet éducatif",
+          "comiteParents": "Comité de parents",
+          "anciens": "Anciens et anciennes",
+          "ombudsman": "Protecteur national de l'élève"
+        }
+      },
+      "pedagogy": {
+        "title": "Pédagogie",
+        "items": {
+          "prescolaire": "Programme éducatif au préscolaire",
+          "primaire": "Programme éducatif au primaire",
+          "secondaire": "Programme éducatif au secondaire"
+        }
+      },
+      "studentLife": {
+        "title": "Vie Étudiante",
+        "items": {
+          "activitesParascolaires": "Activités parascolaires",
+          "conseilEtudiant": "Conseil étudiant",
+          "aigles": "Équipe des Aigles",
+          "sorties": "Sorties scolaires et voyages"
+        }
+      },
+      "studentServices": {
+        "title": "Services à l'élève",
+        "items": {
+          "soutien": "Soutien aux élèves",
+          "agora": "Agora Anna et Manouk Djoukhadjian",
+          "bibliotheque": "Bibliothèque",
+          "jardinLitteraire": "Mer Aykin: un jardin littéraire",
+          "crealab": "Créalab",
+          "serviceDeGarde": "Service de garde",
+          "transport": "Transport",
+          "uniforme": "Uniforme scolaire"
+        }
+      },
+      "admissions": {
+        "title": "Admissions",
+        "items": {
+          "pourquoi": "Pourquoi Sourp Hagop",
+          "demande": "Demande d'admission",
+          "droits": "Droits de scolarité et autres frais"
+        }
+      }
+    },
+    "quickLinks": {
+      "careers": "Carrières",
+      "calendar": "Calendrier",
+      "locations": "Location d'espaces",
+      "contact": "Nous joindre"
+    }
+  },
+  "TopNav": {
+    "portalLink": "Portail",
+    "legacyLogoAlt": "50e logo",
+    "items": {
+      "careers": "Carrières",
+      "calendar": "Calendrier",
+      "locations": "Location d'espaces",
+      "foundation": "La Fondation",
+      "contact": "Nous joindre"
+    }
   }
 }
