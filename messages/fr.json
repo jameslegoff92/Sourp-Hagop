@@ -178,5 +178,27 @@
     "postsAvailableBadge": "{count, plural, one {POSTE} other {POSTES}}<br></br>dispo.",
     "emptyStateTitle": "Aucune offre disponible pour l'instant",
     "emptyStateSubtitle": "Restez à l'affût de nos prochaines opportunités !"
+  },
+  "Calendar": {
+    "subtitle": "Événements à venir",
+    "title": "CALENDRIER",
+    "viewAllLink": "Voir le calendrier complet",
+    "noEventPlaceholder": "—",
+    "months": {
+      "jan": "janvier", "feb": "février", "mar": "mars", "apr": "avril",
+      "may": "mai", "jun": "juin", "jul": "juillet", "aug": "août",
+      "sep": "septembre", "oct": "octobre", "nov": "novembre", "dec": "décembre"
+    },
+    "days": {
+      "sun": "dim", "mon": "lun", "tue": "mar", "wed": "mer",
+      "thu": "jeu", "fri": "ven", "sat": "sam"
+    }
+  },
+  "ReactCalendar": {
+    "defaultHeaderText": "CALENDRIER",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We couldn't load the calendar right now.",
+    "retry": "Try again",
+    "goBack": "Go back"
   }
 }

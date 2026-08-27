@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
+import { useTranslations } from "next-intl";
 
 // Local Imports
 import Typography from "./Typography";
@@ -331,20 +332,27 @@ const ViewAllLink = styled(Link)`
 `;
 
 /* ─────────────────────────────────────────────
-   FRENCH HELPERS
+   MONTH/DAY LABELS
+   Extracted to messages/*.json rather than delegated to
+   Intl.DateTimeFormat - the site's locale tag doesn't map onto usable
+   Intl data for this content, see docs/adr/0001-architecture-i18n.md
+   section 10 and docs/dettes-preexistantes.md item x.
 ───────────────────────────────────────────── */
-const FRENCH_MONTHS = {
-  jan: "janvier", feb: "février", mar: "mars", apr: "avril",
-  may: "mai", jun: "juin", jul: "juillet", aug: "août",
-  sep: "septembre", oct: "octobre", nov: "novembre", dec: "décembre",
+const MONTH_KEYS = {
+  jan: "months.jan", feb: "months.feb", mar: "months.mar", apr: "months.apr",
+  may: "months.may", jun: "months.jun", jul: "months.jul", aug: "months.aug",
+  sep: "months.sep", oct: "months.oct", nov: "months.nov", dec: "months.dec",
 };
-const FRENCH_DAYS = ["dim", "lun", "mar", "mer", "jeu", "ven", "sam"];
+const DAY_KEYS = ["days.sun", "days.mon", "days.tue", "days.wed", "days.thu", "days.fri", "days.sat"];
 
-const getFrenchMonth = (m) => FRENCH_MONTHS[m?.toLowerCase().slice(0, 3)] || m;
+const getFrenchMonth = (m, t) => {
+  const key = MONTH_KEYS[m?.toLowerCase().slice(0, 3)];
+  return key ? t(key) : m;
+};
 
-const getFrenchDay = (day, month, year) => {
+const getFrenchDay = (day, month, year, t) => {
   const date = new Date(`${month} ${day}, ${year}`);
-  return FRENCH_DAYS[date.getDay()];
+  return t(DAY_KEYS[date.getDay()]);
 };
 
 const isToday = (day, month, year) => {
@@ -359,11 +367,11 @@ const isToday = (day, month, year) => {
 /* ─────────────────────────────────────────────
    WEEK LABEL HELPER
 ───────────────────────────────────────────── */
-const getWeekLabel = (week) => {
+const getWeekLabel = (week, t) => {
   if (!week?.length) return "";
   const first = week[0];
   const last = week[week.length - 1];
-  return `${first.day} – ${last.day} ${getFrenchMonth(last.month)}`;
+  return `${first.day} – ${last.day} ${getFrenchMonth(last.month, t)}`;
 };
 
 /* ─────────────────────────────────────────────
@@ -384,17 +392,18 @@ const cardVariants = {
    SHARED DAY CARD CONTENT
 ───────────────────────────────────────────── */
 const DayCardContent = ({ date, weekIndex, cardIndex }) => {
+  const t = useTranslations("Calendar");
   const isTodayDate = isToday(date.day, date.month, date.year);
   return (
     <>
       {isTodayDate && <TodayIndicator />}
-      <DayName>{getFrenchDay(date.day, date.month, date.year)}</DayName>
+      <DayName>{getFrenchDay(date.day, date.month, date.year, t)}</DayName>
       <DayNumber>{date.day}</DayNumber>
-      <DayMonth>{getFrenchMonth(date.month)}</DayMonth>
+      <DayMonth>{getFrenchMonth(date.month, t)}</DayMonth>
       <Divider />
       {date.title
         ? <EventTitle href="/calendrier">{date.title}</EventTitle>
-        : <NoEvent>—</NoEvent>
+        : <NoEvent>{t("noEventPlaceholder")}</NoEvent>
       }
     </>
   );
@@ -404,6 +413,7 @@ const DayCardContent = ({ date, weekIndex, cardIndex }) => {
    MAIN COMPONENT
 ───────────────────────────────────────────── */
 const MiniCalendar = () => {
+  const t = useTranslations("Calendar");
   const [dateArrays, setDateArrays] = useState([[]]);
   const [currentWeek, setCurrentWeek] = useState(0);
   const [authToken, setAuthToken] = useState("");
@@ -461,8 +471,8 @@ const MiniCalendar = () => {
     <Section>
       <Container>
         <SectionHeader>
-          <SectionSubtitle>Événements à venir</SectionSubtitle>
-          <SectionTitle as="h2" type="h2" color="primary">CALENDRIER</SectionTitle>
+          <SectionSubtitle>{t("subtitle")}</SectionSubtitle>
+          <SectionTitle as="h2" type="h2" color="primary">{t("title")}</SectionTitle>
         </SectionHeader>
 
         {/* ── DESKTOP ── */}
@@ -489,7 +499,7 @@ const MiniCalendar = () => {
         {/* ── MOBILE ── */}
         <MobileWrapper>
           <MobileWeekLabel>
-            <WeekLabel>{getWeekLabel(dateArrays[currentWeek])}</WeekLabel>
+            <WeekLabel>{getWeekLabel(dateArrays[currentWeek], t)}</WeekLabel>
             <MobileNavRow>
               <SmallNavBtn onClick={handlePrev}><ChevronLeft size={14} /></SmallNavBtn>
               <SmallNavBtn onClick={handleNext}><ChevronRight size={14} /></SmallNavBtn>
@@ -527,7 +537,7 @@ const MiniCalendar = () => {
         </DotsContainer>
 
         <FooterArea>
-          <ViewAllLink href="/calendrier">Voir le calendrier complet</ViewAllLink>
+          <ViewAllLink href="/calendrier">{t("viewAllLink")}</ViewAllLink>
         </FooterArea>
       </Container>
     </Section>
