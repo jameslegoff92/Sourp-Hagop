@@ -50,5 +50,9 @@
   {
     "text": "ՀԱՅ",
     "reason": "Language switcher label - already Western Armenian script by design (abbreviation for 'Armenian'), fixed regardless of current locale, not French text awaiting translation"
+  },
+  {
+    "text": "No data found - check console",
+    "reason": "Debug artifact in comite-parents/page.jsx, not UI copy - deliberately NOT extracted to messages/*.json since that would ask a translator to render a debug message in Armenian. Logged as a bug (see docs/dettes-preexistantes.md item (u)): the component should render nothing or a real empty state instead. Allowlisted here only so the counter reflects strings actually pending extraction."
   }
 ]

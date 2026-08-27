@@ -30,13 +30,15 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Lower this by hand as phase 6B batches land. 194 is today's true baseline:
+// Lower this by hand as phase 6B batches land. 193 is today's true baseline:
 // components/ + app/ (98 files), minus confidentialite/termes (excluded
-// entirely, see EXCLUDED_FILES below), minus 13 allowlisted brand/address/
-// phone/switcher strings (14 occurrences). Not the same as phase 6A's 175,
-// which only ever scanned components/ - seeing "194" here is not a
-// regression, it's a wider, correct scope.
-const MAX_ALLOWED = 194;
+// entirely, see EXCLUDED_FILES below), minus 14 allowlisted strings (15
+// occurrences: 13 brand/address/phone/switcher strings, plus the
+// comite-parents debug artifact "No data found - check console", which is
+// deliberately never extracted - see docs/dettes-preexistantes.md item (u)).
+// Not the same as phase 6A's 175, which only ever scanned components/ -
+// seeing "193" here is not a regression, it's a wider, correct scope.
+const MAX_ALLOWED = 193;
 
 const ALLOWLIST_PATH = path.join(__dirname, "hardcoded-strings-allowlist.json");
 const allowlistRaw = JSON.parse(readFileSync(ALLOWLIST_PATH, "utf8"));

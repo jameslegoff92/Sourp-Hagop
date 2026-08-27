@@ -266,7 +266,11 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 **Conséquence pour la phase 6B** : ces deux pages sont exclues de l'extraction des chaînes d'interface (voir `EXCLUDED_FILES` dans `scripts/check-hardcoded-strings.mjs`). Les inclure dans le compteur ou l'extraction donnerait l'illusion trompeuse que ce texte a été révisé et validé comme contenu à conserver tel quel — ce n'est pas le cas.
 
+**Conséquence explicite pour la livraison bilingue** : `/confidentialite` et `/termes` resteront **uniquement en anglais, dans les deux locales (`fr` et `hyw`)**, à la fin de la phase 6B. Sur les 33 routes du site, ce sont 2 routes délibérément exclues du livrable bilingue. **Ceci est une décision, pas un oubli** : elle est documentée ici précisément pour qu'elle ne soit jamais confondue avec une régression ou une extraction manquée lors d'une vérification future.
+
 **Décision** : ne rien changer dans le cadre de ce mandat. Le sort de ces deux pages (traduction réelle, remplacement par un texte propre à l'école, ou révision juridique) est une décision qui appartient au porteur de projet, vraisemblablement avec un conseil juridique — pas à ce chantier technique.
+
+**Ce n'est pas qu'une question de développement** : il s'agit d'une question de conformité légale et linguistique pour le porteur de projet et pour l'école, pas d'une tâche de développement. Ce texte de gabarit générique anglais figure sur le site d'une école québécoise, rédigé sous un cadre juridique inconnu (aucune indication de juridiction visée dans le gabarit lui-même), pour une institution qui traite des données de mineurs. Une révision juridique est recommandée avant toute décision sur le contenu de ces deux pages. Ce chantier ne rédigera, ne traduira et ne corrigera aucune partie de ce texte.
 
 ---
 
@@ -276,11 +280,12 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 - `FacebookLogin.jsx` : « Sign in with Facebook », « Logout from Facebook »
 - `ReactCalendar.jsx` : texte anglais dans sa limite d'erreur (error boundary)
 - `BackgroundVideo.jsx` : texte de repli (fallback) en anglais
-- `app/[locale]/comite-parents/page.jsx` (ligne 14) : « No data found - check console » — un message de débogage manifestement destiné à un développeur, pas à un visiteur
 
 **Comment confirmé** : repérées pendant le scan et la relecture manuelle des fichiers `app/` et `components/` pour la phase 6B.
 
-**Décision** : conformément à la pratique déjà établie dans ce mandat (ne pas corriger silencieusement du contenu au passage d'une extraction), ces chaînes seront extraites **telles quelles** vers `messages/*.json` dans le cadre de la phase 6B — y compris le message de débogage — plutôt que traduites ou nettoyées à cette occasion. Une éventuelle traduction ou un nettoyage de ces textes reste une décision séparée pour le porteur de projet.
+**Décision** : conformément à la pratique déjà établie dans ce mandat (ne pas corriger silencieusement du contenu au passage d'une extraction), ces trois chaînes seront extraites **telles quelles** vers `messages/*.json` dans le cadre de la phase 6B, plutôt que traduites ou nettoyées à cette occasion. Une éventuelle traduction ou un nettoyage de ces textes reste une décision séparée pour le porteur de projet.
+
+**Exclu de cette liste** : le message « No data found - check console » de `comite-parents/page.jsx` (ligne 14) — voir l'item (u), qui le traite séparément comme un bug plutôt que comme une chaîne d'interface légitime.
 
 ---
 
@@ -290,7 +295,19 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 **Comment confirmé** : repéré en peuplant `scripts/hardcoded-strings-allowlist.json` pendant la phase 6B — les deux chaînes d'adresse ont dû être allowlistées séparément, ce qui a mis l'écart en évidence.
 
+**En production aujourd'hui** : les deux affichages sont actuellement en ligne sur le site réel — ce n'est pas une divergence entre un état futur et un état actuel, c'est une incohérence déjà visible aux visiteurs du site en ce moment. Concrètement, l'un des deux codes postaux affichés est **actuellement erroné en production**, quelle que soit la réponse finale.
+
 **Décision** : ne pas corriger dans le cadre de la phase 6B — une extraction de chaînes d'interface n'est pas l'endroit pour trancher laquelle des deux adresses est correcte. Les deux chaînes sont conservées telles quelles (allowlistées séparément, avec une note croisée dans chaque entrée). Le porteur de projet doit confirmer le bon code postal et corriger la source qui a tort.
+
+---
+
+### u. `comite-parents` peut afficher un message de débogage aux visiteurs — ce n'est pas une chaîne d'interface, c'est un bug
+
+**Quoi** : `app/[locale]/comite-parents/page.jsx` (ligne 14) affiche « No data found - check console » lorsque les données Sanity attendues sont absentes. C'est un artefact de débogage destiné à un développeur, pas un texte pensé pour un visiteur — et rien n'empêche qu'il apparaisse réellement à l'écran d'un vrai visiteur si la condition qui le déclenche se produit.
+
+**Pourquoi ce n'est pas une simple chaîne à extraire** : tout texte placé dans `messages/*.json` devient quelque chose que la traductrice ou le traducteur est invité à rendre en arménien, comme n'importe quel autre texte d'interface légitime. Faire ce traitement à un message de débogage lui donnerait un statut qu'il ne mérite pas et ferait perdre de vue qu'il s'agit d'un défaut à corriger, pas d'un texte à traduire.
+
+**Décision** : ne pas extraire cette chaîne dans le cadre de la phase 6B. Le composant devrait plutôt n'afficher rien du tout dans ce cas, ou un véritable état vide pensé pour un visiteur (« aucune information disponible pour le moment », par exemple) — mais concevoir ce message correctement est un travail de développement séparé, pas une décision à prendre au passage d'une extraction de chaînes. À traiter séparément, hors de ce mandat.
 
 ---
 
