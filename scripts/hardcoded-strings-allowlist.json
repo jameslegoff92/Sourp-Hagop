@@ -1,0 +1,54 @@
+[
+  {
+    "text": "École arménienne Sourp Hagop",
+    "reason": "School's formal name/brand, never translated"
+  },
+  {
+    "text": "L'ÉCOLE ARMÉNIENNE",
+    "reason": "Part of the school's formal display name in the nav logo text, never translated"
+  },
+  {
+    "text": "SOURP HAGOP",
+    "reason": "Part of the school's formal display name in the nav logo text, never translated"
+  },
+  {
+    "text": "ÉCOLE PRIMAIRE V. ET A. SARAFIAN",
+    "reason": "Formal name of the school's primary-level sub-entity, never translated"
+  },
+  {
+    "text": "ÉCOLE SECONDAIRE PASDERMAJIAN",
+    "reason": "Formal name of the school's secondary-level sub-entity, never translated"
+  },
+  {
+    "text": "3400 Rue Nadon",
+    "reason": "Street address - kept as-is for postal delivery, not translated (appears in Footer.jsx and nous-joindre/page.jsx)"
+  },
+  {
+    "text": "Montréal, Québec",
+    "reason": "Place name within the mailing address block (Footer.jsx), not translated"
+  },
+  {
+    "text": "Canada, H4J 1P5",
+    "reason": "Country + postal code within the mailing address block (Footer.jsx), not translated"
+  },
+  {
+    "text": "Montréal, QC H4J 1P6",
+    "reason": "Place name within the mailing address block (nous-joindre/page.jsx) - note: postal code differs from Footer.jsx's H4J 1P5, a pre-existing inconsistency logged separately, not something this extraction should silently reconcile"
+  },
+  {
+    "text": "Canada",
+    "reason": "Country name within the mailing address block (nous-joindre/page.jsx), not translated"
+  },
+  {
+    "text": "514 332-1373",
+    "reason": "Phone number, identical in both languages"
+  },
+  {
+    "text": "FR",
+    "reason": "Language switcher label - shows the target language's own fixed abbreviation, does not vary by current locale, so it does not belong in a per-locale message catalog"
+  },
+  {
+    "text": "ՀԱՅ",
+    "reason": "Language switcher label - already Western Armenian script by design (abbreviation for 'Armenian'), fixed regardless of current locale, not French text awaiting translation"
+  }
+]

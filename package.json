@@ -12,6 +12,7 @@
     "clean": "rmdir /s /q .next",
     "test": "jest",
     "check:messages": "node scripts/check-messages.mjs",
+    "check:strings": "node scripts/check-hardcoded-strings.mjs",
     "smoke": "node scripts/smoke-routes.mjs"
   },
   "dependencies": {

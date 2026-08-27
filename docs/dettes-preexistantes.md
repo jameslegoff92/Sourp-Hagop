@@ -240,6 +240,8 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 **Risque à signaler au porteur de projet, pour `AiglePage`** : ce second orphelin, lui, n'est bien lu par aucune requête — si quelqu'un y a édité du contenu en croyant modifier la vraie page `aiglePage`, ce contenu n'a jamais été visible sur le site.
 
+**Décision** : ne pas supprimer ces documents. Une suppression est une décision qui appartient au porteur de projet, pas à ce chantier technique — d'autant plus si l'un d'eux contient du contenu que quelqu'un pensait avoir publié.
+
 ### p. `primaire.horaireTitre` mal orthographié `horaireTitle` dans la requête — aucun changement visible si corrigé
 
 **Quoi** : `lib/sanity-queries.js#getPrimairePage()` sélectionne `horaireTitle`, mais le champ du schéma s'appelle `horaireTitre` (`studio/schemaTypes/projetPrimairePage.ts`). Le champ existe bel et bien dans le schéma — c'est un pur problème d'orthographe dans la requête.
@@ -254,7 +256,41 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 **Décision** : ne pas ajouter ce champ dans le cadre de la phase 6A — décision du porteur de projet.
 
-**Décision** : ne pas supprimer ces documents. Une suppression est une décision qui appartient au porteur de projet, pas à ce chantier technique — d'autant plus si l'un d'eux contient du contenu que quelqu'un pensait avoir publié.
+---
+
+### r. `confidentialite` et `termes` sont du texte générique anglais jamais traduit — pas du contenu bilingue à localiser
+
+**Quoi** : `app/[locale]/confidentialite/page.jsx` et `app/[locale]/termes/page.jsx` affichent un texte légal générique en anglais, produit par un outil de type « Privacy Policy Generator » (texte littéral trouvé dans le fichier : « Last updated: August 27, 2024 », définitions génériques de termes comme « Interpretation », etc.). Ce n'est pas du contenu de l'école ni du français jamais traduit — c'est un gabarit anglais générique tel quel, jamais adapté, jamais relu.
+
+**Comment confirmé** : lecture complète des deux fichiers pendant l'inventaire de la phase 6B (chaînes codées en dur) — aucune phrase spécifique à l'école, aucune trace de français, uniquement du texte de gabarit juridique générique.
+
+**Conséquence pour la phase 6B** : ces deux pages sont exclues de l'extraction des chaînes d'interface (voir `EXCLUDED_FILES` dans `scripts/check-hardcoded-strings.mjs`). Les inclure dans le compteur ou l'extraction donnerait l'illusion trompeuse que ce texte a été révisé et validé comme contenu à conserver tel quel — ce n'est pas le cas.
+
+**Décision** : ne rien changer dans le cadre de ce mandat. Le sort de ces deux pages (traduction réelle, remplacement par un texte propre à l'école, ou révision juridique) est une décision qui appartient au porteur de projet, vraisemblablement avec un conseil juridique — pas à ce chantier technique.
+
+---
+
+### s. Chaînes anglaises éparses sur un site par ailleurs francophone
+
+**Quoi** : plusieurs chaînes d'interface visibles restent en anglais alors que le reste du site est en français, en dehors du cas plus large de (r) :
+- `FacebookLogin.jsx` : « Sign in with Facebook », « Logout from Facebook »
+- `ReactCalendar.jsx` : texte anglais dans sa limite d'erreur (error boundary)
+- `BackgroundVideo.jsx` : texte de repli (fallback) en anglais
+- `app/[locale]/comite-parents/page.jsx` (ligne 14) : « No data found - check console » — un message de débogage manifestement destiné à un développeur, pas à un visiteur
+
+**Comment confirmé** : repérées pendant le scan et la relecture manuelle des fichiers `app/` et `components/` pour la phase 6B.
+
+**Décision** : conformément à la pratique déjà établie dans ce mandat (ne pas corriger silencieusement du contenu au passage d'une extraction), ces chaînes seront extraites **telles quelles** vers `messages/*.json` dans le cadre de la phase 6B — y compris le message de débogage — plutôt que traduites ou nettoyées à cette occasion. Une éventuelle traduction ou un nettoyage de ces textes reste une décision séparée pour le porteur de projet.
+
+---
+
+### t. Incohérence de code postal entre deux affichages de la même adresse
+
+**Quoi** : `components/ui/Footer.jsx` affiche « Canada, H4J 1P5 » tandis que `app/[locale]/nous-joindre/page.jsx` affiche « Montréal, QC H4J 1P6 » pour ce qui semble être la même adresse (3400 Rue Nadon). Les deux codes postaux diffèrent d'un seul caractère (P5 vs P6).
+
+**Comment confirmé** : repéré en peuplant `scripts/hardcoded-strings-allowlist.json` pendant la phase 6B — les deux chaînes d'adresse ont dû être allowlistées séparément, ce qui a mis l'écart en évidence.
+
+**Décision** : ne pas corriger dans le cadre de la phase 6B — une extraction de chaînes d'interface n'est pas l'endroit pour trancher laquelle des deux adresses est correcte. Les deux chaînes sont conservées telles quelles (allowlistées séparément, avec une note croisée dans chaque entrée). Le porteur de projet doit confirmer le bon code postal et corriger la source qui a tort.
 
 ---
 
