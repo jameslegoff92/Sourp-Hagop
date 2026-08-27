@@ -217,11 +217,42 @@ function getCliClientImpl(options = {}) {
 
 **Comment confirmé** : recherche de toutes les utilisations de `Nav`/`TopNav`/`Header` dans le dépôt, lecture des deux fichiers `navItems`, et vérification de l'arborescence réelle de `app/[locale]/`.
 
-### o. Deux types de documents orphelins existent dans `staging`, sans schéma enregistré : `AiglePage` et `pourquoi`
+### o. Deux types de documents orphelins existent dans `staging`, sans schéma enregistré : `AiglePage` et `pourquoi` — et `pourquoi` EST activement lu par le site (correction d'une affirmation précédente)
 
-**Quoi** : L'export de `staging` (phase 5A, étape 4) a révélé deux documents dont le `_type` ne correspond à aucun schéma enregistré dans `studio/schemaTypes/index.ts` : `AiglePage` (avec un A majuscule, à côté du type correctement enregistré `aiglePage`) et `pourquoi` (à côté du type correctement enregistré `pourquoiPage`). Ces deux documents ne sont lus par aucune requête GROQ de l'application et ne sont touchés par aucune étape de ce mandat (le script de migration ne connaît que les types réellement enregistrés).
+**Correction** : ce point affirmait initialement qu'aucun de ces deux documents orphelins n'était lu par une requête. C'est vrai pour `AiglePage`, mais **faux pour `pourquoi`** : `lib/sanity-queries.js#getPourquoiPage()` interroge littéralement `*[_type == "pourquoi"][0]`, pas `"pourquoiPage"`. Ce n'est donc pas un simple contenu orphelin oublié — c'est un **bug de production actif** : la page publique `/pourquoi-sourp-hagop` affiche depuis toujours le contenu du document non enregistré `pourquoi`, jamais celui du vrai document `pourquoiPage` (enregistré dans `studio/schemaTypes/index.ts`, éditable normalement dans le Studio). Toute modification que la responsable du contenu de l'école a faite en éditant « Pourquoi Sourp Hagop » dans le Studio n'est donc **jamais apparue sur le site**, depuis la création de ce document.
 
-**Risque à signaler au porteur de projet** : si quelqu'un a un jour édité du contenu dans l'un de ces deux documents en croyant modifier la vraie page (`aiglePage` ou `pourquoiPage`), ce contenu n'a jamais été visible sur le site — ni avant, ni après ce mandat. Cela vaut la peine d'être vérifié auprès de la personne qui gère le contenu, au cas où du travail aurait été perdu de ce fait.
+**Comparaison des deux documents (staging, phase 6A étape 2)** :
+
+| Champ | `pourquoi` (orphelin, lu par le site) | `pourquoiPage` (réel, enregistré) |
+|---|---|---|
+| `_updatedAt` | 2026-08-19T19:02:20Z | 2026-08-26T23:26:22Z (ce dernier horodatage correspond exactement à l'exécution du script de migration de ce mandat — pas à une édition humaine) |
+| `headerImage` | présent (image + recadrage) | **absent** |
+| `popupDateEnd` / lien de réservation | « 19 décembre » / lien Calendly | « 23 janvier » / lien Doodle (différent) |
+| `popupText` | mentionne une seule période (8–19 déc. 2025) | mentionne deux périodes (8–19 déc. 2025 **et** 13–23 janv. 2026) |
+| `footerText`, `footerDateStart/End`, `footerLink`, `footerLinkText` | présents (bloc complet) | **absents entièrement** |
+| `sections[]` | 5 sections complètes (titre + description + image chacune) | seulement 2 entrées, dont la 2e est vide (ni titre, ni description, ni image) |
+
+Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contient des dates de popup plus récentes (période de janvier ajoutée) mais il manque l'image d'entête, tout le bloc pied-de-page, et 3 des 5 sections « pourquoi nous choisir ». Il ressemble à une tentative partielle de ressaisie du contenu dans le bon document, jamais terminée, plutôt qu'à une copie complète et plus récente.
+
+**Conséquence concrète si la requête était repointée sur `pourquoiPage` telle quelle** : la page perdrait son image d'entête, perdrait tout le bloc d'appel à l'action en pied de page, et n'afficherait que 2 « pourquoi nous choisir » au lieu de 5 (dont un vide). Elle gagnerait les dates de popup à jour (janvier) et le nouveau lien de réservation. Ce n'est pas un correctif neutre.
+
+**Décision (phase 6A)** : `getPourquoiPage` est explicitement exclu de la localisation de l'étape 3. La requête continue de pointer sur `pourquoi` et reste non localisée jusqu'à ce que le porteur de projet tranche quel document fait foi. **Conséquence assumée** : `/pourquoi-sourp-hagop` restera unilingue français à la fin de la phase 6A — ce n'est pas un oubli.
+
+**Risque à signaler au porteur de projet, pour `AiglePage`** : ce second orphelin, lui, n'est bien lu par aucune requête — si quelqu'un y a édité du contenu en croyant modifier la vraie page `aiglePage`, ce contenu n'a jamais été visible sur le site.
+
+### p. `primaire.horaireTitre` mal orthographié `horaireTitle` dans la requête — aucun changement visible si corrigé
+
+**Quoi** : `lib/sanity-queries.js#getPrimairePage()` sélectionne `horaireTitle`, mais le champ du schéma s'appelle `horaireTitre` (`studio/schemaTypes/projetPrimairePage.ts`). Le champ existe bel et bien dans le schéma — c'est un pur problème d'orthographe dans la requête.
+
+**Vérifié** : la valeur actuelle de `horaireTitre` sur `staging` est `null` — le champ n'a jamais été rempli. Corriger l'orthographe ne ferait donc rien apparaître aujourd'hui. Mais tant que ce n'est pas corrigé, si quelqu'un remplit ce champ dans le Studio plus tard, le contenu n'apparaîtra jamais sur `/primaire` sans que personne ne comprenne pourquoi.
+
+**Décision** : ne pas corriger dans le cadre de la phase 6A — décision du porteur de projet, à traiter séparément.
+
+### q. `homePage.strengthsSection.sectionTitle` n'existe pas dans le schéma
+
+**Quoi** : `lib/sanity-queries.js#getHomePage()` sélectionne `strengthsSection { sectionTitle, strengths[] {...} }`, mais `sectionTitle` n'existe nulle part dans le schéma `homePage` (`studio/schemaTypes/homePage.ts` — `strengthsSection` ne contient qu'un champ `strengths`). Contrairement au point (p), ce n'est pas une faute d'orthographe sur un champ existant : il n'y a tout simplement rien à sélectionner. Corriger cela demanderait d'ajouter le champ au schéma d'abord, puis d'attendre qu'il soit rempli — il n'existe aucune valeur en attente qui « apparaîtrait » simplement en corrigeant la requête.
+
+**Décision** : ne pas ajouter ce champ dans le cadre de la phase 6A — décision du porteur de projet.
 
 **Décision** : ne pas supprimer ces documents. Une suppression est une décision qui appartient au porteur de projet, pas à ce chantier technique — d'autant plus si l'un d'eux contient du contenu que quelqu'un pensait avoir publié.
 
