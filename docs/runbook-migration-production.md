@@ -14,7 +14,7 @@ Cette étape n'est pas optionnelle et n'est pas une formalité : le déploiement
 
 1. **Fixer une fenêtre de maintenance explicite** avec le porteur de projet — date, heure de début, durée estimée (à titre indicatif, la répétition complète sur staging avec un jeu de données de taille comparable a pris environ 15 minutes de bout en bout, sauvegarde comprise, hors temps de construction/déploiement de l'application).
 
-2. **Contacter directement la personne qui édite le contenu** (aujourd'hui : Sarine Sabounjian, `sarine.sabounjian@ecolesourphagop.com` — identifiée via l'historique des transactions Sanity comme seule autrice des documents `pourquoi`/`pourquoiPage` en production) et lui expliquer concrètement, avant qu'elle ne le découvre par surprise :
+2. **Contacter directement la personne responsable du contenu à l'école** et lui expliquer concrètement, avant qu'elle ne le découvre par surprise :
    - **Ce qui va changer visuellement** : chaque champ de texte qu'elle modifie aujourd'hui comme une simple boîte (titre, paragraphe, etc.) va devenir un champ à deux colonnes — une pour le français, une pour l'arménien occidental. Ce n'est pas une régression ; c'est le nouveau format prévu.
    - **Ce qui ne change pas** : le contenu français existant sera automatiquement replacé dans la colonne française — rien n'est perdu, rien à ressaisir.
    - **Ce qu'elle doit faire** : ne pas ouvrir le Studio ni modifier de contenu pendant toute la fenêtre de maintenance. Confirmer explicitement (par écrit, courriel ou message) qu'elle a bien compris et qu'elle restera hors du Studio jusqu'au signal de fin.
