@@ -5,6 +5,7 @@ import Footer from "./ui/Footer"
 import Typography from "./display/Typography"
 import styled from "@emotion/styled"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -494,6 +495,7 @@ const SloganLine = styled(motion.div)`
 `
 
 export default function ProjetEducatif({ data }) {
+    const t = useTranslations("ProjetEducatif")
     const headerImageUrl = data?.pageHeader?.headerImageUrl
     const headerText = data?.pageHeader?.headerText
 
@@ -520,7 +522,7 @@ export default function ProjetEducatif({ data }) {
             <Header
                 animate={false}
                 imageSrc={headerImageUrl || "../images/header/projet-educatif-header.jpg"}
-                headerText={headerText || "PROJET ÉDUCATIF"}
+                headerText={headerText || t("defaultHeaderText")}
                 headerTextTop={"70%"}
             />
 
@@ -534,7 +536,7 @@ export default function ProjetEducatif({ data }) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
-                            Ce que nous faisons
+                            {t("missionSubtitle")}
                         </Eyebrow>
                         <TitleWrapper
                             initial={{ opacity: 0, y: -20 }}
@@ -618,7 +620,7 @@ export default function ProjetEducatif({ data }) {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
                             >
-                                Où nous allons
+                                {t("visionSubtitle")}
                             </Eyebrow>
                             <TitleWrapper
                                 initial={{ opacity: 0, y: -20 }}
@@ -678,7 +680,7 @@ export default function ProjetEducatif({ data }) {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
                             >
-                                Nos promesses
+                                {t("engagementsSubtitle")}
                             </Eyebrow>
                             <TitleWrapper
                                 initial={{ opacity: 0, y: -20 }}
@@ -717,7 +719,7 @@ export default function ProjetEducatif({ data }) {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
                             >
-                                Notre direction
+                                {t("orientationsSubtitle")}
                             </Eyebrow>
                             <TitleWrapper
                                 initial={{ opacity: 0, y: -20 }}

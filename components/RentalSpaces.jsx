@@ -7,6 +7,7 @@ import Typography from "@/components/display/Typography";
 import LocationModal from "@/components/modal/LocationModal";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 /* ─────────────────────────────────────────────
    LAYOUT
@@ -210,7 +211,9 @@ const CardArrow = styled(motion.span)`
 /* ─────────────────────────────────────────────
    SPACE ITEM
 ───────────────────────────────────────────── */
-const SpaceItem = ({ space, onOpen, index }) => (
+const SpaceItem = ({ space, onOpen, index }) => {
+  const t = useTranslations("RentalSpaces");
+  return (
   <SpaceCard
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -232,7 +235,7 @@ const SpaceItem = ({ space, onOpen, index }) => (
       <CardDescription>{space.description}</CardDescription>
 
       <CardFooter>
-        <CardCta>En savoir plus</CardCta>
+        <CardCta>{t("learnMore")}</CardCta>
         <CardArrow whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -241,12 +244,14 @@ const SpaceItem = ({ space, onOpen, index }) => (
       </CardFooter>
     </CardBody>
   </SpaceCard>
-);
+  );
+};
 
 /* ─────────────────────────────────────────────
    PAGE
 ───────────────────────────────────────────── */
 export default function RentalSpacesPage({ data }) {
+  const t = useTranslations("RentalSpaces");
   const [showModal, setShowModal] = useState(false);
   const [selectedSpace, setSelectedSpace] = useState(null);
 
@@ -258,7 +263,7 @@ export default function RentalSpacesPage({ data }) {
       <Header
         animate={false}
         imageSrc={data?.headerImageUrl || "../images/header/rental-header.jpg"}
-        headerText={data?.headerText || "LOCATION D'ESPACES"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -270,7 +275,7 @@ export default function RentalSpacesPage({ data }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Nos installations
+              {t("subtitle")}
             </Eyebrow>
 
             <TitleWrapper
@@ -279,7 +284,7 @@ export default function RentalSpacesPage({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                Nos espaces à votre disposition
+                {t("title")}
               </Typography>
             </TitleWrapper>
 

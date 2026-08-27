@@ -48,6 +48,10 @@
     "reason": "Same phone number as above with parentheses formatting (nous-joindre/page.jsx) - identical in both languages"
   },
   {
+    "text": "📊",
+    "reason": "Decorative icon glyph prefixed to a dynamic Sanity note (Secondaire.jsx) - not language-dependent text, nothing to translate"
+  },
+  {
     "text": "info@ecolesourphagop.com",
     "reason": "Email address (Footer.jsx) - identical in both languages, same reasoning as the phone number"
   },

@@ -8,6 +8,7 @@ import BackgroundLogo from "@/components/ui/BackgroundLogo";
 import Typography from "@/components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 
 const StyledDiv = styled.div`
@@ -152,6 +153,7 @@ const RotateMessage = styled.div`
 `;
 
 export default function Transport({ data }) {
+    const t = useTranslations("Transport");
     const headerImageUrl = data?.headerImageUrl;
     const headerText = data?.headerText;
     const mapTitle = data?.mapTitle;
@@ -278,26 +280,25 @@ export default function Transport({ data }) {
         viewport={{ once: true }}
         style={{ marginTop: "4vh" }}
       >
-        {contactTitle}{" "}
-        <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>
-          {contactName}
-        </span>
-        , tél:{" "}
-        <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>
-          {contactPhone}
-        </span>
-        {" "}poste:{" "}
-        <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>
-          {contactExtension}
-        </span> 
+        {t.rich("contactLine", {
+          contactTitle,
+          contactName,
+          contactPhone,
+          contactExtension,
+          bold: (chunks) => (
+            <span style={{ color: "var(--primary-color)", fontWeight: "700" }}>
+              {chunks}
+            </span>
+          ),
+        })}
       </Typography>
     </>
-  ), [introText, contactTitle, contactName, contactPhone, contactExtension]);
+  ), [introText, contactTitle, contactName, contactPhone, contactExtension, t]);
 
     return (
         <>
             {/* <BackgroundLogo src="../images/logo-big.svg" /> */}
-            <Header animate={false} imageSrc="../images/header/transport-header.jpg" headerText="Service de Transport" headerTextTop="3%" />
+            <Header animate={false} imageSrc="../images/header/transport-header.jpg" headerText={t("headerText")} headerTextTop="3%" />
 
             <StyledDiv>
                 <MotionDiv>
@@ -307,7 +308,7 @@ export default function Transport({ data }) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                   >
-                    Logistique
+                    {t("subtitle")}
                   </SectionSubtitle>
                     <TextContainer>
                         {memoizedMapTitle}
@@ -318,7 +319,7 @@ export default function Transport({ data }) {
                         transition={{ duration: 1 }}
                         viewport={{ once: true }}
                     >
-                        <RotateMessage>Tournez votre apareil pour une meilleure visualisation</RotateMessage>
+                        <RotateMessage>{t("rotateMessage")}</RotateMessage>
                         <StyledSVG viewBox="0 0 802.95 493.34" ref={svgRef}>
                             <g onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                                 <path
@@ -409,7 +410,7 @@ export default function Transport({ data }) {
                         <LegendContainer>
                             <LegendItem>
                                 <LegendRect style={{ backgroundColor: 'var(--secondary-darkcolor)' }} />
-                                <LegendText>Zones couvertes par le transport</LegendText>
+                                <LegendText>{t("legendCovered")}</LegendText>
                             </LegendItem>
                             <LegendItem>
                                 <LegendRect style={{ backgroundColor: 'rgba(134, 193, 225, 1)' }} />

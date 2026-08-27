@@ -7,6 +7,7 @@ import CustomButton from "./inputs/Button";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   text-align: center;
@@ -491,6 +492,7 @@ const portableTextComponents = {
 };
 
 export default function ProtecteurNational({ data }) {
+  const t = useTranslations("ProtecteurNational");
   const headerImageUrl = data?.pageHeader?.headerImageUrl;
   const headerText = data?.pageHeader?.headerText;
   const mainTitle = data?.mainTitle;
@@ -510,7 +512,7 @@ export default function ProtecteurNational({ data }) {
       <Header
         animate={false}
         imageSrc={headerImageUrl || "../images/header/pne-header.jpg"}
-        headerText={headerText || "PROTECTEUR NATIONAL DE L'ÉLÈVE"}
+        headerText={headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -524,7 +526,7 @@ export default function ProtecteurNational({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Vos droits
+              {t("subtitle")}
             </Eyebrow>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -533,7 +535,7 @@ export default function ProtecteurNational({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {mainTitle || "Processus de traitement des plaintes"}
+                {mainTitle || t("defaultMainTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -612,11 +614,13 @@ export default function ProtecteurNational({ data }) {
 
                   {etape.contactPerson?.name && (
                     <HighlightedBox>
-                      La personne responsable du traitement des plaintes à l'École arménienne Sourp Hagop est{" "}
-                      <a href={`mailto:${etape.contactPerson.email}`}>
-                        {etape.contactPerson.name}
-                      </a>
-                      , {etape.contactPerson.role}. Elle dispose de 15 jours ouvrables pour répondre à la plainte soumise.
+                      {t.rich("contactPersonNotice", {
+                        name: etape.contactPerson.name,
+                        role: etape.contactPerson.role,
+                        link: (chunks) => (
+                          <a href={`mailto:${etape.contactPerson.email}`}>{chunks}</a>
+                        ),
+                      })}
                     </HighlightedBox>
                   )}
                 </StepCard>
@@ -639,7 +643,7 @@ export default function ProtecteurNational({ data }) {
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
                 >
-                  {formButton.text || "Formulaire de plainte"}
+                  {formButton.text || t("defaultFormButtonText")}
                 </a>
               </CustomButton>
             </ButtonContainer>
@@ -650,7 +654,7 @@ export default function ProtecteurNational({ data }) {
             <a href={processImageUrl} target="_blank" rel="noopener noreferrer">
               <ProcessImage
                 src={processImageUrl}
-                alt="Processus de traitement des plaintes"
+                alt={t("processImageAlt")}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}

@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import Typography from "./display/Typography";
 import { motion } from "framer-motion";
 import BackgroundLogo from "./ui/BackgroundLogo";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   text-align: center;
@@ -177,6 +178,7 @@ const Divider = styled(motion.div)`
 `;
 
 export default function Anciens({ data }) {
+  const t = useTranslations("Anciens");
   const headerImageUrl = data?.headerImageUrl;
   const headerText = data?.headerText;
   const mainTitle = data?.mainTitle;
@@ -206,7 +208,7 @@ export default function Anciens({ data }) {
     <>
       <Header
         imageSrc={headerImageUrl || "../images/header/anciens-header.jpg"}
-        headerText={headerText || "ANCIENS ET ANCIENNES"}
+        headerText={headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -220,7 +222,7 @@ export default function Anciens({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Notre communauté
+              {t("subtitle")}
             </Eyebrow>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -353,7 +355,7 @@ export default function Anciens({ data }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <SocialIcon src="../images/anciens/ancien-facebook.svg" alt="Facebook" />
+                  <SocialIcon src="../images/anciens/ancien-facebook.svg" alt={t("socialAlt.facebook")} />
                 </SocialLink>
               )}
               {socialMedia?.instagram && (
@@ -362,7 +364,7 @@ export default function Anciens({ data }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <SocialIcon src="../images/anciens/ancien-instagram.svg" alt="Instagram" />
+                  <SocialIcon src="../images/anciens/ancien-instagram.svg" alt={t("socialAlt.instagram")} />
                 </SocialLink>
               )}
               {socialMedia?.linkedin && (
@@ -371,7 +373,7 @@ export default function Anciens({ data }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <SocialIcon src="../images/anciens/ancien-linkedIn.svg" alt="LinkedIn" />
+                  <SocialIcon src="../images/anciens/ancien-linkedIn.svg" alt={t("socialAlt.linkedin")} />
                 </SocialLink>
               )}
             </SocialMediaContainer>

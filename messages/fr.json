@@ -325,5 +325,49 @@
     "developmentSubtitle": "Développement",
     "scheduleSubtitle": "Organisation",
     "contactSubtitle": "Nous joindre"
+  },
+  "Transport": {
+    "contactLine": "{contactTitle} <bold>{contactName}</bold>, tél: <bold>{contactPhone}</bold> poste: <bold>{contactExtension}</bold>",
+    "headerText": "Service de Transport",
+    "subtitle": "Logistique",
+    "rotateMessage": "Tournez votre apareil pour une meilleure visualisation",
+    "legendCovered": "Zones couvertes par le transport"
+  },
+  "Anciens": {
+    "defaultHeaderText": "ANCIENS ET ANCIENNES",
+    "subtitle": "Notre communauté",
+    "socialAlt": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "ProjetEducatif": {
+    "defaultHeaderText": "PROJET ÉDUCATIF",
+    "missionSubtitle": "Ce que nous faisons",
+    "visionSubtitle": "Où nous allons",
+    "engagementsSubtitle": "Nos promesses",
+    "orientationsSubtitle": "Notre direction"
+  },
+  "ProtecteurNational": {
+    "defaultHeaderText": "PROTECTEUR NATIONAL DE L'ÉLÈVE",
+    "subtitle": "Vos droits",
+    "defaultMainTitle": "Processus de traitement des plaintes",
+    "contactPersonNotice": "La personne responsable du traitement des plaintes à l'École arménienne Sourp Hagop est <link>{name}</link>, {role}. Elle dispose de 15 jours ouvrables pour répondre à la plainte soumise.",
+    "defaultFormButtonText": "Formulaire de plainte",
+    "processImageAlt": "Processus de traitement des plaintes"
+  },
+  "PourquoiSourpHagop": {
+    "defaultHeaderText": "POURQUOI SOURP HAGOP",
+    "subtitle": "L'expérience Sourp Hagop",
+    "dateRangeSeparator": "au",
+    "dismiss": "Non, merci",
+    "reserve": "Réserver"
+  },
+  "RentalSpaces": {
+    "defaultHeaderText": "LOCATION D'ESPACES",
+    "subtitle": "Nos installations",
+    "title": "Nos espaces à votre disposition",
+    "learnMore": "En savoir plus"
   }
 }
