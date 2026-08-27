@@ -4,5 +4,28 @@
   },
   "Common": {
     "placeholder": "[hy] placeholder"
+  },
+  "Footer": {
+    "logoAlt": "School Logo",
+    "osblLogoAlt": "OSBL Logo",
+    "schoolImageAlt": "Sourp Hagop School",
+    "nav": {
+      "portal": "PORTAIL",
+      "careers": "CARRIÈRES",
+      "admissions": "ADMISSIONS",
+      "calendar": "CALENDRIER",
+      "studentOmbudsman": "PROTECTEUR NATIONAL DE L'ÉLÈVE",
+      "foundation": "LA FONDATION",
+      "alumni": "ANCIENS ET ANCIENNES",
+      "spaceRentals": "LOCATION D'ESPACES",
+      "contactUs": "NOUS JOINDRE"
+    },
+    "socialAlt": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "x": "X"
+    },
+    "tagline": "<p1>L'École arménienne Sourp Hagop dispense un enseignement en langue française,</p1><p2>conduisant les élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p2>"
   }
 }
