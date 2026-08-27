@@ -5,6 +5,6 @@ import Aigle from "@/components/Aigle"
 export default async function AiglePage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getAiglePage()
+  const data = await getAiglePage(locale)
   return <Aigle data={data} />
 }

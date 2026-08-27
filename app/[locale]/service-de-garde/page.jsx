@@ -5,6 +5,6 @@ import { getServiceDeGardePage } from "@/lib/sanity-queries"
 export default async function Page({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getServiceDeGardePage()
+  const data = await getServiceDeGardePage(locale)
   return <ServiceDeGarde data={data} />
 }

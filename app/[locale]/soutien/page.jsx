@@ -5,6 +5,6 @@ import { getSoutienPage } from "@/lib/sanity-queries"
 export default async function Page({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getSoutienPage()
+  const data = await getSoutienPage(locale)
   return <Soutien data={data} />
 }

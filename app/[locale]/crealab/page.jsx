@@ -5,6 +5,6 @@ import Crealab from "@/components/Crealab"
 export default async function CrealabPage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getCrealabPage()
+  const data = await getCrealabPage(locale)
   return <Crealab data={data} />
 }

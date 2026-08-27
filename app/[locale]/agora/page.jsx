@@ -5,6 +5,6 @@ import { getAgoraPage } from "@/lib/sanity-queries"
 export default async function Page({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getAgoraPage()
+  const data = await getAgoraPage(locale)
   return <Agora data={data} />
 }
