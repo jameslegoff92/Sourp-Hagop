@@ -5,6 +5,6 @@ import Administration from '@/components/Administration';
 export default async function AdministrationPage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getAdministrationPage()
+  const data = await getAdministrationPage(locale)
   return <Administration data={data} />
 }

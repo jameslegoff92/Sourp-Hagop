@@ -5,7 +5,7 @@ import Team from '@/components/Team';
 export default async function TeamPage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const teamData = await getTeamPage();
+  const teamData = await getTeamPage(locale);
 
   return <Team teamData={teamData} />;
 }

@@ -5,6 +5,6 @@ import { getProtecteurNationalPage } from "@/lib/sanity-queries";
 export default async function Page({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getProtecteurNationalPage();
+  const data = await getProtecteurNationalPage(locale);
   return <ProtecteurNational data={data} />;
 }

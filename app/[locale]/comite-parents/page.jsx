@@ -6,7 +6,7 @@ import { getComiteParentsPage } from "@/lib/sanity-queries"
 export default async function Page({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-  const data = await getComiteParentsPage()
+  const data = await getComiteParentsPage(locale)
   
   console.log("Comite Parents Data:", JSON.stringify(data, null, 2))
   
