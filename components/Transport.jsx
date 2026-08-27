@@ -414,7 +414,7 @@ export default function Transport({ data }) {
                             </LegendItem>
                             <LegendItem>
                                 <LegendRect style={{ backgroundColor: 'rgba(134, 193, 225, 1)' }} />
-                                <LegendText>Zones non couvertes par le transport</LegendText>
+                                <LegendText>{t("legendNotCovered")}</LegendText>
                             </LegendItem>
                         </LegendContainer>
                     </MapFrameContainer>

@@ -5,6 +5,7 @@ import Footer from "@/components/ui/Footer"
 import styled from "@emotion/styled"
 import Typography from "@/components/display/Typography"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import BackgroundLogo from "@/components/ui/BackgroundLogo"
 
 const StyledDiv = styled.div`
@@ -81,11 +82,12 @@ const StyledImage = styled(motion.img)`
 `
 
 export default function Trips({ data }) {
+    const t = useTranslations("Trips")
     return (
         <>
             <Header
                 imageSrc={data?.headerImageUrl}
-                headerText={data?.headerText || "SORTIES SCOLAIRES ET VOYAGES"}
+                headerText={data?.headerText || t("defaultHeaderText")}
                 headerTextTop="70%"
             />
             <StyledDiv>
@@ -97,7 +99,7 @@ export default function Trips({ data }) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
-                            Découvertes et aventures
+                            {t("subtitle")}
                         </SectionSubtitle>
                         <TitleWrapper
                             initial={{ opacity: 0, y: -20 }}

@@ -1,10 +1,11 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import css from "./topNav.module.css";
 
 export default function LangSwitcher() {
+  const t = useTranslations("LangSwitcher");
   const locale = useLocale();
   const pathname = usePathname();
   const isHy = locale === "hy";
@@ -15,7 +16,7 @@ export default function LangSwitcher() {
       href={pathname}
       locale={targetLocale}
       className={css.langToggle}
-      aria-label="Changer de langue"
+      aria-label={t("ariaLabel")}
     >
       <div className={css.langSlider} style={{
         transform: isHy ? "translateX(100%)" : "translateX(0)"

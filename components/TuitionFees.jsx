@@ -5,6 +5,7 @@ import Footer from "./ui/Footer";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 // --- STYLED COMPONENTS ---
 
@@ -293,6 +294,7 @@ const MobilePriceValue = styled.div`
 `;
 
 export default function TuitionFees({ data }) {
+  const t = useTranslations("TuitionFees");
   // Format price: add $ if it's a number
   const formatPrice = (value) => {
     if (!value) return '—';
@@ -379,9 +381,9 @@ export default function TuitionFees({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Grille tarifaire
+              {t("subtitle")}
             </SectionSubtitle>
-            
+
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -389,7 +391,7 @@ export default function TuitionFees({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.tableTitle || "Grille tarifaire"}
+                {data?.tableTitle || t("defaultTableTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -416,7 +418,7 @@ export default function TuitionFees({ data }) {
             <Table>
               <TableHeader>
                 <TableHeaderRow>
-                  <TableHeaderCell>Catégorie</TableHeaderCell>
+                  <TableHeaderCell>{t("categoryHeader")}</TableHeaderCell>
                   <TableHeaderCell>{data?.prescolaireLabel}</TableHeaderCell>
                   <TableHeaderCell>{data?.primaireLabel}</TableHeaderCell>
                   <TableHeaderCell>{data?.secondaireLabel}</TableHeaderCell>

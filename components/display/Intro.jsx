@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 // Local Imports
 import Typography from "@/components/display/Typography";
@@ -87,6 +88,7 @@ const Accent = styled(motion.div)`
 `;
 
 function Intro() {
+  const t = useTranslations("Intro");
   const [homePageData, setHomePageData] = useState(null);
 
   useEffect(() => {
@@ -116,7 +118,7 @@ function Intro() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Bienvenue
+            {t("subtitle")}
           </Eyebrow>
 
           <TitleWrapper

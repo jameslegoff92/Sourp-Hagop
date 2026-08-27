@@ -5,6 +5,7 @@ import Footer from "@/components/ui/Footer";
 import BackgroundLogo from "@/components/ui/BackgroundLogo";
 import Typography from "@/components/display/Typography";
 import styled from "@emotion/styled";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 
 // --- STYLED COMPONENTS ---
@@ -141,12 +142,13 @@ const ContactInfo = styled.div`
 // --- MAIN COMPONENT ---
 
 export default function Uniforme({ data }) {
+  const t = useTranslations("Uniform");
   return (
     <>
       <Header
         animate={false}
         imageSrc={data?.headerImage?.asset?.url}
-        headerText={data?.headerText || "UNIFORME SCOLAIRE"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -159,7 +161,7 @@ export default function Uniforme({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Code vestimentaire
+              {t("subtitle")}
             </SectionSubtitle>
             
             <TitleWrapper

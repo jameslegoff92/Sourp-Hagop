@@ -5,6 +5,7 @@ import Footer from "@/components/ui/Footer";
 import styled from "@emotion/styled";
 import Typography from "@/components/display/Typography";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import BackgroundLogo from "@/components/ui/BackgroundLogo";
 
 const StyledDiv = styled.div`
@@ -81,11 +82,12 @@ const StyledImage = styled(motion.img)`
 `;
 
 export default function Trips({ data }) {
+    const t = useTranslations("JardinLitteraire");
   return (
     <>
       <Header
         videoSrc={data?.heroVideo?.asset?.url}
-        headerText={data?.headerText || "MER AYKIN: UN JARDIN LITTÉRAIRE"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
       <StyledDiv>
@@ -97,7 +99,7 @@ export default function Trips({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Épanouissement
+              {t("subtitle")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}

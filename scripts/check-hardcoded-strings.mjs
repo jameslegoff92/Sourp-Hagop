@@ -30,15 +30,15 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Lower this by hand as phase 6B batches land. 192 is today's true baseline
-// FOR THIS SCANNER'S SCOPE ONLY (JsxText + alt/aria-label/placeholder/title
-// attributes) - it does NOT cover string literals inside JS arrays/objects
-// (nav menus, lookup tables, etc.), which a separate one-time AST inventory
-// found to add ~70 more genuine UI labels (see docs/dettes-preexistantes.md
-// and the phase 6B step 2 report). Not the same as phase 6A's 175, which
-// only ever scanned components/ - seeing "192" here is not a regression,
-// it's a wider, correct scope for what this particular scanner can see.
-const MAX_ALLOWED = 192;
+// Phase 6B extraction is complete: every JsxText/attribute string this
+// scanner can see has been moved to messages/*.json or allowlisted with a
+// reason. Kept at 0 so any future hardcoded string is caught immediately.
+// Note this scanner's own blind spots (string literals inside JS arrays/
+// objects, ternaries, template-literal fallbacks, logical-AND expressions)
+// were still real during phase 6B - each instance found was fixed by hand
+// as its file was extracted; see docs/dettes-preexistantes.md for the
+// running list of where those were found.
+const MAX_ALLOWED = 0;
 
 const ALLOWLIST_PATH = path.join(__dirname, "hardcoded-strings-allowlist.json");
 const allowlistRaw = JSON.parse(readFileSync(ALLOWLIST_PATH, "utf8"));

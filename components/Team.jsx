@@ -10,6 +10,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   padding: 4rem 0 5rem;
@@ -98,6 +99,7 @@ const ButtonWrapper = styled(motion.div)`
 `;
 
 export default function Team({ teamData }) {
+  const t = useTranslations("Team");
   return (
     <>
       <Header
@@ -106,7 +108,7 @@ export default function Team({ teamData }) {
           teamData.headerImage?.asset?.url ||
           "../images/header/equipe-header.jpg"
         }
-        headerText={teamData.headerText || "NOTRE ÉQUIPE"}
+        headerText={teamData.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -119,7 +121,7 @@ export default function Team({ teamData }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Notre équipe
+              {t("subtitle")}
             </Eyebrow>
 
             <IntroText
@@ -180,7 +182,7 @@ export default function Team({ teamData }) {
               transition={{ duration: 0.6, delay: 0.5 }}
             >
               <Link href="/carrieres">
-                <CustomButton>Découvrez nos offres</CustomButton>
+                <CustomButton>{t("viewOffersButton")}</CustomButton>
               </Link>
             </ButtonWrapper>
           </ContentWrapper>

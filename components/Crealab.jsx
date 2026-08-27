@@ -5,6 +5,7 @@ import Footer from "@/components/ui/Footer";
 import styled from "@emotion/styled";
 import Typography from "@/components/display/Typography";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import BackgroundLogo from "@/components/ui/BackgroundLogo";
 import ImageGrid from "@/components/ui/ImageGrid";
 
@@ -60,11 +61,12 @@ const TitleWrapper = styled(motion.div)`
 `;
 
 export default function Crealab({ data }) {
+    const t = useTranslations("Crealab");
   return (
     <>
       <Header
         videoSrc={data?.heroVideo?.asset?.url}
-        headerText={data?.headerText || "CRÉALAB"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
         videoPosition="center top"
       />
@@ -77,7 +79,7 @@ export default function Crealab({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Innovation
+              {t("subtitle")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}

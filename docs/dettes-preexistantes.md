@@ -281,10 +281,11 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 - `ReactCalendar.jsx` : texte anglais dans sa limite d'erreur (error boundary)
 - `BackgroundVideo.jsx` : texte de repli (fallback) en anglais
 - `components/ui/Login.jsx` : « Sign in with Google » — trouvé pendant l'extraction de l'étape 3, même catégorie que les deux boutons Facebook
+- `components/display/Instagram.jsx` : « Fond memories » (repli utilisé quand une publication Instagram n'a pas de légende) — trouvé pendant l'extraction de l'étape 3, à l'intérieur d'un littéral gabarit (`` `${item.caption ? item.caption : "Fond memories"}` ``), donc invisible au script `check-hardcoded-strings.mjs`
 
 **Comment confirmé** : repérées pendant le scan et la relecture manuelle des fichiers `app/` et `components/` pour la phase 6B.
 
-**Décision** : conformément à la pratique déjà établie dans ce mandat (ne pas corriger silencieusement du contenu au passage d'une extraction), ces quatre chaînes seront extraites **telles quelles** vers `messages/*.json` dans le cadre de la phase 6B, plutôt que traduites ou nettoyées à cette occasion. Une éventuelle traduction ou un nettoyage de ces textes reste une décision séparée pour le porteur de projet.
+**Décision** : conformément à la pratique déjà établie dans ce mandat (ne pas corriger silencieusement du contenu au passage d'une extraction), ces cinq chaînes seront extraites **telles quelles** vers `messages/*.json` dans le cadre de la phase 6B, plutôt que traduites ou nettoyées à cette occasion. Une éventuelle traduction ou un nettoyage de ces textes reste une décision séparée pour le porteur de projet.
 
 **Exclu de cette liste** : le message « No data found - check console » de `comite-parents/page.jsx` (ligne 14) — voir l'item (u), qui le traite séparément comme un bug plutôt que comme une chaîne d'interface légitime.
 

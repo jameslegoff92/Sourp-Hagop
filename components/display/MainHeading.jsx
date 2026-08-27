@@ -2,6 +2,7 @@
 
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 
 const Container = styled.div`
@@ -73,6 +74,7 @@ const lineVariants = {
 };
 
 function MainHeading() {
+  const t = useTranslations("MainHeading");
   return (
     <Container>
       <LineContainer
@@ -81,10 +83,10 @@ function MainHeading() {
         variants={lineVariants}
       />
       <motion.div initial="hidden" animate="visible" variants={fadeInVariants}>
-        <StyledImage src="images/logo.jpg" alt="logo" />
+        <StyledImage src="images/logo.jpg" alt={t("logoAlt")} />
         <TextContainer>
-          <MainTitle>Toujours plus haut, toujours plus loin!</MainTitle>
-          <SubTitle>Préscolaire | Primaire | Secondaire</SubTitle>
+          <MainTitle>{t("title")}</MainTitle>
+          <SubTitle>{t("subtitle")}</SubTitle>
         </TextContainer>
       </motion.div>
     </Container>

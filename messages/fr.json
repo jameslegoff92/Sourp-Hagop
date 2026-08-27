@@ -331,7 +331,8 @@
     "headerText": "Service de Transport",
     "subtitle": "Logistique",
     "rotateMessage": "Tournez votre apareil pour une meilleure visualisation",
-    "legendCovered": "Zones couvertes par le transport"
+    "legendCovered": "Zones couvertes par le transport",
+    "legendNotCovered": "Zones non couvertes par le transport"
   },
   "Anciens": {
     "defaultHeaderText": "ANCIENS ET ANCIENNES",
@@ -369,5 +370,68 @@
     "subtitle": "Nos installations",
     "title": "Nos espaces à votre disposition",
     "learnMore": "En savoir plus"
+  },
+  "MainHeading": {
+    "logoAlt": "logo",
+    "title": "Toujours plus haut, toujours plus loin!",
+    "subtitle": "Préscolaire | Primaire | Secondaire"
+  },
+  "Admissions": {
+    "defaultHeaderText": "ADMISSIONS",
+    "subtitle": "Inscriptions",
+    "title": "Processus d'admission"
+  },
+  "Team": {
+    "defaultHeaderText": "NOTRE ÉQUIPE",
+    "subtitle": "Notre équipe",
+    "viewOffersButton": "Découvrez nos offres"
+  },
+  "TuitionFees": {
+    "subtitle": "Grille tarifaire",
+    "defaultTableTitle": "Grille tarifaire",
+    "categoryHeader": "Catégorie"
+  },
+  "Instagram": {
+    "title": "DERNIÈRES NOUVELLES",
+    "learnMore": "EN SAVOIR PLUS",
+    "fallbackCaption": "Fond memories"
+  },
+  "Aigle": {
+    "defaultHeaderText": "ÉQUIPE DES AIGLES",
+    "subtitle": "Sports et activités"
+  },
+  "Crealab": {
+    "defaultHeaderText": "CRÉALAB",
+    "subtitle": "Innovation"
+  },
+  "JardinLitteraire": {
+    "defaultHeaderText": "MER AYKIN: UN JARDIN LITTÉRAIRE",
+    "subtitle": "Épanouissement"
+  },
+  "Soutien": {
+    "defaultHeaderText": "SOUTIEN AUX ÉLÈVES",
+    "subtitle": "Accompagnement"
+  },
+  "StudentCouncil": {
+    "defaultHeaderText": "CONSEIL ÉTUDIANT",
+    "subtitle": "Vie étudiante"
+  },
+  "Trips": {
+    "defaultHeaderText": "SORTIES SCOLAIRES ET VOYAGES",
+    "subtitle": "Découvertes et aventures"
+  },
+  "Uniform": {
+    "defaultHeaderText": "UNIFORME SCOLAIRE",
+    "subtitle": "Code vestimentaire"
+  },
+  "Intro": {
+    "subtitle": "Bienvenue"
+  },
+  "Values": {
+    "subtitle": "Ce qui nous définit",
+    "defaultSectionTitle": "Nos Valeurs"
+  },
+  "LangSwitcher": {
+    "ariaLabel": "Changer de langue"
   }
 }
