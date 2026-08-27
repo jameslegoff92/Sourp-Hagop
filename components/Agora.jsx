@@ -6,6 +6,7 @@ import Menu from "./ui/Menu";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   text-align: center;
@@ -84,12 +85,14 @@ const MenuWrapper = styled(motion.div)`
 `;
 
 export default function Agora({ data }) {
+  const t = useTranslations("Agora");
+  const tCommon = useTranslations("Common");
   const menuData = {
     primaireWeeks: data?.primaireWeeks || [],
     secondaireWeeks: data?.secondaireWeeks || [],
     dessertNotes: {
-      primaire: data?.dessertNotePrimaire || "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
-      secondaire: data?.dessertNoteSecondaire || "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau.",
+      primaire: data?.dessertNotePrimaire || tCommon("agoraDessertNotes.primaire"),
+      secondaire: data?.dessertNoteSecondaire || tCommon("agoraDessertNotes.secondaire"),
     },
   };
 
@@ -99,7 +102,7 @@ export default function Agora({ data }) {
         animate={false}
         videoSrc={data?.headerVideoUrl || "../videos/video-agora.mp4"}
         imageSrc={data?.headerImageUrl}
-        headerText={data?.headerText || "AGORA ANNA & MANOUK DJOUKHADJIAN"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -112,7 +115,7 @@ export default function Agora({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Nutrition
+              {t("nutritionLabel")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}

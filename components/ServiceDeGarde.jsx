@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import styled from "@emotion/styled";
+import { useTranslations } from "next-intl";
 import Header from "./ui/Header";
 import Footer from "./ui/Footer";
 import Typography from "@/components/display/Typography";
@@ -121,6 +122,7 @@ const PriceCircle = styled.span`
 `;
 
 export default function ServiceDeGarde({ data }) {
+  const t = useTranslations("ServiceDeGarde");
   const sectionRefs = useRef([]);
   const sections = Array.isArray(data?.sections) ? data.sections : [];
   
@@ -152,7 +154,7 @@ export default function ServiceDeGarde({ data }) {
       <Header
         animate={false}
         imageSrc={data?.headerImageUrl}
-        headerText={data?.headerText || "SERVICE DE GARDE"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -163,7 +165,7 @@ export default function ServiceDeGarde({ data }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Au-delà des cours
+          {t("subtitle")}
         </SectionSubtitle>
 
         <SectionsContainer>
@@ -213,7 +215,7 @@ export default function ServiceDeGarde({ data }) {
                   {/* Contact Info logic */}
                   {section.sectionType === "importantInfo" && section.contactInfo && (
                     <div style={{ paddingLeft: "1.25rem", borderLeft: "4px solid #007dc3" }}>
-                      <Typography as="p" type="p" color="primary"><strong>Contact</strong></Typography>
+                      <Typography as="p" type="p" color="primary"><strong>{t("contactLabel")}</strong></Typography>
                       <Typography as="p" type="p" color="dark">{section.contactInfo.email}</Typography>
                       <Typography as="p" type="p" color="dark">{section.contactInfo.phone}</Typography>
                     </div>

@@ -7,6 +7,10 @@
     "forms": {
       "genericSubmitError": "Erreur lors de l'envoi.",
       "genericNetworkError": "Impossible d'envoyer le formulaire."
+    },
+    "agoraDessertNotes": {
+      "primaire": "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
+      "secondaire": "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau."
     }
   },
   "Footer": {
@@ -200,5 +204,36 @@
     "errorBody": "We couldn't load the calendar right now.",
     "retry": "Try again",
     "goBack": "Go back"
+  },
+  "Menu": {
+    "noMenuAvailable": "Aucun menu disponible pour le moment.",
+    "toggle": {
+      "primaire": "Primaire",
+      "secondaire": "Secondaire"
+    },
+    "weekLabel": "Semaine {number}",
+    "days": {
+      "mon": "Lundi", "tue": "Mardi", "wed": "Mercredi", "thu": "Jeudi", "fri": "Vendredi"
+    }
+  },
+  "ServiceDeGarde": {
+    "defaultHeaderText": "SERVICE DE GARDE",
+    "subtitle": "Au-delà des cours",
+    "contactLabel": "Contact"
+  },
+  "Agora": {
+    "defaultHeaderText": "AGORA ANNA & MANOUK DJOUKHADJIAN",
+    "nutritionLabel": "Nutrition"
+  },
+  "FacebookLogin": {
+    "logout": "Logout from Facebook",
+    "signIn": "Sign in with Facebook"
+  },
+  "BackgroundVideo": {
+    "unsupportedVideoTag": "Your browser does not support the video tag.",
+    "fallbackAlt": "Background"
+  },
+  "Login": {
+    "signInWithGoogle": "Sign in with Google"
   }
 }
