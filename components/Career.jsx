@@ -8,6 +8,7 @@ import Typography from "@/components/display/Typography";
 import CareerDetailModal from "@/components/modal/careerDetailModal";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -262,6 +263,7 @@ const EmptyState = styled(motion.div)`
 // ─── JobCard ──────────────────────────────────────────────────────────────────
 
 function JobCard({ job, index, onSelect }) {
+  const t = useTranslations("Career");
   const hasPosts = job.postsAvailable > 0;
   const hasImage = !!job.image?.asset?.url;
   const typeTags = [job.type].filter(Boolean);
@@ -322,15 +324,17 @@ function JobCard({ job, index, onSelect }) {
           </div>
 
           <ApplyButton disabled={!hasPosts} onClick={() => hasPosts && onSelect(job)}>
-            {hasPosts ? "Voir l'offre" : "Aucun poste disponible"}
+            {hasPosts ? t("viewOffer") : t("noPostsAvailable")}
           </ApplyButton>
         </Content>
       </Card>
 
         <Badge unavailable={!hasPosts}>
           <BadgeCount>{job.postsAvailable ?? 0}</BadgeCount>
-          {job.postsAvailable === 1 ? "POSTE" : "POSTES"}
-          <br />dispo.
+          {t.rich("postsAvailableBadge", {
+            count: job.postsAvailable ?? 0,
+            br: () => <br />,
+          })}
         </Badge>
     </CardWrapper>
   );
@@ -339,6 +343,7 @@ function JobCard({ job, index, onSelect }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Career({ data }) {
+  const t = useTranslations("Career");
   const [selectedJob, setSelectedJob] = useState(null);
 
   const headerText = data?.headerText;
@@ -349,7 +354,7 @@ export default function Career({ data }) {
       <Header
         animate={false}
         imageSrc={data?.headerImage?.asset?.url}
-        headerText={headerText || "REJOIGNEZ NOTRE ÉQUIPE"}
+        headerText={headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -375,10 +380,10 @@ export default function Career({ data }) {
                 transition={{ duration: 0.6 }}
               >
                 <Typography as="p" type="h3" style={{ color: "var(--primary-color)" }}>
-                  Aucune offre disponible pour l'instant
+                  {t("emptyStateTitle")}
                 </Typography>
                 <Typography as="p" type="h6" color="dark">
-                  Restez à l'affût de nos prochaines opportunités !
+                  {t("emptyStateSubtitle")}
                 </Typography>
               </EmptyState>
             ) : (

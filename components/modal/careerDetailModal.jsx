@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
 import { PortableText } from "@portabletext/react";
+import { useTranslations } from "next-intl";
 import CareerModal from "./careerModal";
 
-const SECTION_TITLES = {
+const SECTION_TITLE_KEYS = {
   intro: null,
-  description: "DESCRIPTION DU POSTE",
-  profil: 'PROFIL CHERCHÉ',
-  responsabilites: "PRINCIPALES RESPONSABILITÉS",
-  conditions: "CONDITIONS DE TRAVAIL ET AVANTAGES",
-  exigences: "EXIGENCES",
+  description: "sectionTitles.description",
+  profil: "sectionTitles.profil",
+  responsabilites: "sectionTitles.responsabilites",
+  conditions: "sectionTitles.conditions",
+  exigences: "sectionTitles.exigences",
 }
 
 function toSentenceCase(str = "") {
@@ -30,12 +31,13 @@ function formatDate(dateStr) {
   });
 }
 
-function getSectionTitle(section) {
+function getSectionTitle(section, t) {
   if (section.sectionType === 'autre') {
-    const title = section.customTitle ?? 'INFORMATION ADDITIONNELLE'
+    const title = section.customTitle ?? t('additionalInfoFallback')
     return title.toUpperCase()
   }
-  return SECTION_TITLES[section.sectionType] ?? null
+  const key = SECTION_TITLE_KEYS[section.sectionType]
+  return key ? t(key) : null
 }
 
 // ─── Shell ────────────────────────────────────────────────────────────────────
@@ -219,7 +221,7 @@ const ActionButton = styled.button`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function CareerDetailModal({ open, onClose, job, applicationNote }) {
-
+  const t = useTranslations("CareerDetailModal");
   const [applyOpen, setApplyOpen] = useState(false);
 
   useEffect(() => {
@@ -255,8 +257,8 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
               onClick={e => e.stopPropagation()}
             >
               <Header>
-                <CloseButton onClick={onClose} aria-label="Fermer">✕</CloseButton>
-                <HeaderEyebrow>Offre d'emploi</HeaderEyebrow>
+                <CloseButton onClick={onClose} aria-label={t("close")}>✕</CloseButton>
+                <HeaderEyebrow>{t("eyebrow")}</HeaderEyebrow>
                 <JobTitle>{toSentenceCase(job.title)}</JobTitle>
                 {visibleTags.length > 0 && (
                 <Tags>
@@ -266,7 +268,7 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
-                        Jusqu'au {formatDate(job.deadline)}
+                        {t("deadlineLabel", { date: formatDate(job.deadline) })}
                     </Pill>
                     )}
                 </Tags>
@@ -276,11 +278,11 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
               <Body>
                 {sections.length === 0 && (
                   <p style={{ color: "#6b7280", fontSize: "0.95rem" }}>
-                    Aucune description disponible.
+                    {t("noDescription")}
                   </p>
                 )}
                 {sections.map((section, i) => {
-                const title = getSectionTitle(section)
+                const title = getSectionTitle(section, t)
                 const content = section.content ?? []
 
                 return (
@@ -298,9 +300,9 @@ export default function CareerDetailModal({ open, onClose, job, applicationNote 
               </Body>
 
               <Footer>
-                <ActionButton onClick={onClose}>Fermer</ActionButton>
+                <ActionButton onClick={onClose}>{t("close")}</ActionButton>
                 <ActionButton variant="primary" onClick={() => setApplyOpen(true)}>
-                  Postuler maintenant
+                  {t("applyNow")}
                 </ActionButton>
               </Footer>
             </Panel>

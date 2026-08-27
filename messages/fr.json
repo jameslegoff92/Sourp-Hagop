@@ -3,7 +3,11 @@
     "placeholder": "[fr] emplacement réservé — aucune chaîne extraite de l'application pour le moment (i18n phase 2)"
   },
   "Common": {
-    "placeholder": "[fr] emplacement réservé"
+    "placeholder": "[fr] emplacement réservé",
+    "forms": {
+      "genericSubmitError": "Erreur lors de l'envoi.",
+      "genericNetworkError": "Impossible d'envoyer le formulaire."
+    }
   },
   "Footer": {
     "logoAlt": "School Logo",
@@ -102,5 +106,77 @@
       "foundation": "La Fondation",
       "contact": "Nous joindre"
     }
+  },
+  "LocationModal": {
+    "closeAlt": "Fermer",
+    "successTitle": "Demande envoyée!",
+    "successBody": "Nous avons bien reçu votre demande de réservation pour <strong>{spaceName}</strong>. Notre équipe vous contactera dans les plus brefs délais.",
+    "backToDetails": "← Retour aux détails",
+    "formTitle": "Formulaire de réservation",
+    "fields": {
+      "firstName": "Prénom *",
+      "lastName": "Nom *",
+      "email": "Courriel *",
+      "phone": "Téléphone *",
+      "date": "Date souhaitée *",
+      "eventType": "Type d'événement *",
+      "comments": "Commentaires",
+      "commentsPlaceholder": "Détails supplémentaires..."
+    },
+    "eventTypeOptions": {
+      "placeholder": "Sélectionnez",
+      "conference": "Conférence",
+      "meeting": "Réunion",
+      "event": "Événement",
+      "other": "Autre"
+    },
+    "submitCta": "Envoyer la demande",
+    "submitCtaPending": "Envoi en cours...",
+    "detailsCta": "Demande de réservation"
+  },
+  "CareerModal": {
+    "eyebrow": "Postuler maintenant",
+    "fallbackTitle": "Poste",
+    "sectionYourInfo": "Vos informations",
+    "sectionApplication": "Votre candidature",
+    "fields": {
+      "fullName": "Nom complet",
+      "email": "Courriel",
+      "phone": "Téléphone",
+      "targetPosition": "Poste visé",
+      "message": "Message",
+      "cvLink": "Lien vers votre CV",
+      "cvLinkPlaceholder": "Google Drive, Dropbox, etc.",
+      "cvLinkHelper": "Ajoutez un lien partageable vers votre document",
+      "coverLetterLink": "Lien vers votre lettre de motivation"
+    },
+    "close": "Fermer",
+    "submitCta": "Postuler",
+    "submitCtaPending": "Envoi…",
+    "successTitle": "Candidature envoyée !",
+    "successBody": "Merci pour votre intérêt. Nous vous contacterons si votre profil correspond."
+  },
+  "CareerDetailModal": {
+    "close": "Fermer",
+    "eyebrow": "Offre d'emploi",
+    "noDescription": "Aucune description disponible.",
+    "deadlineLabel": "Jusqu'au {date}",
+    "applyNow": "Postuler maintenant",
+    "additionalInfoFallback": "INFORMATION ADDITIONNELLE",
+    "sectionTitles": {
+      "description": "DESCRIPTION DU POSTE",
+      "profil": "PROFIL CHERCHÉ",
+      "responsabilites": "PRINCIPALES RESPONSABILITÉS",
+      "conditions": "CONDITIONS DE TRAVAIL ET AVANTAGES",
+      "exigences": "EXIGENCES"
+    }
+  },
+  "Career": {
+    "defaultHeaderText": "REJOIGNEZ NOTRE ÉQUIPE",
+    "viewOffer": "Voir l'offre",
+    "noPostsAvailable": "Aucun poste disponible",
+    "postsAvailableBadge": "{count, plural, one {POSTE} other {POSTES}}<br></br>dispo.",
+    "emptyStateTitle": "Aucune offre disponible pour l'instant",
+    "emptyStateSubtitle": "Restez à l'affût de nos prochaines opportunités !"
   }
 }
