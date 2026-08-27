@@ -78,7 +78,7 @@ Ce document recense des problèmes déjà présents sur `main`, confirmés indé
 - En remontant l'historique complet (`git log --follow`, puis inspection des révisions successives du fichier), le bug a en réalité été introduit par le commit `7b79427` (« Added top-level navigation and hero video », James Le-Goff, **26 juin 2024**), qui a remplacé le `className={inter.className}` d'origine — une vraie chaîne, produite par `next/font`, héritée du gabarit initial de Create Next App — par `className={{ fontFamily: 'Roboto, sans-serif' }}`.
 - Les deux commits datent de plus de deux ans avant le début de la branche `i18n` (18 août 2026). Le déplacement du fichier vers `app/[locale]/layout.jsx` en phase 3 n'a modifié ni cette ligne ni son comportement.
 
-**Pourquoi c'est pertinent pour l'i18n** : c'est la cause directe d'une observation de la phase 4 (validation visuelle du rendu arménien) — le texte arménien de `/hyw/carrieres` se rendait via **Segoe UI**, la police système de Windows, et non via Roboto. Puisque la police réellement utilisée dépend entièrement de la pile système par défaut du système d'exploitation du visiteur, **la police affichée pour le contenu arménien varie selon la plateforme et n'a été vérifiée que sous Windows** — le rendu sous macOS, iOS, Android et Linux reste non testé, et la couverture des glyphes arméniens par la police système par défaut de ces plateformes n'est pas garantie.
+**Pourquoi c'est pertinent pour l'i18n** : c'est la cause directe d'une observation de la phase 4 (validation visuelle du rendu arménien) — le texte arménien de `/hyw/carrieres` (URL de l'époque ; le code de langue est devenu `hy` en phase 6B, voir `docs/adr/0001-architecture-i18n.md` section 10 — la route équivalente est aujourd'hui `/hy/carrieres`) se rendait via **Segoe UI**, la police système de Windows, et non via Roboto. Puisque la police réellement utilisée dépend entièrement de la pile système par défaut du système d'exploitation du visiteur, **la police affichée pour le contenu arménien varie selon la plateforme et n'a été vérifiée que sous Windows** — le rendu sous macOS, iOS, Android et Linux reste non testé, et la couverture des glyphes arméniens par la police système par défaut de ces plateformes n'est pas garantie.
 
 **Comment confirmé pré-existant** : `git blame` et `git log --follow` sur `app/[locale]/layout.jsx`, remontant à deux commits de 2024, largement antérieurs à toute branche i18n.
 
@@ -86,7 +86,7 @@ Ce document recense des problèmes déjà présents sur `main`, confirmés indé
 
 ## g. À 375px de large, les offres d'emploi 2 à 4 s'effondrent visuellement sur la page carrières
 
-**Quoi** : Sur `/carrieres` (et `/hyw/carrieres`), à une largeur de viewport de 375px (mobile), seule la première carte d'offre d'emploi affiche son contenu complet. Les cartes 2, 3 et 4 s'effondrent à une hauteur visible de zéro, ne laissant flotter que leur badge positionné en absolu (« 1 POSTE dispo. »), avec de grands espaces vides entre eux.
+**Quoi** : Sur `/carrieres` (et `/hy/carrieres`), à une largeur de viewport de 375px (mobile), seule la première carte d'offre d'emploi affiche son contenu complet. Les cartes 2, 3 et 4 s'effondrent à une hauteur visible de zéro, ne laissant flotter que leur badge positionné en absolu (« 1 POSTE dispo. »), avec de grands espaces vides entre eux.
 
 **Où** : `components/Career.jsx` — les composants stylés `Grid`/`CardWrapper`/`Card`/`Badge`, repris à l'identique depuis l'ancienne version de la page lors de la phase 4 (aucune modification de leur CSS).
 
@@ -112,7 +112,7 @@ Les trois points suivants ont été mis au jour lors de l'audit complet des sch�
 
 **Quoi** : Aucun type de document ne possède de champs de méta-titre ou méta-description propres à la page.
 
-**Conséquence pour ce mandat** : les pages `/hyw/*` afficheront des titres et descriptions en français dans les résultats de recherche, faute de contrepartie arménienne. L'ajout de ces champs est hors du périmètre des phases actuelles et nécessite une décision du porteur de projet.
+**Conséquence pour ce mandat** : les pages `/hy/*` afficheront des titres et descriptions en français dans les résultats de recherche, faute de contrepartie arménienne. L'ajout de ces champs est hors du périmètre des phases actuelles et nécessite une décision du porteur de projet.
 
 **Comment confirmé** : Même audit exhaustif qu'au point h.
 
@@ -146,7 +146,7 @@ Les deux points suivants sont aussi des problèmes préexistants sur `main`, mai
 
 **Où** : `app/layout.jsx` (désormais `app/[locale]/layout.jsx`).
 
-**Corrigé par** : commit `refactor(i18n): move routes under [locale] segment` / `feat(i18n): set request locale on localized routes` (phase 3) — le déplacement du layout sous `[locale]` a naturellement remplacé la valeur codée en dur par `lang={locale}`, résolue dynamiquement (`fr` ou `hyw`) selon la route.
+**Corrigé par** : commit `refactor(i18n): move routes under [locale] segment` / `feat(i18n): set request locale on localized routes` (phase 3) — le déplacement du layout sous `[locale]` a naturellement remplacé la valeur codée en dur par `lang={locale}`, résolue dynamiquement (`fr` ou `hy` — `hyw` jusqu'en phase 6B, voir `docs/adr/0001-architecture-i18n.md` section 10) selon la route. Bonus non anticipé de ce même renversement de section 10 : jusqu'alors, cette ligne émettait `lang="hyw"`, une valeur que les lecteurs d'écran ne reconnaissent pas — corrigé sans code additionnel puisque la valeur est entièrement dérivée de `routing.locales`.
 
 ---
 
@@ -266,7 +266,7 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 **Conséquence pour la phase 6B** : ces deux pages sont exclues de l'extraction des chaînes d'interface (voir `EXCLUDED_FILES` dans `scripts/check-hardcoded-strings.mjs`). Les inclure dans le compteur ou l'extraction donnerait l'illusion trompeuse que ce texte a été révisé et validé comme contenu à conserver tel quel — ce n'est pas le cas.
 
-**Conséquence explicite pour la livraison bilingue** : `/confidentialite` et `/termes` resteront **uniquement en anglais, dans les deux locales (`fr` et `hyw`)**, à la fin de la phase 6B. Sur les 33 routes du site, ce sont 2 routes délibérément exclues du livrable bilingue. **Ceci est une décision, pas un oubli** : elle est documentée ici précisément pour qu'elle ne soit jamais confondue avec une régression ou une extraction manquée lors d'une vérification future.
+**Conséquence explicite pour la livraison bilingue** : `/confidentialite` et `/termes` resteront **uniquement en anglais, dans les deux locales (`fr` et `hy`)**, à la fin de la phase 6B. Sur les 33 routes du site, ce sont 2 routes délibérément exclues du livrable bilingue. **Ceci est une décision, pas un oubli** : elle est documentée ici précisément pour qu'elle ne soit jamais confondue avec une régression ou une extraction manquée lors d'une vérification future.
 
 **Décision** : ne rien changer dans le cadre de ce mandat. Le sort de ces deux pages (traduction réelle, remplacement par un texte propre à l'école, ou révision juridique) est une décision qui appartient au porteur de projet, vraisemblablement avec un conseil juridique — pas à ce chantier technique.
 
@@ -338,9 +338,11 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 ---
 
-### x. La locale `hyw` n'est reconnue par aucune des API `Intl` natives testées — bascule silencieuse vers l'anglais, pas vers l'arménien
+### x. La locale `hyw` n'était reconnue par aucune des API `Intl` natives testées — bascule silencieuse vers l'anglais, pas vers l'arménien (à l'origine du renversement de section 3 de l'ADR)
 
-**Quoi** : en investiguant comment gérer `components/display/Calendar.jsx` (`FRENCH_MONTHS`/`FRENCH_DAYS`, des tables de correspondance codées en dur) et la syntaxe ICU des pluriels, il a été vérifié empiriquement (Node v22.19.0) que la balise de locale `hyw` utilisée par ce projet (`i18n/routing.ts`) n'est reconnue par aucune des API `Intl` testées :
+**Statut** : ce constat a directement motivé le changement de code de langue documenté dans `docs/adr/0001-architecture-i18n.md`, section 10 (`hyw` → `hy`, phase 6B). Il est conservé ici tel quel pour la traçabilité — c'est le constat empirique qui a déclenché la décision, pas un problème encore ouvert.
+
+**Quoi** : en investiguant comment gérer `components/display/Calendar.jsx` (`FRENCH_MONTHS`/`FRENCH_DAYS`, des tables de correspondance codées en dur) et la syntaxe ICU des pluriels, il a été vérifié empiriquement (Node v22.19.0) que la balise de locale `hyw`, utilisée par ce projet à l'époque, n'était reconnue par aucune des API `Intl` testées :
 
 | Appel | `hyw` | `hy` (arménien oriental, standard) | `fr` |
 |---|---|---|---|
@@ -350,13 +352,14 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 | `new Intl.PluralRules(locale).resolvedOptions().locale` | **`"en-US"`** | `"hy"` | `"fr"` |
 | `.select(0)` / `.select(1)` / `.select(2)` | other / one / other *(règles anglaises)* | one / one / other | one / one / other |
 
-**Conséquence** : `hyw` ne bascule pas vers une approximation arménienne raisonnable (comme `hy`, l'arménien oriental standard) — il bascule entièrement vers l'anglais, silencieusement, sans erreur. Tout code qui utiliserait `Intl.DateTimeFormat('hyw', ...)` ou `Intl.PluralRules('hyw')` en supposant un comportement arménien afficherait de l'anglais à une personne visitant la version arménienne du site.
+**Conséquence** : `hyw` ne basculait pas vers une approximation arménienne raisonnable (comme `hy`, l'arménien oriental standard) — il basculait entièrement vers l'anglais, silencieusement, sans erreur. Tout code qui aurait utilisé `Intl.DateTimeFormat('hyw', ...)` ou `Intl.PluralRules('hyw')` en supposant un comportement arménien aurait affiché de l'anglais à une personne visitant la version arménienne du site.
 
 **Décision (phase 6B)** :
-- `Calendar.jsx` : les 19 libellés (12 mois + 7 jours) seront **extraits vers `messages/*.json`**, pas remplacés par `Intl.DateTimeFormat`, puisque la locale du site ne peut pas être déléguée à `Intl` pour cet usage.
-- Pluriels ICU en `hyw.json` : puisque `Intl.PluralRules('hyw')` résout silencieusement vers les règles anglaises (`one`/`other` avec `select(0) = "other"`, ce qui ne correspond pas à la règle arménienne réelle où 0 se comporte comme singulier — confirmée ci-dessus via `hy`), toute chaîne comptable dans `hyw.json` doit inclure une clause explicite `=0` en plus de `one`/`other` (ex. `{count, plural, =0 {...} one {...} other {...}}`), plutôt que de compter sur la résolution automatique des catégories par la locale — cette dernière ne peut pas être fiable pour `hyw` dans l'environnement d'exécution actuel.
+- Le code de langue est devenu `hy` (voir ADR section 10) — ce changement ne touche que l'étiquette technique, pas la langue servie, qui reste l'arménien occidental à orthographe classique, traduit par une personne dont c'est la langue.
+- `Calendar.jsx` : les 19 libellés (12 mois + 7 jours) sont **extraits vers `messages/*.json`**, pas remplacés par `Intl.DateTimeFormat` — même après le passage à `hy`, dont les données CLDR sont celles de l'arménien oriental (voir ADR section 10) et ne conviendraient pas telles quelles à un contenu en orthographe classique occidentale. Aucun texte visible par un visiteur n'est généré par `Intl` pour cette locale.
+- **Convention d'écriture des pluriels ICU dans `messages/hy.json`** : toute chaîne comptable doit inclure une clause explicite `=0` en plus de `one`/`other` (ex. `{count, plural, =0 {...} one {...} other {...}}`). Ce n'est **plus un contournement** depuis le passage à `hy` — `Intl.PluralRules('hy')` résout aujourd'hui correctement `select(0) = "one"`, conformément à la grammaire arménienne réelle. C'est désormais une **convention d'écriture délibérée**, conservée pour trois raisons : elle est lisible directement par la personne qui traduit sans qu'elle ait besoin de connaître les règles CLDR sous-jacentes ; elle reste correcte indépendamment de toute évolution future des données CLDR ; et elle ne coûte que trois caractères de plus par chaîne.
 
-**Portée** : ce constat dépasse la phase 6B — toute utilisation future d'une API `Intl` native paramétrée par la locale `hyw` (formatage de date, de nombre, de liste, etc.) devrait être vérifiée empiriquement de la même façon avant d'être utilisée, plutôt que supposée fonctionnelle par analogie avec `hy` ou `fr`.
+**Portée — ce qui survit au changement de code de langue** : la vraie leçon de ce constat n'est pas « `hyw` était le mauvais choix », c'est que **toute API `Intl` native paramétrée par une balise de locale non standard doit être vérifiée empiriquement avant d'être utilisée**, jamais supposée fonctionnelle par analogie avec une locale voisine. C'est exactement cette vérification, appliquée à `hyw`, qui a permis de découvrir ce problème avant qu'il n'atteigne la production — la même discipline s'applique à `hy` et à toute future balise de locale que ce projet pourrait adopter.
 
 ---
 

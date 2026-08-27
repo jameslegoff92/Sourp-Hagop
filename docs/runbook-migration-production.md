@@ -114,7 +114,7 @@ Cette étape n'est pas optionnelle et n'est pas une formalité : le déploiement
    ```
    Doit rapporter 66/66 (ou le compte total de routes en vigueur à ce moment).
 
-2. **Charger manuellement au moins 5 pages, dans les deux langues**, sur le site réel — pas seulement en local. Confirmer l'absence de `[object Object]`, de `undefined`, de clés brutes (`_type`, `fr`, `hyw` visibles comme texte), et de page blanche.
+2. **Charger manuellement au moins 5 pages, dans les deux langues**, sur le site réel — pas seulement en local. Confirmer l'absence de `[object Object]`, de `undefined`, de clés brutes (`_type`, `fr`, `hy` visibles comme texte), et de page blanche.
 
 3. **Vérifier avec la personne responsable du contenu**, pas seulement techniquement : lui demander de se reconnecter au Studio et de confirmer que son contenu est bien là, intact, dans la nouvelle présentation à deux colonnes. C'est la vérification qui compte le plus — une vérification purement technique ne remplace pas sa confirmation.
 

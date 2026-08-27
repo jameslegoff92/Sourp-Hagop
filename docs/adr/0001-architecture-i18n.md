@@ -14,7 +14,7 @@ Ce document explique les choix techniques faits pour ajouter le support de deux 
 - Un moteur de recherche (Google, etc.) ne peut pas indexer séparément la version française et la version arménienne d'une page — il ne voit qu'une seule URL.
 - On ne peut pas partager un lien direct vers la version arménienne d'une page : le destinataire recevra toujours la langue par défaut.
 
-**Décision retenue** : adopter une architecture où la langue fait partie de l'URL elle-même (ex. `/hyw/carrieres` pour la version arménienne, si un préfixe est utilisé). C'est l'approche standard pour un site multilingue destiné à être indexé par les moteurs de recherche, et c'est ce que permet la bibliothèque `next-intl`, désormais câblée dans le projet (mais pas encore activée — voir section 2).
+**Décision retenue** : adopter une architecture où la langue fait partie de l'URL elle-même (ex. `/hy/carrieres` pour la version arménienne, si un préfixe est utilisé). C'est l'approche standard pour un site multilingue destiné à être indexé par les moteurs de recherche, et c'est ce que permet la bibliothèque `next-intl`, désormais câblée dans le projet (mais pas encore activée — voir section 2).
 
 Cette étape (phase 2) met en place la « plomberie » technique nécessaire, sans changer une seule page visible du site. Rien de ce que voit un visiteur aujourd'hui ne change tant que la phase 3 n'a pas eu lieu.
 
@@ -24,22 +24,28 @@ Cette étape (phase 2) met en place la « plomberie » technique nécessaire, sa
 
 Deux réglages ont été câblés dans le code à titre de **proposition technique**, mais **ils n'ont pas encore été validés par le porteur de projet** :
 
-- **`localePrefix: 'as-needed'`** : le français resterait sur les URL actuelles, sans préfixe (`/carrieres`), et seul l'arménien recevrait un préfixe (`/hyw/carrieres`).
+- **`localePrefix: 'as-needed'`** : le français resterait sur les URL actuelles, sans préfixe (`/carrieres`), et seul l'arménien recevrait un préfixe (`/hy/carrieres`).
 - **`localeDetection: false`** : le site ne devinerait jamais la langue automatiquement à partir des réglages du navigateur du visiteur. Une même adresse afficherait toujours le même contenu, peu importe qui la visite.
 
-**Pourquoi cette proposition** : le site est actuellement en ligne et indexé par Google avec des URL françaises sans préfixe. Avec ce réglage, ces URL ne changeraient pas du tout — pas de redirection, pas de perte de référencement, pas de lien cassé. Seules les nouvelles pages en arménien recevraient un préfixe `/hyw/`.
+**Pourquoi cette proposition** : le site est actuellement en ligne et indexé par Google avec des URL françaises sans préfixe. Avec ce réglage, ces URL ne changeraient pas du tout — pas de redirection, pas de perte de référencement, pas de lien cassé. Seules les nouvelles pages en arménien recevraient un préfixe `/hy/`.
 
 **⚠️ Coût si ce choix est changé plus tard** : une fois la phase 3 déployée (activation réelle du changement de langue), revenir sur ce choix — par exemple décider que le français doit lui aussi avoir un préfixe comme `/fr/` — obligerait à rediriger en masse (redirections dites « 301 ») toutes les URL françaises existantes vers leurs nouvelles adresses. Sur un site déjà indexé et fréquenté, cela représente un risque réel de perte temporaire de référencement et nécessite une planification soigneuse. **C'est pourquoi cette décision doit être validée maintenant, avant la phase 3, plutôt que d'être changée après coup.**
 
 ---
 
-## 3. Le code de langue « hyw » pour l'arménien occidental
+## 3. Le code de langue « hyw » pour l'arménien occidental — SUPERSEDÉ, voir section 10
+
+> **Cette section documente une décision de la phase 2, renversée en phase 6B.** Le projet a utilisé le code `hyw` de fin phase 2 à la phase 6B ; il utilise maintenant `hy`, pour les raisons documentées à la section 10. Le texte ci-dessous est conservé tel quel pour la traçabilité historique — ce n'est plus l'état actuel du projet.
 
 Le projet utilise le code `hyw` (et non `hy`) pour désigner l'arménien occidental à orthographe classique — la variante parlée par la diaspora et enseignée à l'école Sourp Hagop, distincte de l'arménien oriental (`hy`, parlé en Arménie).
 
 **Point ouvert, non résolu** : la norme technique du web pour indiquer aux moteurs de recherche qu'une page existe dans plusieurs langues (balise dite « hreflang ») attend un code de langue de la norme ISO 639-1, qui ne connaît que `hy` (arménien, sans distinction occidental/oriental) — `hyw` n'existe qu'au niveau ISO 639-3, une norme plus fine non reconnue par hreflang. Il faudra donc décider, avant l'activation en phase 3, si les balises hreflang afficheront `hy` (conforme à la norme mais linguistiquement imprécis) ou une syntaxe étendue comme `hy-Latn`/variante régionale. Cette question n'a pas d'incidence sur le fonctionnement du site lui-même, seulement sur la façon dont Google comprend la relation entre les deux versions linguistiques.
 
+*(Résolu en section 10 : ce point ouvert a motivé, en bonne partie, le renversement de cette décision.)*
+
 À noter : le schéma de contenu actuel dans Sanity (voir section 4) utilise déjà le code `hy` pour ses champs, alors que le code technique utilisera `hyw`. Cet écart de nommage entre le contenu et le code est une illustration concrète du sujet traité en section 5.
+
+*(Cet écart n'existe plus depuis la section 10 : le schéma Sanity et le code technique utilisent tous deux `hy`.)*
 
 ---
 
@@ -47,12 +53,12 @@ Le projet utilise le code `hyw` (et non `hy`) pour désigner l'arménien occiden
 
 Deux catégories de texte cohabitent sur le site, et elles ne sont **pas** gérées de la même façon ni par les mêmes personnes :
 
-- **Le texte de l'interface** (« chrome » de l'application) : libellés de boutons, menus, messages d'erreur, etc. Ce texte vit désormais dans des fichiers `messages/fr.json` et `messages/hyw.json`, gérés par l'équipe technique dans le code source.
+- **Le texte de l'interface** (« chrome » de l'application) : libellés de boutons, menus, messages d'erreur, etc. Ce texte vit désormais dans des fichiers `messages/fr.json` et `messages/hy.json`, gérés par l'équipe technique dans le code source.
 - **Le contenu éditorial** : titres de pages, textes descriptifs, offres d'emploi, etc. Ce contenu continue de vivre dans Sanity (l'outil de gestion de contenu), modifiable par le personnel de l'école sans intervention technique.
 
 Cette séparation est délibérée et doit rester ainsi : **le code possède l'interface, Sanity possède le contenu.** Aucun texte éditorial ne doit être copié dans les fichiers `messages/*.json`, et aucun libellé d'interface ne doit être ajouté dans Sanity.
 
-Un script (`scripts/check-messages.mjs`, exécutable via `npm run check:messages`) vérifie automatiquement que les fichiers `messages/fr.json` et `messages/hyw.json` contiennent exactement les mêmes clés — pour éviter qu'un libellé d'interface existe dans une langue mais pas dans l'autre.
+Un script (`scripts/check-messages.mjs`, exécutable via `npm run check:messages`) vérifie automatiquement que les fichiers `messages/fr.json` et `messages/hy.json` contiennent exactement les mêmes clés — pour éviter qu'un libellé d'interface existe dans une langue mais pas dans l'autre.
 
 ---
 
@@ -72,13 +78,13 @@ Ces cinq points doivent être discutés et tranchés par le porteur de projet av
 
 ## 6. DÉCIDÉ : indexation bloquée (`noindex`) pour la locale non traduite, jusqu'à traduction réelle
 
-**Décision** : Au déploiement, la locale non par défaut (`hyw`, arménien occidental) restera marquée `noindex` pour les moteurs de recherche tant que son contenu n'est pas réellement traduit — page par page, pas globalement pour toute la locale d'un coup.
+**Décision** : Au déploiement, la locale non par défaut (`hy`, arménien occidental) restera marquée `noindex` pour les moteurs de recherche tant que son contenu n'est pas réellement traduit — page par page, pas globalement pour toute la locale d'un coup.
 
-**Pourquoi** : Les requêtes GROQ vers Sanity (voir `lib/sanity-queries.js`) reposent sur un repli (fallback) qui sert le contenu français quand aucune traduction arménienne n'existe pour une page ou un champ donné. Concrètement, cela signifie qu'aujourd'hui, `/hyw/n'importe-quelle-page` répond HTTP 200 en affichant du contenu français — pas une erreur, pas une redirection, un vrai 200 avec du texte français sous une URL censée être en arménien. Pour un moteur de recherche, c'est du contenu dupliqué (identique à la version française, à une adresse différente), ce qui peut nuire au référencement des deux versions.
+**Pourquoi** : Les requêtes GROQ vers Sanity (voir `lib/sanity-queries.js`) reposent sur un repli (fallback) qui sert le contenu français quand aucune traduction arménienne n'existe pour une page ou un champ donné. Concrètement, cela signifie qu'aujourd'hui, `/hy/n'importe-quelle-page` répond HTTP 200 en affichant du contenu français — pas une erreur, pas une redirection, un vrai 200 avec du texte français sous une URL censée être en arménien. Pour un moteur de recherche, c'est du contenu dupliqué (identique à la version française, à une adresse différente), ce qui peut nuire au référencement des deux versions.
 
 Le taux de remplissage du contenu en arménien est actuellement de **0 %** : aucune page n'a encore de traduction réelle dans Sanity. La traduction du contenu suit un calendrier séparé de ce chantier technique, porté par d'autres personnes — il ne serait pas raisonnable de faire dépendre l'indexation de la version arménienne de l'avancement de ce travail purement technique.
 
-**Mise en œuvre** : Cette décision sera implémentée en **phase 7**, en même temps que les balises hreflang (voir section 3, point ouvert sur `hy` vs `hyw`) et le plan de site (`sitemap.xml`) — les trois relèvent de la même préoccupation (comment les moteurs de recherche perçoivent les deux versions du site) et seront traités ensemble.
+**Mise en œuvre** : Cette décision sera implémentée en **phase 7**, en même temps que les balises hreflang (le point ouvert de la section 3 sur `hy` vs `hyw` est résolu depuis la section 10 — `hy` est maintenant le code utilisé partout, y compris pour hreflang) et le plan de site (`sitemap.xml`) — les trois relèvent de la même préoccupation (comment les moteurs de recherche perçoivent les deux versions du site) et seront traités ensemble.
 
 **Ce qui N'EST PAS décidé ici** : Retirer le `noindex` — c'est-à-dire juger qu'une page arménienne est suffisamment traduite pour être indexée — est une **décision distincte et ultérieure**, qui appartient au porteur de projet, page par page, au fur et à mesure de l'avancement réel des traductions. Ce document ne préjuge pas de quand ni comment cette décision sera prise.
 
@@ -119,3 +125,27 @@ Le taux de remplissage du contenu en arménien est actuellement de **0 %** : auc
 2. **Confirmation explicite du porteur de projet** que la personne responsable du contenu de l'école n'est pas en train d'utiliser le Studio au moment de l'exécution — pas une supposition, une confirmation active demandée avant de lancer le script.
 
 **Contexte ayant motivé cette décision** : durant la validation de l'étape 4 sur `staging`, un brouillon de `teamPage` a été observé absent puis de nouveau présent au moment de l'exécution de la migration, sans qu'aucune suppression n'apparaisse dans l'historique des transactions Sanity (`/data/history/.../transactions/`) — l'historique montre uniquement la création initiale du dataset (19 août 2026, sous le compte du porteur de projet) et l'écriture de la migration elle-même (sous l'identité du jeton API dédié). Rien n'indique qu'un tiers ait édité `staging` pendant cette session ; l'observation initiale est très probablement une incohérence de lecture transitoire côté Sanity plutôt qu'une véritable édition concurrente. Mais l'épisode illustre concrètement le risque : si un brouillon avait réellement été créé pendant l'exécution, il aurait pu échapper à la migration.
+
+---
+
+## 10. DÉCIDÉ (phase 6B) : le code de langue devient `hy` — renversement de la section 3
+
+**Ce que cette décision change, et ce qu'elle ne change PAS** : cette décision remplace uniquement l'étiquette technique (le code BCP-47/ISO 639-1) utilisée par le routage, le schéma Sanity et les fichiers de messages. **La langue servie reste l'arménien occidental à orthographe classique, traduite par une personne dont c'est la langue** — exactement comme décidé en section 3. **Ceci n'est pas une décision de servir de l'arménien oriental.** Le projet emprunte à `hy` sa *machinerie* — la structure de ses dates, l'arithmétique de ses pluriels, sa reconnaissance par les navigateurs et les moteurs de recherche — pas son vocabulaire. Aucun texte visible par un visiteur ne sera jamais généré automatiquement par une API `Intl` pour cette locale : les 19 libellés de mois/jours de `Calendar.jsx` (voir `docs/dettes-preexistantes.md`, item x) sont extraits et traduits à la main, comme tout le reste du texte d'interface.
+
+**Pourquoi renverser la section 3** : en préparant la phase 6B (extraction des chaînes d'interface codées en dur), il a fallu décider comment gérer `Calendar.jsx` (noms de mois/jours codés en dur) et la syntaxe des pluriels ICU pour l'arménien. Cela a mené à vérifier empiriquement (Node v22.19.0) le comportement réel des API `Intl` natives pour la balise `hyw` — jamais vérifié auparavant, seulement supposé fonctionnel par analogie avec `hy`/`fr` en section 3.
+
+| Vérification | `hyw` | `hy` | `fr` |
+|---|---|---|---|
+| `Intl.DateTimeFormat(loc,{month:'long'})` | **« August » (anglais)** | « օգոստոս » | « août » |
+| `Intl.DateTimeFormat(loc,{weekday:'long'})` | **« Tuesday » (anglais)** | « երեքշաբթի » | « mardi » |
+| `Intl.PluralRules.supportedLocalesOf([loc])` | **`[]` — non reconnu** | `['hy']` | `['fr']` |
+| `resolvedOptions().locale` | **`"en-US"`** | `"hy"` | `"fr"` |
+| `.select(0)` | other *(règle anglaise)* | one | one |
+
+`hyw` ne bascule pas vers une approximation arménienne — il bascule silencieusement, entièrement, vers l'anglais. Ce résultat, combiné à deux autres faits déjà connus mais non encore mis en relation (le point ouvert de la section 3 : `hyw` n'est pas une valeur `hreflang` valide au sens ISO 639-1 ; et le fait qu'un lecteur d'écran ne reconnaît pas `hyw` comme valeur de l'attribut `lang=""`), a fait basculer la décision : les trois angles (formatage/pluriels, référencement, accessibilité) pointaient dans la même direction.
+
+**Effet de bord positif, découvert en vérifiant la portée du changement** : `app/[locale]/layout.jsx` pose `<html lang={locale}>` de façon entièrement générique — cette page émettait donc `lang="hyw"` à chaque visite, un code non reconnu, depuis la phase 3 (le déplacement du layout sous `[locale]`, voir `docs/dettes-preexistantes.md`). Ce changement corrige cet effet de bord sans code additionnel : `lang="hy"` est maintenant émis automatiquement, pour les navigateurs comme pour les technologies d'assistance.
+
+**Coût du changement** : 6 fichiers fonctionnels (`i18n/routing.ts`, `studio/schemaTypes/localized.ts`, `messages/hy.json` — renommé depuis `hyw.json`, `components/ui/LangSwitcher.jsx`, `scripts/smoke-routes.mjs`, `lib/sanity-locale-fallback.test.js`), aucune migration de données (le script de migration n'a jamais écrit sous une clé `hyw` — le contenu arménien est à 0 % de remplissage, voir section 6 — et les autres fichiers du projet dérivent tous de `routing.locales` sans coder `hyw` en dur, vérifié fichier par fichier avant d'agir). Aucune redirection nécessaire : rien n'est déployé en production sous le préfixe `/hyw/`.
+
+**Sur la convention d'écriture des pluriels ICU (`messages/hy.json`)** : `Intl.PluralRules('hy')` résout maintenant correctement `select(0) = "one"`, contrairement à `hyw`. Cela ne change pas la recommandation de l'item (x) du journal des dettes : une clause explicite `=0` reste la convention d'écriture recommandée pour toute chaîne comptable, non pas parce que la résolution automatique de `hy` serait fausse (elle est correcte), mais parce qu'une clause `=0` explicite est lisible directement par la personne qui traduit, indépendante des données CLDR sous-jacentes, et ne coûte que trois caractères de plus. La véritable leçon de l'item (x) survit intacte à ce renversement : tout appel `Intl` natif paramétré par une balise de locale non standard doit être vérifié empiriquement avant d'être utilisé, jamais supposé fonctionnel par analogie — c'est exactement cette vérification qui a permis de trouver ce problème.
