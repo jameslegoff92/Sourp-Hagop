@@ -365,6 +365,18 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 ---
 
+### y. `calendrier/evenement/[id]/page.jsx` formate les dates avec la locale `fr-FR`/`fr-CA` codée en dur, indépendamment de la locale réelle du site
+
+**Quoi** : les fonctions `formatEventDate`, `formatDetailsDate` et `formatDetailsTime` de cette page appellent `toLocaleDateString('fr-FR', ...)` et `toLocaleTimeString('fr-CA', ...)` avec une locale littérale, plutôt que la locale réelle de la page (`fr` ou `hy`, résolue via `useLocale()` de `next-intl`). Concrètement, la date et l'heure d'un évènement s'afficheront toujours au format français, même sur `/hy/calendrier/evenement/...`.
+
+**Pourquoi ce n'est pas corrigé dans le cadre de la phase 6B** : ce n'est pas une chaîne d'interface codée en dur au sens de cette phase (rien à déplacer vers `messages/*.json`) — c'est un paramètre de locale figé passé à une API `Intl`, ce qui exige de relier ces trois fonctions à `useLocale()` et de décider quelle valeur `Intl` doit recevoir pour `hy` (voir la section 10 de l'ADR et l'item (x) sur les limites de `Intl` pour cette locale — `Intl.DateTimeFormat('hy', ...)` produit un vrai résultat arménien, mais avec des données CLDR d'arménien oriental, pas occidental classique). C'est un changement de logique, pas une extraction de chaîne — hors du périmètre de cette phase.
+
+**Comment confirmé** : lecture du fichier pendant son extraction de chaînes (phase 6B, étape 3).
+
+**Décision** : documenté ici pour une décision et une correction futures, non traité dans ce mandat.
+
+---
+
 ## Portée et conséquence
 
 Aucun des points ci-dessus ne relève du mandat de la phase 0 i18n (normalisation des imports relatifs vers l'alias `@/`). Ils sont consignés ici uniquement à des fins de traçabilité.

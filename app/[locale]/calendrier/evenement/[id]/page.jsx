@@ -1,6 +1,7 @@
 "use client"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState, useEffect } from "react"
+import { useTranslations } from "next-intl"
 
 /**
  * Event Details Page Component
@@ -8,6 +9,7 @@ import { useState, useEffect } from "react"
  * @returns {JSX.Element}
  */
 export default function EventApp() {
+  const t = useTranslations("CalendrierEvenementPage")
   const router = useRouter()
   const searchParams = useSearchParams()
   const [eventData, setEventData] = useState(null)
@@ -107,15 +109,15 @@ export default function EventApp() {
   // Get event category from summary or other fields
   const getEventCategory = (event) => {
     const summary = event?.summary?.toLowerCase() || ""
-    
-    if (summary.includes("secondaire")) return "Secondaire"
-    if (summary.includes("primaire")) return "Primaire" 
-    if (summary.includes("préscolaire") || summary.includes("maternelle")) return "Préscolaire"
-    if (summary.includes("réunion") || summary.includes("rencontre")) return "Réunion"
-    if (summary.includes("spectacle") || summary.includes("concert")) return "Spectacle"
-    if (summary.includes("sortie") || summary.includes("voyage")) return "Sortie"
-    
-    return "Général"
+
+    if (summary.includes("secondaire")) return t("categories.secondaire")
+    if (summary.includes("primaire")) return t("categories.primaire")
+    if (summary.includes("préscolaire") || summary.includes("maternelle")) return t("categories.prescolaire")
+    if (summary.includes("réunion") || summary.includes("rencontre")) return t("categories.reunion")
+    if (summary.includes("spectacle") || summary.includes("concert")) return t("categories.spectacle")
+    if (summary.includes("sortie") || summary.includes("voyage")) return t("categories.sortie")
+
+    return t("categories.general")
   }
 
   useEffect(() => {
@@ -137,7 +139,7 @@ export default function EventApp() {
       // Transform the Google Calendar event data for display
       const transformedData = {
         id: event.id,
-        title: event.summary || "Événement sans titre",
+        title: event.summary || t("untitledEvent"),
         description: event.description || "",
         date: formatEventDate(event),
         details: {
@@ -168,26 +170,26 @@ export default function EventApp() {
         fontSize: '18px',
         color: '#666'
       }}>
-        Chargement...
+        {t("loading")}
       </div>
     )
   }
-  
+
   if (error || !eventData) {
     return (
-      <div style={{ 
-        display: 'flex', 
+      <div style={{
+        display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
         minHeight: '50vh',
         textAlign: 'center',
         padding: '20px'
       }}>
         <h2 style={{ color: '#666', marginBottom: '20px' }}>
-          Événement introuvable
+          {t("notFoundTitle")}
         </h2>
-        <button 
+        <button
           onClick={() => router.back()}
           style={{
             padding: '10px 20px',
@@ -197,7 +199,7 @@ export default function EventApp() {
             cursor: 'pointer'
           }}
         >
-          Retour au calendrier
+          {t("backToCalendar")}
         </button>
       </div>
     )
@@ -207,16 +209,16 @@ export default function EventApp() {
     <div className="event-page">
       {/* Header with back button */}
       <div className="event-header">
-        <button 
-          onClick={() => router.back()} 
+        <button
+          onClick={() => router.back()}
           className="back-button"
         >
-          « Tous les Évènements
+          {t("backToAllEvents")}
         </button>
-        
+
         {eventData.isPastEvent && (
           <p className="past-event-notice">
-            Cet évènement est passé.
+            {t("pastEventNotice")}
           </p>
         )}
       </div>
@@ -234,21 +236,21 @@ export default function EventApp() {
 
       {/* Event Details Section */}
       <div className="event-details">
-        <h2 className="details-title">DÉTAILS</h2>
-        
+        <h2 className="details-title">{t("detailsTitle")}</h2>
+
         <div className="details-content">
           <div className="detail-row">
-            <span className="detail-label">Date :</span>
+            <span className="detail-label">{t("dateLabel")}</span>
             <span className="detail-value">{eventData.details.date}</span>
           </div>
-          
+
           <div className="detail-row">
-            <span className="detail-label">Heure :</span>
+            <span className="detail-label">{t("timeLabel")}</span>
             <span className="detail-value">{eventData.details.time}</span>
           </div>
-          
+
           <div className="detail-row">
-            <span className="detail-label">Catégorie d'Évènement:</span>
+            <span className="detail-label">{t("categoryLabel")}</span>
             <span className="detail-value category">{eventData.details.category}</span>
           </div>
         </div>

@@ -44,6 +44,10 @@
     "reason": "Phone number, identical in both languages"
   },
   {
+    "text": "(514) 332-1373",
+    "reason": "Same phone number as above with parentheses formatting (nous-joindre/page.jsx) - identical in both languages"
+  },
+  {
     "text": "info@ecolesourphagop.com",
     "reason": "Email address (Footer.jsx) - identical in both languages, same reasoning as the phone number"
   },

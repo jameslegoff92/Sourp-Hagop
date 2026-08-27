@@ -7,6 +7,7 @@ import styled from "@emotion/styled"
 import Typography from "@/components/display/Typography"
 import { motion } from "framer-motion"
 import BackgroundLogo from "@/components/ui/BackgroundLogo"
+import { useTranslations } from "next-intl"
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -240,6 +241,8 @@ const MapOverlay = styled.div`
 `
 
 export default function Contact() {
+  const t = useTranslations("NousJoindrePage");
+  const tCommon = useTranslations("Common");
 
   const data = null;
   
@@ -295,10 +298,10 @@ export default function Contact() {
         message: ''
       });
     } else {
-      setError(data.message || 'Erreur lors de l\'envoi.');
+      setError(data.message || tCommon('forms.genericSubmitError'));
     }
   } catch (err) {
-    setError('Impossible d\'envoyer le formulaire.');
+    setError(tCommon('forms.genericNetworkError'));
   } finally {
     setIsSubmitting(false);
   }
@@ -308,7 +311,7 @@ export default function Contact() {
     <>
       <Header
         imageSrc={data?.headerImageUrl || "../images/header/contact-header.jpg"}
-        headerText={data?.headerText || "CONTACTEZ-NOUS"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
       <StyledDiv>
@@ -322,7 +325,7 @@ export default function Contact() {
             viewport={{ amount: "all", margin: "0px 0px -100px 0px", once: true }}
             transition={{ duration: 0.9, ease: "easeInOut" }}
           >
-            {data?.introTitle || "Nous sommes là pour vous"}
+            {data?.introTitle || t("defaultIntroTitle")}
           </Typography>
           <TextContainer>
             <Typography
@@ -334,7 +337,7 @@ export default function Contact() {
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >
-              {data?.introText || "Notre équipe est prête à répondre à toutes vos questions et à vous accompagner dans vos projets. N'hésitez pas à nous contacter pour discuter de vos besoins."}
+              {data?.introText || t("defaultIntroText")}
             </Typography>
           </TextContainer>
           
@@ -347,29 +350,29 @@ export default function Contact() {
             >
             <InfoCard>
             <InfoIcon><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#006096" d="M18.364 17.364L12 23.728l-6.364-6.364a9 9 0 1 1 12.728 0M12 15a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-2a2 2 0 1 1 0-4a2 2 0 0 1 0 4"/></svg></InfoIcon>
-            <InfoTitle>Notre adresse</InfoTitle>
+            <InfoTitle>{t("addressCardTitle")}</InfoTitle>
             <InfoText>
                 3400 Rue Nadon<br />
                 Montréal, QC H4J 1P6<br />
                 Canada
             </InfoText>
-            
+
             <MapContainer>
                 <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5589.880160757173!2d-73.69843852366428!3d45.53141132895166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9187f7d660177%3A0xf0c6d13f40348c40!2sSourp%20Hagop%20Armenian%20School!5e0!3m2!1sfr!2sca!4v1757545560903!5m2!1sfr!2sca&hl=fr" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 style={{ border: 0 }}
-                title="Notre localisation"
+                title={t("mapTitle")}
                 />
-                <MapOverlay>Cliquez pour ouvrir dans Google Maps</MapOverlay>
+                <MapOverlay>{t("mapOverlay")}</MapOverlay>
             </MapContainer>
             </InfoCard>
 
               <InfoCard>
                 <InfoIcon><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#006096" d="M21 16.42v3.536a1 1 0 0 1-.93.998Q19.415 21 19 21C10.163 21 3 13.837 3 5q0-.414.046-1.07A1 1 0 0 1 4.044 3H7.58a.5.5 0 0 1 .498.45q.034.344.064.552A13.9 13.9 0 0 0 9.35 8.003c.095.2.033.439-.147.567l-2.158 1.542a13.05 13.05 0 0 0 6.844 6.844l1.54-2.154a.46.46 0 0 1 .573-.149a13.9 13.9 0 0 0 4 1.205q.208.03.55.064a.5.5 0 0 1 .449.498"/></svg></InfoIcon>
-                <InfoTitle>Téléphone</InfoTitle>
+                <InfoTitle>{t("phoneCardTitle")}</InfoTitle>
                 <InfoText>
                   (514) 332-1373<br />
-                  Lun - Ven: 9h00 - 16h00
+                  {t("businessHours")}
                 </InfoText>
               </InfoCard>
             </ContactInfo>
@@ -382,11 +385,11 @@ export default function Contact() {
             >
               {!isSubmitted ? (
                 <div>
-                  <FormSection>Envoyez-nous un message</FormSection>
-                  
+                  <FormSection>{t("formTitle")}</FormSection>
+
                 <FormRow>
                 <FieldWrapper>
-                    <Label>Prénom *</Label>
+                    <Label>{t("fields.firstName")}</Label>
                     <Input
                     type="text"
                     name="firstName"
@@ -396,7 +399,7 @@ export default function Contact() {
                     />
                 </FieldWrapper>
                 <FieldWrapper>
-                    <Label>Nom *</Label>
+                    <Label>{t("fields.lastName")}</Label>
                     <Input
                     type="text"
                     name="lastName"
@@ -409,7 +412,7 @@ export default function Contact() {
 
                 <FormRow>
                 <FieldWrapper>
-                    <Label>Courriel *</Label>
+                    <Label>{t("fields.email")}</Label>
                     <Input
                     type="email"
                     name="email"
@@ -419,7 +422,7 @@ export default function Contact() {
                     />
                 </FieldWrapper>
                 <FieldWrapper>
-                    <Label>Téléphone</Label>
+                    <Label>{t("fields.phone")}</Label>
                     <Input
                     type="tel"
                     name="phone"
@@ -429,7 +432,7 @@ export default function Contact() {
                 </FieldWrapper>
                 </FormRow>
                   <FieldWrapper>
-                    <Label>Sujet *</Label>
+                    <Label>{t("fields.subject")}</Label>
                     <Input
                       type="text"
                       name="subject"
@@ -440,12 +443,12 @@ export default function Contact() {
                   </FieldWrapper>
 
                   <FieldWrapper>
-                    <Label>Message *</Label>
+                    <Label>{t("fields.message")}</Label>
                     <Textarea
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Décrivez votre projet ou votre demande..."
+                      placeholder={t("fields.messagePlaceholder")}
                       required
                     />
                   </FieldWrapper>
@@ -453,7 +456,7 @@ export default function Contact() {
                   {error && <ErrorMessage>{error}</ErrorMessage>}
 
                   <SubmitButton onClick={handleSubmit} disabled={isSubmitting}>
-                    {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                    {isSubmitting ? t("submitCtaPending") : t("submitCta")}
                   </SubmitButton>
                 </div>
               ) : (
@@ -462,15 +465,15 @@ export default function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h3>Message envoyé avec succès!</h3>
+                  <h3>{t("successTitle")}</h3>
                   <p>
-                    Merci pour votre message. Notre équipe vous contactera dans les plus brefs délais.
+                    {t("successBody")}
                   </p>
-                  <SubmitButton 
+                  <SubmitButton
                     onClick={() => setIsSubmitted(false)}
                     style={{ marginTop: '20px', maxWidth: '500px', margin: '20px auto 0' }}
                   >
-                    Envoyer un autre message
+                    {t("sendAnother")}
                   </SubmitButton>
                 </SuccessMessage>
               )}

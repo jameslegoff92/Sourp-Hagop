@@ -6,6 +6,7 @@ import BackgroundLogo from "@/components/ui/BackgroundLogo";
 import Typography from "@/components/display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -81,6 +82,7 @@ const StyledImage = styled(motion.img)`
 `;
 
 export default function Soutien() {
+  const t = useTranslations("BibliothequePage");
   const images = [
     { src: "../images/bibliotheque/bibliotheque-1.jpg", gridArea: "1 / 1 / 2 / 2" },
     { src: "../images/bibliotheque/bibliotheque-2.jpg", gridArea: "1 / 2 / 3 / 3" },
@@ -91,11 +93,11 @@ export default function Soutien() {
 
   return (
     <>
-      <Header 
-        animate={false} 
-        imageSrc="../images/header/bibliotheque-header.jpg" 
-        headerText="Bibliothèque" 
-        headerTextTop="70%" 
+      <Header
+        animate={false}
+        imageSrc="../images/header/bibliotheque-header.jpg"
+        headerText={t("title")}
+        headerTextTop="70%"
       />
       <StyledDiv>
         <MotionDiv>
@@ -106,7 +108,7 @@ export default function Soutien() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Espace d'apprentissage
+              {t("subtitle")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -115,7 +117,7 @@ export default function Soutien() {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                Bibliothèque
+                {t("title")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -130,7 +132,7 @@ export default function Soutien() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              La bibliothèque de Sourp Hagop offre un espace calme et accueillant, où élèves et enseignants peuvent lire, étudier et explorer une variété de ressources imprimées et numériques.
+              {t("introText")}
             </Typography>
           </TextContainer>
 
@@ -139,7 +141,7 @@ export default function Soutien() {
               <StyledImage
                 key={index}
                 src={image.src}
-                alt={`bibliotheque image ${index + 1}`}
+                alt={t("imageAlt", { index: index + 1 })}
                 style={{ gridArea: image.gridArea }}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}

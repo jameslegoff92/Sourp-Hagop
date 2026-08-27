@@ -235,5 +235,57 @@
   },
   "Login": {
     "signInWithGoogle": "Sign in with Google"
+  },
+  "NousJoindrePage": {
+    "defaultHeaderText": "CONTACTEZ-NOUS",
+    "defaultIntroTitle": "Nous sommes là pour vous",
+    "defaultIntroText": "Notre équipe est prête à répondre à toutes vos questions et à vous accompagner dans vos projets. N'hésitez pas à nous contacter pour discuter de vos besoins.",
+    "addressCardTitle": "Notre adresse",
+    "mapTitle": "Notre localisation",
+    "mapOverlay": "Cliquez pour ouvrir dans Google Maps",
+    "phoneCardTitle": "Téléphone",
+    "businessHours": "Lun - Ven: 9h00 - 16h00",
+    "formTitle": "Envoyez-nous un message",
+    "fields": {
+      "firstName": "Prénom *",
+      "lastName": "Nom *",
+      "email": "Courriel *",
+      "phone": "Téléphone",
+      "subject": "Sujet *",
+      "message": "Message *",
+      "messagePlaceholder": "Décrivez votre projet ou votre demande..."
+    },
+    "submitCta": "Envoyer le message",
+    "submitCtaPending": "Envoi en cours...",
+    "successTitle": "Message envoyé avec succès!",
+    "successBody": "Merci pour votre message. Notre équipe vous contactera dans les plus brefs délais.",
+    "sendAnother": "Envoyer un autre message"
+  },
+  "CalendrierEvenementPage": {
+    "loading": "Chargement...",
+    "notFoundTitle": "Événement introuvable",
+    "backToCalendar": "Retour au calendrier",
+    "backToAllEvents": "« Tous les Évènements",
+    "pastEventNotice": "Cet évènement est passé.",
+    "detailsTitle": "DÉTAILS",
+    "dateLabel": "Date :",
+    "timeLabel": "Heure :",
+    "categoryLabel": "Catégorie d'Évènement:",
+    "untitledEvent": "Événement sans titre",
+    "categories": {
+      "secondaire": "Secondaire",
+      "primaire": "Primaire",
+      "prescolaire": "Préscolaire",
+      "reunion": "Réunion",
+      "spectacle": "Spectacle",
+      "sortie": "Sortie",
+      "general": "Général"
+    }
+  },
+  "BibliothequePage": {
+    "title": "Bibliothèque",
+    "subtitle": "Espace d'apprentissage",
+    "introText": "La bibliothèque de Sourp Hagop offre un espace calme et accueillant, où élèves et enseignants peuvent lire, étudier et explorer une variété de ressources imprimées et numériques.",
+    "imageAlt": "bibliotheque image {index}"
   }
 }
