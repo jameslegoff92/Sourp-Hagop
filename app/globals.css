@@ -5,8 +5,13 @@
 @tailwind utilities;
 
 :root {
-  --primary-ff: "Roboto", sans-serif;
-  --secondary-ff: "Poppins", sans-serif;
+  /* var(--font-armenian) is set by next/font on <html> (see
+     app/[locale]/layout.jsx) - a trailing fallback, not a replacement.
+     Latin/French glyphs are covered by Roboto/Poppins and never reach it;
+     Armenian glyphs aren't in either of those fonts, so the browser falls
+     through to it per-character. */
+  --primary-ff: "Roboto", var(--font-armenian), sans-serif;
+  --secondary-ff: "Poppins", var(--font-armenian), sans-serif;
   --black: #000;
   --white: #fff;
   --light-gray: #f5f5f5;
@@ -67,6 +72,22 @@ body {
   position: relative;
 }
 
+/* Restores the intent of the body className in app/[locale]/layout.jsx,
+   which passed an object where a string was required and so never applied -
+   see docs/dettes-preexistantes.md item (f). */
+.body-font {
+  font-family: var(--primary-ff);
+}
+
+/* MUI's Button/Link render on MUI's own built-in default theme (no
+   ThemeProvider exists in this app - four components don't justify one).
+   Appends the same Armenian fallback after MUI's own default stack,
+   without touching MUI's theme system. */
+.MuiButton-root,
+.MuiLink-root {
+  font-family: "Roboto", "Helvetica", "Arial", var(--font-armenian), sans-serif;
+}
+
 .no-scroll {
   position: fixed;
   overflow: hidden;
@@ -92,7 +113,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: clamp(3.2rem, 5vw + 1rem, 3.2rem);
   font-style: normal;
   font-weight: 600;
@@ -106,7 +127,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;
@@ -120,7 +141,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;
@@ -133,7 +154,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;

@@ -82,6 +82,10 @@ Ce document recense des problèmes déjà présents sur `main`, confirmés indé
 
 **Comment confirmé pré-existant** : `git blame` et `git log --follow` sur `app/[locale]/layout.jsx`, remontant à deux commits de 2024, largement antérieurs à toute branche i18n.
 
+**Correction (phase 7, étape 1 — reconnaissance)** : l'affirmation « Roboto n'a jamais été appliqué, sur aucune page, dans aucune langue » ci-dessus est trop large. Une lecture précise de `components/display/Typography.jsx` montre que le composant `Typography`, utilisé dans 31 fichiers, déclare son propre `font-family: var(--primary-ff)` (Roboto par défaut) directement sur chaque élément stylé — indépendamment de `<body>`. Les classes globales `.h1`–`.h5` font de même avec Poppins. Ces éléments ont donc toujours correctement affiché Roboto/Poppins, bug ou pas. Seuls **le texte brut non enveloppé dans `Typography` ni dans une classe `.h1`–`.h5`** (dont `<body>`/`<html>` eux-mêmes) héritaient réellement de la pile système — voir le rapport de reconnaissance de la phase 7 pour la liste précise (le plus gros contributeur : `HeaderText` de `components/ui/Header.jsx`, utilisé sur 28 pages).
+
+**Corrigé par** : phase 7, étape 2 — voir item (aa) pour le correctif et son effet visuel.
+
 ---
 
 ## g. À 375px de large, les offres d'emploi 2 à 4 s'effondrent visuellement sur la page carrières
@@ -391,6 +395,22 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 **Décision** : le changement n'est pas annulé ni corrigé silencieusement. Il est documenté ici précisément pour que le porteur de projet puisse trancher — revenir à « 0 POSTES » par convention d'usage québécois, ou garder « 0 POSTE » par exactitude grammaticale — en connaissance de cause, plutôt que de découvrir la différence sans explication.
 
 **Portée de l'audit** : ce badge est le **seul** endroit de toute la phase 6B où une syntaxe de pluriel ICU a été introduite — vérifié par une recherche exhaustive de `plural` dans `messages/fr.json` et `messages/hy.json`. Aucun autre comportement de cas zéro n'a changé silencieusement ailleurs dans cette phase.
+
+---
+
+### aa. Corrigé en passant (phase 7) : `app/[locale]/layout.jsx` transmettait un objet à `className` au lieu d'une chaîne (item f) — texte brut hors `Typography`/`.h1`–`.h5` passe de la police système à Roboto
+
+**Quoi** : le point (f) documentait que `<body className={{ fontFamily: "Roboto, sans-serif" }}>` ne faisait jamais rien, React sérialisant l'objet en la classe littérale `"[object Object]"`, qui ne correspond à aucune règle CSS — bug introduit par le commit `7b79427` (26 juin 2024, voir point f pour l'historique complet). La phase 7 (typographie arménienne) avait besoin d'un `<body>` avec une police correctement déclarée pour que la police arménienne chargée puisse s'y accrocher en repli — ce bug bloquait directement ce travail, d'où sa correction ici plutôt qu'un simple contournement.
+
+**Correction** : `<body className={{ fontFamily: "Roboto, sans-serif" }}>` → `<body className="body-font">`, avec une nouvelle règle dans `globals.css` : `.body-font { font-family: var(--primary-ff); }`. Restaure l'intention d'origine (chaîne au lieu d'objet) sans changer le mécanisme (toujours un `className`, toujours appliqué au même élément).
+
+**Avant** → **Après** :
+- Avant : `<body>` n'avait aucune police déclarée ; le texte brut (hors composant `Typography` et classes `.h1`–`.h5`, qui déclarent chacun leur propre `font-family`) héritait de la pile par défaut de Tailwind Preflight sur `<html>` (`ui-sans-serif, system-ui, sans-serif, ...`), résolue en pratique à **Segoe UI sur Windows** — c'est précisément l'observation d'origine du point (f).
+- Après : ce même texte brut hérite maintenant de `var(--primary-ff)` = **Roboto** (puis, pour les glyphes arméniens, du repli Noto Sans Armenian ajouté à la même variable en phase 7).
+
+**Portée visible (relevée par une analyse AST dédiée, pas estimée)** : le plus gros contributeur est `components/ui/Header.jsx` (`HeaderText`, le grand titre d'en-tête), utilisé sur 28 pages sur ~33. Voir le rapport de la phase 7, étape 2 pour la liste complète des 25 fichiers et 88 usages additionnels touchés par ce changement de police.
+
+**Décision** : corrigé en passant, comme les points (k) et (l) — la correction est un sous-produit nécessaire du travail de la phase 7, pas son objectif. Consigné ici pour que le porteur de projet sache qu'un changement visuel réel (police du texte brut) accompagne ce qui pourrait sembler être un simple ajout de police arménienne.
 
 ---
 
