@@ -1,8 +1,21 @@
 import createMiddleware from "next-intl/middleware";
+import type { NextRequest } from "next/server";
 
 import { routing } from "./i18n/routing";
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+export default async function middleware(request: NextRequest) {
+  const response = await intlMiddleware(request);
+  // Exposes the resolved request path to generateMetadata (see
+  // app/[locale]/layout.jsx) so hreflang alternates can be built for
+  // whichever page is actually being served - the [locale] layout's own
+  // params only carry the locale segment, not the route beneath it, and
+  // there's no other way to read the current path from a shared layout
+  // without hand-writing alternates into every individual page.jsx.
+  response.headers.set("x-pathname", request.nextUrl.pathname);
+  return response;
+}
 
 export const config = {
   // Matches every path except:

@@ -26,46 +26,11 @@
 // text length instead.
 
 import { chromium } from "@playwright/test";
+import { ROUTES } from "../lib/routes.js";
 
 const BASE_URL = process.env.SMOKE_BASE_URL || "http://localhost:3000";
 const CONCURRENCY = 5;
 const PAGE_SETTLE_MS = 4500; // survives the PageLoader splash animation (see phase 4 notes)
-
-const ROUTES = [
-  "/",
-  "/activites-parascolaires",
-  "/admin/login",
-  "/admissions",
-  "/agora",
-  "/aigles",
-  "/anciens",
-  "/bibliotheque",
-  "/calendrier",
-  "/carrieres",
-  "/comite-parents",
-  "/confidentialite",
-  "/conseil-administration",
-  "/conseil-etudiant",
-  "/crealab",
-  "/droits",
-  "/equipe",
-  "/historique",
-  "/jardin-litteraire",
-  "/locations",
-  "/nous-joindre",
-  "/pourquoi-sourp-hagop",
-  "/prescolaire",
-  "/primaire",
-  "/projet-educatif",
-  "/protecteur-national-eleve",
-  "/secondaire",
-  "/service-de-garde",
-  "/sorties-scolaires-voyages",
-  "/soutien",
-  "/termes",
-  "/transport",
-  "/uniforme-scolaire",
-];
 
 // Routes that legitimately never render much text and don't fetch from
 // Sanity at all - held to a much lower bar than content pages so they
