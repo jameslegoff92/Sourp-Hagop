@@ -242,7 +242,12 @@ const DayMonth = styled.span`
   font-family: var(--primary-ff), sans-serif;
   font-size: 0.75rem;
   color: #007dc3;
-  text-transform: capitalize;
+  /* !important survives the global [lang="hy"] uppercase reset in
+     globals.css - that rule is deliberately zero-specificity (:where()),
+     so any !important here wins outright regardless of source order. This
+     is a capitalize rule, not one of the 52 uppercase ones that reset is
+     for. */
+  text-transform: capitalize !important;
   margin-bottom: 1rem;
 `;
 
