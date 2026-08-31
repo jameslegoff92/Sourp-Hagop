@@ -378,6 +378,22 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 ---
 
+### z. Changement de contenu français introduit en passant : le badge « postes disponibles » affiche désormais « 0 POSTE » plutôt que « 0 POSTES »
+
+**Quoi** : `components/Career.jsx` affichait auparavant le nombre de postes disponibles via un ternaire manuel : `job.postsAvailable === 1 ? "POSTE" : "POSTES"`. Pour toute valeur différente de 1 — y compris 0 — le mot affiché était « POSTES » (pluriel). En le convertissant vers la syntaxe de pluriel ICU réelle (`{count, plural, one {POSTE} other {POSTES}}`) pendant l'extraction des chaînes de la phase 6B, le comportement pour `count = 0` a changé : le français résout aujourd'hui `0` dans la catégorie `one` (confirmé empiriquement, voir `docs/adr/0001-architecture-i18n.md` section 10), donc le badge affiche maintenant « 0 POSTE » (singulier) plutôt que « 0 POSTES ».
+
+**Avant** → **Après** :
+- Avant (ternaire manuel) : `0 POSTES`
+- Après (pluriel ICU réel) : `0 POSTE`
+
+**Pourquoi ce changement n'a pas été annulé** : la règle CLDR réelle du français traite `0` comme grammaticalement singulier (« 0 poste », pas « 0 postes »), et c'est exactement ce que la conversion vers un pluriel ICU était censée corriger — un ternaire manuel comme celui d'origine est précisément le genre de logique informelle que la phase 6B cherchait à remplacer par des règles de langue réelles. Cependant, l'usage courant au Québec écrit couramment « 0 postes » (accord au pluriel par convention d'usage, pas par grammaire stricte), donc ce changement, bien que linguistiquement défendable, est un changement visible du site français de l'école, introduit par un chantier dont l'objectif était d'ajouter l'arménien — pas de modifier le français existant.
+
+**Décision** : le changement n'est pas annulé ni corrigé silencieusement. Il est documenté ici précisément pour que le porteur de projet puisse trancher — revenir à « 0 POSTES » par convention d'usage québécois, ou garder « 0 POSTE » par exactitude grammaticale — en connaissance de cause, plutôt que de découvrir la différence sans explication.
+
+**Portée de l'audit** : ce badge est le **seul** endroit de toute la phase 6B où une syntaxe de pluriel ICU a été introduite — vérifié par une recherche exhaustive de `plural` dans `messages/fr.json` et `messages/hy.json`. Aucun autre comportement de cas zéro n'a changé silencieusement ailleurs dans cette phase.
+
+---
+
 ## Portée et conséquence
 
 Aucun des points ci-dessus ne relève du mandat de la phase 0 i18n (normalisation des imports relatifs vers l'alias `@/`). Ils sont consignés ici uniquement à des fins de traçabilité.

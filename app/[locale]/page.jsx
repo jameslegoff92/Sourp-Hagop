@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import dynamic from "next/dynamic";
 
 // Above the fold — keep as regular imports (user sees these immediately)
@@ -21,6 +21,7 @@ import { getHomePage, getAlertBanner } from '@/lib/sanity-queries';
 export default async function Homepage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
+  const t = await getTranslations("HomePage");
   const [data, alertData] = await Promise.all([
     getHomePage(locale),
     getAlertBanner(locale),
@@ -39,12 +40,12 @@ export default async function Homepage({ params }) {
         </Container>
       </BackgroundVideo>
       <Intro />
-      <Values 
-        sectionTitle={data?.valuesSection?.sectionTitle || "NOS VALEURS"} 
-        values={data?.valuesSection?.values || []} 
+      <Values
+        sectionTitle={data?.valuesSection?.sectionTitle || t("defaultValuesTitle")}
+        values={data?.valuesSection?.values || []}
       />
-      <Strengths 
-        sectionTitle={data?.strengthsSection?.sectionTitle || "NOS FORCES"}
+      <Strengths
+        sectionTitle={data?.strengthsSection?.sectionTitle || t("defaultStrengthsTitle")}
         strengths={data?.strengthsSection?.strengths || []}
       />
       <CalendarWrapper />

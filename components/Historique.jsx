@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 import Typography from "@/components/display/Typography";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
+import { useTranslations } from "next-intl";
 
 // --- Styled Components ---
 
@@ -52,6 +53,7 @@ const Img = styled.img`
 `;
 
 export default function Historique({ historyData }) {
+  const t = useTranslations("Historique");
   const timelineEvents = historyData?.timelineEvents || [];
   const pageHeader = historyData?.pageHeader || {};
   const containerRef = useRef(null);
@@ -73,7 +75,7 @@ export default function Historique({ historyData }) {
     <>
       <Header 
         imageSrc={pageHeader.headerImageUrl || "../images/school.svg"} 
-        headerText={pageHeader.headerText || "NOTRE HISTOIRE"} 
+        headerText={pageHeader.headerText || t("defaultHeaderText")} 
       />
 
       {/* Increased max-width and horizontal padding (px-12 to px-24 on desktop) */}

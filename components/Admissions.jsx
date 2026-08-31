@@ -120,7 +120,9 @@ const ButtonLink = styled.a`
   color: inherit;
 `;
 
-const TextBlock = ({ title, subtitle, text, buttonText, link }) => (
+const TextBlock = ({ title, subtitle, text, buttonText, link }) => {
+  const t = useTranslations("Admissions");
+  return (
   <TextBlockStyled
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
@@ -138,12 +140,13 @@ const TextBlock = ({ title, subtitle, text, buttonText, link }) => (
     <ButtonWrapper>
       <StyledButton>
         <ButtonLink href={link} target="_blank" rel="noopener noreferrer">
-          {buttonText || "Commencer"}
+          {buttonText || t("defaultButtonText")}
         </ButtonLink>
       </StyledButton>
     </ButtonWrapper>
   </TextBlockStyled>
-);
+  );
+};
 
 export default function Admissions({ data }) {
   const t = useTranslations("Admissions");

@@ -459,7 +459,7 @@ export default function PourquoiSourpHagop({ data }) {
                   <span style={{ fontWeight: "700", color: "#007dc3" }}>{data.footerDateStart}</span>
                 )}
                 {" "}
-                {data.footerDateEnd && "au"}{" "}
+                {data.footerDateEnd && t("dateRangeSeparator")}{" "}
                 {data.footerDateEnd && (
                   <span style={{ fontWeight: "700", color: "#007dc3" }}>{data.footerDateEnd}</span>
                 )}
@@ -467,7 +467,7 @@ export default function PourquoiSourpHagop({ data }) {
 
               {data.footerLink && (
                 <FooterLink href={data.footerLink} target="_blank" rel="noopener noreferrer">
-                  {data.footerLinkText || "En savoir plus"}
+                  {data.footerLinkText || t("footerLearnMore")}
                 </FooterLink>
               )}
             </FooterTextContainer>

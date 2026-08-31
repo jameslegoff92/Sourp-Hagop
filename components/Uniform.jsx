@@ -171,7 +171,7 @@ export default function Uniforme({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.title || "Service Uniforme"}
+                {data?.title || t("defaultTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>

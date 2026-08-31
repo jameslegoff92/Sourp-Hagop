@@ -583,7 +583,7 @@ export default function ProtecteurNational({ data }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                  {stepsTitle || "Comment déposer une plainte ?"}
+                  {stepsTitle || t("defaultStepsTitle")}
                 </Typography>
               </StepsHeader>
 

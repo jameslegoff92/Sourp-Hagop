@@ -231,7 +231,7 @@ export default function Anciens({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {mainTitle || "Que signifie être un ancien de Sourp Hagop ?"}
+                {mainTitle || t("defaultMainTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -262,7 +262,7 @@ export default function Anciens({ data }) {
             viewport={{ once: true }}
           >
             <Typography as="h2" type="h4" color="primary">
-              {missionTitle || "La mission des anciens élèves de Sourp Hagop"}
+              {missionTitle || t("defaultMissionTitle")}
             </Typography>
           </SubsectionTitle>
 
@@ -332,7 +332,7 @@ export default function Anciens({ data }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {formLinkText || "FORMULAIRE"}
+                  {formLinkText || t("defaultFormLinkText")}
                 </StyledLink>
                 <Typography as="span" type="subtitle" color="dark">
                   {" "}{callToActionTextPart2 || ""}

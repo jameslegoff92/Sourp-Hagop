@@ -223,7 +223,10 @@
   },
   "Agora": {
     "defaultHeaderText": "AGORA ANNA & MANOUK DJOUKHADJIAN",
-    "nutritionLabel": "Nutrition"
+    "nutritionLabel": "Nutrition",
+    "defaultMainTitle": "Agora Anna et Manouk Djoukhadjian",
+    "defaultIntroText": "Bien plus qu'un lieu où l'on sert un repas chaud et nutritif, l'Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir.",
+    "defaultMenuCallToAction": "Découvrez le menu de la semaine à l'Agora!"
   },
   "FacebookLogin": {
     "logout": "Logout from Facebook",
@@ -332,7 +335,8 @@
     "subtitle": "Logistique",
     "rotateMessage": "Tournez votre apareil pour une meilleure visualisation",
     "legendCovered": "Zones couvertes par le transport",
-    "legendNotCovered": "Zones non couvertes par le transport"
+    "legendNotCovered": "Zones non couvertes par le transport",
+    "defaultMapTitle": "Plan des zones couvertes par le transport scolaire"
   },
   "Anciens": {
     "defaultHeaderText": "ANCIENS ET ANCIENNES",
@@ -341,14 +345,22 @@
       "facebook": "Facebook",
       "instagram": "Instagram",
       "linkedin": "LinkedIn"
-    }
+    },
+    "defaultMainTitle": "Que signifie être un ancien de Sourp Hagop ?",
+    "defaultMissionTitle": "La mission des anciens élèves de Sourp Hagop",
+    "defaultFormLinkText": "FORMULAIRE"
   },
   "ProjetEducatif": {
     "defaultHeaderText": "PROJET ÉDUCATIF",
     "missionSubtitle": "Ce que nous faisons",
     "visionSubtitle": "Où nous allons",
     "engagementsSubtitle": "Nos promesses",
-    "orientationsSubtitle": "Notre direction"
+    "orientationsSubtitle": "Notre direction",
+    "defaultMissionTitle": "Notre Mission",
+    "defaultSloganLabel": "Notre slogan",
+    "defaultVisionTitle": "Notre vision",
+    "defaultEngagementsTitle": "Nos engagements",
+    "defaultOrientationsTitle": "Orientations générales"
   },
   "ProtecteurNational": {
     "defaultHeaderText": "PROTECTEUR NATIONAL DE L'ÉLÈVE",
@@ -356,14 +368,16 @@
     "defaultMainTitle": "Processus de traitement des plaintes",
     "contactPersonNotice": "La personne responsable du traitement des plaintes à l'École arménienne Sourp Hagop est <link>{name}</link>, {role}. Elle dispose de 15 jours ouvrables pour répondre à la plainte soumise.",
     "defaultFormButtonText": "Formulaire de plainte",
-    "processImageAlt": "Processus de traitement des plaintes"
+    "processImageAlt": "Processus de traitement des plaintes",
+    "defaultStepsTitle": "Comment déposer une plainte ?"
   },
   "PourquoiSourpHagop": {
     "defaultHeaderText": "POURQUOI SOURP HAGOP",
     "subtitle": "L'expérience Sourp Hagop",
     "dateRangeSeparator": "au",
     "dismiss": "Non, merci",
-    "reserve": "Réserver"
+    "reserve": "Réserver",
+    "footerLearnMore": "En savoir plus"
   },
   "RentalSpaces": {
     "defaultHeaderText": "LOCATION D'ESPACES",
@@ -379,7 +393,8 @@
   "Admissions": {
     "defaultHeaderText": "ADMISSIONS",
     "subtitle": "Inscriptions",
-    "title": "Processus d'admission"
+    "title": "Processus d'admission",
+    "defaultButtonText": "Commencer"
   },
   "Team": {
     "defaultHeaderText": "NOTRE ÉQUIPE",
@@ -389,7 +404,8 @@
   "TuitionFees": {
     "subtitle": "Grille tarifaire",
     "defaultTableTitle": "Grille tarifaire",
-    "categoryHeader": "Catégorie"
+    "categoryHeader": "Catégorie",
+    "defaultHeaderText": "FRAIS DE SCOLARITÉ"
   },
   "Instagram": {
     "title": "DERNIÈRES NOUVELLES",
@@ -410,7 +426,8 @@
   },
   "Soutien": {
     "defaultHeaderText": "SOUTIEN AUX ÉLÈVES",
-    "subtitle": "Accompagnement"
+    "subtitle": "Accompagnement",
+    "defaultMainTitle": "Nos Services"
   },
   "StudentCouncil": {
     "defaultHeaderText": "CONSEIL ÉTUDIANT",
@@ -422,7 +439,8 @@
   },
   "Uniform": {
     "defaultHeaderText": "UNIFORME SCOLAIRE",
-    "subtitle": "Code vestimentaire"
+    "subtitle": "Code vestimentaire",
+    "defaultTitle": "Service Uniforme"
   },
   "Intro": {
     "subtitle": "Bienvenue"
@@ -433,5 +451,23 @@
   },
   "LangSwitcher": {
     "ariaLabel": "Changer de langue"
+  },
+  "HomePage": {
+    "defaultValuesTitle": "NOS VALEURS",
+    "defaultStrengthsTitle": "NOS FORCES"
+  },
+  "Administration": {
+    "defaultHeaderText": "CONSEIL ADMINISTRATION",
+    "defaultRoleTitle": "Rôle et Responsabilités",
+    "defaultMemberAlt": "Membre"
+  },
+  "ComiteParents": {
+    "defaultHeaderText": "COMITÉ DE PARENTS"
+  },
+  "Historique": {
+    "defaultHeaderText": "NOTRE HISTOIRE"
+  },
+  "AlertBanner": {
+    "learnMore": "En savoir plus"
   }
 }

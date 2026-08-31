@@ -250,10 +250,10 @@ export default function Transport({ data }) {
                 viewport={{ once: true }}
                 style={{ marginTop: "2vh" }}
             >
-                {mapTitle || "Plan des zones couvertes par le transport scolaire"}
+                {mapTitle || t("defaultMapTitle")}
             </Typography>
         </>
-    ), [mapTitle]);
+    ), [mapTitle, t]);
 
   const memoizedTextContent = useMemo(() => (
     <>

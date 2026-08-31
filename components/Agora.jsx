@@ -124,7 +124,7 @@ export default function Agora({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.mainTitle || "Agora Anna et Manouk Djoukhadjian"}
+                {data?.mainTitle || t("defaultMainTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -136,10 +136,10 @@ export default function Agora({ data }) {
             viewport={{ once: true }}
           >
             <Typography as="p" type="h6" color="dark">
-              {data?.introText || "Bien plus qu'un lieu où l'on sert un repas chaud et nutritif, l'Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir."}
+              {data?.introText || t("defaultIntroText")}
             </Typography>
             <Typography as="p" type="h6" color="dark">
-              {data?.menuCallToAction || "Découvrez le menu de la semaine à l'Agora!"}
+              {data?.menuCallToAction || t("defaultMenuCallToAction")}
             </Typography>
           </TextContainer>
 

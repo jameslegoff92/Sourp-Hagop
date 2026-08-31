@@ -545,7 +545,7 @@ export default function ProjetEducatif({ data }) {
                             transition={{ duration: 0.8, delay: 0.1 }}
                         >
                             <Typography as="h1" type="h1" color="primary">
-                                {missionTitle || "Notre Mission"}
+                                {missionTitle || t("defaultMissionTitle")}
                             </Typography>
                         </TitleWrapper>
                     </SectionHeader>
@@ -583,7 +583,7 @@ export default function ProjetEducatif({ data }) {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: 0.2 }}
                                 >
-                                    {sloganLabel || "Notre slogan"}
+                                    {sloganLabel || t("defaultSloganLabel")}
                                 </SloganLabel>
                                 {sloganLine1 && (
                                     <SloganLine
@@ -629,7 +629,7 @@ export default function ProjetEducatif({ data }) {
                                 transition={{ duration: 0.8, delay: 0.1 }}
                             >
                                 <Typography as="h1" type="h1" color="primary">
-                                    {visionTitle || "Notre vision"}
+                                    {visionTitle || t("defaultVisionTitle")}
                                 </Typography>
                             </TitleWrapper>
                         </SectionHeader>
@@ -689,7 +689,7 @@ export default function ProjetEducatif({ data }) {
                                 transition={{ duration: 0.8, delay: 0.1 }}
                             >
                                 <Typography as="h1" type="h1" color="primary">
-                                    {engagementsTitle || "Nos engagements"}
+                                    {engagementsTitle || t("defaultEngagementsTitle")}
                                 </Typography>
                             </TitleWrapper>
                         </SectionHeader>
@@ -728,7 +728,7 @@ export default function ProjetEducatif({ data }) {
                                 transition={{ duration: 0.8, delay: 0.1 }}
                             >
                                 <Typography as="h1" type="h1" color="primary">
-                                    {orientationsTitle || "Orientations générales"}
+                                    {orientationsTitle || t("defaultOrientationsTitle")}
                                 </Typography>
                             </TitleWrapper>
                         </SectionHeader>

@@ -366,7 +366,7 @@ export default function TuitionFees({ data }) {
       <Header
         animate={false}
         imageSrc={data?.headerImageUrl}
-        headerText={data?.headerText || "FRAIS DE SCOLARITÉ"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
