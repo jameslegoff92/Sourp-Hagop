@@ -410,7 +410,23 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 **Portée visible (relevée par une analyse AST dédiée, pas estimée)** : le plus gros contributeur est `components/ui/Header.jsx` (`HeaderText`, le grand titre d'en-tête), utilisé sur 28 pages sur ~33. Voir le rapport de la phase 7, étape 2 pour la liste complète des 25 fichiers et 88 usages additionnels touchés par ce changement de police.
 
+**Correction (phase 7, étape 3)** : le chiffre ci-dessus venait d'une analyse statique du code source (AST), pas d'une mesure sur les pages réellement rendues, et une vérification ultérieure page par page (33 routes, deux largeurs d'écran, feuilles de calcul CSS effectivement appliquées) a trouvé un chiffre différent et plus précis : **755 éléments de texte sur 32 des 33 pages** héritaient réellement de cette police au niveau du corps du document (`body`) — pas 88. La base commune à presque toutes les pages est de 8 éléments (5 libellés du menu déroulant de navigation, 1 titre de page, 2 paragraphes du pied de page), pas 12 comme rapporté dans une première passe de cette même vérification, elle-même corrigée après la découverte que le script utilisé ignorait silencieusement les règles CSS imbriquées dans une `@media` — un exemple concret de pourquoi ce journal insiste sur la vérification empirique plutôt que l'estimation. Voir le point (bb) pour un cas précis découvert grâce à cette correction : le nom de l'école dans la barre de navigation (`.logoTextItem`) n'était PAS concerné par ce bug-ci, contrairement à ce qui avait été rapporté dans un premier temps.
+
 **Décision** : corrigé en passant, comme les points (k) et (l) — la correction est un sous-produit nécessaire du travail de la phase 7, pas son objectif. Consigné ici pour que le porteur de projet sache qu'un changement visuel réel (police du texte brut) accompagne ce qui pourrait sembler être un simple ajout de police arménienne.
+
+---
+
+### bb. `.logoTextItem` (nom de l'école dans la barre de navigation) s'affiche en Times New Roman sur écran large — bug distinct, non lié à la phase 7, toujours présent
+
+**Quoi** : `components/ui/Nav.module.css` déclare `.logoTextItem { font-family: "Times New Roman"; ... }`, mais uniquement à l'intérieur de `@media (min-width: 1114px)`. Sur écran large (≥ 1114px), les quatre lignes du nom de l'école dans la barre de navigation — « L'ÉCOLE ARMÉNIENNE », « SOURP HAGOP », « ÉCOLE PRIMAIRE V. ET A. SARAFIAN », « ÉCOLE SECONDAIRE PASDERMAJIAN » — s'affichent donc en **Times New Roman**, une police à empattements qui ne correspond à aucune autre police du site (Roboto/Poppins). Ce n'est pas une conséquence du bug du point (aa)/(f) : la police est déclarée explicitement, pas absente — un tout autre problème, découvert uniquement parce que la correction du point (aa) ci-dessus a nécessité de revérifier cet élément précisément.
+
+**Sous 1114px** (mobile/tablette) : le même bloc de texte existe dans le DOM mais n'est jamais visible — confirmé par capture d'écran du menu mobile ouvert (le tiroir affiche les catégories de navigation, pas le nom de l'école). Aucun impact visuel à ces largeurs.
+
+**Historique** : la règle `.logoTextItem` existe depuis la création de `Nav.module.css`, commit `427ce87d` (27 août 2024) — elle n'a jamais déclaré une autre police que Times New Roman depuis son introduction.
+
+**Correction d'une affirmation précédente** : un rapport de phase 7 avait d'abord identifié cet élément comme une victime du bug du point (aa) (héritage de la police du `body`, « visible sur chaque page depuis 2024 »). C'était inexact sur les deux plans — la police est déclarée explicitement (pas héritée) sur écran large, et l'élément n'est simplement pas visible sur mobile. Corrigé ici avant que l'affirmation erronée ne soit consignée.
+
+**Décision** : non corrigé — hors du périmètre de la phase 7 (typographie arménienne), qui ne touche pas `Nav.module.css`. Consigné ici pour que le porteur de projet sache que le nom de l'école ne s'affiche pas dans la police du reste du site, sur écran large, indépendamment de tout travail d'internationalisation.
 
 ---
 
