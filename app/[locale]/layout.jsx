@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 import "@/app/globals.css";
 
 import { Noto_Sans_Armenian } from "next/font/google";
+import localFont from "next/font/local";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -27,6 +28,30 @@ const notoSansArmenian = Noto_Sans_Armenian({
   subsets: ["latin", "armenian"],
   weight: "variable",
   variable: "--font-armenian",
+  display: "swap",
+});
+
+// next/font/google has no Google `text=` subsetting option anywhere in its
+// options surface (checked the installed source: validate-google-font-
+// function-call.js, get-google-fonts-url.js, loader.js - none accept or
+// forward a `text` key). The full Armenian face above is unicode-range-split
+// and only fetched where a page renders an Armenian glyph - but today that
+// includes every French page, because the "ՀԱՅ" language-switcher label
+// (topNav.module.css .langOption) is the one piece of live Armenian text
+// that's always on screen. That forces a 26,816 B fetch for 3 glyphs.
+// This is a manually pre-generated subset (fonttools/hb-subset equivalent,
+// via the `subset-font` package, run once - not a build dependency) of the
+// exact same Noto Sans Armenian file, cut down to only Հ/Ա/Յ: 1,988 B.
+// It's applied ahead of the full face in the switcher's font stack (see
+// .langOption in topNav.module.css), so the browser's unicode-range
+// resolution picks this file for those 3 characters instead of the full
+// one. The full face stays as a further fallback in that same stack for
+// robustness (see comment there), but is no longer reachable from any
+// French page: nothing else on those pages renders Armenian glyphs, so it
+// is now fetched only where real Armenian content actually appears.
+const armenianLabelSubset = localFont({
+  src: "../fonts/armenian-label-subset.woff2",
+  variable: "--font-armenian-label",
   display: "swap",
 });
 
@@ -61,7 +86,10 @@ export default async function RootLayout({ children, params }) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={notoSansArmenian.variable}>
+    <html
+      lang={locale}
+      className={`${notoSansArmenian.variable} ${armenianLabelSubset.variable}`}
+    >
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
