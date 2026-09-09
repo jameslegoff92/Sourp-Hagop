@@ -430,6 +430,20 @@ Ni l'un ni l'autre n'est simplement « plus à jour » — `pourquoiPage` contie
 
 ---
 
+### cc. `setupShutdownHooks()` de `js/mongoose/connection.js` enregistre de nouveaux écouteurs de processus à chaque chargement du module, sans garde — `MaxListenersExceededWarning`
+
+**Quoi** : `js/mongoose/connection.js` appelle `setupShutdownHooks()` de façon inconditionnelle au chargement du module (ligne 82). Cette fonction enregistre un écouteur `process.on("SIGINT", ...)`, un `process.on("SIGTERM", ...)` et, en développement, un `process.once("SIGUSR2", ...)` — sans jamais vérifier si ces écouteurs ont déjà été enregistrés lors d'un chargement précédent du module. À chaque nouvelle évaluation du module (rechargement à chaud en développement, ou tout autre scénario qui réimporte `connection.js`), un nouveau jeu d'écouteurs s'ajoute aux précédents plutôt que de les remplacer.
+
+**Où** : `js/mongoose/connection.js`, fonction `setupShutdownHooks()` (lignes 59-80) et son appel inconditionnel à la ligne 82.
+
+**Constaté** : le 3 septembre 2026, en dehors de tout travail i18n — pendant le diagnostic d'un incident non lié (serveur de développement bloqué) — `node.exe` a émis `MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]`, puis le même avertissement pour `SIGTERM` et pour `SIGUSR2`.
+
+**Comment confirmé pré-existant** : lecture directe de `js/mongoose/connection.js` — la fonction ne contient aucune logique de garde contre un double enregistrement. Le dernier commit touchant ce fichier (`25635c9`, 12 septembre 2025) est antérieur de près d'un an au début de la branche `i18n` (18 août 2026) ; aucun commit de cette branche ne modifie ce fichier.
+
+**Décision** : non corrigé — sans rapport avec le mandat i18n, consigné ici uniquement à des fins de traçabilité.
+
+---
+
 ## Portée et conséquence
 
 Aucun des points ci-dessus ne relève du mandat de la phase 0 i18n (normalisation des imports relatifs vers l'alias `@/`). Ils sont consignés ici uniquement à des fins de traçabilité.
