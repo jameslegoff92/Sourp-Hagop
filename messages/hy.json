@@ -18,14 +18,14 @@
     "osblLogoAlt": "OSBL Logo",
     "schoolImageAlt": "Sourp Hagop School",
     "nav": {
-      "portal": "PORTAIL",
-      "careers": "CARRIÈRES",
-      "admissions": "ADMISSIONS",
-      "calendar": "CALENDRIER",
-      "studentOmbudsman": "PROTECTEUR NATIONAL DE L'ÉLÈVE",
-      "foundation": "LA FONDATION",
-      "alumni": "ANCIENS ET ANCIENNES",
-      "spaceRentals": "LOCATION D'ESPACES",
+      "portal": "ՀԱՐԹԱԿ",
+      "careers": "ԱՍՊԱՐԷԶՆԵՐ",
+      "admissions": "ԴԻՄՈՒՄՆԵՐ",
+      "calendar": "ՕՐԱՑՈՅՑ",
+      "studentOmbudsman": "ԱՇԱԿԵՐՏԻՆ ԱԶԳԱՅԻՆ ՊԱՇՏՊԱՆԸ",
+      "foundation": "ՀԻՄՆԱԴՐԱՄԸ",
+      "alumni": "ՍՈՒՐԲ ՅԱԿՈԲ ՎԱՐԺԱՐԱՆԻ ՆԱԽԿԻՆ ԱՇԱԿԵՐՏՆԵՐՈՒ ՄԻՈՒԹԻՒՆ",
+      "spaceRentals": "ՎԱՅՐԵՐ",
       "contactUs": "NOUS JOINDRE"
     },
     "socialAlt": {
@@ -34,7 +34,7 @@
       "linkedin": "LinkedIn",
       "x": "X"
     },
-    "tagline": "<p1>L'École arménienne Sourp Hagop dispense un enseignement en langue française,</p1><p2>conduisant les élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p2>"
+    "tagline": "<p1>Սուրբ Յակոբ Ազգային վարժարանը կը դասաւանդէ Ֆրանսերէն լեզուով։</p1><p2>Անիկա կը մղէ երկրորդականի աշակերտները ստանալու Քեպէգի երկրորդական բաժնի ուսման վկայականը։</p2>"
   },
   "Nav": {
     "logoAlt": "logo",
@@ -43,71 +43,71 @@
     "quickAccessLabel": "Accès rapide",
     "groups": {
       "school": {
-        "title": "L'école",
+        "title": "Դպրոցը",
         "items": {
-          "historique": "Historique",
-          "equipe": "L'équipe",
-          "administration": "Conseil d'administration",
-          "projetEducatif": "Projet éducatif",
-          "comiteParents": "Comité de parents",
-          "anciens": "Anciens et anciennes",
-          "ombudsman": "Protecteur national de l'élève"
+          "historique": "Պատմական",
+          "equipe": "Մեր անձնակազմը",
+          "administration": "Վարչական խորհուրդ",
+          "projetEducatif": "Կրթական ծրագիր",
+          "comiteParents": "Ծնողական յանձնախումբ",
+          "anciens": "Սուրբ Յակոբ Վարժարանի Նախկին Աշակերտներու Միութիւն",
+          "ombudsman": "Աշակերտին Ազգային Պաշտպանը"
         }
       },
       "pedagogy": {
-        "title": "Pédagogie",
+        "title": "ՄԱՆԿԱՎԱՐԺՈՒԹԻՒՆ",
         "items": {
-          "prescolaire": "Programme éducatif au préscolaire",
-          "primaire": "Programme éducatif au primaire",
-          "secondaire": "Programme éducatif au secondaire"
+          "prescolaire": "Մանկապարտէզ",
+          "primaire": "Նախակրթարան",
+          "secondaire": "Երկրորդական"
         }
       },
       "studentLife": {
-        "title": "Vie Étudiante",
+        "title": "ԱՇԱԿԵՐՏԱԿԱՆ ԿԵԱՆՔ",
         "items": {
-          "activitesParascolaires": "Activités parascolaires",
-          "conseilEtudiant": "Conseil étudiant",
-          "aigles": "Équipe des Aigles",
-          "sorties": "Sorties scolaires et voyages"
+          "activitesParascolaires": "Արտադասարանային գործունէութիւն",
+          "conseilEtudiant": "Աշակերտական խորհուրդ",
+          "aigles": "Արծիւներու խումբ",
+          "sorties": "Դպրոցական պտոյտներ"
         }
       },
       "studentServices": {
-        "title": "Services à l'élève",
+        "title": "ԾԱՌԱՅՈՒԹԻՒՆՆԵՐ՝ ԱՇԱԿԵՐՏԻՆ",
         "items": {
-          "soutien": "Soutien aux élèves",
-          "agora": "Agora Anna et Manouk Djoukhadjian",
-          "bibliotheque": "Bibliothèque",
+          "soutien": "Աշակերտներու օգնութիւն",
+          "agora": "Աննա եւ Մանուկ Չուխաճեան խմբավայր",
+          "bibliotheque": "Գրադարան",
           "jardinLitteraire": "Mer Aykin: un jardin littéraire",
           "crealab": "Créalab",
-          "serviceDeGarde": "Service de garde",
-          "transport": "Transport",
-          "uniforme": "Uniforme scolaire"
+          "serviceDeGarde": "Յետ դպրոցական հսկողութիւն",
+          "transport": "Փոխդրամիջոց",
+          "uniforme": "Դպրոցական տարազ"
         }
       },
       "admissions": {
-        "title": "Admissions",
+        "title": "ԴԻՄՈՒՄՆԵՐ",
         "items": {
-          "pourquoi": "Pourquoi Sourp Hagop",
-          "demande": "Demande d'admission",
-          "droits": "Droits de scolarité et autres frais"
+          "pourquoi": "Ինչո՞ւ Սուրբ Յակոբ",
+          "demande": "Մուտքի դիմում",
+          "droits": "Կրթաթոշակ եւ այլ ծախսեր"
         }
       }
     },
     "quickLinks": {
-      "careers": "Carrières",
-      "calendar": "Calendrier",
-      "locations": "Location d'espaces",
+      "careers": "Ասպարէզներ",
+      "calendar": "Օրացոյց",
+      "locations": "Վայրեր",
       "contact": "Nous joindre"
     }
   },
   "TopNav": {
-    "portalLink": "Portail",
+    "portalLink": "Հարթակ",
     "legacyLogoAlt": "50e logo",
     "items": {
-      "careers": "Carrières",
-      "calendar": "Calendrier",
-      "locations": "Location d'espaces",
-      "foundation": "La Fondation",
+      "careers": "Ասպարէզներ",
+      "calendar": "Օրացոյց",
+      "locations": "Վայրեր",
+      "foundation": "Հիմնադրամը",
       "contact": "Nous joindre"
     }
   },
@@ -120,7 +120,7 @@
     "fields": {
       "firstName": "Prénom *",
       "lastName": "Nom *",
-      "email": "Courriel *",
+      "email": "Ե-նամակ *",
       "phone": "Téléphone *",
       "date": "Date souhaitée *",
       "eventType": "Type d'événement *",
@@ -185,8 +185,8 @@
   },
   "Calendar": {
     "subtitle": "Événements à venir",
-    "title": "CALENDRIER",
-    "viewAllLink": "Voir le calendrier complet",
+    "title": "ՕՐԱՑՈՅՑ",
+    "viewAllLink": "Օրացոյցը  տեսնել",
     "noEventPlaceholder": "—",
     "months": {
       "jan": "janvier", "feb": "février", "mar": "mars", "apr": "avril",
@@ -199,7 +199,7 @@
     }
   },
   "ReactCalendar": {
-    "defaultHeaderText": "CALENDRIER",
+    "defaultHeaderText": "ՕՐԱՑՈՅՑ",
     "errorTitle": "Something went wrong",
     "errorBody": "We couldn't load the calendar right now.",
     "retry": "Try again",
