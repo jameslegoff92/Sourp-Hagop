@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 
 // This site loads no third-party scripts and sets no tracking cookies (see
 // the cookie/localStorage/script inventory that motivated this component).
@@ -69,17 +69,7 @@ const Text = styled.p`
   max-width: 640px;
 `;
 
-const PolicyLink = styled(Link)`
-  color: var(--white);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-
-  &:hover {
-    opacity: 0.85;
-  }
-`;
-
-/* No white-space: nowrap here or on PolicyLink above - the pending legal
+/* No white-space: nowrap here - the pending legal
    placeholder text (messages/fr.json, messages/hy.json) is a full sentence,
    much longer than the short final copy this will eventually hold, and
    nowrap would push it past the viewport edge instead of wrapping. Must
@@ -160,10 +150,7 @@ export default function CookieNotice() {
         >
           <BarInner>
             <Text>
-              {t("message")}{" "}
-              <PolicyLink href="/confidentialite">
-                {t("policyLinkText")}
-              </PolicyLink>
+              {t("message")}
             </Text>
             <AckButton type="button" onClick={acknowledge} whileTap={{ scale: 0.97 }}>
               {t("acknowledge")}
