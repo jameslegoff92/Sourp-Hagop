@@ -11,9 +11,13 @@
 // Dataset is always "staging" unless MIGRATION_DATASET is set - there is
 // deliberately no flag for this, so a typo can't send it to production.
 // The client is constructed explicitly with {projectId, dataset} passed at
-// the call site - never getCliClient() - and assertSafeForWrite() runs
-// before anything else, logging the resolved dataset and proving live read
-// access, exactly like lib/sanity-locale-fallback.test.js.
+// the call site - never getCliClient() - and assertSafeForWrite(client,
+// APPLY) runs before anything else, logging the resolved dataset and
+// proving live read access, exactly like lib/sanity-locale-fallback.test.js.
+// Passing APPLY tells the guard whether this run actually writes: a dry run
+// against production runs freely (nothing to guard - see
+// scripts/sanity-write-guard.mjs), --apply against production is refused
+// unless I_UNDERSTAND_THIS_WRITES_TO_PRODUCTION=yes is set for that run.
 //
 // Idempotent by construction: every leaf value is classified by its ACTUAL
 // shape (plain / already-localized / unexpected / absent) before touching
@@ -437,7 +441,7 @@ function patchPath(keyPath) {
 async function run() {
   console.log(`[migrate] mode: ${APPLY ? "APPLY" : "DRY RUN"}`);
   console.log(`[migrate] resolved dataset: "${client.config().dataset}" on project "${client.config().projectId}"`);
-  await assertSafeForWrite(client);
+  await assertSafeForWrite(client, APPLY);
 
   const byType = new Map();
   for (const [type, path, targetType] of MANIFEST) {
