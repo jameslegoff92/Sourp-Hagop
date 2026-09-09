@@ -38,12 +38,14 @@ Cette étape n'est pas optionnelle et n'est pas une formalité : le déploiement
 **[PRODUCTION] — lecture seule**
 ```bash
 cd studio
-npx sanity documents query "count(*[_id in path(\"drafts.**\")])" --dataset production
+npx sanity documents query "*[_id in path(\"drafts.**\")]{_id,_type,_updatedAt}" --dataset production
 ```
 
-**Succès si** : le résultat est `0`.
+**Succès si** : le résultat est `[]`.
 
-**ARRÊTER si** : le résultat n'est pas `0`. Ne jamais publier ou supprimer un brouillon soi-même sans confirmation de la personne responsable du contenu (voir étape 0, point 5) — même si son contenu semble trivial.
+**Ne pas utiliser `count(*[_id in path("drafts.**")])` pour cette vérification** — confirmé le 2026-09-09 : cette forme fait échouer la commande CLI (« Query returned no results ») précisément quand le compte est `0`, c'est-à-dire précisément dans le cas de succès qu'on cherche à confirmer. La forme tableau ci-dessus renvoie proprement `[]` dans ce cas et liste les brouillons sinon.
+
+**ARRÊTER si** : le résultat n'est pas `[]`. Ne jamais publier ou supprimer un brouillon soi-même sans confirmation de la personne responsable du contenu (voir étape 0, point 5) — même si son contenu semble trivial.
 
 **Vérifier avant de continuer** : que la décision de l'étape 0.5 a bien été appliquée (les brouillons publiés ou rejetés) avant de relancer cette commande.
 
