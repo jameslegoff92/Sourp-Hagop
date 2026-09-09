@@ -13,6 +13,12 @@
       "secondaire": "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau."
     }
   },
+  "CookieNotice": {
+    "ariaLabel": "[PLACEHOLDER — étiquette d'accessibilité (lecteur d'écran) pour cet avis. À rédiger avec le reste du texte ci-dessous ; ne pas traduire avant validation légale.]",
+    "message": "[PLACEHOLDER — texte de l'avis à rédiger par la personne responsable de la politique de confidentialité. Ne pas traduire avant validation légale.]",
+    "policyLinkText": "[PLACEHOLDER — libellé du lien vers la politique de confidentialité. Ne pas traduire avant validation légale.]",
+    "acknowledge": "[PLACEHOLDER — libellé du bouton. Ne doit pas laisser entendre un consentement : cet avis est une notice de transparence, pas un gestionnaire de consentement. Ne pas traduire avant validation légale.]"
+  },
   "Footer": {
     "logoAlt": "School Logo",
     "osblLogoAlt": "OSBL Logo",
