@@ -3,13 +3,11 @@
 // Third Party Imports
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
-import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 // Local Imports
 import Typography from "@/components/display/Typography";
 import Container from "@/components/layout/Container";
-import { getHomePage } from "@/lib/sanity-queries";
 
 const Section = styled.section`
   text-align: center;
@@ -87,24 +85,11 @@ const Accent = styled(motion.div)`
   margin-top: 3rem;
 `;
 
-function Intro() {
+function Intro({ data }) {
   const t = useTranslations("Intro");
-  const [homePageData, setHomePageData] = useState(null);
 
-  useEffect(() => {
-    async function fetchHomePageData() {
-      try {
-        const data = await getHomePage();
-        setHomePageData(data);
-      } catch (error) {
-        // Handle error silently
-      }
-    }
-    fetchHomePageData();
-  }, []);
-
-  const title = homePageData?.introSection?.title;
-  const content = homePageData?.introSection?.content;
+  const title = data?.title;
+  const content = data?.content;
 
   return (
     <Section>

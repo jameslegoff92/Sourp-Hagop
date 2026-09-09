@@ -39,7 +39,7 @@ export default async function Homepage({ params }) {
           <MainHeading />
         </Container>
       </BackgroundVideo>
-      <Intro />
+      <Intro data={data?.introSection} />
       <Values
         sectionTitle={data?.valuesSection?.sectionTitle || t("defaultValuesTitle")}
         values={data?.valuesSection?.values || []}
