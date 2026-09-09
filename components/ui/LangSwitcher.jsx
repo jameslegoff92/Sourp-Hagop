@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { ARMENIAN_CONTENT_TRANSLATED } from "@/lib/armenian-content-status";
 import css from "./topNav.module.css";
 
 export default function LangSwitcher() {
@@ -10,6 +11,8 @@ export default function LangSwitcher() {
   const pathname = usePathname();
   const isHy = locale === "hy";
   const targetLocale = isHy ? "fr" : "hy";
+
+  if (!ARMENIAN_CONTENT_TRANSLATED) return null;
 
   return (
     <Link
