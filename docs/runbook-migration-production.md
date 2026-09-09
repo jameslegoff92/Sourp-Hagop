@@ -147,6 +147,8 @@ cd studio
 SANITY_STUDIO_PROJECT_ID=col2tg5g SANITY_STUDIO_DATASET=production npx sanity deploy
 ```
 
+**Attendez-vous à une invite interactive, non documentée avant le 2026-09-09** : la commande peut s'arrêter sur `? Select existing studio hostname (Use arrow keys)`, avec `sourp-hagop` déjà en surbrillance comme choix par défaut. **Appuyer sur Entrée pour confirmer ce choix déjà en surbrillance** — ne rien taper d'autre, ne pas naviguer avec les flèches. Si cette invite apparaît dans un contexte qui ne peut pas recevoir de frappe clavier (script, CI), la commande reste bloquée indéfiniment en attente ; l'exécuter depuis un terminal interactif normal évite le problème. Le déploiement suggère aussi d'ajouter `appId: 'snfentn9sl0e4uhbuuzprtt4'` dans la section `deployment` de `sanity.cli.ts`/`sanity.cli.js` pour éviter cette invite au prochain déploiement — non fait ici, à évaluer séparément.
+
 **C'est la seule étape de tout ce mandat i18n où cibler intentionnellement `production` pour le Studio est correct** — à ne pas confondre avec toute autre commande de ce projet, qui doit toujours cibler `staging` sauf ici et à l'étape 4.
 
 **Succès si** : la commande se termine en indiquant le Studio déployé avec succès (URL affichée).
@@ -172,6 +174,8 @@ SANITY_STUDIO_PROJECT_ID=col2tg5g SANITY_STUDIO_DATASET=production npx sanity de
 MIGRATION_DATASET=production node -r dotenv/config scripts/migrate-localize-fields.mjs dotenv_config_path=.env.local
 ```
 
+**Pas de variable d'environnement de dérogation ici, volontairement** : depuis le 2026-09-09, `assertSafeForWrite()` ne réclame `I_UNDERSTAND_THIS_WRITES_TO_PRODUCTION=yes` que pour une écriture réelle — un dry-run n'écrit rien et s'exécute librement contre `production`, sans dérogation, exactement comme ci-dessus. Voir `scripts/sanity-write-guard.mjs`.
+
 **Succès si** :
 - La première ligne affichée est exactement `[write-guard] about to write to dataset "production"`. C'est la seule fois dans tout ce mandat où cette phrase doit apparaître intentionnellement.
 - Les totaux rapportés sont proches de ceux observés lors de la répétition de phase 5B sur un clone frais de production : **219 entrées de manifeste, ~605 instances de valeurs transformées, ~21 déjà localisées, ~70 absences, 0 forme inattendue**.
@@ -189,14 +193,16 @@ MIGRATION_DATASET=production node -r dotenv/config scripts/migrate-localize-fiel
 
 **[PRODUCTION] [IRRÉVERSIBLE]**
 ```bash
-MIGRATION_DATASET=production node -r dotenv/config scripts/migrate-localize-fields.mjs --apply dotenv_config_path=.env.local
+I_UNDERSTAND_THIS_WRITES_TO_PRODUCTION=yes MIGRATION_DATASET=production node -r dotenv/config scripts/migrate-localize-fields.mjs --apply dotenv_config_path=.env.local
 ```
 
-**Avant d'exécuter** : relire à nouveau la ligne `[write-guard] about to write to dataset "production"` avant que la transaction ne se valide. Même vérification qu'à l'étape 4.1.
+**`I_UNDERSTAND_THIS_WRITES_TO_PRODUCTION=yes` est obligatoire ici, et seulement ici** — c'est la seule commande de tout ce runbook qui écrit réellement sur `production`. Sans cette variable exacte (valeur `yes`, rien d'autre), `assertSafeForWrite()` refuse immédiatement, sans écrire quoi que ce soit. Ne pas la mettre dans `.env.local` ni dans le profil du shell — le but est un geste délibéré à chaque fois, pas une variable qui traîne (voir `scripts/sanity-write-guard.mjs`).
 
-**Succès si** : la commande rapporte `[migrate] APPLY: committed.` et les mêmes totaux que le dry-run de l'étape 4.1 (transformés, absents, etc. — la transaction est atomique : soit tout est appliqué, soit rien ne l'est, donc les nombres ne peuvent pas différer entre le dry-run immédiatement précédent et l'apply).
+**Avant d'exécuter** : relire à nouveau la ligne `[write-guard] about to write to dataset "production"`, puis le bandeau `WRITING TO PRODUCTION` qui la suit (preuve que la dérogation a bien été prise en compte), avant que la transaction ne se valide.
 
-**ARRÊTER si** : la commande se termine en erreur avant `committed.` — dans ce cas, grâce à l'atomicité de la transaction Sanity, **aucune donnée n'a été modifiée** ; il n'y a rien à défaire, seulement à diagnostiquer avant de retenter.
+**Succès si** : la commande affiche le bandeau `[write-guard] ### WRITING TO PRODUCTION ...` puis rapporte `[migrate] APPLY: committed.` et les mêmes totaux que le dry-run de l'étape 4.1 (transformés, absents, etc. — la transaction est atomique : soit tout est appliqué, soit rien ne l'est, donc les nombres ne peuvent pas différer entre le dry-run immédiatement précédent et l'apply).
+
+**ARRÊTER si** : la commande refuse avec `[write-guard] refusing to run` (la variable n'est pas passée ou pas exactement `yes`) — ce n'est pas une panne, c'est le garde-fou qui fonctionne ; ou si elle se termine en erreur après le bandeau mais avant `committed.` — dans ce cas, grâce à l'atomicité de la transaction Sanity, **aucune donnée n'a été modifiée** ; il n'y a rien à défaire, seulement à diagnostiquer avant de retenter.
 
 **Vérifier avant de continuer (obligatoire, pas optionnel)** : re-exécuter immédiatement le dry-run de l'étape 4.1 (sans `--apply`). Doit rapporter **0 document touché, 0 instance transformée** — c'est la preuve d'idempotence sur les données réelles, immédiatement après l'écriture. Si ce n'est pas le cas, **ARRÊTER et ne pas poursuivre vers l'étape 5**.
 
