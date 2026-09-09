@@ -14,10 +14,10 @@
     }
   },
   "CookieNotice": {
-    "ariaLabel": "[PLACEHOLDER — étiquette d'accessibilité (lecteur d'écran) pour cet avis. À rédiger avec le reste du texte ci-dessous ; ne pas traduire avant validation légale.]",
-    "message": "[PLACEHOLDER — texte de l'avis à rédiger par la personne responsable de la politique de confidentialité. Ne pas traduire avant validation légale.]",
-    "policyLinkText": "[PLACEHOLDER — libellé du lien vers la politique de confidentialité. Ne pas traduire avant validation légale.]",
-    "acknowledge": "[PLACEHOLDER — libellé du bouton. Ne doit pas laisser entendre un consentement : cet avis est une notice de transparence, pas un gestionnaire de consentement. Ne pas traduire avant validation légale.]"
+    "ariaLabel": "Avis sur l'utilisation des témoins de connexion",
+    "message": "Ce site utilise uniquement des témoins essentiels à son fonctionnement. Aucun témoin de suivi, de mesure d'audience ou de publicité n'est déposé.",
+    "policyLinkText": "Politique de confidentialité",
+    "acknowledge": "Fermer"
   },
   "Footer": {
     "logoAlt": "School Logo",

@@ -18,6 +18,13 @@ import { Link, usePathname } from "@/i18n/navigation";
 // consent mechanism - there is nothing to opt in or out of. This is a
 // transparency notice: one acknowledgement action, and a link to the
 // privacy policy. No category toggles, no accept/reject, no consent store.
+//
+// The CookieNotice.* copy in messages/fr.json and messages/hy.json (message,
+// acknowledge, policyLinkText, ariaLabel) is PROVISIONAL, not signed-off
+// legal text - a reasonable placeholder pending the privacy policy rewrite
+// and legal review (see docs/chaines-a-traduire.md). Do not treat its
+// current wording as final, and do not translate it to Armenian yet - it's
+// identical in both message files for that reason.
 const STORAGE_KEY = "cookieNoticeAcknowledged";
 
 const Bar = styled(motion.div)`
