@@ -8,11 +8,13 @@
 
 ## Ce qui ne sera PAS traduit dans ce livrable, et pourquoi
 
-Deux zones du site sont délibérément absentes de ce document. Ce ne sont pas des oublis — ce sont des décisions prises et documentées pendant la phase 6B (voir `docs/dettes-preexistantes.md`, items (r) et (v) pour le détail complet) :
+Trois zones du site sont délibérément absentes de ce document. Ce ne sont pas des oublis — ce sont des décisions prises et documentées : les deux premières pendant la phase 6B (voir `docs/dettes-preexistantes.md`, items (r) et (v) pour le détail complet), la troisième lors de la mise en place de l'avis relatif aux témoins (branche `feat/cookie-notice`) :
 
 1. **Les pages `/confidentialite` (politique de confidentialité) et `/termes` (conditions d'utilisation) resteront uniquement en anglais**, dans les deux langues du site. Ce texte n'est pas du contenu de l'école traduit en anglais par erreur — c'est un gabarit juridique générique anglais, jamais adapté ni relu, produit par un outil automatisé. Une école québécoise traitant des données de mineurs ne devrait pas se contenter d'un gabarit générique non vérifié ; une révision juridique est nécessaire avant toute décision sur ce texte (le traduire, le remplacer, ou le faire réviser). Ce n'est pas une tâche de traduction — ni cette phase technique ni ce document ne s'y substituent.
 
 2. **Le niveau, le type et le lieu de chaque offre d'emploi sur la page Carrières resteront en français**, même sur la version arménienne du site. Ces trois informations ne sont pas du texte d'interface codé dans le site — ce sont des champs de texte libre saisis directement par le personnel de l'école dans l'outil de gestion de contenu (Sanity). Les traduire demanderait de modifier la façon dont ces champs sont stockés et gérés, une décision qui appartient au porteur du projet, pas à ce livrable de traduction.
+
+3. **Les quatre chaînes de l'avis relatif aux témoins (`CookieNotice.*`, `components/ui/CookieNotice.jsx`) resteront non rédigées, dans les deux langues du site, jusqu'à validation légale.** Ce texte énonce ce que le site dépose réellement avant toute interaction — un énoncé à portée légale, pas un texte d'interface ordinaire — et son libellé de bouton doit être choisi avec soin pour ne jamais laisser entendre un consentement (cet avis est une notice de transparence, pas un gestionnaire de consentement : une seule action d'acquittement, aucun accepter/refuser). Ni le message, ni le libellé du bouton, ni le libellé du lien vers la politique de confidentialité, ni l'étiquette d'accessibilité n'ont été rédigés par ce chantier technique — voir la section dédiée plus bas (« Avis relatif aux témoins ») pour le détail des quatre clés.
 
 ---
 
@@ -122,6 +124,19 @@ Le bandeau qui peut apparaître en haut de la page d'accueil (ex. fermeture pour
 | Texte français | Où ça apparaît | Clé |
 |---|---|---|
 | En savoir plus | Lien du bandeau, si aucun texte personnalisé n'est fourni | `AlertBanner.learnMore` |
+
+### Avis relatif aux témoins (`components/ui/CookieNotice.jsx`)
+
+Ce site ne charge aucun script tiers et ne dépose aucun témoin de suivi avant l'interaction d'un visiteur. Ce qui existe réellement avant toute interaction : deux témoins déposés par NextAuth (`authjs.csrf-token`, `authjs.callback-url`) — effet de bord de `<SessionProvider>`, qui englobe tout le site public pour permettre la connexion Google de la personne responsable du contenu, sans rapport avec la navigation d'un visiteur ordinaire — et un témoin `NEXT_LOCALE` de next-intl qui, en pratique, ne se dépose jamais ici puisque `i18n/routing.ts` fixe `localeDetection: false`. Cet avis est donc une notice de **transparence**, pas un gestionnaire de consentement : une seule action (« pris connaissance ») et un lien vers `/confidentialite` — aucune case à cocher, aucun accepter/refuser, aucun stockage de préférences par catégorie.
+
+**Aucune des quatre chaînes ci-dessous n'est prête à traduire** (voir aussi le point 3 de la section précédente). Le texte est un énoncé à portée légale — ce que le site dépose, et pourquoi — et doit être rédigé par la personne responsable de la politique de confidentialité avant toute traduction. Les valeurs actuelles dans `messages/fr.json` et `messages/hy.json` sont des espaces réservés entre crochets, identiques dans les deux fichiers ; elles figurent ici uniquement pour référence technique, pas comme livrable de traduction :
+
+| Clé | Rôle | Statut |
+|---|---|---|
+| `CookieNotice.message` | Texte principal de l'avis | En attente de rédaction légale |
+| `CookieNotice.acknowledge` | Libellé du bouton d'acquittement (ne doit pas laisser entendre un consentement) | En attente de rédaction légale |
+| `CookieNotice.policyLinkText` | Libellé du lien vers `/confidentialite` | En attente de rédaction légale |
+| `CookieNotice.ariaLabel` | Étiquette d'accessibilité (lecteur d'écran) de la région | En attente de rédaction légale |
 
 ### Sélecteur de langue (`components/ui/LangSwitcher.jsx`)
 
