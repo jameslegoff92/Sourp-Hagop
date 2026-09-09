@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 /* ─────────────────────────────────────────────
    OVERLAY & PANEL
@@ -356,6 +357,8 @@ const EMPTY_FORM = {
 };
 
 const LocationModal = ({ isOpen, onClose, space }) => {
+  const t = useTranslations("LocationModal");
+  const tCommon = useTranslations("Common");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -393,8 +396,8 @@ const LocationModal = ({ isOpen, onClose, space }) => {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
       const result = await res.json();
       if (result.success) { setSubmitted(true); setFormData(EMPTY_FORM); }
-      else setError(result.message || "Erreur lors de l'envoi.");
-    } catch { setError("Impossible d'envoyer le formulaire."); }
+      else setError(result.message || tCommon("forms.genericSubmitError"));
+    } catch { setError(tCommon("forms.genericNetworkError")); }
     finally { setSubmitting(false); }
   };
 
@@ -424,7 +427,7 @@ const LocationModal = ({ isOpen, onClose, space }) => {
             <CloseBtn
               onClick={() => { setShowForm(false); setSubmitted(false); onClose(); }}
               whileTap={{ scale: 0.9 }}
-              aria-label="Fermer"
+              aria-label={t("closeAlt")}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M2 2L12 12M12 2L2 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -442,9 +445,12 @@ const LocationModal = ({ isOpen, onClose, space }) => {
                     <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </SuccessIcon>
-                <SuccessTitle>Demande envoyée!</SuccessTitle>
+                <SuccessTitle>{t("successTitle")}</SuccessTitle>
                 <SuccessText>
-                  Nous avons bien reçu votre demande de réservation pour <strong>{space.title}</strong>. Notre équipe vous contactera dans les plus brefs délais.
+                  {t.rich("successBody", {
+                    spaceName: space.title,
+                    strong: (chunks) => <strong>{chunks}</strong>,
+                  })}
                 </SuccessText>
               </SuccessWrap>
             )}
@@ -453,49 +459,49 @@ const LocationModal = ({ isOpen, onClose, space }) => {
             {!submitted && showForm && (
               <motion.div key="form" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                 <SecondaryBtn onClick={() => setShowForm(false)}>
-                  ← Retour aux détails
+                  {t("backToDetails")}
                 </SecondaryBtn>
-                <FormTitle>Formulaire de réservation</FormTitle>
+                <FormTitle>{t("formTitle")}</FormTitle>
                 <form onSubmit={handleSubmit}>
                   <FormGrid>
                     <FormGroup>
-                      <Label>Prénom *</Label>
+                      <Label>{t("fields.firstName")}</Label>
                       <Input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
-                      <Label>Nom *</Label>
+                      <Label>{t("fields.lastName")}</Label>
                       <Input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
-                      <Label>Courriel *</Label>
+                      <Label>{t("fields.email")}</Label>
                       <Input type="email" name="email" value={formData.email} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
-                      <Label>Téléphone *</Label>
+                      <Label>{t("fields.phone")}</Label>
                       <Input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
-                      <Label>Date souhaitée *</Label>
+                      <Label>{t("fields.date")}</Label>
                       <Input type="date" name="date" value={formData.date} onChange={handleChange} min={new Date().toISOString().split("T")[0]} required />
                     </FormGroup>
                     <FormGroup>
-                      <Label>Type d'événement *</Label>
+                      <Label>{t("fields.eventType")}</Label>
                       <Select name="eventType" value={formData.eventType} onChange={handleChange} required>
-                        <option value="">Sélectionnez</option>
-                        <option value="conference">Conférence</option>
-                        <option value="meeting">Réunion</option>
-                        <option value="event">Événement</option>
-                        <option value="other">Autre</option>
+                        <option value="">{t("eventTypeOptions.placeholder")}</option>
+                        <option value="conference">{t("eventTypeOptions.conference")}</option>
+                        <option value="meeting">{t("eventTypeOptions.meeting")}</option>
+                        <option value="event">{t("eventTypeOptions.event")}</option>
+                        <option value="other">{t("eventTypeOptions.other")}</option>
                       </Select>
                     </FormGroup>
                     <FormGroup className="full">
-                      <Label>Commentaires</Label>
-                      <TextArea name="comments" value={formData.comments} onChange={handleChange} placeholder="Détails supplémentaires..." />
+                      <Label>{t("fields.comments")}</Label>
+                      <TextArea name="comments" value={formData.comments} onChange={handleChange} placeholder={t("fields.commentsPlaceholder")} />
                     </FormGroup>
                   </FormGrid>
                   {error && <ErrorMsg>{error}</ErrorMsg>}
                   <CtaButton type="submit" disabled={submitting} whileTap={{ scale: 0.98 }} style={{ marginTop: "1.5rem" }}>
-                    {submitting ? "Envoi en cours..." : "Envoyer la demande"}
+                    {submitting ? t("submitCtaPending") : t("submitCta")}
                   </CtaButton>
                 </form>
               </motion.div>
@@ -543,7 +549,7 @@ const LocationModal = ({ isOpen, onClose, space }) => {
                 )}
 
                 <CtaButton onClick={() => setShowForm(true)} whileTap={{ scale: 0.98 }}>
-                  Demande de réservation
+                  {t("detailsCta")}
                 </CtaButton>
               </motion.div>
             )}

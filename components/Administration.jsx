@@ -5,6 +5,7 @@ import Footer from "./ui/Footer";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   padding: 4rem 2rem 5rem;
@@ -163,6 +164,7 @@ const MemberCardComponent = ({ src, alt, name, title, index }) => (
 );
 
 export default function Administration({ data }) {
+  const t = useTranslations("Administration");
   const headerImageUrl = data?.pageHeader?.headerImageUrl;
   const headerText = data?.pageHeader?.headerText;
   const headerTextTop = data?.pageHeader?.headerTextTop;
@@ -177,7 +179,7 @@ export default function Administration({ data }) {
       <Header
         animate={false}
         imageSrc={headerImageUrl}
-        headerText={headerText || "CONSEIL ADMINISTRATION"}
+        headerText={headerText || t("defaultHeaderText")}
         headerTextTop={headerTextTop || "72%"}
       />
 
@@ -189,7 +191,7 @@ export default function Administration({ data }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-{roleTitle || "Rôle et Responsabilités"}          
+{roleTitle || t("defaultRoleTitle")}
 </Eyebrow>
 
           <TextContainer
@@ -217,7 +219,7 @@ export default function Administration({ data }) {
                   <MemberCardComponent
                     key={`${m?.name || "member"}-${idx}`}
                     src={m?.imageUrl || "../images/staff/_default.jpg"}
-                    alt={m?.alt || m?.name || "Membre"}
+                    alt={m?.alt || m?.name || t("defaultMemberAlt")}
                     name={m?.name || ""}
                     title={m?.title || ""}
                     index={idx}

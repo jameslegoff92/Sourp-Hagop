@@ -1,0 +1,479 @@
+{
+  "App": {
+    "placeholder": "[fr] emplacement réservé — aucune chaîne extraite de l'application pour le moment (i18n phase 2)"
+  },
+  "Common": {
+    "placeholder": "[fr] emplacement réservé",
+    "forms": {
+      "genericSubmitError": "Erreur lors de l'envoi.",
+      "genericNetworkError": "Impossible d'envoyer le formulaire."
+    },
+    "agoraDessertNotes": {
+      "primaire": "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
+      "secondaire": "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau."
+    }
+  },
+  "CookieNotice": {
+    "ariaLabel": "Avis sur l'utilisation des témoins de connexion",
+    "message": "Ce site utilise uniquement des témoins essentiels à son fonctionnement. Aucun témoin de suivi, de mesure d'audience ou de publicité n'est déposé.",
+    "policyLinkText": "Politique de confidentialité",
+    "acknowledge": "Fermer"
+  },
+  "Footer": {
+    "logoAlt": "School Logo",
+    "osblLogoAlt": "OSBL Logo",
+    "schoolImageAlt": "Sourp Hagop School",
+    "nav": {
+      "portal": "PORTAIL",
+      "careers": "CARRIÈRES",
+      "admissions": "ADMISSIONS",
+      "calendar": "CALENDRIER",
+      "studentOmbudsman": "PROTECTEUR NATIONAL DE L'ÉLÈVE",
+      "foundation": "LA FONDATION",
+      "alumni": "ANCIENS ET ANCIENNES",
+      "spaceRentals": "LOCATION D'ESPACES",
+      "contactUs": "NOUS JOINDRE"
+    },
+    "socialAlt": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "x": "X"
+    },
+    "tagline": "<p1>L'École arménienne Sourp Hagop dispense un enseignement en langue française,</p1><p2>conduisant les élèves du secondaire à l’obtention du Diplôme d’études secondaires du Québec.</p2>"
+  },
+  "Nav": {
+    "logoAlt": "logo",
+    "menuAriaLabel": "Menu de navigation",
+    "closeMenuAriaLabel": "Fermer le menu",
+    "quickAccessLabel": "Accès rapide",
+    "groups": {
+      "school": {
+        "title": "L'école",
+        "items": {
+          "historique": "Historique",
+          "equipe": "L'équipe",
+          "administration": "Conseil d'administration",
+          "projetEducatif": "Projet éducatif",
+          "comiteParents": "Comité de parents",
+          "anciens": "Anciens et anciennes",
+          "ombudsman": "Protecteur national de l'élève"
+        }
+      },
+      "pedagogy": {
+        "title": "Pédagogie",
+        "items": {
+          "prescolaire": "Programme éducatif au préscolaire",
+          "primaire": "Programme éducatif au primaire",
+          "secondaire": "Programme éducatif au secondaire"
+        }
+      },
+      "studentLife": {
+        "title": "Vie Étudiante",
+        "items": {
+          "activitesParascolaires": "Activités parascolaires",
+          "conseilEtudiant": "Conseil étudiant",
+          "aigles": "Équipe des Aigles",
+          "sorties": "Sorties scolaires et voyages"
+        }
+      },
+      "studentServices": {
+        "title": "Services à l'élève",
+        "items": {
+          "soutien": "Soutien aux élèves",
+          "agora": "Agora Anna et Manouk Djoukhadjian",
+          "bibliotheque": "Bibliothèque",
+          "jardinLitteraire": "Mer Aykin: un jardin littéraire",
+          "crealab": "Créalab",
+          "serviceDeGarde": "Service de garde",
+          "transport": "Transport",
+          "uniforme": "Uniforme scolaire"
+        }
+      },
+      "admissions": {
+        "title": "Admissions",
+        "items": {
+          "pourquoi": "Pourquoi Sourp Hagop",
+          "demande": "Demande d'admission",
+          "droits": "Droits de scolarité et autres frais"
+        }
+      }
+    },
+    "quickLinks": {
+      "careers": "Carrières",
+      "calendar": "Calendrier",
+      "locations": "Location d'espaces",
+      "contact": "Nous joindre"
+    }
+  },
+  "TopNav": {
+    "portalLink": "Portail",
+    "legacyLogoAlt": "50e logo",
+    "items": {
+      "careers": "Carrières",
+      "calendar": "Calendrier",
+      "locations": "Location d'espaces",
+      "foundation": "La Fondation",
+      "contact": "Nous joindre"
+    }
+  },
+  "LocationModal": {
+    "closeAlt": "Fermer",
+    "successTitle": "Demande envoyée!",
+    "successBody": "Nous avons bien reçu votre demande de réservation pour <strong>{spaceName}</strong>. Notre équipe vous contactera dans les plus brefs délais.",
+    "backToDetails": "← Retour aux détails",
+    "formTitle": "Formulaire de réservation",
+    "fields": {
+      "firstName": "Prénom *",
+      "lastName": "Nom *",
+      "email": "Courriel *",
+      "phone": "Téléphone *",
+      "date": "Date souhaitée *",
+      "eventType": "Type d'événement *",
+      "comments": "Commentaires",
+      "commentsPlaceholder": "Détails supplémentaires..."
+    },
+    "eventTypeOptions": {
+      "placeholder": "Sélectionnez",
+      "conference": "Conférence",
+      "meeting": "Réunion",
+      "event": "Événement",
+      "other": "Autre"
+    },
+    "submitCta": "Envoyer la demande",
+    "submitCtaPending": "Envoi en cours...",
+    "detailsCta": "Demande de réservation"
+  },
+  "CareerModal": {
+    "eyebrow": "Postuler maintenant",
+    "fallbackTitle": "Poste",
+    "sectionYourInfo": "Vos informations",
+    "sectionApplication": "Votre candidature",
+    "fields": {
+      "fullName": "Nom complet",
+      "email": "Courriel",
+      "phone": "Téléphone",
+      "targetPosition": "Poste visé",
+      "message": "Message",
+      "cvLink": "Lien vers votre CV",
+      "cvLinkPlaceholder": "Google Drive, Dropbox, etc.",
+      "cvLinkHelper": "Ajoutez un lien partageable vers votre document",
+      "coverLetterLink": "Lien vers votre lettre de motivation"
+    },
+    "close": "Fermer",
+    "submitCta": "Postuler",
+    "submitCtaPending": "Envoi…",
+    "successTitle": "Candidature envoyée !",
+    "successBody": "Merci pour votre intérêt. Nous vous contacterons si votre profil correspond."
+  },
+  "CareerDetailModal": {
+    "close": "Fermer",
+    "eyebrow": "Offre d'emploi",
+    "noDescription": "Aucune description disponible.",
+    "deadlineLabel": "Jusqu'au {date}",
+    "applyNow": "Postuler maintenant",
+    "additionalInfoFallback": "INFORMATION ADDITIONNELLE",
+    "sectionTitles": {
+      "description": "DESCRIPTION DU POSTE",
+      "profil": "PROFIL CHERCHÉ",
+      "responsabilites": "PRINCIPALES RESPONSABILITÉS",
+      "conditions": "CONDITIONS DE TRAVAIL ET AVANTAGES",
+      "exigences": "EXIGENCES"
+    }
+  },
+  "Career": {
+    "defaultHeaderText": "REJOIGNEZ NOTRE ÉQUIPE",
+    "viewOffer": "Voir l'offre",
+    "noPostsAvailable": "Aucun poste disponible",
+    "postsAvailableBadge": "{count, plural, one {POSTE} other {POSTES}}<br></br>dispo.",
+    "emptyStateTitle": "Aucune offre disponible pour l'instant",
+    "emptyStateSubtitle": "Restez à l'affût de nos prochaines opportunités !"
+  },
+  "Calendar": {
+    "subtitle": "Événements à venir",
+    "title": "CALENDRIER",
+    "viewAllLink": "Voir le calendrier complet",
+    "noEventPlaceholder": "—",
+    "months": {
+      "jan": "janvier", "feb": "février", "mar": "mars", "apr": "avril",
+      "may": "mai", "jun": "juin", "jul": "juillet", "aug": "août",
+      "sep": "septembre", "oct": "octobre", "nov": "novembre", "dec": "décembre"
+    },
+    "days": {
+      "sun": "dim", "mon": "lun", "tue": "mar", "wed": "mer",
+      "thu": "jeu", "fri": "ven", "sat": "sam"
+    }
+  },
+  "ReactCalendar": {
+    "defaultHeaderText": "CALENDRIER",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We couldn't load the calendar right now.",
+    "retry": "Try again",
+    "goBack": "Go back"
+  },
+  "Menu": {
+    "noMenuAvailable": "Aucun menu disponible pour le moment.",
+    "toggle": {
+      "primaire": "Primaire",
+      "secondaire": "Secondaire"
+    },
+    "weekLabel": "Semaine {number}",
+    "days": {
+      "mon": "Lundi", "tue": "Mardi", "wed": "Mercredi", "thu": "Jeudi", "fri": "Vendredi"
+    }
+  },
+  "ServiceDeGarde": {
+    "defaultHeaderText": "SERVICE DE GARDE",
+    "subtitle": "Au-delà des cours",
+    "contactLabel": "Contact"
+  },
+  "Agora": {
+    "defaultHeaderText": "AGORA ANNA & MANOUK DJOUKHADJIAN",
+    "nutritionLabel": "Nutrition",
+    "defaultMainTitle": "Agora Anna et Manouk Djoukhadjian",
+    "defaultIntroText": "Bien plus qu'un lieu où l'on sert un repas chaud et nutritif, l'Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir.",
+    "defaultMenuCallToAction": "Découvrez le menu de la semaine à l'Agora!"
+  },
+  "FacebookLogin": {
+    "logout": "Logout from Facebook",
+    "signIn": "Sign in with Facebook"
+  },
+  "BackgroundVideo": {
+    "unsupportedVideoTag": "Your browser does not support the video tag.",
+    "fallbackAlt": "Background"
+  },
+  "Login": {
+    "signInWithGoogle": "Sign in with Google"
+  },
+  "NousJoindrePage": {
+    "defaultHeaderText": "CONTACTEZ-NOUS",
+    "defaultIntroTitle": "Nous sommes là pour vous",
+    "defaultIntroText": "Notre équipe est prête à répondre à toutes vos questions et à vous accompagner dans vos projets. N'hésitez pas à nous contacter pour discuter de vos besoins.",
+    "addressCardTitle": "Notre adresse",
+    "mapTitle": "Notre localisation",
+    "mapOverlay": "Cliquez pour ouvrir dans Google Maps",
+    "phoneCardTitle": "Téléphone",
+    "businessHours": "Lun - Ven: 9h00 - 16h00",
+    "formTitle": "Envoyez-nous un message",
+    "fields": {
+      "firstName": "Prénom *",
+      "lastName": "Nom *",
+      "email": "Courriel *",
+      "phone": "Téléphone",
+      "subject": "Sujet *",
+      "message": "Message *",
+      "messagePlaceholder": "Décrivez votre projet ou votre demande..."
+    },
+    "submitCta": "Envoyer le message",
+    "submitCtaPending": "Envoi en cours...",
+    "successTitle": "Message envoyé avec succès!",
+    "successBody": "Merci pour votre message. Notre équipe vous contactera dans les plus brefs délais.",
+    "sendAnother": "Envoyer un autre message"
+  },
+  "CalendrierEvenementPage": {
+    "loading": "Chargement...",
+    "notFoundTitle": "Événement introuvable",
+    "backToCalendar": "Retour au calendrier",
+    "backToAllEvents": "« Tous les Évènements",
+    "pastEventNotice": "Cet évènement est passé.",
+    "detailsTitle": "DÉTAILS",
+    "dateLabel": "Date :",
+    "timeLabel": "Heure :",
+    "categoryLabel": "Catégorie d'Évènement:",
+    "untitledEvent": "Événement sans titre",
+    "categories": {
+      "secondaire": "Secondaire",
+      "primaire": "Primaire",
+      "prescolaire": "Préscolaire",
+      "reunion": "Réunion",
+      "spectacle": "Spectacle",
+      "sortie": "Sortie",
+      "general": "Général"
+    }
+  },
+  "BibliothequePage": {
+    "title": "Bibliothèque",
+    "subtitle": "Espace d'apprentissage",
+    "introText": "La bibliothèque de Sourp Hagop offre un espace calme et accueillant, où élèves et enseignants peuvent lire, étudier et explorer une variété de ressources imprimées et numériques.",
+    "imageAlt": "bibliotheque image {index}"
+  },
+  "Primaire": {
+    "defaultHeaderText": "PROGRAMME ÉDUCATIF AU PRIMAIRE",
+    "subtitle": "Éducation primaire",
+    "defaultPageTitle": "Programme primaire",
+    "cyclesSubtitle": "Structure du programme",
+    "cyclesTitle": "Les Trois Cycles du Primaire",
+    "languagesSubtitle": "Nos langues",
+    "languagesTitle": "Apprentissage des Langues",
+    "enrichmentSubtitle": "Programme enrichi",
+    "subjectAreasSubtitle": "Domaines d'apprentissage",
+    "artsSubtitle": "Arts et culture",
+    "scheduleTableSubtitle": "Grille-matières",
+    "scheduleTableNote": "📊 Tableau détaillé de la maquette de cours disponible sur demande",
+    "scheduleSubtitle": "Organisation",
+    "scheduleTitle": "Horaire Type d'une Journée au Primaire",
+    "scheduleContactText": "Contactez-nous pour obtenir plus d'informations sur l'horaire détaillé et la répartition des matières."
+  },
+  "Secondaire": {
+    "subtitle": "Éducation secondaire",
+    "defaultPageTitle": "Programme secondaire",
+    "cyclesSubtitle": "Structure du programme",
+    "focusLabel": "Focus: {focus}",
+    "pedagogySubtitle": "Notre approche",
+    "enrichedSubtitle": "Cours enrichis",
+    "optionsSubtitle": "Parcours disponibles",
+    "activitiesSubtitle": "Vie scolaire",
+    "scheduleTableSubtitle": "Grille-matières"
+  },
+  "Prescolaire": {
+    "subtitle": "Éducation préscolaire",
+    "defaultPageTitle": "Programme préscolaire",
+    "activitiesSubtitle": "Apprentissage",
+    "coursesSubtitle": "Nos programmes",
+    "evaluationSubtitle": "Suivi de l'élève",
+    "developmentSubtitle": "Développement",
+    "scheduleSubtitle": "Organisation",
+    "contactSubtitle": "Nous joindre"
+  },
+  "Transport": {
+    "contactLine": "{contactTitle} <bold>{contactName}</bold>, tél: <bold>{contactPhone}</bold> poste: <bold>{contactExtension}</bold>",
+    "headerText": "Service de Transport",
+    "subtitle": "Logistique",
+    "rotateMessage": "Tournez votre apareil pour une meilleure visualisation",
+    "legendCovered": "Zones couvertes par le transport",
+    "legendNotCovered": "Zones non couvertes par le transport",
+    "defaultMapTitle": "Plan des zones couvertes par le transport scolaire"
+  },
+  "Anciens": {
+    "defaultHeaderText": "ANCIENS ET ANCIENNES",
+    "subtitle": "Notre communauté",
+    "socialAlt": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    },
+    "defaultMainTitle": "Que signifie être un ancien de Sourp Hagop ?",
+    "defaultMissionTitle": "La mission des anciens élèves de Sourp Hagop",
+    "defaultFormLinkText": "FORMULAIRE"
+  },
+  "ProjetEducatif": {
+    "defaultHeaderText": "PROJET ÉDUCATIF",
+    "missionSubtitle": "Ce que nous faisons",
+    "visionSubtitle": "Où nous allons",
+    "engagementsSubtitle": "Nos promesses",
+    "orientationsSubtitle": "Notre direction",
+    "defaultMissionTitle": "Notre Mission",
+    "defaultSloganLabel": "Notre slogan",
+    "defaultVisionTitle": "Notre vision",
+    "defaultEngagementsTitle": "Nos engagements",
+    "defaultOrientationsTitle": "Orientations générales"
+  },
+  "ProtecteurNational": {
+    "defaultHeaderText": "PROTECTEUR NATIONAL DE L'ÉLÈVE",
+    "subtitle": "Vos droits",
+    "defaultMainTitle": "Processus de traitement des plaintes",
+    "contactPersonNotice": "La personne responsable du traitement des plaintes à l'École arménienne Sourp Hagop est <link>{name}</link>, {role}. Elle dispose de 15 jours ouvrables pour répondre à la plainte soumise.",
+    "defaultFormButtonText": "Formulaire de plainte",
+    "processImageAlt": "Processus de traitement des plaintes",
+    "defaultStepsTitle": "Comment déposer une plainte ?"
+  },
+  "PourquoiSourpHagop": {
+    "defaultHeaderText": "POURQUOI SOURP HAGOP",
+    "subtitle": "L'expérience Sourp Hagop",
+    "dateRangeSeparator": "au",
+    "dismiss": "Non, merci",
+    "reserve": "Réserver",
+    "footerLearnMore": "En savoir plus"
+  },
+  "RentalSpaces": {
+    "defaultHeaderText": "LOCATION D'ESPACES",
+    "subtitle": "Nos installations",
+    "title": "Nos espaces à votre disposition",
+    "learnMore": "En savoir plus"
+  },
+  "MainHeading": {
+    "logoAlt": "logo",
+    "title": "Toujours plus haut, toujours plus loin!",
+    "subtitle": "Préscolaire | Primaire | Secondaire"
+  },
+  "Admissions": {
+    "defaultHeaderText": "ADMISSIONS",
+    "subtitle": "Inscriptions",
+    "title": "Processus d'admission",
+    "defaultButtonText": "Commencer"
+  },
+  "Team": {
+    "defaultHeaderText": "NOTRE ÉQUIPE",
+    "subtitle": "Notre équipe",
+    "viewOffersButton": "Découvrez nos offres"
+  },
+  "TuitionFees": {
+    "subtitle": "Grille tarifaire",
+    "defaultTableTitle": "Grille tarifaire",
+    "categoryHeader": "Catégorie",
+    "defaultHeaderText": "FRAIS DE SCOLARITÉ"
+  },
+  "Instagram": {
+    "title": "DERNIÈRES NOUVELLES",
+    "learnMore": "EN SAVOIR PLUS",
+    "fallbackCaption": "Fond memories"
+  },
+  "Aigle": {
+    "defaultHeaderText": "ÉQUIPE DES AIGLES",
+    "subtitle": "Sports et activités"
+  },
+  "Crealab": {
+    "defaultHeaderText": "CRÉALAB",
+    "subtitle": "Innovation"
+  },
+  "JardinLitteraire": {
+    "defaultHeaderText": "MER AYKIN: UN JARDIN LITTÉRAIRE",
+    "subtitle": "Épanouissement"
+  },
+  "Soutien": {
+    "defaultHeaderText": "SOUTIEN AUX ÉLÈVES",
+    "subtitle": "Accompagnement",
+    "defaultMainTitle": "Nos Services"
+  },
+  "StudentCouncil": {
+    "defaultHeaderText": "CONSEIL ÉTUDIANT",
+    "subtitle": "Vie étudiante"
+  },
+  "Trips": {
+    "defaultHeaderText": "SORTIES SCOLAIRES ET VOYAGES",
+    "subtitle": "Découvertes et aventures"
+  },
+  "Uniform": {
+    "defaultHeaderText": "UNIFORME SCOLAIRE",
+    "subtitle": "Code vestimentaire",
+    "defaultTitle": "Service Uniforme"
+  },
+  "Intro": {
+    "subtitle": "Bienvenue"
+  },
+  "Values": {
+    "subtitle": "Ce qui nous définit",
+    "defaultSectionTitle": "Nos Valeurs"
+  },
+  "LangSwitcher": {
+    "ariaLabel": "Changer de langue"
+  },
+  "HomePage": {
+    "defaultValuesTitle": "NOS VALEURS",
+    "defaultStrengthsTitle": "NOS FORCES"
+  },
+  "Administration": {
+    "defaultHeaderText": "CONSEIL ADMINISTRATION",
+    "defaultRoleTitle": "Rôle et Responsabilités",
+    "defaultMemberAlt": "Membre"
+  },
+  "ComiteParents": {
+    "defaultHeaderText": "COMITÉ DE PARENTS"
+  },
+  "Historique": {
+    "defaultHeaderText": "NOTRE HISTOIRE"
+  },
+  "AlertBanner": {
+    "learnMore": "En savoir plus"
+  }
+}

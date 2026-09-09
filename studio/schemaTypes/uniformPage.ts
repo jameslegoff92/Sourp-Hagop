@@ -12,13 +12,13 @@ export default {
     {
       name: "title",
       title: "Titre principal",
-      type: "string",
-      initialValue: "Service uniforme"
+      type: "localizedString",
+      initialValue: { fr: "Service uniforme" }
     },
     {
       name: "introText",
       title: "Texte d’introduction",
-      type: "text"
+      type: "localizedText"
     },
     {
       name: "partner",
@@ -27,9 +27,9 @@ export default {
       fields: [
         { name: "name", title: "Nom", type: "string" },
         { name: "logo", title: "Logo", type: "image", options: { hotspot: true } },
-        { 
-            name: "website", 
-            title: "Site Web (ex: www.topmarks.com)", 
+        {
+            name: "website",
+            title: "Site Web (ex: www.topmarks.com)",
             type: "string",
             validation: Rule => Rule.regex(/^www\./, {
                 name: "www",
@@ -46,6 +46,13 @@ export default {
       title: "title",
       subtitle: "partner.name",
       media: "headerImage"
+    },
+    prepare({ title, subtitle, media }) {
+      return {
+        title: title?.fr || "Uniforme scolaire",
+        subtitle,
+        media
+      }
     }
   }
 };

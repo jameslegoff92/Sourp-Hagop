@@ -6,8 +6,8 @@ export default {
     {
       name: 'headerText',
       title: 'Header Text',
-      type: 'string',
-      initialValue: 'CALENDRIER',
+      type: 'localizedString',
+      initialValue: { fr: 'CALENDRIER' },
     },
     {
       name: 'headerImage',
@@ -18,11 +18,14 @@ export default {
     {
       name: 'pageTitle',
       title: 'Page Title',
-      type: 'string',
-      initialValue: 'Calendrier',
+      type: 'localizedString',
+      initialValue: { fr: 'Calendrier' },
     },
   ],
   preview: {
     select: { title: 'pageTitle', media: 'headerImage' },
+    prepare({ title, media }) {
+      return { title: title?.fr || 'Calendrier', media };
+    },
   },
 }

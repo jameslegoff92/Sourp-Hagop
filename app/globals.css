@@ -5,8 +5,13 @@
 @tailwind utilities;
 
 :root {
-  --primary-ff: "Roboto", sans-serif;
-  --secondary-ff: "Poppins", sans-serif;
+  /* var(--font-armenian) is set by next/font on <html> (see
+     app/[locale]/layout.jsx) - a trailing fallback, not a replacement.
+     Latin/French glyphs are covered by Roboto/Poppins and never reach it;
+     Armenian glyphs aren't in either of those fonts, so the browser falls
+     through to it per-character. */
+  --primary-ff: "Roboto", var(--font-armenian), sans-serif;
+  --secondary-ff: "Poppins", var(--font-armenian), sans-serif;
   --black: #000;
   --white: #fff;
   --light-gray: #f5f5f5;
@@ -67,6 +72,44 @@ body {
   position: relative;
 }
 
+/* Restores the intent of the body className in app/[locale]/layout.jsx,
+   which passed an object where a string was required and so never applied -
+   see docs/dettes-preexistantes.md item (f). */
+.body-font {
+  font-family: var(--primary-ff);
+}
+
+/* MUI's Button/Link render on MUI's own built-in default theme (no
+   ThemeProvider exists in this app - four components don't justify one).
+   Appends the same Armenian fallback after MUI's own default stack,
+   without touching MUI's theme system. */
+.MuiButton-root,
+.MuiLink-root {
+  font-family: "Roboto", "Helvetica", "Arial", var(--font-armenian), sans-serif;
+}
+
+/* Armenian script has no majuscule/minuscule distinction the way Latin
+   script does - there is no Armenian equivalent of the French all-caps
+   convention these 52 declarations exist for, and forcing one harms
+   readability. It also isn't just cosmetic: the "և" ligature expands to
+   two characters (Ե+Ւ) under text-transform: uppercase, which breaks
+   layout in fixed-width badges/pills - see ADR 0001, section 11 for the
+   full reasoning and the empirical verification (Chromium only - not a
+   cross-browser claim).
+   This is one central rule instead of 52 individual edits: most of the
+   uppercase declarations live inside @emotion/styled template literals,
+   which compile to content-hashed classnames with no stable selector a
+   global stylesheet could target one-by-one, and there is no reason to
+   duplicate the same decision 52 times even for the ones that could be
+   reached directly. :where() keeps this selector's specificity at zero,
+   so !important is the only thing doing the overriding - any rule that
+   needs to survive this (see the two text-transform: capitalize
+   exceptions in Calendar.jsx and ReactCalendar.css) only needs its own
+   !important added, with no specificity arms race to reason about. */
+:where([lang="hy"] *) {
+  text-transform: none !important;
+}
+
 .no-scroll {
   position: fixed;
   overflow: hidden;
@@ -92,7 +135,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: clamp(3.2rem, 5vw + 1rem, 3.2rem);
   font-style: normal;
   font-weight: 600;
@@ -106,7 +149,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;
@@ -120,7 +163,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;
@@ -133,7 +176,7 @@ body {
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Poppins;
+  font-family: Poppins, var(--font-armenian);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 300;

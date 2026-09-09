@@ -55,7 +55,13 @@
             font-weight: 600;
             font-size: 24px;
             color: #333;
-            text-transform: capitalize;
+            /* !important survives the global [lang="hy"] uppercase reset
+               in app/globals.css - that rule is deliberately
+               zero-specificity (:where()), so !important here wins
+               outright regardless of source order. This is a capitalize
+               rule, not one of the uppercase declarations that reset is
+               for. */
+            text-transform: capitalize !important;
         }
 
         /* Month view */

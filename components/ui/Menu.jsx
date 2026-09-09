@@ -2,8 +2,9 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
-const titles = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+const dayKeys = ["days.mon", "days.tue", "days.wed", "days.thu", "days.fri"];
 
 const MenuContainer = styled.div`
   width: 100%;
@@ -348,6 +349,8 @@ const LightboxDot = styled.button`
 `;
 
 const Menu = ({ data }) => {
+  const t = useTranslations("Menu");
+  const tCommon = useTranslations("Common");
   const [currentWeek, setCurrentWeek] = useState(0);
   const [menuType, setMenuType] = useState("primaire");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -356,8 +359,8 @@ const Menu = ({ data }) => {
   const primaireWeeks = data?.primaireWeeks || [];
   const secondaireWeeks = data?.secondaireWeeks || [];
   const dessertNotes = data?.dessertNotes || {
-    primaire: "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
-    secondaire: "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau.",
+    primaire: tCommon("agoraDessertNotes.primaire"),
+    secondaire: tCommon("agoraDessertNotes.secondaire"),
   };
 
   const currentWeeks = menuType === "primaire" ? primaireWeeks : secondaireWeeks;
@@ -396,7 +399,7 @@ const Menu = ({ data }) => {
   if (!currentWeeks.length) {
     return (
       <LoadingContainer>
-        Aucun menu disponible pour le moment.
+        {t("noMenuAvailable")}
       </LoadingContainer>
     );
   }
@@ -412,7 +415,7 @@ const Menu = ({ data }) => {
               setCurrentWeek(0);
             }}
           >
-            Primaire
+            {t("toggle.primaire")}
           </ToggleButton>
           <ToggleButton
             active={menuType === "secondaire"}
@@ -421,7 +424,7 @@ const Menu = ({ data }) => {
               setCurrentWeek(0);
             }}
           >
-            Secondaire
+            {t("toggle.secondaire")}
           </ToggleButton>
         </ToggleWrapper>
 
@@ -429,7 +432,7 @@ const Menu = ({ data }) => {
           <NavButton onClick={handlePrev}>
             <FaChevronLeft size={16} />
           </NavButton>
-          <WeekInfo>Semaine {currentWeeks[currentWeek]?.weekNumber || currentWeek + 1}</WeekInfo>
+          <WeekInfo>{t("weekLabel", { number: currentWeeks[currentWeek]?.weekNumber || currentWeek + 1 })}</WeekInfo>
           <NavButton onClick={handleNext}>
             <FaChevronRight size={16} />
           </NavButton>
@@ -454,7 +457,7 @@ const Menu = ({ data }) => {
                 className="card-bg-layer"
                 imageUrl={item.imageUrl || "../images/menu/placeholder.svg"}
               />
-              <DayBadge>{titles[index]}</DayBadge>
+              <DayBadge>{t(dayKeys[index])}</DayBadge>
 
               <Overlay className="card-overlay-layer">
                 <CardContentContainer>
@@ -503,7 +506,7 @@ const Menu = ({ data }) => {
             <LightboxContent onClick={(e) => e.stopPropagation()}>
 
                 <LightboxWeekBadge>
-                Semaine {currentWeeks[currentWeek]?.weekNumber || currentWeek + 1}
+                {t("weekLabel", { number: currentWeeks[currentWeek]?.weekNumber || currentWeek + 1 })}
               </LightboxWeekBadge>
 
               <CloseButton onClick={closeLightbox}>
@@ -529,7 +532,7 @@ const Menu = ({ data }) => {
               </LightboxNavButton>
 
               <LightboxInfo>
-                <LightboxDay>{titles[lightboxIndex]}</LightboxDay>
+                <LightboxDay>{t(dayKeys[lightboxIndex])}</LightboxDay>
                 <LightboxDescription>
                   {currentMeals[lightboxIndex].description}
                 </LightboxDescription>

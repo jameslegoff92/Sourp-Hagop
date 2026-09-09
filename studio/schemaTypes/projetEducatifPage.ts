@@ -17,8 +17,8 @@ export default {
         {
           name: "headerText",
           title: "Texte de l'entête",
-          type: "string",
-          initialValue: "PROJET ÉDUCATIF"
+          type: "localizedString",
+          initialValue: { fr: "PROJET ÉDUCATIF" }
         }
       ]
     },
@@ -30,13 +30,13 @@ export default {
         {
           name: "title",
           title: "Titre",
-          type: "string",
-          initialValue: "Notre Mission"
+          type: "localizedString",
+          initialValue: { fr: "Notre Mission" }
         },
         {
           name: "text",
           title: "Texte",
-          type: "text"
+          type: "localizedText"
         }
       ]
     },
@@ -48,14 +48,14 @@ export default {
         {
           name: "title",
           title: "Titre",
-          type: "string",
-          initialValue: "Notre vision"
+          type: "localizedString",
+          initialValue: { fr: "Notre vision" }
         },
         {
           name: "introText",
           title: "Texte d'introduction",
-          type: "text",
-          initialValue: "En vue de mener à bien notre mission, nous favorisons la création d'une communauté d'apprentissage où les enseignants et les autres membres du personnel :"
+          type: "localizedText",
+          initialValue: { fr: "En vue de mener à bien notre mission, nous favorisons la création d'une communauté d'apprentissage où les enseignants et les autres membres du personnel :" }
         },
         {
           name: "items",
@@ -77,13 +77,13 @@ export default {
                 {
                   name: "label",
                   title: "Label",
-                  type: "string",
+                  type: "localizedString",
                   description: "Mot-clé affiché sur la carte (ex: Collaboration, Bien-être)"
                 },
                 {
                   name: "text",
                   title: "Description",
-                  type: "text",
+                  type: "localizedText",
                   description: "Texte complet qui apparaît au survol"
                 }
               ],
@@ -92,6 +92,13 @@ export default {
                   title: "label",
                   subtitle: "text",
                   media: "image"
+                },
+                prepare({ title, subtitle, media }) {
+                  return {
+                    title: title?.fr || "Sans label",
+                    subtitle: subtitle?.fr,
+                    media
+                  }
                 }
               }
             }
@@ -107,8 +114,8 @@ export default {
         {
           name: "title",
           title: "Titre",
-          type: "string",
-          initialValue: "Nos engagements"
+          type: "localizedString",
+          initialValue: { fr: "Nos engagements" }
         },
         {
           name: "items",
@@ -129,12 +136,12 @@ export default {
                 {
                   name: "title",
                   title: "Titre",
-                  type: "string"
+                  type: "localizedString"
                 },
                 {
                   name: "text",
                   title: "Texte",
-                  type: "text"
+                  type: "localizedText"
                 },
                 {
                   name: "iconSize",
@@ -144,7 +151,14 @@ export default {
                 }
               ],
               preview: {
-                select: { title: "title", subtitle: "text", media: "icon" }
+                select: { title: "title", subtitle: "text", media: "icon" },
+                prepare({ title, subtitle, media }) {
+                  return {
+                    title: title?.fr || "Sans titre",
+                    subtitle: subtitle?.fr,
+                    media
+                  }
+                }
               }
             }
           ]
@@ -159,14 +173,14 @@ export default {
         {
           name: "title",
           title: "Titre",
-          type: "string",
-          initialValue: "Orientations générales"
+          type: "localizedString",
+          initialValue: { fr: "Orientations générales" }
         },
         {
           name: "introText",
           title: "Texte d'introduction",
-          type: "text",
-          initialValue: "Les orientations générales de l'École arménienne Sourp Hagop sont les suivantes :"
+          type: "localizedText",
+          initialValue: { fr: "Les orientations générales de l'École arménienne Sourp Hagop sont les suivantes :" }
         },
         {
           name: "items",
@@ -181,11 +195,14 @@ export default {
                 {
                   name: "text",
                   title: "Texte",
-                  type: "text"
+                  type: "localizedText"
                 }
               ],
               preview: {
-                select: { title: "text" }
+                select: { title: "text" },
+                prepare({ title }) {
+                  return { title: title?.fr || "Sans texte" }
+                }
               }
             }
           ]
@@ -200,20 +217,20 @@ export default {
         {
           name: "label",
           title: "Label",
-          type: "string",
-          initialValue: "Notre slogan"
+          type: "localizedString",
+          initialValue: { fr: "Notre slogan" }
         },
         {
           name: "line1",
           title: "Première ligne",
-          type: "string",
-          initialValue: "Toujours plus haut,"
+          type: "localizedString",
+          initialValue: { fr: "Toujours plus haut," }
         },
         {
           name: "line2",
           title: "Deuxième ligne",
-          type: "string",
-          initialValue: "Toujours plus loin!"
+          type: "localizedString",
+          initialValue: { fr: "Toujours plus loin!" }
         }
       ]
     }
@@ -222,6 +239,12 @@ export default {
     select: {
       title: "pageHeader.headerText",
       media: "pageHeader.headerImage"
+    },
+    prepare({ title, media }) {
+      return {
+        title: title?.fr || "Projet éducatif",
+        media
+      }
     }
   }
 }

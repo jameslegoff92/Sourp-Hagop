@@ -4,77 +4,79 @@ import { useEffect, useState, useRef } from "react";
 import { FaChevronDown, FaExternalLinkAlt } from "react-icons/fa";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { PortalLink } from "./topNav";
 import NavDropdown from "./NavDropdown";
 import css from "./Nav.module.css";
 import styled from "@emotion/styled";
 
 /* ─────────────────────────────────────────────
-   DATA  (unchanged from original)
+   DATA  (links/routing only - display text lives in
+   messages/*.json under the "Nav" namespace, keyed below)
 ───────────────────────────────────────────── */
 const navList = [
   {
-    title: "L'école",
+    titleKey: "groups.school.title",
     items: [
-      { text: "Historique", link: "/historique" },
-      { text: "L'équipe", link: "/equipe" },
-      { text: "Conseil d'administration", link: "/conseil-administration" },
-      { text: "Projet éducatif", link: "/projet-educatif" },
-      { text: "Comité de parents", link: "/comite-parents" },
-      { text: "Anciens et anciennes", link: "/anciens" },
-      { text: "Protecteur national de l'élève", link: "/protecteur-national-eleve" },
+      { textKey: "groups.school.items.historique", link: "/historique" },
+      { textKey: "groups.school.items.equipe", link: "/equipe" },
+      { textKey: "groups.school.items.administration", link: "/conseil-administration" },
+      { textKey: "groups.school.items.projetEducatif", link: "/projet-educatif" },
+      { textKey: "groups.school.items.comiteParents", link: "/comite-parents" },
+      { textKey: "groups.school.items.anciens", link: "/anciens" },
+      { textKey: "groups.school.items.ombudsman", link: "/protecteur-national-eleve" },
     ],
   },
   {
-    title: "Pédagogie",
+    titleKey: "groups.pedagogy.title",
     items: [
-      { text: "Programme éducatif au préscolaire", link: "/prescolaire" },
-      { text: "Programme éducatif au primaire", link: "/primaire" },
-      { text: "Programme éducatif au secondaire", link: "/secondaire" },
+      { textKey: "groups.pedagogy.items.prescolaire", link: "/prescolaire" },
+      { textKey: "groups.pedagogy.items.primaire", link: "/primaire" },
+      { textKey: "groups.pedagogy.items.secondaire", link: "/secondaire" },
     ],
   },
   {
-    title: "Vie Étudiante",
+    titleKey: "groups.studentLife.title",
     items: [
       {
-        text: "Activités parascolaires",
+        textKey: "groups.studentLife.items.activitesParascolaires",
         link: "https://sites.google.com/ecolesourphagop.com/parascolaire/home?utm_source=brevo&utm_campaign=EASHebdo%205%20septembre%202025&utm_medium=email",
         external: true,
       },
-      { text: "Conseil étudiant", link: "/conseil-etudiant" },
-      { text: "Équipe des Aigles", link: "/aigles" },
-      { text: "Sorties scolaires et voyages", link: "/sorties-scolaires-voyages" },
+      { textKey: "groups.studentLife.items.conseilEtudiant", link: "/conseil-etudiant" },
+      { textKey: "groups.studentLife.items.aigles", link: "/aigles" },
+      { textKey: "groups.studentLife.items.sorties", link: "/sorties-scolaires-voyages" },
     ],
   },
   {
-    title: "Services à l'élève",
+    titleKey: "groups.studentServices.title",
     items: [
-      { text: "Soutien aux élèves", link: "/soutien" },
-      { text: "Agora Anna et Manouk Djoukhadjian", link: "/agora" },
-      { text: "Bibliothèque", link: "/bibliotheque" },
-      { text: "Mer Aykin: un jardin littéraire", link: "/jardin-litteraire" },
-      { text: "Créalab", link: "/crealab" },
-      { text: "Service de garde", link: "/service-de-garde" },
-      { text: "Transport", link: "/transport" },
-      { text: "Uniforme scolaire", link: "/uniforme-scolaire" },
+      { textKey: "groups.studentServices.items.soutien", link: "/soutien" },
+      { textKey: "groups.studentServices.items.agora", link: "/agora" },
+      { textKey: "groups.studentServices.items.bibliotheque", link: "/bibliotheque" },
+      { textKey: "groups.studentServices.items.jardinLitteraire", link: "/jardin-litteraire" },
+      { textKey: "groups.studentServices.items.crealab", link: "/crealab" },
+      { textKey: "groups.studentServices.items.serviceDeGarde", link: "/service-de-garde" },
+      { textKey: "groups.studentServices.items.transport", link: "/transport" },
+      { textKey: "groups.studentServices.items.uniforme", link: "/uniforme-scolaire" },
     ],
   },
   {
-    title: "Admissions",
+    titleKey: "groups.admissions.title",
     items: [
-      { text: "Pourquoi Sourp Hagop", link: "/pourquoi-sourp-hagop" },
-      { text: "Demande d'admission", link: "/admissions" },
-      { text: "Droits de scolarité et autres frais", link: "/droits" },
+      { textKey: "groups.admissions.items.pourquoi", link: "/pourquoi-sourp-hagop" },
+      { textKey: "groups.admissions.items.demande", link: "/admissions" },
+      { textKey: "groups.admissions.items.droits", link: "/droits" },
     ],
   },
 ];
 
 const navItems = [
-  { title: "Carrières", url: "/carrieres" },
-  { title: "Calendrier", url: "/about" },
-  { title: "Location d'espaces", url: "/locations" },
-  { title: "Nous joindre", url: "/nous-joindre" },
-  //{ title: "La Fondation", url: "https://fondationsh.com/", external: true },
+  { titleKey: "quickLinks.careers", url: "/carrieres" },
+  { titleKey: "quickLinks.calendar", url: "/about" },
+  { titleKey: "quickLinks.locations", url: "/locations" },
+  { titleKey: "quickLinks.contact", url: "/nous-joindre" },
+  //{ titleKey: "quickLinks.foundation", url: "https://fondationsh.com/", external: true },
 ];
 
 /* ─────────────────────────────────────────────
@@ -296,6 +298,7 @@ const itemVariants = {
    MOBILE NAV
 ───────────────────────────────────────────── */
 const MobileNav = ({ open, onClose }) => {
+  const t = useTranslations("Nav");
   const [activeDropdown, setActiveDropdown] = useState(null);
   const closeBtnRef = useRef(null);
 
@@ -331,7 +334,7 @@ const MobileNav = ({ open, onClose }) => {
             key="drawer"
             role="dialog"
             aria-modal="true"
-            aria-label="Menu de navigation"
+            aria-label={t("menuAriaLabel")}
             variants={drawerVariants}
             initial="hidden"
             animate="visible"
@@ -344,7 +347,7 @@ const MobileNav = ({ open, onClose }) => {
                 ref={closeBtnRef}
                 onClick={onClose}
                 whileTap={{ scale: 0.88 }}
-                aria-label="Fermer le menu"
+                aria-label={t("closeMenuAriaLabel")}
               >
                 <BtnLine
                   initial={{ rotate: 0, y: 0, scaleX: 1 }}
@@ -377,14 +380,14 @@ const MobileNav = ({ open, onClose }) => {
 
               <div style={{ position: "relative", zIndex: 1 }}>
               {navList.map((navItem, index) => {
-                const isOpen = activeDropdown === navItem.title;
+                const isOpen = activeDropdown === navItem.titleKey;
                 return (
                   <AccordionItem key={index} data-open={isOpen}>
                     <AccordionTrigger
-                      onClick={() => toggle(navItem.title)}
+                      onClick={() => toggle(navItem.titleKey)}
                       aria-expanded={isOpen}
                     >
-                      <span>{navItem.title}</span>
+                      <span>{t(navItem.titleKey)}</span>
                       <motion.span
                         animate={{ rotate: isOpen ? 45 : 0 }}
                         transition={{ duration: 0.22 }}
@@ -419,7 +422,7 @@ const MobileNav = ({ open, onClose }) => {
                                   target={item.external ? "_blank" : "_self"}
                                   rel={item.external ? "noopener noreferrer" : undefined}
                                 >
-                                  <span>{item.text}</span>
+                                  <span>{t(item.textKey)}</span>
                                   {item.external && (
                                     <ExternalBadge>
                                       <FaExternalLinkAlt size={9} />
@@ -438,7 +441,7 @@ const MobileNav = ({ open, onClose }) => {
               </div>
             </ScrollBody>
             <DrawerFooter>
-              <SectionLabel style={{ marginBottom: "0.6rem" }}>Accès rapide</SectionLabel>
+              <SectionLabel style={{ marginBottom: "0.6rem" }}>{t("quickAccessLabel")}</SectionLabel>
               <FooterGrid>
                 {navItems.map((item, index) => (
                   <FooterLink
@@ -448,7 +451,7 @@ const MobileNav = ({ open, onClose }) => {
                     target={item.external ? "_blank" : "_self"}
                     rel={item.external ? "noopener noreferrer" : undefined}
                   >
-                    {item.title}
+                    {t(item.titleKey)}
                   </FooterLink>
                 ))}
               </FooterGrid>
@@ -464,6 +467,7 @@ const MobileNav = ({ open, onClose }) => {
    MAIN NAV
 ───────────────────────────────────────────── */
 const Nav = ({ type = "primary", animate = true }) => {
+  const t = useTranslations("Nav");
   const animationState = animate ? "visible" : { x: 0, opacity: 1 };
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -484,7 +488,7 @@ const Nav = ({ type = "primary", animate = true }) => {
           className={css.logoContainer}
         >
           <Link href="/" style={{ display: "flex", gap: "4px" }}>
-            <img src="/images/logo.jpg" alt="logo" width={89} height={90} className={css.logo} />
+            <img src="/images/logo.jpg" alt={t("logoAlt")} width={89} height={90} className={css.logo} />
             <div className={css.logoText}>
               <p className={`${css.logoTextItem} ${type === "secondary" ? css.logoAlt : ""}`}>
                 L'ÉCOLE ARMÉNIENNE
@@ -511,8 +515,8 @@ const Nav = ({ type = "primary", animate = true }) => {
           {navList.map((navItem, index) => (
             <li key={index}>
               <NavDropdown
-                title={navItem.title}
-                items={navItem.items}
+                title={t(navItem.titleKey)}
+                items={navItem.items.map((item) => ({ ...item, text: t(item.textKey) }))}
                 type={type}
                 align={index === navList.length - 1 ? "right" : "left"}
                 offset={index === navList.length - 1 ? 40 : 0}

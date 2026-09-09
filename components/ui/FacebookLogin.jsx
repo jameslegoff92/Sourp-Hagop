@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaFacebook } from "react-icons/fa";
-import { Button } from "./button";
+import { useTranslations } from "next-intl";
+import { Button } from "./Button";
 import css from "./FacebookLogin.module.css";
 
 export default function FacebookLoginLogout() {
+  const t = useTranslations("FacebookLogin");
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -80,9 +82,9 @@ export default function FacebookLoginLogout() {
     <>
       {/* Render login or logout button based on user's login status */}
       {isLoggedIn ? (
-        <Button className={css.button} onClick={handleLogout}><FaFacebook/> Logout from Facebook</Button>
+        <Button className={css.button} onClick={handleLogout}><FaFacebook/> {t("logout")}</Button>
       ) : (
-        <Button className={css.button} onClick={handleLogin}><FaFacebook/> Sign in with Facebook</Button>
+        <Button className={css.button} onClick={handleLogin}><FaFacebook/> {t("signIn")}</Button>
       )}
     </>
   )

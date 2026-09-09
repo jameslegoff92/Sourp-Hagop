@@ -29,21 +29,20 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Titre',
-      type: 'string',
+      type: 'localizedString',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'message',
       title: 'Message',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
     }),
     defineField({
       name: 'link',
       title: 'Lien (optionnel)',
       type: 'object',
       fields: [
-        { name: 'text', title: 'Texte du lien', type: 'string' },
+        { name: 'text', title: 'Texte du lien', type: 'localizedString' },
         { name: 'url', title: 'URL', type: 'url' },
       ],
     }),
@@ -74,7 +73,7 @@ export default defineType({
         event: '🎉',
       };
       return {
-        title: `${typeIcons[type] || ''} ${title}`,
+        title: `${typeIcons[type] || ''} ${title?.fr || 'Sans titre'}`,
         subtitle: isActive ? '✅ Active' : '❌ Inactive',
       };
     },

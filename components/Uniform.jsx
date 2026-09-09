@@ -1,10 +1,11 @@
 "use client";
 
-import Header from "../components/ui/Header";
-import Footer from "../components/ui/Footer";
-import BackgroundLogo from "../components/ui/BackgroundLogo";
-import Typography from "../components/display/Typography";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import BackgroundLogo from "@/components/ui/BackgroundLogo";
+import Typography from "@/components/display/Typography";
 import styled from "@emotion/styled";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 
 // --- STYLED COMPONENTS ---
@@ -141,12 +142,13 @@ const ContactInfo = styled.div`
 // --- MAIN COMPONENT ---
 
 export default function Uniforme({ data }) {
+  const t = useTranslations("Uniform");
   return (
     <>
       <Header
         animate={false}
         imageSrc={data?.headerImage?.asset?.url}
-        headerText={data?.headerText || "UNIFORME SCOLAIRE"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -159,7 +161,7 @@ export default function Uniforme({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Code vestimentaire
+              {t("subtitle")}
             </SectionSubtitle>
             
             <TitleWrapper
@@ -169,7 +171,7 @@ export default function Uniforme({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.title || "Service Uniforme"}
+                {data?.title || t("defaultTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>

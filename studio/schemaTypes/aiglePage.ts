@@ -12,18 +12,18 @@ export default {
     {
       name: "headerText",
       title: "Texte de l’entête",
-      type: "string",
-      initialValue: "ÉQUIPE DES AIGLES"
+      type: "localizedString",
+      initialValue: { fr: "ÉQUIPE DES AIGLES" }
     },
     {
       name: "introTitle",
       title: "Titre d’introduction",
-      type: "string"
+      type: "localizedString"
     },
     {
       name: "introText",
       title: "Texte d’introduction",
-      type: "text"
+      type: "localizedText"
     },
     {
       name: "images",
@@ -37,6 +37,9 @@ export default {
     select: {
       title: "introTitle",
       media: "headerImage"
+    },
+    prepare({ title, media }) {
+      return { title: title?.fr || "Équipe des Aigles", media }
     }
   }
 }

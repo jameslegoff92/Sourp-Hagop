@@ -6,6 +6,7 @@ import Typography from "./display/Typography";
 import CustomButton from "./inputs/Button";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -119,7 +120,9 @@ const ButtonLink = styled.a`
   color: inherit;
 `;
 
-const TextBlock = ({ title, subtitle, text, buttonText, link }) => (
+const TextBlock = ({ title, subtitle, text, buttonText, link }) => {
+  const t = useTranslations("Admissions");
+  return (
   <TextBlockStyled
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
@@ -137,23 +140,25 @@ const TextBlock = ({ title, subtitle, text, buttonText, link }) => (
     <ButtonWrapper>
       <StyledButton>
         <ButtonLink href={link} target="_blank" rel="noopener noreferrer">
-          {buttonText || "Commencer"}
+          {buttonText || t("defaultButtonText")}
         </ButtonLink>
       </StyledButton>
     </ButtonWrapper>
   </TextBlockStyled>
-);
+  );
+};
 
 export default function Admissions({ data }) {
+  const t = useTranslations("Admissions");
   const blocks = [data?.prescolairePrimaire, data?.secondaire].filter(Boolean);
 
   return (
     <>
-      <Header 
-        animate={false} 
-        imageSrc={data?.headerImageUrl} 
-        headerText={data?.headerText || "ADMISSIONS"} 
-        headerTextTop="70%" 
+      <Header
+        animate={false}
+        imageSrc={data?.headerImageUrl}
+        headerText={data?.headerText || t("defaultHeaderText")}
+        headerTextTop="70%"
       />
 
       <StyledDiv>
@@ -164,7 +169,7 @@ export default function Admissions({ data }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Inscriptions
+            {t("subtitle")}
           </SectionSubtitle>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -173,7 +178,7 @@ export default function Admissions({ data }) {
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             <Typography as="h1" type="h1" color="primary" style={{ marginTop: "1.5rem" }}>
-              Processus d'admission
+              {t("title")}
             </Typography>
           </motion.div>
         </SectionHeader>

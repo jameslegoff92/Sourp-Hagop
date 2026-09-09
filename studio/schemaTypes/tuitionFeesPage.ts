@@ -24,7 +24,7 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: 'Titre de l\'entête',
-      type: 'string',
+      type: 'localizedString',
       group: 'header'
     }),
 
@@ -34,8 +34,7 @@ export default defineType({
     defineField({
       name: 'introText',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'intro'
     }),
 
@@ -45,29 +44,29 @@ export default defineType({
     defineField({
       name: 'tableTitle',
       title: 'Titre de la première colonne',
-      type: 'string',
-      initialValue: 'Droits de scolarité et autres frais',
+      type: 'localizedString',
+      initialValue: { fr: 'Droits de scolarité et autres frais' },
       group: 'tableHeaders'
     }),
     defineField({
       name: 'prescolaireLabel',
       title: 'Label Préscolaire',
-      type: 'string',
-      initialValue: 'Préscolaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Préscolaire' },
       group: 'tableHeaders'
     }),
     defineField({
       name: 'primaireLabel',
       title: 'Label Primaire',
-      type: 'string',
-      initialValue: 'Primaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Primaire' },
       group: 'tableHeaders'
     }),
     defineField({
       name: 'secondaireLabel',
       title: 'Label Secondaire',
-      type: 'string',
-      initialValue: 'Secondaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Secondaire' },
       group: 'tableHeaders'
     }),
 
@@ -85,7 +84,7 @@ export default defineType({
           {
             name: 'category',
             title: 'Catégorie / Description',
-            type: 'string'
+            type: 'localizedString'
           },
           {
             name: 'prescolaire',
@@ -134,7 +133,7 @@ export default defineType({
               special: '⭐ Spécial'
             }
             return {
-              title: title,
+              title: title?.fr || 'Sans catégorie',
               subtitle: `${typeLabels[rowType] || ''} ${prescolaire ? `- ${prescolaire}` : ''}`
             }
           }

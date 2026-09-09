@@ -2,12 +2,14 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Calendar from "react-calendar";
-import Header from "../ui/Header";
+import Header from "@/components/ui/Header";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import "react-calendar/dist/Calendar.css";
 import "./ReactCalendar.css";
 
 export default function ReactCalendar({ data, pageData }) {
+  const t = useTranslations("ReactCalendar");
   const [events, setEvents] = useState(Array.isArray(data) ? data : []);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
   const [failed, setFailed] = useState(false);
@@ -30,10 +32,10 @@ export default function ReactCalendar({ data, pageData }) {
             marginBottom: "0.5rem",
           }}
         >
-          Something went wrong
+          {t("errorTitle")}
         </h1>
         <p style={{ color: "#555", marginBottom: "1.25rem" }}>
-          We couldn't load the calendar right now.
+          {t("errorBody")}
         </p>
         <div
           style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}
@@ -48,7 +50,7 @@ export default function ReactCalendar({ data, pageData }) {
               cursor: "pointer",
             }}
           >
-            Try again
+            {t("retry")}
           </button>
           <button
             onClick={() => window.history.back()}
@@ -60,7 +62,7 @@ export default function ReactCalendar({ data, pageData }) {
               cursor: "pointer",
             }}
           >
-            Go back
+            {t("goBack")}
           </button>
         </div>
       </div>
@@ -182,7 +184,7 @@ export default function ReactCalendar({ data, pageData }) {
       <Header
         animate={false}
         imageSrc={pageData?.headerImageUrl || "../images/header/calendrier-header.jpg"}
-        headerText={pageData?.headerText || "CALENDRIER"}
+        headerText={pageData?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
       <div className="react-calendar-wrapper">

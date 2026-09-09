@@ -6,6 +6,7 @@ import Typography from "./display/Typography";
 import Accordion from "./ui/AccordionSoutien";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   text-align: center;
@@ -73,6 +74,7 @@ const AccordionWrapper = styled(motion.div)`
 `;
 
 export default function Soutien({ data }) {
+  const t = useTranslations("Soutien");
   const headerImageUrl = data?.headerImageUrl;
   const headerText = data?.headerText;
   const mainTitle = data?.mainTitle;
@@ -92,7 +94,7 @@ export default function Soutien({ data }) {
       <Header
         animate={false}
         imageSrc={headerImageUrl || "../images/header/soutien-header.jpg"}
-        headerText={headerText || "SOUTIEN AUX ÉLÈVES"}
+        headerText={headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -105,7 +107,7 @@ export default function Soutien({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Accompagnement
+              {t("subtitle")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -114,7 +116,7 @@ export default function Soutien({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {mainTitle || "Nos Services"}
+                {mainTitle || t("defaultMainTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>

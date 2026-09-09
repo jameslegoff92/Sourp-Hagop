@@ -23,19 +23,19 @@ export default {
         {
           name: 'title',
           title: 'Title',
-          type: 'string',
+          type: 'localizedString',
           validation: Rule => Rule.required()
         },
         {
           name: 'content',
           title: 'Content Text',
-          type: 'text',
+          type: 'localizedText',
           description: 'The paragraph text below the title',
           validation: Rule => Rule.required()
         }
       ]
     },
-    
+
     // Values Section
     {
       name: 'valuesSection',
@@ -55,16 +55,16 @@ export default {
                 {
                   name: 'title',
                   title: 'Value Title',
-                  type: 'string',
+                  type: 'localizedString',
                   description: 'Name of the value (e.g., "Respect", "Responsabilité")',
-                  validation: Rule => Rule.required().max(100)
+                  validation: Rule => Rule.required()
                 },
                 {
                   name: 'text',
                   title: 'Description',
-                  type: 'text',
+                  type: 'localizedText',
                   description: 'Detailed explanation of this value',
-                  validation: Rule => Rule.required().min(10).max(500)
+                  validation: Rule => Rule.required()
                 },
                 {
                   name: 'image',
@@ -86,8 +86,8 @@ export default {
                 prepare(selection) {
                   const {title, subtitle, media} = selection
                   return {
-                    title: title,
-                    subtitle: subtitle ? subtitle.substring(0, 60) + '...' : 'No description',
+                    title: title?.fr || 'Sans titre',
+                    subtitle: subtitle?.fr ? subtitle.fr.substring(0, 60) + '...' : 'No description',
                     media: media
                   }
                 }
@@ -118,16 +118,16 @@ export default {
                 {
                   name: 'title',
                   title: 'Strength Title',
-                  type: 'string',
+                  type: 'localizedString',
                   description: 'Name of the strength (e.g., "Collaboration d\'équipe")',
-                  validation: Rule => Rule.required().max(100)
+                  validation: Rule => Rule.required()
                 },
                 {
                   name: 'text',
                   title: 'Description',
-                  type: 'text',
+                  type: 'localizedText',
                   description: 'Brief explanation of this strength',
-                  validation: Rule => Rule.required().min(10).max(200)
+                  validation: Rule => Rule.required()
                 },
                 {
                   name: 'image',
@@ -149,8 +149,8 @@ export default {
                 prepare(selection) {
                   const {title, subtitle, media} = selection
                   return {
-                    title: title,
-                    subtitle: subtitle ? subtitle.substring(0, 40) + '...' : 'No description',
+                    title: title?.fr || 'Sans titre',
+                    subtitle: subtitle?.fr ? subtitle.fr.substring(0, 40) + '...' : 'No description',
                     media: media
                   }
                 }
@@ -174,7 +174,7 @@ export default {
       const strengthCount = strengthsCount ? strengthsCount.length : 0
       return {
         title: 'Home Page',
-        subtitle: title ? `Intro: ${title} | Values: ${valueCount} | Strengths: ${strengthCount}` : 'No intro title set'
+        subtitle: title?.fr ? `Intro: ${title.fr} | Values: ${valueCount} | Strengths: ${strengthCount}` : 'No intro title set'
       }
     }
   }

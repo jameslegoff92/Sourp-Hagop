@@ -15,31 +15,30 @@ export default {
     {
       name: 'headerText',
       title: 'Header Text',
-      type: 'string',
-      initialValue: 'Service de Transport',
+      type: 'localizedString',
+      initialValue: { fr: 'Service de Transport' },
     },
     {
       name: 'mapTitle',
       title: 'Map Title',
-      type: 'string',
-      initialValue: 'Plan des zones couvertes par le transport scolaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Plan des zones couvertes par le transport scolaire' },
     },
     {
       name: 'introText',
       title: 'Introduction Text',
-      type: 'text',
-      rows: 5,
+      type: 'localizedText',
     },
     {
       name: 'contactTitle',
       title: 'Contact Section Title',
-      type: 'string',
-      initialValue: 'Pour plus d\'information veuillez contacter le responsable du service de transport',
+      type: 'localizedString',
+      initialValue: { fr: 'Pour plus d\'information veuillez contacter le responsable du service de transport' },
     },
     {
       name: 'contactName',
       title: 'Contact Name',
-      type: 'string',
+      type: 'localizedString',
     },
     {
       name: 'contactPhone',
@@ -56,6 +55,9 @@ export default {
     select: {
       title: 'headerText',
       media: 'headerImage',
+    },
+    prepare({ title, media }) {
+      return { title: title?.fr || 'Transport', media };
     },
   },
 };

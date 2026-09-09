@@ -25,14 +25,13 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: 'Titre de l\'en-tête',
-      type: 'string',
+      type: 'localizedString',
       group: 'header'
     }),
     defineField({
       name: 'introText',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
       group: 'header'
     }),
 
@@ -40,14 +39,13 @@ export default defineType({
     defineField({
       name: 'activitiesTitle',
       title: 'Titre de la section Activités',
-      type: 'string',
+      type: 'localizedString',
       group: 'activities'
     }),
     defineField({
       name: 'activitiesDescription',
       title: 'Description des activités',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'activities'
     }),
     defineField({
@@ -64,12 +62,12 @@ export default defineType({
             type: 'image',
             options: { accept: 'image/svg+xml' }
           },
-          { name: 'title', title: 'Nom de l\'activité', type: 'string' }
+          { name: 'title', title: 'Nom de l\'activité', type: 'localizedString' }
         ],
         preview: {
           select: { title: 'title', media: 'icon' },
           prepare({ title, media }) {
-            return { title, media }
+            return { title: title?.fr || 'Sans titre', media }
           }
         }
       }]
@@ -79,14 +77,13 @@ export default defineType({
     defineField({
       name: 'coursesTitle',
       title: 'Titre de la section Cours',
-      type: 'string',
+      type: 'localizedString',
       group: 'courses'
     }),
     defineField({
       name: 'coursesDescription',
       title: 'Description des cours',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'courses'
     }),
     defineField({
@@ -103,8 +100,8 @@ export default defineType({
             type: 'image',
             options: { accept: 'image/svg+xml' }
           },
-          { name: 'title', title: 'Nom du cours', type: 'string' },
-          { name: 'hours', title: 'Durée (ex: 120 min/semaine)', type: 'string' },
+          { name: 'title', title: 'Nom du cours', type: 'localizedString' },
+          { name: 'hours', title: 'Durée (ex: 120 min/semaine)', type: 'localizedString' },
           {
             name: 'color',
             title: 'Couleur d\'accent',
@@ -121,9 +118,9 @@ export default defineType({
           }
         ],
         preview: {
-          select: { emoji: 'emoji', title: 'title', hours: 'hours' },
-          prepare({ emoji, title, hours }) {
-            return { title: `${emoji} ${title}`, subtitle: hours }
+          select: { title: 'title', hours: 'hours' },
+          prepare({ title, hours }) {
+            return { title: title?.fr || 'Sans titre', subtitle: hours?.fr }
           }
         }
       }]
@@ -133,14 +130,13 @@ export default defineType({
     defineField({
       name: 'evaluationTitle',
       title: 'Titre de la section Évaluation',
-      type: 'string',
+      type: 'localizedString',
       group: 'evaluation'
     }),
     defineField({
       name: 'evaluationDescription',
       title: 'Description du système d\'évaluation',
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
       group: 'evaluation'
     }),
     defineField({
@@ -164,12 +160,12 @@ export default defineType({
               ]
             }
           },
-          { name: 'description', title: 'Description', type: 'string' }
+          { name: 'description', title: 'Description', type: 'localizedString' }
         ],
         preview: {
           select: { letter: 'letter', description: 'description' },
           prepare({ letter, description }) {
-            return { title: `${letter} - ${description}` }
+            return { title: `${letter} - ${description?.fr || ''}` }
           }
         }
       }]
@@ -179,13 +175,13 @@ export default defineType({
     defineField({
       name: 'competenciesTitle',
       title: 'Titre de la section Compétences',
-      type: 'string',
+      type: 'localizedString',
       group: 'competencies'
     }),
     defineField({
       name: 'competenciesSubtitle',
       title: 'Sous-titre de la section Compétences',
-      type: 'string',
+      type: 'localizedString',
       group: 'competencies'
     }),
     defineField({
@@ -197,18 +193,18 @@ export default defineType({
         type: 'object',
         fields: [
           { name: 'number', title: 'Numéro', type: 'number' },
-          { name: 'title', title: 'Titre de la compétence', type: 'string' },
+          { name: 'title', title: 'Titre de la compétence', type: 'localizedString' },
           {
             name: 'items',
             title: 'Critères',
             type: 'array',
-            of: [{ type: 'string' }]
+            of: [{ type: 'localizedString' }]
           }
         ],
         preview: {
           select: { number: 'number', title: 'title' },
           prepare({ number, title }) {
-            return { title: `${number}. ${title}` }
+            return { title: `${number}. ${title?.fr || ''}` }
           }
         }
       }]
@@ -218,20 +214,19 @@ export default defineType({
     defineField({
       name: 'scheduleTitle',
       title: 'Titre de la section Horaire',
-      type: 'string',
+      type: 'localizedString',
       group: 'schedule'
     }),
     defineField({
       name: 'scheduleDescription',
       title: 'Description de l\'horaire',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'schedule'
     }),
     defineField({
       name: 'scheduleNote',
       title: 'Note (encadré jaune)',
-      type: 'string',
+      type: 'localizedString',
       group: 'schedule'
     }),
 
@@ -239,13 +234,13 @@ export default defineType({
     defineField({
       name: 'contactTitle',
       title: 'Titre de la section Contact',
-      type: 'string',
+      type: 'localizedString',
       group: 'contact'
     }),
     defineField({
       name: 'contactDescription',
       title: 'Description du contact',
-      type: 'string',
+      type: 'localizedString',
       group: 'contact'
     }),
   ],

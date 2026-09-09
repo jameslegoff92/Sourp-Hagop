@@ -6,6 +6,7 @@ import Typography from "./display/Typography";
 import { PortableText } from "@portabletext/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -257,6 +258,7 @@ const TableNote = styled.div`
 `;
 
 export default function Secondaire({ data }) {
+  const t = useTranslations("Secondaire");
   return (
     <>
       <Header
@@ -276,7 +278,7 @@ export default function Secondaire({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Éducation secondaire
+              {t("subtitle")}
             </Eyebrow>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -285,7 +287,7 @@ export default function Secondaire({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.pageTitle || "Programme secondaire"}
+                {data?.pageTitle || t("defaultPageTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -318,7 +320,7 @@ export default function Secondaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Structure du programme
+                {t("cyclesSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -355,7 +357,7 @@ export default function Secondaire({ data }) {
                     <CycleDetails className="cycle-details">
                       <CycleFocus>
                         <Typography as="p" type="p" color="light" style={{ fontWeight: "600" }}>
-                          Focus: {cycle.focus}
+                          {t("focusLabel", { focus: cycle.focus })}
                         </Typography>
                       </CycleFocus>
                       <Typography as="p" type="p" color="light" style={{ opacity: 0.9, marginTop: "10px" }}>
@@ -377,7 +379,7 @@ export default function Secondaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Notre approche
+                {t("pedagogySubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -421,7 +423,7 @@ export default function Secondaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Cours enrichis
+                {t("enrichedSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -477,7 +479,7 @@ export default function Secondaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Parcours disponibles
+                {t("optionsSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -528,7 +530,7 @@ export default function Secondaire({ data }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Vie scolaire
+                {t("activitiesSubtitle")}
               </Eyebrow>
               <TitleWrapper
                 initial={{ opacity: 0, y: -20 }}
@@ -579,7 +581,7 @@ export default function Secondaire({ data }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                  Grille-matières
+                  {t("scheduleTableSubtitle")}
                 </Eyebrow>
                 <TitleWrapper
                   initial={{ opacity: 0, y: -20 }}

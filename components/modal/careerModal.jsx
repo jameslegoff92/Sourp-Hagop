@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLocale } from "../../components/display/LangContext";
 import styled from "@emotion/styled";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 function toSentenceCase(str = "") {
   if (!str || typeof str !== "string") return str?.fr ?? "";
@@ -285,6 +285,8 @@ const SuccessText = styled.p`
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function CareerApplyModal({ open, onClose, job }) {
+  const t = useTranslations("CareerModal");
+  const tCommon = useTranslations("Common");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
@@ -304,7 +306,7 @@ export default function CareerApplyModal({ open, onClose, job }) {
 
     const fd = new FormData(e.currentTarget);
     fd.append("access_key", process.env.NEXT_PUBLIC_W3F_CAREER_KEY);
-    fd.append("subject", `Candidature: ${toSentenceCase(job?.title || "Poste")}`);
+    fd.append("subject", `Candidature: ${toSentenceCase(job?.title || t("fallbackTitle"))}`);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
@@ -313,10 +315,10 @@ export default function CareerApplyModal({ open, onClose, job }) {
         setDone(true);
         e.currentTarget.reset();
       } else {
-        setError(data.message || "Erreur lors de l'envoi.");
+        setError(data.message || tCommon("forms.genericSubmitError"));
       }
     } catch {
-      setError("Impossible d'envoyer le formulaire.");
+      setError(tCommon("forms.genericNetworkError"));
     } finally {
       setSubmitting(false);
     }
@@ -339,8 +341,8 @@ export default function CareerApplyModal({ open, onClose, job }) {
             onClick={e => e.stopPropagation()}
           >
             <Side>
-              <SideEyebrow>Postuler maintenant</SideEyebrow>
-              <SideTitle>{toSentenceCase(job?.title || "Poste")}</SideTitle>
+              <SideEyebrow>{t("eyebrow")}</SideEyebrow>
+              <SideTitle>{toSentenceCase(job?.title || t("fallbackTitle"))}</SideTitle>
               <Meta>
                 {job?.level    && <Pill>{job.level}</Pill>}
                 {job?.type     && <Pill>{job.type}</Pill>}
@@ -351,64 +353,64 @@ export default function CareerApplyModal({ open, onClose, job }) {
             <Body>
               {!done ? (
                 <form onSubmit={submit}>
-                  <SectionLabel>Vos informations</SectionLabel>
+                  <SectionLabel>{t("sectionYourInfo")}</SectionLabel>
                   <Row>
                     <FieldWrapper>
-                      <Label>Nom complet</Label>
+                      <Label>{t("fields.fullName")}</Label>
                       <Field name="name" required />
                     </FieldWrapper>
                     <FieldWrapper>
-                      <Label>Courriel</Label>
+                      <Label>{t("fields.email")}</Label>
                       <Field type="email" name="email" required />
                     </FieldWrapper>
                   </Row>
 
                   <Row style={{ marginTop: 12 }}>
                     <FieldWrapper>
-                      <Label>Téléphone</Label>
+                      <Label>{t("fields.phone")}</Label>
                       <Field name="phone" />
                     </FieldWrapper>
                     <FieldWrapper>
-                      <Label>Poste visé</Label>
+                      <Label>{t("fields.targetPosition")}</Label>
                       <Field value={toSentenceCase(job?.title || "")} disabled readOnly />
                     </FieldWrapper>
                   </Row>
 
-                  <SectionLabel style={{ marginTop: 24 }}>Votre candidature</SectionLabel>
+                  <SectionLabel style={{ marginTop: 24 }}>{t("sectionApplication")}</SectionLabel>
                   <FieldWrapper>
-                    <Label>Message</Label>
+                    <Label>{t("fields.message")}</Label>
                     <Textarea name="message" />
                   </FieldWrapper>
 
                   <FieldWrapper style={{ marginTop: 12 }}>
-                    <Label>Lien vers votre CV</Label>
-                    <Field name="cv_link" placeholder="Google Drive, Dropbox, etc." required />
-                    <Helper>Ajoutez un lien partageable vers votre document</Helper>
+                    <Label>{t("fields.cvLink")}</Label>
+                    <Field name="cv_link" placeholder={t("fields.cvLinkPlaceholder")} required />
+                    <Helper>{t("fields.cvLinkHelper")}</Helper>
                   </FieldWrapper>
 
                   <FieldWrapper style={{ marginTop: 12 }}>
-                    <Label>Lien vers votre lettre de motivation</Label>
-                    <Field name="cover_link" placeholder="Google Drive, Dropbox, etc." />
+                    <Label>{t("fields.coverLetterLink")}</Label>
+                    <Field name="cover_link" placeholder={t("fields.cvLinkPlaceholder")} />
                   </FieldWrapper>
 
                   {error && <ErrorMsg>{error}</ErrorMsg>}
 
                   <Actions>
-                    <ActionButton type="button" onClick={onClose}>Fermer</ActionButton>
+                    <ActionButton type="button" onClick={onClose}>{t("close")}</ActionButton>
                     <ActionButton type="submit" variant="primary" disabled={submitting}>
-                      {submitting ? "Envoi…" : "Postuler"}
+                      {submitting ? t("submitCtaPending") : t("submitCta")}
                     </ActionButton>
                   </Actions>
                 </form>
               ) : (
                 <SuccessBox>
                   <SuccessIcon>✓</SuccessIcon>
-                  <SuccessTitle>Candidature envoyée !</SuccessTitle>
+                  <SuccessTitle>{t("successTitle")}</SuccessTitle>
                   <SuccessText>
-                    Merci pour votre intérêt. Nous vous contacterons si votre profil correspond.
+                    {t("successBody")}
                   </SuccessText>
                   <ActionButton variant="primary" onClick={onClose}>
-                    Fermer
+                    {t("close")}
                   </ActionButton>
                 </SuccessBox>
               )}

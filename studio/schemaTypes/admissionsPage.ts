@@ -23,7 +23,7 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: 'Titre de l\'en-tête',
-      type: 'string',
+      type: 'localizedString',
       group: 'header'
     }),
 
@@ -33,29 +33,28 @@ export default defineType({
     defineField({
       name: 'prescolairePrimaireTitle',
       title: 'Titre',
-      type: 'string',
-      initialValue: 'Admission',
+      type: 'localizedString',
+      initialValue: { fr: 'Admission' },
       group: 'prescolairePrimaire'
     }),
     defineField({
       name: 'prescolairePrimaireSubtitle',
       title: 'Sous-titre',
-      type: 'string',
-      initialValue: 'PRÉSCOLAIRE ET PRIMAIRE',
+      type: 'localizedString',
+      initialValue: { fr: 'PRÉSCOLAIRE ET PRIMAIRE' },
       group: 'prescolairePrimaire'
     }),
     defineField({
       name: 'prescolairePrimaireText',
       title: 'Description',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'prescolairePrimaire'
     }),
     defineField({
       name: 'prescolairePrimaireButtonText',
       title: 'Texte du bouton',
-      type: 'string',
-      initialValue: 'Commencer',
+      type: 'localizedString',
+      initialValue: { fr: 'Commencer' },
       group: 'prescolairePrimaire'
     }),
     defineField({
@@ -71,29 +70,28 @@ export default defineType({
     defineField({
       name: 'secondaireTitle',
       title: 'Titre',
-      type: 'string',
-      initialValue: 'Admission',
+      type: 'localizedString',
+      initialValue: { fr: 'Admission' },
       group: 'secondaire'
     }),
     defineField({
       name: 'secondaireSubtitle',
       title: 'Sous-titre',
-      type: 'string',
-      initialValue: 'SECONDAIRE',
+      type: 'localizedString',
+      initialValue: { fr: 'SECONDAIRE' },
       group: 'secondaire'
     }),
     defineField({
       name: 'secondaireText',
       title: 'Description',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'secondaire'
     }),
     defineField({
       name: 'secondaireButtonText',
       title: 'Texte du bouton',
-      type: 'string',
-      initialValue: 'Commencer',
+      type: 'localizedString',
+      initialValue: { fr: 'Commencer' },
       group: 'secondaire'
     }),
     defineField({

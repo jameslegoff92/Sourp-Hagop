@@ -49,7 +49,13 @@
   position: relative;
   z-index: 1;
   padding: 0 13px;
-  font-family: Roboto, sans-serif;
+  /* --font-armenian-label is a 1,988 B subset covering only the "ՀԱՅ"
+     glyphs (Հ/Ա/Յ) this label ever renders - see the comment above
+     armenianLabelSubset in app/[locale]/layout.jsx. var(--font-armenian),
+     the full 26,816 B face, stays as a further fallback so this rule keeps
+     resolving correctly if the label text ever changes to something the
+     subset doesn't cover. */
+  font-family: Roboto, var(--font-armenian-label), var(--font-armenian), sans-serif;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -90,7 +96,7 @@
   font-feature-settings:
   "clig" off,
   "liga" off;
-  font-family: Roboto;
+  font-family: Roboto, var(--font-armenian), sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -113,7 +119,7 @@
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: Roboto;
+  font-family: Roboto, var(--font-armenian), sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

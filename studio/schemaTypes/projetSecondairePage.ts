@@ -28,7 +28,7 @@ export default defineType({
     defineField({
       name: 'headerText',
       title: 'Titre de l\'en-tête',
-      type: 'string',
+      type: 'localizedString',
       group: 'header'
     }),
 
@@ -38,8 +38,7 @@ export default defineType({
     defineField({
       name: 'introText',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 4,
+      type: 'localizedText',
       group: 'intro'
     }),
 
@@ -49,8 +48,8 @@ export default defineType({
     defineField({
       name: 'cyclesTitle',
       title: 'Titre de la section Cycles',
-      type: 'string',
-      initialValue: 'Les Deux Cycles du Secondaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Les Deux Cycles du Secondaire' },
       group: 'cycles'
     }),
     defineField({
@@ -61,13 +60,13 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          { name: 'name', title: 'Nom du cycle', type: 'string' },
-          { name: 'grades', title: 'Niveaux', type: 'string' },
-          { name: 'focus', title: 'Focus', type: 'string' },
-          { name: 'description', title: 'Description', type: 'text', rows: 3 },
-          { 
-            name: 'image', 
-            title: 'Image de fond', 
+          { name: 'name', title: 'Nom du cycle', type: 'localizedString' },
+          { name: 'grades', title: 'Niveaux', type: 'localizedString' },
+          { name: 'focus', title: 'Focus', type: 'localizedString' },
+          { name: 'description', title: 'Description', type: 'localizedText' },
+          {
+            name: 'image',
+            title: 'Image de fond',
             type: 'image',
             options: { hotspot: true }
           }
@@ -75,7 +74,7 @@ export default defineType({
         preview: {
           select: { title: 'name', subtitle: 'grades', media: 'image' },
           prepare({ title, subtitle, media }) {
-            return { title, subtitle, media }
+            return { title: title?.fr || 'Sans nom', subtitle: subtitle?.fr, media }
           }
         }
       }]
@@ -87,15 +86,14 @@ export default defineType({
     defineField({
       name: 'pedagogyTitle',
       title: 'Titre de la section',
-      type: 'string',
-      initialValue: 'Approche Pédagogique : Résolution de Problèmes',
+      type: 'localizedString',
+      initialValue: { fr: 'Approche Pédagogique : Résolution de Problèmes' },
       group: 'pedagogy'
     }),
     defineField({
       name: 'pedagogyContent',
       title: 'Contenu',
-      type: 'array',
-      of: [{ type: 'block' }],
+      type: 'localizedBlock',
       group: 'pedagogy'
     }),
 
@@ -105,15 +103,14 @@ export default defineType({
     defineField({
       name: 'enrichedTitle',
       title: 'Titre de la section',
-      type: 'string',
-      initialValue: 'Curriculum Enrichi',
+      type: 'localizedString',
+      initialValue: { fr: 'Curriculum Enrichi' },
       group: 'enrichedCourses'
     }),
     defineField({
       name: 'enrichedIntro',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'enrichedCourses'
     }),
     defineField({
@@ -124,12 +121,12 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          { name: 'subject', title: 'Matière', type: 'string' },
-          { name: 'levels', title: 'Niveaux', type: 'string' },
-          { name: 'description', title: 'Description', type: 'string' },
-          { 
-            name: 'type', 
-            title: 'Type (pour la couleur)', 
+          { name: 'subject', title: 'Matière', type: 'localizedString' },
+          { name: 'levels', title: 'Niveaux', type: 'localizedString' },
+          { name: 'description', title: 'Description', type: 'localizedString' },
+          {
+            name: 'type',
+            title: 'Type (pour la couleur)',
             type: 'string',
             options: {
               list: [
@@ -146,7 +143,7 @@ export default defineType({
         preview: {
           select: { title: 'subject', subtitle: 'levels' },
           prepare({ title, subtitle }) {
-            return { title, subtitle }
+            return { title: title?.fr || 'Sans matière', subtitle: subtitle?.fr }
           }
         }
       }]
@@ -158,15 +155,14 @@ export default defineType({
     defineField({
       name: 'optionsTitle',
       title: 'Titre de la section',
-      type: 'string',
-      initialValue: 'Options de 5e Secondaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Options de 5e Secondaire' },
       group: 'options'
     }),
     defineField({
       name: 'optionsIntro',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'options'
     }),
     defineField({
@@ -177,12 +173,12 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          { name: 'title', title: 'Titre', type: 'string' },
-          { name: 'description', title: 'Description', type: 'text', rows: 2 },
-          { name: 'target', title: 'Public cible', type: 'string' },
-          { 
-            name: 'type', 
-            title: 'Type (pour la couleur)', 
+          { name: 'title', title: 'Titre', type: 'localizedString' },
+          { name: 'description', title: 'Description', type: 'localizedText' },
+          { name: 'target', title: 'Public cible', type: 'localizedString' },
+          {
+            name: 'type',
+            title: 'Type (pour la couleur)',
             type: 'string',
             options: {
               list: [
@@ -198,7 +194,7 @@ export default defineType({
         preview: {
           select: { title: 'title', subtitle: 'target' },
           prepare({ title, subtitle }) {
-            return { title, subtitle }
+            return { title: title?.fr || 'Sans titre', subtitle: subtitle?.fr }
           }
         }
       }]
@@ -210,15 +206,14 @@ export default defineType({
     defineField({
       name: 'activitiesTitle',
       title: 'Titre de la section',
-      type: 'string',
-      initialValue: 'Activités Parascolaires et Projets Particuliers',
+      type: 'localizedString',
+      initialValue: { fr: 'Activités Parascolaires et Projets Particuliers' },
       group: 'activities'
     }),
     defineField({
       name: 'activitiesIntro',
       title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'activities'
     }),
     defineField({
@@ -226,13 +221,12 @@ export default defineType({
       title: 'Activités',
       type: 'array',
       group: 'activities',
-      of: [{ type: 'string' }]
+      of: [{ type: 'localizedString' }]
     }),
     defineField({
       name: 'activitiesNote',
       title: 'Note de bas de section',
-      type: 'text',
-      rows: 2,
+      type: 'localizedText',
       group: 'activities'
     }),
 
@@ -242,21 +236,20 @@ export default defineType({
     defineField({
       name: 'maquetteTitle',
       title: 'Titre de la section',
-      type: 'string',
-      initialValue: 'Maquette de Cours au Secondaire',
+      type: 'localizedString',
+      initialValue: { fr: 'Maquette de Cours au Secondaire' },
       group: 'maquette'
     }),
     defineField({
       name: 'maquetteContent',
       title: 'Contenu',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       group: 'maquette'
     }),
     defineField({
       name: 'maquetteNote',
       title: 'Note (avec icône)',
-      type: 'string',
+      type: 'localizedString',
       group: 'maquette'
     }),
   ],

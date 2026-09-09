@@ -1,17 +1,25 @@
 "use client";
 
-import { useLocale } from "../../components/display/LangContext";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
+import { ARMENIAN_CONTENT_TRANSLATED } from "@/lib/armenian-content-status";
 import css from "./topNav.module.css";
 
 export default function LangSwitcher() {
-  const { locale, setLocale } = useLocale();
+  const t = useTranslations("LangSwitcher");
+  const locale = useLocale();
+  const pathname = usePathname();
   const isHy = locale === "hy";
+  const targetLocale = isHy ? "fr" : "hy";
+
+  if (!ARMENIAN_CONTENT_TRANSLATED) return null;
 
   return (
-    <button
+    <Link
+      href={pathname}
+      locale={targetLocale}
       className={css.langToggle}
-      onClick={() => setLocale(isHy ? "fr" : "hy")}
-      aria-label="Changer de langue"
+      aria-label={t("ariaLabel")}
     >
       <div className={css.langSlider} style={{
         transform: isHy ? "translateX(100%)" : "translateX(0)"
@@ -22,6 +30,6 @@ export default function LangSwitcher() {
       <span className={`${css.langOption} ${isHy ? css.langOptionActive : ""}`}>
         ՀԱՅ
       </span>
-    </button>
+    </Link>
   );
 }

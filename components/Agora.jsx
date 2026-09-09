@@ -6,6 +6,7 @@ import Menu from "./ui/Menu";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const Section = styled.section`
   text-align: center;
@@ -84,12 +85,14 @@ const MenuWrapper = styled(motion.div)`
 `;
 
 export default function Agora({ data }) {
+  const t = useTranslations("Agora");
+  const tCommon = useTranslations("Common");
   const menuData = {
     primaireWeeks: data?.primaireWeeks || [],
     secondaireWeeks: data?.secondaireWeeks || [],
     dessertNotes: {
-      primaire: data?.dessertNotePrimaire || "* Avec chaque repas, un dessert est offert parmi le yogourt, la pomme, le jello, le pudding au chocolat ou la salade de fruits.",
-      secondaire: data?.dessertNoteSecondaire || "* Avec chaque repas, un dessert est offert soit un biscuits au brisure du chocolat ou un gâteau.",
+      primaire: data?.dessertNotePrimaire || tCommon("agoraDessertNotes.primaire"),
+      secondaire: data?.dessertNoteSecondaire || tCommon("agoraDessertNotes.secondaire"),
     },
   };
 
@@ -99,7 +102,7 @@ export default function Agora({ data }) {
         animate={false}
         videoSrc={data?.headerVideoUrl || "../videos/video-agora.mp4"}
         imageSrc={data?.headerImageUrl}
-        headerText={data?.headerText || "AGORA ANNA & MANOUK DJOUKHADJIAN"}
+        headerText={data?.headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 
@@ -112,7 +115,7 @@ export default function Agora({ data }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Nutrition
+              {t("nutritionLabel")}
             </SectionSubtitle>
             <TitleWrapper
               initial={{ opacity: 0, y: -20 }}
@@ -121,7 +124,7 @@ export default function Agora({ data }) {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <Typography as="h1" type="h1" color="primary">
-                {data?.mainTitle || "Agora Anna et Manouk Djoukhadjian"}
+                {data?.mainTitle || t("defaultMainTitle")}
               </Typography>
             </TitleWrapper>
           </SectionHeader>
@@ -133,10 +136,10 @@ export default function Agora({ data }) {
             viewport={{ once: true }}
           >
             <Typography as="p" type="h6" color="dark">
-              {data?.introText || "Bien plus qu'un lieu où l'on sert un repas chaud et nutritif, l'Agora est un espace de rassemblement multifonctionnel moderne et lumineux. Ici se rencontrent à différents moments de la journée camarades et collègues pour partager un repas, discuter, apprendre et se divertir."}
+              {data?.introText || t("defaultIntroText")}
             </Typography>
             <Typography as="p" type="h6" color="dark">
-              {data?.menuCallToAction || "Découvrez le menu de la semaine à l'Agora!"}
+              {data?.menuCallToAction || t("defaultMenuCallToAction")}
             </Typography>
           </TextContainer>
 

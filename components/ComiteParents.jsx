@@ -6,6 +6,7 @@ import Footer from "./ui/Footer";
 import Typography from "./display/Typography";
 import styled from "@emotion/styled";
 import { motion, useAnimation } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -143,6 +144,7 @@ const PageIntro = styled(motion.div)`
 `;
 
 export default function ComiteParents({ data }) {
+  const t = useTranslations("ComiteParents");
   const sectionRefs = useRef([]);
   
   const sectionsCount = data?.sections?.length || 0;
@@ -198,7 +200,7 @@ export default function ComiteParents({ data }) {
       <Header
         animate={false}
         imageSrc={headerImageUrl || "../images/header/parent-header.jpg"}
-        headerText={headerText || "COMITÉ DE PARENTS"}
+        headerText={headerText || t("defaultHeaderText")}
         headerTextTop="70%"
       />
 

@@ -1,11 +1,12 @@
 "use client"
 
-import Header from "../components/ui/Header"
-import Footer from "../components/ui/Footer"
+import Header from "@/components/ui/Header"
+import Footer from "@/components/ui/Footer"
 import styled from "@emotion/styled"
-import Typography from "../components/display/Typography"
+import Typography from "@/components/display/Typography"
 import { motion } from "framer-motion"
-import BackgroundLogo from "../components/ui/BackgroundLogo"
+import { useTranslations } from "next-intl"
+import BackgroundLogo from "@/components/ui/BackgroundLogo"
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -81,11 +82,12 @@ const StyledImage = styled(motion.img)`
 `
 
 export default function StudentCouncil({ data }) {
+    const t = useTranslations("StudentCouncil")
     return (
         <>
             <Header
                 imageSrc={data?.headerImageUrl}
-                headerText={data?.headerText || "CONSEIL ÉTUDIANT"}
+                headerText={data?.headerText || t("defaultHeaderText")}
                 headerTextTop="70%"
             />
             <StyledDiv>
@@ -97,7 +99,7 @@ export default function StudentCouncil({ data }) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
-                            Vie étudiante
+                            {t("subtitle")}
                         </SectionSubtitle>
                         <TitleWrapper
                             initial={{ opacity: 0, y: -20 }}
