@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { SessionProvider } from "next-auth/react";
 import PageLoader from "@/components/ui/PageLoader";
+import CookieNotice from "@/components/ui/CookieNotice";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { SITE_URL } from "@/lib/site-url";
@@ -138,6 +139,7 @@ export default async function RootLayout({ children, params }) {
             <PageLoader>
               {children}
             </PageLoader>
+            <CookieNotice />
           </SessionProvider>
         </NextIntlClientProvider>
       </body>
