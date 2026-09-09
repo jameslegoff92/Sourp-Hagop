@@ -48,6 +48,44 @@ if (ROUTES.length !== 33) {
   process.exit(1);
 }
 
+// Guard: this suite was validated against production builds (phases 6-7),
+// never against `next dev`. Confirmed empirically (2026-09-03): running it
+// against a dev server, at this script's concurrency, corrupts Next's on-disk
+// cache mid-run (observed: ENOENT renaming a .pack.gz_ webpack cache file),
+// which then throws the same JSON.parse SyntaxError - at the same byte
+// offset - for unrelated pages, and flips already-passing routes to 500 later
+// in the same run. Those are real 500s, but an artifact of dev-mode
+// concurrent compilation, not an app bug - the identical run against a
+// production build (`npm run clean && npm run build && npm run start`) was
+// 66/66. Failing fast here means nobody re-runs this against dev months from
+// now, sees e.g. 40/66, and goes hunting a regression that was never there.
+async function assertProductionServer(baseUrl) {
+  let html;
+  try {
+    const resp = await fetch(baseUrl, { redirect: "manual" });
+    html = await resp.text();
+  } catch (e) {
+    console.error(`[smoke] Could not reach ${baseUrl}: ${e.message}`);
+    console.error(`[smoke] Run "npm run clean && npm run build && npm run start" first, then re-run npm run smoke.`);
+    process.exit(1);
+  }
+  // Webpack's dev output uses stable, unhashed chunk filenames (cache-busted
+  // with a "?v=<timestamp>" query instead) because content hashing would
+  // defeat hot-reload; a production build always content-hashes runtime
+  // chunk filenames instead (e.g. "webpack-a82394314762bc7b.js"), with no
+  // "?v=" query. Verified directly against this app on Next.js 15.5.16
+  // (App Router): dev served "_next/static/chunks/webpack.js?v=...",
+  // production served "_next/static/chunks/webpack-<hash>.js" - no
+  // "webpack.js" substring at all. This is a Webpack/Next convention, not a
+  // one-off detail of this build.
+  if (html.includes("_next/static/chunks/webpack.js")) {
+    console.error(`[smoke] ${baseUrl} is a "next dev" server, not a production build.`);
+    console.error(`[smoke] This suite's results are only meaningful against production - see the comment above assertProductionServer() for why.`);
+    console.error(`[smoke] Run "npm run clean && npm run build && npm run start", then re-run npm run smoke.`);
+    process.exit(1);
+  }
+}
+
 function urlFor(route, locale) {
   if (locale === "fr") return `${BASE_URL}${route}`;
   const suffix = route === "/" ? "" : route;
@@ -101,6 +139,8 @@ async function checkOne(browser, route, locale) {
 }
 
 async function run() {
+  await assertProductionServer(BASE_URL);
+
   console.log(`[smoke] base URL: ${BASE_URL}`);
   console.log(`[smoke] ${ROUTES.length} routes x 2 locales = ${ROUTES.length * 2} URLs, concurrency ${CONCURRENCY}`);
 

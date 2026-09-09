@@ -1,5 +1,8 @@
 // Compares the key sets of every file in messages/ and fails if any key is
-// present in one file but missing from another.
+// present in one file but missing from another. Also fails if any key in
+// messages/hy.json holds an empty string or whitespace-only value: key
+// parity alone doesn't catch this, and next-intl renders an empty string as
+// blank rather than falling back to French, unlike a genuinely missing key.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -20,6 +23,19 @@ function flattenKeys(obj, prefix = "") {
     }
   }
   return keys;
+}
+
+function findEmptyStringValues(obj, prefix = "") {
+  const empties = [];
+  for (const [key, value] of Object.entries(obj)) {
+    const keyPath = prefix ? `${prefix}.${key}` : key;
+    if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      empties.push(...findEmptyStringValues(value, keyPath));
+    } else if (typeof value === "string" && value.trim() === "") {
+      empties.push(keyPath);
+    }
+  }
+  return empties;
 }
 
 const files = fs
@@ -52,11 +68,26 @@ for (const key of [...allKeys].sort()) {
   }
 }
 
-if (hasMismatch) {
-  console.error("\nMessage key parity check FAILED.");
+const HY_FILE = "hy.json";
+let emptyKeys = [];
+if (files.includes(HY_FILE)) {
+  const hyContent = JSON.parse(fs.readFileSync(path.join(MESSAGES_DIR, HY_FILE), "utf8"));
+  emptyKeys = findEmptyStringValues(hyContent).sort();
+  if (emptyKeys.length > 0) {
+    console.log(`\n${emptyKeys.length} key(s) in ${HY_FILE} have an empty or whitespace-only value:`);
+    for (const key of emptyKeys) {
+      console.log(`  "${key}"`);
+    }
+  }
+}
+
+if (hasMismatch || emptyKeys.length > 0) {
+  if (hasMismatch) console.error("\nMessage key parity check FAILED.");
+  if (emptyKeys.length > 0) console.error(`${HY_FILE} empty-value check FAILED.`);
   process.exit(1);
 } else {
   console.log(
     `Message key parity OK — ${allKeys.size} key(s) across ${files.length} file(s): ${files.join(", ")}`
   );
+  console.log(`${HY_FILE} empty-value check OK — no empty or whitespace-only values.`);
 }
