@@ -7,9 +7,7 @@ export default async function Page({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
   const data = await getComiteParentsPage(locale)
-  
-  console.log("Comite Parents Data:", JSON.stringify(data, null, 2))
-  
+    
   if (!data) {
     return <div>No data found - check console</div>
   }
